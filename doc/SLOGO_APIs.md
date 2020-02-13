@@ -19,8 +19,10 @@ External: We will again have the controller communicating between front-end and 
 Externally, we will tell the front-end to update graphics, which includes, setting a new turtle position,
 adding any drawn trails(or removing), update variables window, and also update executed command history. We also
 need to be able to set turtle orientation, and we also need to be able to update the command line window
-with return values from any executed operations. 
+with return values from any executed operations. We need to be able to tell the front-end to display an 
+error message.
 
 Internal: It should be able to recognize when a command is entered, and communicate with controller
 when necessary. It should also be able to recognize if a user has changed any configuration parameters,
-like pen color, size, turtle image, background color, and language. 
+like pen color, size, turtle image, background color, and language. This can also configure a user-friendly
+error message based on the type of error that was received. 
