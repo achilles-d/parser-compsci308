@@ -1,3 +1,5 @@
+Achilles Dabrowski (ajd66), Achintya Kumar (ask60), Saurav Sanjay (sks61), Abebe Amare(ama100)
+
 - In your experience using these collections, are they hard or easy to use?
 
 Our group unanimously agreed that the Collection API is easy to use. Though, we did

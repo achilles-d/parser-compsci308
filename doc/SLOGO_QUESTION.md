@@ -1,5 +1,6 @@
 ##SLogo High Level Design
 
+Achilles Dabrowski (ajd66), Achintya Kumar (ask60), Saurav Sanjay (sks61), Abebe Amare(ama100)
 
 1. When does parsing need to take place and what does it need to start properly?
     - Parsing takes place after a command is input(typing and then hit enter). It needs to check
