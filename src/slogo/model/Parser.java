@@ -1,7 +1,5 @@
 package slogo.model;
 
-import java.util.List;
-
 public interface Parser {
 
     /**
@@ -10,16 +8,16 @@ public interface Parser {
      * in some sort of data structure.
      * This is part of the external back-end API so the front-end can tell the back-end when to start parsing
      * @param consoleInput this is the input by the user
-     * @throws invalidCommandException if some command that is being parsed is invalid
+     * @throws InvalidCommandException if some command that is being parsed is invalid
      */
-    public void parseCode(String consoleInput) throws invalidCommandException;
+    public void parseCode(String consoleInput) throws InvalidCommandException;
 
     /**
      * This method can be used by the internal back-end API when it needs to retrieve a certain command based on a string
      * @param commandInput the name of the command
      * @return a Command associated with the input
-     * @throws invalidCommandException if the command name is invalid
+     * @throws InvalidCommandException if the command name is invalid
      */
-    public Command getCommand(String commandInput) throws invalidCommandException;
+    public Command getCommand(String commandInput) throws InvalidCommandException;
 
 }
