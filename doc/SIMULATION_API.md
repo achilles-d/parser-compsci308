@@ -1,5 +1,7 @@
 ##Simulation Discussion
 
+Achilles Dabrowski (ajd66), Achintya Kumar (ask60), Saurav Sanjay (sks61), Abebe Amare(ama100)
+
 **API We're Looking At: Simulation Team 6**
 
 Methods that should be a part of External API:
