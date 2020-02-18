@@ -392,7 +392,25 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
     In order to update the command history window pane, I will need to get the information from the command history class
 
 
-### Team Responsibilities
+##Design Considerations
+
+One main design consideration that we had to think about was what should be kept internal for our front-end and what should be kept external. Initially, we thought that the external API should be able to generally updateView() for our window, however, we then would use the internal API to update each specific window. But, we realized that if our external API called and relied on methods in the internal API, that would defeat the purpose of having an external and internal API, since calling the external API would just essentially be calling the internal API. So, we decided that the methods to update all of the specific windows should also go into the external API. We felt this made sense since to update the command history window, you would need to get the command history from the back-end. The same goes for the other windows, like variable window and graphics window. They all need some information from the back-end to update, so it would make sense that they are external, since the back-end would need to access them through the controller. 
+
+Another design consideration we made was whether or not there should be two types of turtles. At first we thought we could just use one turtle object, and have both the front-end and back-end access it to get the necessary information for their tasks. However, from a strict design perspective, we also felt that this would blur the distinction between the front and back-end. If both of them accessed the same component, it would not be ideal, especially because front-end could potentially be able to change back-end data like turtle heading and position, when in reality, only the back-end should be able to change those details once commands have been executed. So, to keep this distinction clear, we decided to make a Turtle object for the back-end, and a viewTurtle for the front-end. While this might at first seem cumbersome, especially for just the basic requirements, having this kind of approach also leaves our program open to extension if we ever need to add more to either the front-end or back-end capabilities of the turtle, without affecting the other end. 
+
+Another main design decision we had to consider was what exactly in our program would handle errors. We knew that the back-end would need to throw errors as it is what actually executes the commands. If there is any bad input data or incorrect command syntax, only the back-end should be able to figure that out. However, from there, we had to decide who would actually display the appropriate error message. Since the front-end environment needs to be able to notify the users of errors in a way that is comprehensible to them,  we decided that our front-end external API should have a method that the back-end can call to display appropriate error messages. As of now, we are planning to do this through the controller. Another alternative could be to have the back-end throw the error straight to the front-end so it doesn’t have to go through a cascade, but this would defeat the purpose of using an MVC approach, so, we decided to stick to using our controller for any model-view inter-communication. 
+	
+
+
+## Team Responsibilities
 This section describes the program components
 each team member plans to take primary and secondary responsibility for
 and a high-level plan of how the team will complete the program.
+
+### Saurav
+
+Saurav will work primarily on the front-end for this project. He will work on implementing the UI and also help with displaying error messages accordingly for users. 
+
+## Achintya
+
+Will work on the interaction between the frontend and back end - essentially the controller. Will work to help Saurav complete any UI components and help the backend team work to design their methods to get information to update the front end.  
