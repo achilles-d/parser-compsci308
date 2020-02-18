@@ -22,4 +22,4 @@
     - So, the back-end will tell the front-end how to update itself based on what command was
     executed. For example, it will tell it where the turtle's new position will be, what it's heading is,
     if any trail was left behind, and also if any variables have changed for the variable window. It will
-    also tell it to update the command history window to display the newly executed command. 
+    also tell it to update the command history window to display the newly executed command.
