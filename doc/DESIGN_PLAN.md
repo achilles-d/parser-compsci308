@@ -326,11 +326,11 @@ The CommandHandler class’s primary responsibility is to store the previous lin
 
 #### Back-end external API
 
-- getTurtlePosition() - Turtle
-- parseCode() - parser
-- getCommandHistory() - don't know what class, but used so you can update view’s command history
-- getHeading() - Turtle
-- getLines() - get line objects…
+- getTurtlePosition() 
+- parseCode() 
+- getCommandHistory() 
+- getHeading() 
+- getLines()  
     - List of Lines
 - getAllVariables()
     - This returns an unmodifiable list of the variables stored in the VariableHandler
