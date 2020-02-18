@@ -1,5 +1,7 @@
 ##SLOGO API's
 
+Achilles Dabrowski (ajd66), Achintya Kumar (ask60), Saurav Sanjay (sks61), Abebe Amare(ama100)
+
 Back-End:
 
 External: To separate the graphical interface and interpreter, and also
