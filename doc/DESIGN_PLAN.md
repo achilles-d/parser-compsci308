@@ -1,4 +1,4 @@
-Introduction:
+##Introduction:
 
 We are trying to create a program using Java to simulate the Logo programming language. The Logo interpreted programming language allows users to control a “turtle” on screen and allows them to draw (or not) things using various commands. It was intended to teach programming to children and we want to replicate that functionality in our JavaFX program.
 
@@ -10,7 +10,7 @@ Some of the UI components should be closed. There is no reason to change the com
 
 At a high level, users will be able to enter commands using the LOGO language and execute them. The results of these commands could just be mathematical operations output in the console, or they could also animate the turtle in the main window. This could include moving the turtle, rotating the turtle, and also using the turtle to draw lines. Users will be able to configure the program to their liking, by changing the pen and background color, and also being able to change the image that is used for the turtle.
 
-Overview:
+##Overview:
 
 The four APIs that will be created are the front-end external API, the front-end internal API, the back-end internal API, and the back-end external API.
 
@@ -142,7 +142,7 @@ We will use an MVC approach, with a model(back-end), view(front-end) and a contr
 - getCommandHistory()
 - updateCommandHistory()
 
-##### Executor:
+#### Executor:
 - executeCommand();
 
 #### Coordinate
@@ -172,7 +172,7 @@ The controller part of this project will facilitate communication between the mo
 
 
 
-#### View:
+## View:
 
 - viewTurtle:
 
@@ -213,7 +213,6 @@ The controller part of this project will facilitate communication between the mo
 
 #### Picture of how APIs are related
 
-![](images/API_relation.png)
 
 ## User Interface
 
@@ -348,96 +347,10 @@ The back-end external API will be responsible for
 
 
 
-API as Code (NEED TO PUT IN INTELLIJ AND COMMENT ALL METHODS WITH WHICH API THEY ARE A PART OF AND WHAT THEY DO)
-See IntelliJ
-Steps necessary to do use cases
+##API as Code
 
-#### Back-End Interfaces(STILL NEED TO DO COMMAND INTERFACE)
+We have created packages in our src folder for the model and view with the pertinent interfaces for the different API methods.
 
-``` java
-
- Public interface Turtle{
-
-	Public void setPosition(Coordinate a);
-	Public Coordinate getPosition();
-	Public double getHeading();
-	Public void setHeading(double changeHeading);
-	Public void flipPen();
-	Public void drawLine(Coordinate start, Coordinate end);
-	Public List<Line> getLines();
-}
-
-Public interface Line{
-
-	Public List<Coordinate> getLineEndpoints();
-}
-
-Public interface Parser{
-
-	Public void parseCode(String consoleInput);
-	Public Command getCommand(String commandInput) throws invalidCommandException;
-
-}
-
-Public interface Executor{
-	//executionError could be extended to create more specific types of errors. For example, there could be math errors like divide by 0
-	Public void executeCommand(Command currentCommand) throws executionException;
-}
-
-Public interface Variable{
-
-	Public void updateVariable(String updatedValue);
-}
-Public interface VariableHandler{
-
-	Public Variable getVariable(String variableName);
-	Public void makeVariable(String variableName, String variableType, String variableValue)
-	//returns an unmodifiable list of variables and values
-	Public List<Variable> getAllVariables();
-}
-
-Public interface CommandHandler{
-	//this will return an unmodifiable list
-	Public List<Command> getCommandHistory();
-	Public void updateCommandHistory(Command nextCommand);
-}
-
-
-Front-End Interfaces:
-
-Public interface viewTurtle{
-
-	Public void updatePosition(Coordinate pos);
-	Public void updateHeading(double head);
-	Public void toggleVisibility();
-	Public void setTurtleImage(Image a);
-}
-Public interface Visualization{
-
-	Public void updateView();
-	Public void updatePanes();
-	Public void updateVariablesWindow();
-	Public void updateGraphicsWindow();
-	Public void updateCommandWindow();
-	Public void updateHistoryWindow();
-	Public void clearScreen();
-	Public void displayError(String exceptionName);
-	Public void setLanguage(String languageName);
-	Public void accessHelp();
-}
-Public interface GraphicPane{
-
-	Public void updateTrails();
-	Public void setBackgroundColor(Color back);
-	Public void setPenColor(Color pen);
-}
-Public interface Pane
-{
-	//this interface can be implemented by different panes in environment so they can write their own update methods based on what they need to do to update
-	Public void updateWindow();
-}
-
-```
 ## Use Cases:
 
 The user types 'fd 50' in the command window, and sees the turtle move in the display window leaving a trail, and the command is added to the environment's history.
@@ -448,9 +361,6 @@ The user sets the pen's color using the UI so subsequent lines drawn when the tu
 When the user uses the UI to set a new pen color, the setPenColor(Color a) method in the GraphicPane interface is called so that any new lines drawn will be of that color.
 
 
-
-
-
 #### Saurav Use Cases(Front-End):
 
 - User accesses Help Screen
@@ -458,6 +368,7 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
     To access the help screen, when the user clicks the appropriate button, they will use the accessHelp() method in the visualization interface that will display the appropriate window.
 
 - User changes language
+   
     When the user tries to change the programming language, the setLanguage(String languageName) in Visualization will be called. This will change the resources file that is used by the environment to parse through commands.
 
 #### Abebe Use Case (Internal Back-End)
