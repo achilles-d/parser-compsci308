@@ -26,6 +26,8 @@ One example of a dual use implementation, would be the implementation of the Var
 
 Another example of dual use implementation is our CommandHistory class. One implementation we could have done for our history of commands in the back-end is to just have a list of command objects. However, using this could become cumbersome as we get more and more commands, but also, this does not totally encapsulate data, especially if we are forced to pass around a list of commands. By using a CommandHistory class that essentially stores all of the executed commands, we could use any kind of list to store the commands, or maybe even a map that indicates the execution order of the commands with some sort of key. When the front-end tries to getCommandHistory(), it doesn’t care about how the CommandHistory class actually stores that data, as long as it gets the data in the form that it expects. In this case, it might be useful to return an unmodifiable list, since you don’t want the front-end editing command history.
 
+### Diagram
+![](slogo_design_diagram.png) 
 
 Below, we have a list of the 4 API’s and their corresponding methods. Below that list, we have split up the methods into their corresponding classes.
 
@@ -142,7 +144,7 @@ We will use an MVC approach, with a model(back-end), view(front-end) and a contr
 - getCommandHistory()
 - updateCommandHistory()
 
-##### Executor:
+#### Executor:
 - executeCommand();
 
 #### Coordinate
@@ -172,7 +174,7 @@ The controller part of this project will facilitate communication between the mo
 
 
 
-#### View:
+## View:
 
 - viewTurtle:
 
@@ -213,7 +215,6 @@ The controller part of this project will facilitate communication between the mo
 
 #### Picture of how APIs are related
 
-![](images/API_relation.png)
 
 ## User Interface
 
@@ -285,7 +286,7 @@ Besides the viewTurtle object, this API will be using separate classes for each 
 - accessHelp()
     - This will display a help screen when a user accesses it on the toolbar
 
-The above methods are the general methods used in the Front-end API. This API communicates with the controllers like buttons to handle user inputs graphically. The most important aspect of this API is to ensure that no other part of the code can access these methods and change the information there. This API will fulfill the requirement of having
+The above methods are the general methods used in the Front-end API. This API communicates with the controllers like buttons to handle user inputs graphically. The most important aspect of this API is to ensure that no other part of the code can access these methods and change the information there. This API will fulfill the requirement of having the front end turtle and information panes reflect the changes occurring only in the front end. For example these change include changes that are specific only to the UI. The language used and the pen color do not have an effect on the back end state of the program. The back end turtle and the back end data holders like the variablehandler and the command history do not have use for this information. The help screen is also something that requires to attachment to the back end. This information is static and will not require any updates in the back end to be reflected here. The same can be said for the background color. This is UI specific and set by the user and so updates to the backend are not required from changing the background.
 
 
 #### Back-End Internal API:
@@ -327,117 +328,33 @@ The CommandHandler class’s primary responsibility is to store the previous lin
 
 #### Back-end external API
 
-- getTurtlePosition() - Turtle
-- parseCode() - parser
-- getCommandHistory() - don't know what class, but used so you can update view’s command history
-- getHeading() - Turtle
-- getLines() - get line objects…
-    - List of Lines
+- getTurtlePosition() 
+    - This method will communicate the location of the back end turtle so that the front end turtle can mimic the data held in the back end
+- parseCode() 
+    - This method will take in information from the frontend (the commands entered) and interact with the back end to execute the logic required to make them work
+- getCommandHistory() 
+    - The list of commands entered is stored in the back end and this method will be used to take the information out of the backend and communicate it to the front end to display in the command history pane
+- getHeading() 
+    - The angular direction of the back end turtle will be communicated out
+- getLines()  
+    - List of lines that the turtle has drawn based on the movement of the turtle and whether the pen was up or down
 - getAllVariables()
     - This returns an unmodifiable list of the variables stored in the VariableHandler
-
-Class
-- getVariable
+- getVariable() 
     - This returns the variable object associated with a certain variable name in the VariableHandler class
 
-The back-end external API will be responsible for
+The back-end external API will be responsible for interacting with the front end external API to transfer the required information between 
+the view and the model to make it possible for the program to actually operate. Methods parseCode() will access code entered in UI from the frontend and process
+those commands, putting them into effect by calling upon the appropriate Model classes.
+Additionally, methods in this API are used to communicate the updated state of those methods to the front end so the results can be displayed to the user.  
+The Controller class is responsible for this functionality and contains each of the methods listed above.
+The Executor will call getTurtlePosition() to determine the next position of the displayed turtle; this information
+will be passed on to ViewTurtle. parseCode() will break down the command passed along by the 
 
+##API as Code
 
+We have created packages in our src folder for the model and view with the pertinent interfaces for the different API methods.
 
-
-
-
-
-API as Code (NEED TO PUT IN INTELLIJ AND COMMENT ALL METHODS WITH WHICH API THEY ARE A PART OF AND WHAT THEY DO)
-See IntelliJ
-Steps necessary to do use cases
-
-#### Back-End Interfaces(STILL NEED TO DO COMMAND INTERFACE)
-
-``` java
-
- Public interface Turtle{
-
-	Public void setPosition(Coordinate a);
-	Public Coordinate getPosition();
-	Public double getHeading();
-	Public void setHeading(double changeHeading);
-	Public void flipPen();
-	Public void drawLine(Coordinate start, Coordinate end);
-	Public List<Line> getLines();
-}
-
-Public interface Line{
-
-	Public List<Coordinate> getLineEndpoints();
-}
-
-Public interface Parser{
-
-	Public void parseCode(String consoleInput);
-	Public Command getCommand(String commandInput) throws invalidCommandException;
-
-}
-
-Public interface Executor{
-	//executionError could be extended to create more specific types of errors. For example, there could be math errors like divide by 0
-	Public void executeCommand(Command currentCommand) throws executionException;
-}
-
-Public interface Variable{
-
-	Public void updateVariable(String updatedValue);
-}
-Public interface VariableHandler{
-
-	Public Variable getVariable(String variableName);
-	Public void makeVariable(String variableName, String variableType, String variableValue)
-	//returns an unmodifiable list of variables and values
-	Public List<Variable> getAllVariables();
-}
-
-Public interface CommandHandler{
-	//this will return an unmodifiable list
-	Public List<Command> getCommandHistory();
-	Public void updateCommandHistory(Command nextCommand);
-}
-
-
-Front-End Interfaces:
-
-Public interface viewTurtle{
-
-	Public void updatePosition(Coordinate pos);
-	Public void updateHeading(double head);
-	Public void toggleVisibility();
-	Public void setTurtleImage(Image a);
-}
-Public interface Visualization{
-
-	Public void updateView();
-	Public void updatePanes();
-	Public void updateVariablesWindow();
-	Public void updateGraphicsWindow();
-	Public void updateCommandWindow();
-	Public void updateHistoryWindow();
-	Public void clearScreen();
-	Public void displayError(String exceptionName);
-	Public void setLanguage(String languageName);
-	Public void accessHelp();
-}
-Public interface GraphicPane{
-
-	Public void updateTrails();
-	Public void setBackgroundColor(Color back);
-	Public void setPenColor(Color pen);
-}
-Public interface Pane
-{
-	//this interface can be implemented by different panes in environment so they can write their own update methods based on what they need to do to update
-	Public void updateWindow();
-}
-
-```
 ## Use Cases:
 
 The user types 'fd 50' in the command window, and sees the turtle move in the display window leaving a trail, and the command is added to the environment's history.
@@ -448,9 +365,6 @@ The user sets the pen's color using the UI so subsequent lines drawn when the tu
 When the user uses the UI to set a new pen color, the setPenColor(Color a) method in the GraphicPane interface is called so that any new lines drawn will be of that color.
 
 
-
-
-
 #### Saurav Use Cases(Front-End):
 
 - User accesses Help Screen
@@ -458,6 +372,7 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
     To access the help screen, when the user clicks the appropriate button, they will use the accessHelp() method in the visualization interface that will display the appropriate window.
 
 - User changes language
+   
     When the user tries to change the programming language, the setLanguage(String languageName) in Visualization will be called. This will change the resources file that is used by the environment to parse through commands.
 
 #### Abebe Use Case (Internal Back-End)
@@ -476,12 +391,34 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
 
 
 #### Achintya Use Cases
+- Getting the command history
 
-    Getting the command history
-    In order to update the command history window pane, I will need to get the information from the command history class
+     In order to update the command history window pane, I will need to get the information from the command history class that is in the back end. This is where the controller comes into play. It will call the getCommandHistory() method which will access the backend to get the complete list of commands that were written. Then this list can be used by the front-end external method updateCommandWindow() which will update the pane that displays this info.
+
+- Getting the turtle position
+     
+     Since we are separating the front end and back end with a model turtle and a view turtle, there needs to be a way of communicating information between the two. This is where the controller comes in to call the getTurtlePosition() method which will interact with the backend to get the coordinate location of the backend turtle. Then the front end external API will call updateViewTurtlePosition() which will update the front end turtle's location on the screen.
 
 
-### Team Responsibilities
+## Design Considerations
+
+One main design consideration that we had to think about was what should be kept internal for our front-end and what should be kept external. Initially, we thought that the external API should be able to generally updateView() for our window, however, we then would use the internal API to update each specific window. But, we realized that if our external API called and relied on methods in the internal API, that would defeat the purpose of having an external and internal API, since calling the external API would just essentially be calling the internal API. So, we decided that the methods to update all of the specific windows should also go into the external API. We felt this made sense since to update the command history window, you would need to get the command history from the back-end. The same goes for the other windows, like variable window and graphics window. They all need some information from the back-end to update, so it would make sense that they are external, since the back-end would need to access them through the controller. 
+
+Another design consideration we made was whether or not there should be two types of turtles. At first we thought we could just use one turtle object, and have both the front-end and back-end access it to get the necessary information for their tasks. However, from a strict design perspective, we also felt that this would blur the distinction between the front and back-end. If both of them accessed the same component, it would not be ideal, especially because front-end could potentially be able to change back-end data like turtle heading and position, when in reality, only the back-end should be able to change those details once commands have been executed. So, to keep this distinction clear, we decided to make a Turtle object for the back-end, and a viewTurtle for the front-end. While this might at first seem cumbersome, especially for just the basic requirements, having this kind of approach also leaves our program open to extension if we ever need to add more to either the front-end or back-end capabilities of the turtle, without affecting the other end. 
+
+Another main design decision we had to consider was what exactly in our program would handle errors. We knew that the back-end would need to throw errors as it is what actually executes the commands. If there is any bad input data or incorrect command syntax, only the back-end should be able to figure that out. However, from there, we had to decide who would actually display the appropriate error message. Since the front-end environment needs to be able to notify the users of errors in a way that is comprehensible to them,  we decided that our front-end external API should have a method that the back-end can call to display appropriate error messages. As of now, we are planning to do this through the controller. Another alternative could be to have the back-end throw the error straight to the front-end so it doesn’t have to go through a cascade, but this would defeat the purpose of using an MVC approach, so, we decided to stick to using our controller for any model-view inter-communication. 
+	
+
+
+## Team Responsibilities
 This section describes the program components
 each team member plans to take primary and secondary responsibility for
 and a high-level plan of how the team will complete the program.
+
+### Saurav
+
+Saurav will work primarily on the front-end for this project. He will work on implementing the UI and also help with displaying error messages accordingly for users. 
+
+### Achintya
+
+Will work on the interaction between the frontend and back end - essentially the controller. Will work to help Saurav complete any UI components and help the backend team work to design their methods to get information to update the front end.  
