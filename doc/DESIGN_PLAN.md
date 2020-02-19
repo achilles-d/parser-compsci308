@@ -286,7 +286,7 @@ Besides the viewTurtle object, this API will be using separate classes for each 
 - accessHelp()
     - This will display a help screen when a user accesses it on the toolbar
 
-The above methods are the general methods used in the Front-end API. This API communicates with the controllers like buttons to handle user inputs graphically. The most important aspect of this API is to ensure that no other part of the code can access these methods and change the information there. This API will fulfill the requirement of having
+The above methods are the general methods used in the Front-end API. This API communicates with the controllers like buttons to handle user inputs graphically. The most important aspect of this API is to ensure that no other part of the code can access these methods and change the information there. This API will fulfill the requirement of having the front end turtle and information panes reflect the changes occurring to the back end state. 
 
 
 #### Back-End Internal API:
@@ -329,11 +329,15 @@ The CommandHandler class’s primary responsibility is to store the previous lin
 #### Back-end external API
 
 - getTurtlePosition() 
+    - This method will communicate the location of the back end turtle so that the front end turtle can mimic the data held in the back end
 - parseCode() 
+    - This method will take in information from the frontend (the commands entered) and interact with the back end to execute the logic required to make them work
 - getCommandHistory() 
+    - The list of commands entered is stored in the back end and this method will be used to take the information out of the backend and communicate it to the front end to display in the command history pane
 - getHeading() 
+    - The angular direction of the back end turtle will be communicated out
 - getLines()  
-    - List of Lines
+    - List of lines that the turtle has drawn based on the movement of the turtle and whether the pen was up or down
 - getAllVariables()
     - This returns an unmodifiable list of the variables stored in the VariableHandler
 
@@ -341,11 +345,7 @@ Class
 - getVariable
     - This returns the variable object associated with a certain variable name in the VariableHandler class
 
-The back-end external API will be responsible for
-
-
-
-
+The back-end external API will be responsible for interacting with the front end external API to transfer the required information between the view and the model. Methods are used to get commands from the front end and run them in the back end. Then methods in this API are used to communicate the updated results of those methods to the front end so the results can be displayed to the user.  
 
 
 
@@ -389,9 +389,13 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
 
 
 #### Achintya Use Cases
+- Getting the command history
 
-    Getting the command history
-    In order to update the command history window pane, I will need to get the information from the command history class
+     In order to update the command history window pane, I will need to get the information from the command history class that is in the back end. This is where the controller comes into play. It will call the getCommandHistory() method which will access the backend to get the complete list of commands that were written. Then this list can be used by the front-end external method updateCommandWindow() which will update the pane that displays this info.
+
+- Getting the turtle position
+     
+     Since we are separating the front end and back end with a model turtle and a view turtle, there needs to be a way of communicating information between the two. This is where the controller comes in to call the getTurtlePosition() method which will interact with the backend to get the coordinate location of the backend turtle. Then the front end external API will call updateViewTurtlePosition() which will update the front end turtle's location on the screen.
 
 
 ##Design Considerations
