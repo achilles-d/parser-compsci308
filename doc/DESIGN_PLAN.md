@@ -1,4 +1,4 @@
-##Introduction:
+## Introduction:
 
 We are trying to create a program using Java to simulate the Logo programming language. The Logo interpreted programming language allows users to control a “turtle” on screen and allows them to draw (or not) things using various commands. It was intended to teach programming to children and we want to replicate that functionality in our JavaFX program.
 
@@ -10,7 +10,7 @@ Some of the UI components should be closed. There is no reason to change the com
 
 At a high level, users will be able to enter commands using the LOGO language and execute them. The results of these commands could just be mathematical operations output in the console, or they could also animate the turtle in the main window. This could include moving the turtle, rotating the turtle, and also using the turtle to draw lines. Users will be able to configure the program to their liking, by changing the pen and background color, and also being able to change the image that is used for the turtle.
 
-##Overview:
+## Overview:
 
 The four APIs that will be created are the front-end external API, the front-end internal API, the back-end internal API, and the back-end external API.
 
@@ -26,6 +26,8 @@ One example of a dual use implementation, would be the implementation of the Var
 
 Another example of dual use implementation is our CommandHistory class. One implementation we could have done for our history of commands in the back-end is to just have a list of command objects. However, using this could become cumbersome as we get more and more commands, but also, this does not totally encapsulate data, especially if we are forced to pass around a list of commands. By using a CommandHistory class that essentially stores all of the executed commands, we could use any kind of list to store the commands, or maybe even a map that indicates the execution order of the commands with some sort of key. When the front-end tries to getCommandHistory(), it doesn’t care about how the CommandHistory class actually stores that data, as long as it gets the data in the form that it expects. In this case, it might be useful to return an unmodifiable list, since you don’t want the front-end editing command history.
 
+### Diagram
+![](slogo_design_diagram.png) 
 
 Below, we have a list of the 4 API’s and their corresponding methods. Below that list, we have split up the methods into their corresponding classes.
 
