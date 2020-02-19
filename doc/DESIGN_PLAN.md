@@ -1,4 +1,4 @@
-## Introduction:
+ ## Introduction:
 
 We are trying to create a program using Java to simulate the Logo programming language. The Logo interpreted programming language allows users to control a “turtle” on screen and allows them to draw (or not) things using various commands. It was intended to teach programming to children and we want to replicate that functionality in our JavaFX program.
 
@@ -350,7 +350,24 @@ those commands, putting them into effect by calling upon the appropriate Model c
 Additionally, methods in this API are used to communicate the updated state of those methods to the front end so the results can be displayed to the user.  
 The Controller class is responsible for this functionality and contains each of the methods listed above.
 The Executor will call getTurtlePosition() to determine the next position of the displayed turtle; this information
-will be passed on to ViewTurtle. parseCode() will break down the command passed along by the 
+will be passed on to ViewTurtle. parseCode() will break down the command passed along from Visualizer
+and send the instructions ascertained from the command to the Executor, which will then carry out those commands. 
+getCommandHistory() will provide the past commands entered by the user to Visualizer, which will
+then send those commands to CommandPane to be displayed in the command history area for the user to view.
+It will be called by Visualizer. 
+getHeading() will be called by Visualizer to provide it the new heading for the turtle
+as a result of the commands entered and carried out. This information will be passed on to
+ViewTurtle to appropriately display the turtle on the UI. 
+getLines() will be called by Visualizer to determine what lines were to be drawn on the pane
+by the turtle based on the commands executed that indicate the movement of the turtle
+and when the pen was up or down during the movement of the turtle. This information
+will be passed on to ViewTurtle to draw the proper lines on the display. 
+getAllVariables() will be called  by Visualizer to get the state of each environmental
+variable accessible to the user. These states will be passed on to VariablesPane
+to be displayed by the UI. 
+getVariable() will be called by Executor to pass along the proper variable objects corresponding
+to the available environmental variables displayed by VariablesPane. 
+
 
 ## API as Code
 
