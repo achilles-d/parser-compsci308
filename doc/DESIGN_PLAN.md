@@ -286,7 +286,7 @@ Besides the viewTurtle object, this API will be using separate classes for each 
 - accessHelp()
     - This will display a help screen when a user accesses it on the toolbar
 
-The above methods are the general methods used in the Front-end API. This API communicates with the controllers like buttons to handle user inputs graphically. The most important aspect of this API is to ensure that no other part of the code can access these methods and change the information there. This API will fulfill the requirement of having the front end turtle and information panes reflect the changes occurring to the back end state. 
+The above methods are the general methods used in the Front-end API. This API communicates with the controllers like buttons to handle user inputs graphically. The most important aspect of this API is to ensure that no other part of the code can access these methods and change the information there. This API will fulfill the requirement of having the front end turtle and information panes reflect the changes occurring only in the front end. For example these change include changes that are specific only to the UI. The language used and the pen color do not have an effect on the back end state of the program. The back end turtle and the back end data holders like the variablehandler and the command history do not have use for this information. The help screen is also something that requires to attachment to the back end. This information is static and will not require any updates in the back end to be reflected here. The same can be said for the background color. This is UI specific and set by the user and so updates to the backend are not required from changing the background.
 
 
 #### Back-End Internal API:
@@ -398,7 +398,7 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
      Since we are separating the front end and back end with a model turtle and a view turtle, there needs to be a way of communicating information between the two. This is where the controller comes in to call the getTurtlePosition() method which will interact with the backend to get the coordinate location of the backend turtle. Then the front end external API will call updateViewTurtlePosition() which will update the front end turtle's location on the screen.
 
 
-##Design Considerations
+## Design Considerations
 
 One main design consideration that we had to think about was what should be kept internal for our front-end and what should be kept external. Initially, we thought that the external API should be able to generally updateView() for our window, however, we then would use the internal API to update each specific window. But, we realized that if our external API called and relied on methods in the internal API, that would defeat the purpose of having an external and internal API, since calling the external API would just essentially be calling the internal API. So, we decided that the methods to update all of the specific windows should also go into the external API. We felt this made sense since to update the command history window, you would need to get the command history from the back-end. The same goes for the other windows, like variable window and graphics window. They all need some information from the back-end to update, so it would make sense that they are external, since the back-end would need to access them through the controller. 
 
@@ -417,6 +417,6 @@ and a high-level plan of how the team will complete the program.
 
 Saurav will work primarily on the front-end for this project. He will work on implementing the UI and also help with displaying error messages accordingly for users. 
 
-## Achintya
+### Achintya
 
 Will work on the interaction between the frontend and back end - essentially the controller. Will work to help Saurav complete any UI components and help the backend team work to design their methods to get information to update the front end.  
