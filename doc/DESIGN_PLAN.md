@@ -354,7 +354,7 @@ will be passed on to ViewTurtle. parseCode() will break down the command passed 
 
 ## API as Code
 
-We have created packages in our src folder for the model and view with the pertinent interfaces for the different API methods.
+We have created packages in our src folder under slogo for the model and view with the pertinent interfaces for the different API methods.
 
 ## Use Cases:
 
