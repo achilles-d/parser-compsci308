@@ -237,7 +237,9 @@ The controller part of this project will facilitate communication between the mo
  then click out of these alert boxes, and continue coding in the console
  below.
 
-##### ADD IMAGE OF USER INTERFACE
+##### User Interface Window in a sketch
+
+![](images/FrontView.png)
 
 
 ## Design Details
@@ -351,7 +353,7 @@ The Controller class is responsible for this functionality and contains each of 
 The Executor will call getTurtlePosition() to determine the next position of the displayed turtle; this information
 will be passed on to ViewTurtle. parseCode() will break down the command passed along by the 
 
-##API as Code
+## API as Code
 
 We have created packages in our src folder for the model and view with the pertinent interfaces for the different API methods.
 
