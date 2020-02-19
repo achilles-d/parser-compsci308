@@ -423,3 +423,17 @@ Saurav will work primarily on the front-end for this project. He will work on im
 ### Achintya
 
 Will work on the interaction between the frontend and back end - essentially the controller. Will work to help Saurav complete any UI components and help the backend team work to design their methods to get information to update the front end.  
+
+### Abebe
+
+Abebe will work on the internal backend which is the implementation of
+the internal data structure and representation of the pen and the turtle
+objects and modifies values related to these objects by parses commands
+written in the console window to control the turtle, and pen.
+
+### Achilles
+
+Achilles will work on the external backend which will be responsible for
+interacting with the front end external API to transfer the required
+information between the view and the model to make it possible for the
+program to actually operate
