@@ -26,8 +26,6 @@ One example of a dual use implementation, would be the implementation of the Var
 
 Another example of dual use implementation is our CommandHistory class. One implementation we could have done for our history of commands in the back-end is to just have a list of command objects. However, using this could become cumbersome as we get more and more commands, but also, this does not totally encapsulate data, especially if we are forced to pass around a list of commands. By using a CommandHistory class that essentially stores all of the executed commands, we could use any kind of list to store the commands, or maybe even a map that indicates the execution order of the commands with some sort of key. When the front-end tries to getCommandHistory(), it doesn’t care about how the CommandHistory class actually stores that data, as long as it gets the data in the form that it expects. In this case, it might be useful to return an unmodifiable list, since you don’t want the front-end editing command history.
 
-### Diagram
-![](slogo_design_diagram.png) 
 
 Below, we have a list of the 4 API’s and their corresponding methods. Below that list, we have split up the methods into their corresponding classes.
 
@@ -213,7 +211,8 @@ The controller part of this project will facilitate communication between the mo
 - HelpPane
     - display()
 
-#### Picture of how APIs are related
+### Diagram
+![](slogo_design_diagram.png) 
 
 
 ## User Interface
