@@ -340,14 +340,16 @@ The CommandHandler class’s primary responsibility is to store the previous lin
     - List of lines that the turtle has drawn based on the movement of the turtle and whether the pen was up or down
 - getAllVariables()
     - This returns an unmodifiable list of the variables stored in the VariableHandler
-
-Class
-- getVariable
+- getVariable() 
     - This returns the variable object associated with a certain variable name in the VariableHandler class
 
-The back-end external API will be responsible for interacting with the front end external API to transfer the required information between the view and the model. Methods are used to get commands from the front end and run them in the back end. Then methods in this API are used to communicate the updated results of those methods to the front end so the results can be displayed to the user.  
-
-
+The back-end external API will be responsible for interacting with the front end external API to transfer the required information between 
+the view and the model to make it possible for the program to actually operate. Methods parseCode() will access code entered in UI from the frontend and process
+those commands, putting them into effect by calling upon the appropriate Model classes.
+Additionally, methods in this API are used to communicate the updated state of those methods to the front end so the results can be displayed to the user.  
+The Controller class is responsible for this functionality and contains each of the methods listed above.
+The Executor will call getTurtlePosition() to determine the next position of the displayed turtle; this information
+will be passed on to ViewTurtle. parseCode() will break down the command passed along by the 
 
 ##API as Code
 
