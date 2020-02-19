@@ -1,4 +1,4 @@
-Introduction:
+## Introduction:
 
 We are trying to create a program using Java to simulate the Logo programming language. The Logo interpreted programming language allows users to control a “turtle” on screen and allows them to draw (or not) things using various commands. It was intended to teach programming to children and we want to replicate that functionality in our JavaFX program.
 
@@ -10,7 +10,7 @@ Some of the UI components should be closed. There is no reason to change the com
 
 At a high level, users will be able to enter commands using the LOGO language and execute them. The results of these commands could just be mathematical operations output in the console, or they could also animate the turtle in the main window. This could include moving the turtle, rotating the turtle, and also using the turtle to draw lines. Users will be able to configure the program to their liking, by changing the pen and background color, and also being able to change the image that is used for the turtle.
 
-Overview:
+## Overview:
 
 The four APIs that will be created are the front-end external API, the front-end internal API, the back-end internal API, and the back-end external API.
 
