@@ -362,9 +362,10 @@ getLines() will be called by Visualizer to determine what lines were to be drawn
 by the turtle based on the commands executed that indicate the movement of the turtle
 and when the pen was up or down during the movement of the turtle. This information
 will be passed on to ViewTurtle to draw the proper lines on the display. 
-getAllVariables() will be called  by Visualizer to get the state of each environmental
+getVariable() will be called  by Visualizer to get the state of each environmental
 variable accessible to the user. These states will be passed on to VariablesPane
-to be displayed by the UI. 
+to be displayed by the UI. Visualizer will have to specify the variable of interest
+for each variable. 
 getVariable() will be called by Executor to pass along the proper variable objects corresponding
 to the available environmental variables displayed by VariablesPane. 
 
@@ -417,6 +418,21 @@ When the user uses the UI to set a new pen color, the setPenColor(Color a) metho
      
      Since we are separating the front end and back end with a model turtle and a view turtle, there needs to be a way of communicating information between the two. This is where the controller comes in to call the getTurtlePosition() method which will interact with the backend to get the coordinate location of the backend turtle. Then the front end external API will call updateViewTurtlePosition() which will update the front end turtle's location on the screen.
 
+#### Achilles Use Cases 
+- Sending new variable states to VariablesPane to be displayed
+    
+
+    getAllVariables() will be called by Visualizer to get all of the variables 
+    that should be displayed by VariablesPane. getVariables() will then be called by Visualizer 
+    for each variable it received from the previous call to ascertain the value of each of those
+    variables. These variables and their corresponding values will be passed on to VariablesPane
+    to be displayed by in the UI. 
+
+- Process entered commands from UI 
+
+    parsecode() will be called by Visualizer with the commands entered in the UI to 
+    be processed. They will be deciphered by Parser and the resulting instructions will be
+    passed on to Executor to be carried out. 
 
 ## Design Considerations
 
