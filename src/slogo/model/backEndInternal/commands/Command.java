@@ -1,4 +1,7 @@
-package slogo.model;
+package slogo.model.backEndInternal.commands;
+
+import slogo.model.Coordinate;
+import slogo.model.backEndInternal.BackEndTurtle;
 
 public interface Command {
 
@@ -7,5 +10,5 @@ public interface Command {
      * Command will definitely be implemented as a class that can be extended from, because there are commands that do similar things
      * like math commands, or movement commands. Each of them will implement execute differently based on what they need to do
      */
-    public void execute();
+    Coordinate execute(Coordinate current, int delta);
 }

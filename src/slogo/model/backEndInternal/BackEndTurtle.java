@@ -12,12 +12,15 @@ public class BackEndTurtle implements Turtle {
     private double endX;
     private double endY;
 
+    private Coordinate turtleCoordinate = new Coordinate();
+
     private double heading;
     private boolean penUp;
+
     public BackEndTurtle(){
-        xLoc=0;
-        yLoc=0;
-        penUp=false;
+        xLoc = turtleCoordinate.getXVal();
+        yLoc = turtleCoordinate.getYVal();
+        penUp = false;
     }
     @Override
     /**
@@ -25,13 +28,13 @@ public class BackEndTurtle implements Turtle {
      * @param a is turtle's new coordinate
      */
     public void setPosition(Coordinate a) {
-        xLoc=a.getX();
-        yLoc=a.getY();
+        xLoc = a.getXVal();
+        yLoc = a.getYVal();
     }
 
     @Override
     public Coordinate getPosition() {
-        return null;
+        return turtleCoordinate;
     }
 
     @Override
