@@ -19,12 +19,18 @@ public class LogoVisualization {
     Pane root = new Pane();
     BorderPane border = new BorderPane();
     Stage myStage;
-
+    private TurtleWindow graphics;
+    ViewController myController;
 
     public LogoVisualization(Stage stage)
     {
         myStage = stage;
         init();
+    }
+
+    public void setBackgroundColor(String color)
+    {
+        graphics.setBackgroundColor(color);
     }
 
     public void init()
@@ -34,7 +40,7 @@ public class LogoVisualization {
         VariableWindow myVariables = new VariableWindow();
         HistoryWindow myHistory = new HistoryWindow();
         AvailableCommandsWindow available = new AvailableCommandsWindow("resources.languages.English");
-        TurtleWindow graphics = new TurtleWindow();
+        graphics = new TurtleWindow();
         Menu toolbar = new Menu();
 
         VBox leftComps = new VBox();
