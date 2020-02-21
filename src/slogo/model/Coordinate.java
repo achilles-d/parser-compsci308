@@ -4,12 +4,20 @@ package slogo.model;
 
 public class Coordinate {
 
+    private double myX;
+    private double myY;
 
-    public double getX() {
-        return 0;
+    public Coordinate()
+    {
+        myX = 0;
+        myY = 0;
     }
 
-    public double getY() {
-        return 0;
+    public Coordinate(double xCord, double yCord )
+    {
+        myX = xCord;
+        myY = yCord;
     }
+
+
 }

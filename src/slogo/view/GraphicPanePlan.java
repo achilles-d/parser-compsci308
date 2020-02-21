@@ -3,7 +3,7 @@ package slogo.view;
 import javafx.scene.paint.Color;
 //Created an interface specifically for graphic pane since the user has more control over it than the other panes which just display data
 
-public interface GraphicPane {
+public interface GraphicPanePlan {
 
     /**
      * This updates the drawings on the graphics screen left behind by the turtle
