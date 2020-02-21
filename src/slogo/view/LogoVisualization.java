@@ -12,6 +12,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Constructor;
+
 public class LogoVisualization {
 
     Pane root = new Pane();
@@ -28,8 +30,19 @@ public class LogoVisualization {
     public void init()
     {
 
+        /*
         TextArea commandWindow = new TextArea();
+        commandWindow.setPrefWidth(650);
+        commandWindow.setMaxWidth(Double.MAX_VALUE);
+        Button execute = new Button("Execute");
+        execute.setOnAction((event -> {
+            System.out.println(commandWindow.getText());
+        }));
+        Button reset = new Button("Reset");
+        reset.setOnAction((event -> {commandWindow.clear();}));
+        */
 
+        ConsoleWindow commandWindow = new ConsoleWindow();
         /*
         TitledPane variablesWhole = new TitledPane();
         variablesWhole.setText("Variables");
@@ -43,14 +56,7 @@ public class LogoVisualization {
 
         VariableWindow myVariables = new VariableWindow();
 
-        commandWindow.setPrefWidth(650);
-        commandWindow.setMaxWidth(Double.MAX_VALUE);
-        Button execute = new Button("Execute");
-        execute.setOnAction((event -> {
-            System.out.println(commandWindow.getText());
-        }));
-        Button reset = new Button("Reset");
-        reset.setOnAction((event -> {commandWindow.clear();}));
+
 
         /*
         TitledPane history = new TitledPane();
@@ -73,6 +79,7 @@ public class LogoVisualization {
         */
 
         AvailableCommandsWindow available = new AvailableCommandsWindow("resources.languages.English");
+
         VBox leftComps = new VBox();
         leftComps.getChildren().addAll(myHistory.getView(),available.getView());
 
@@ -98,6 +105,7 @@ public class LogoVisualization {
 
         menu.getChildren().addAll(colors,language,help);
 
+        /*
         StackPane allTurtle = new StackPane();
         Image turtle = new Image("turtle.jpg");
         ImageView turtleWrap = new ImageView(turtle);
@@ -105,22 +113,26 @@ public class LogoVisualization {
         allTurtle.getChildren().addAll(turtleWindow,turtleWrap);
         turtleWrap.setFitHeight(50);
         turtleWrap.setFitWidth(50);
+        */
+
+        TurtleWindow graphics = new TurtleWindow();
+
         HBox bottom  = new HBox();
-        VBox buttons = new VBox();
-        buttons.setPadding(new Insets(10));
-        buttons.getChildren().addAll(execute,reset);
-        buttons.setAlignment(Pos.CENTER);
+
+
         //bottom.setPrefWidth(1000);
-        bottom.getChildren().addAll(myVariables.getView(),commandWindow,buttons);
+        bottom.getChildren().addAll(myVariables.getView(),commandWindow.getView());
+
         //HBox.setHgrow(border, Priority.ALWAYS);
         //border.setTop(filler);
-        allTurtle.setStyle("-fx-background-color: red");
+        //allTurtle.setStyle("-fx-background-color: red");
+
         border.setBottom(bottom);
-        border.setCenter(allTurtle);
+        border.setCenter(graphics.getView());
         border.setLeft(leftComps);
         border.setTop(menu);
        // border.setRight(available);
-        turtleWrap.setTranslateX(200);
+        //turtleWrap.setTranslateX(200);
         //getChildren().addAll(border,allTurtle);
         //border.setPrefSize(900,900);
 
@@ -131,7 +143,7 @@ public class LogoVisualization {
         Scene scene = new Scene(border,1000,1000);
         myStage.setScene(scene);
         myStage.show();
-        System.out.println(turtleWrap.getX());
+        //System.out.println(turtleWrap.getX());
 
     }
 
