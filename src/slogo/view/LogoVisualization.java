@@ -83,6 +83,8 @@ public class LogoVisualization {
         VBox leftComps = new VBox();
         leftComps.getChildren().addAll(myHistory.getView(),available.getView());
 
+
+        /*
         HBox menu = new HBox();
         MenuItem itemBlue = new MenuItem("Blue");
         MenuItem itemGreen = new MenuItem("Green");
@@ -104,7 +106,9 @@ public class LogoVisualization {
             stage1.show();});
 
         menu.getChildren().addAll(colors,language,help);
+        */
 
+        Menu toolbar = new Menu();
         /*
         StackPane allTurtle = new StackPane();
         Image turtle = new Image("turtle.jpg");
@@ -130,7 +134,7 @@ public class LogoVisualization {
         border.setBottom(bottom);
         border.setCenter(graphics.getView());
         border.setLeft(leftComps);
-        border.setTop(menu);
+        border.setTop(toolbar.getView());
        // border.setRight(available);
         //turtleWrap.setTranslateX(200);
         //getChildren().addAll(border,allTurtle);
