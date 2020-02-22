@@ -96,7 +96,7 @@ public class MainTester {
         lang.addPatterns("Syntax");
 
         // try against different kinds of inputs
-        m.parseText(lang, m.examples);
+        //m.parseText(lang, m.examples);
         String userInput = "fd 50 rt 90 BACK :distance Left :angle";
         // note, this simple "algorithm" will not handle SLogo comments
         m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));

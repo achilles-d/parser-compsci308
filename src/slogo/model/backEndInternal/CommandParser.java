@@ -13,17 +13,32 @@ public class CommandParser implements Parser {
     // "types" and the regular expression patterns that recognize those types
     // note, it is a list because order matters (some patterns may be more generic)
     private List<Map.Entry<String, Pattern>> mySymbols;
-
+    private Vector<Double> argumentstack=new Stack<>();
+    private Vector<String> commandStack=new Stack<>();
+    private List<String> commandFraction=new ArrayList<>();
+    private Map<String, Integer> numberOfInputs=new HashMap<>();
 
     /**
      * Create an empty parser
      */
     public CommandParser () {
+
         mySymbols = new ArrayList<>();
     }
 
     @Override
     public void parseCode(String consoleInput) throws InvalidCommandException {
+        commandFraction.addAll(Arrays.asList(consoleInput.split(" ")));
+
+        for (String str: commandFraction){
+           if(getSymbol (str).equals("Constant")){
+               argumentstack.add(Double.parseDouble(str));
+           } else{
+               commandStack.add(str);
+           }
+
+        }
+
 
     }
 
@@ -32,9 +47,10 @@ public class CommandParser implements Parser {
         return null;
     }
 
-
-
-
+    // check if we have enough argument for the command
+    private boolean areArgumentsEnough(String command){
+        return (argumentstack.size()>=numberOfInputs.get(command));
+    }
 
     /**
      * Adds the given resource file to this language's recognized types
@@ -46,6 +62,9 @@ public class CommandParser implements Parser {
             mySymbols.add(new AbstractMap.SimpleEntry<>(key,
                     // THIS IS THE IMPORTANT LINE
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+
+            //System.out.println("Used key "+key);
+            //System.out.println("Used regex "+regex);
         }
     }
 
@@ -56,6 +75,7 @@ public class CommandParser implements Parser {
         final String ERROR = "NO MATCH";
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(text, e.getValue())) {
+                //System.out.println("getSymbol method "+e.getKey());
                 return e.getKey();
             }
         }
