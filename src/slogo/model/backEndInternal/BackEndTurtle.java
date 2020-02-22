@@ -16,11 +16,13 @@ public class BackEndTurtle implements Turtle {
 
     private double heading;
     private boolean penUp;
+    private boolean turtleVisible;
 
     public BackEndTurtle(){
         xLoc = turtleCoordinate.getXVal();
         yLoc = turtleCoordinate.getYVal();
         penUp = false;
+        turtleVisible = true;
     }
     @Override
     /**
@@ -59,6 +61,13 @@ public class BackEndTurtle implements Turtle {
      */
     public void flipPen() {
         penUp=!penUp;
+    }
+
+    /**
+     * Toggle whether turtle is visible or not
+     */
+    public void toggleVisibility() {
+        turtleVisible = !turtleVisible;
     }
 
     @Override

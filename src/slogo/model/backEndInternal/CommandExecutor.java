@@ -20,7 +20,7 @@ public class CommandExecutor implements Executor {
        commands.get(currentCommand).run();
     }
 
-    private void matchCommands(){
+    public void matchCommands(){
         commands = new HashMap<>();
 
         // Populate commands map

@@ -10,8 +10,8 @@ public class SetPosition implements Command<Double> {
   private int x;
   private int y;
 
-  SetPosition(BackEndTurtle turtle, int val1, int val2) {
-    this.backEndTurtle = turtle;
+  SetPosition(BackEndTurtle myTurtle, int val1, int val2) {
+    this.backEndTurtle = myTurtle;
     this.x = val1;
     this.y = val2;
   }
