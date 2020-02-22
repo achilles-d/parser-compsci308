@@ -69,8 +69,8 @@ public class BackEndTurtle implements Turtle {
      */
     public void drawLine(Coordinate start, Coordinate end) {
         penUp=false;
-        xLoc=end.getX();
-        yLoc=end.getY();
+        xLoc = end.getXVal();
+        yLoc = end.getYVal();
     }
 
     @Override
