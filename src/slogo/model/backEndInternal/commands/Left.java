@@ -1,20 +1,21 @@
 package slogo.model.backEndInternal.commands;
 
 import slogo.model.Coordinate;
+import slogo.model.backEndInternal.BackEndTurtle;
 
 public class Left implements Command<Double> {
 
-  private Coordinate turtlePosition;
-  private double movement;
+  private BackEndTurtle backEndTurtle;
+  private double degrees;
 
-  Left(Coordinate pos, double delta) {
-    this.turtlePosition = pos;
-    this.movement = delta;
+  Left(BackEndTurtle turtle, double angle) {
+    this.backEndTurtle = turtle;
+    this.degrees = angle;
   }
 
   @Override
   public Double execute() {
-    turtlePosition.setXVal(turtlePosition.getXVal() - movement);
-    return movement;
+    backEndTurtle.setHeading(backEndTurtle.getHeading() - degrees);
+    return degrees;
   }
 }
