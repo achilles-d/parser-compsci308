@@ -1,4 +1,6 @@
 package slogo.model.backEndInternal;
+import slogo.model.InvalidCommandException;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,45 +18,6 @@ import java.util.List;
 public class MainTester {
     // regular expression representing any whitespace characters (space, tab, or newline)
     public static final String WHITESPACE = "\\s+";
-    // some examples to test for matching
-    private List<String> examples = List.of(
-            "",
-            "# foo",
-            "foo #",
-            "#",
-            "fd",
-            "FD",
-            "forwardd",
-            "equalp",
-            "equal?",
-            "equal??",
-            "+",
-            "SuM",
-            "-",
-            "*",
-            "/",
-            "%",
-            "~",
-            "+not",
-            "not+",
-            "++",
-            "+*+",
-            "or",
-            "FOR",
-            "allOrNothing",
-            "all_or_nothing",
-            "allOr_nothing?",
-            "allOr?nothing_",
-            ":allornothing",
-            "PI",
-            "90",
-            "9.09",
-            "9.0.0",
-            "[",
-            "]",
-            "(",
-            ")"
-    );
 
 
     // utility function that reads given file and returns its entire contents as a single string
@@ -84,7 +47,7 @@ public class MainTester {
     /**
      * Start of the program --- just run some test examples.
      */
-    public static void main (String[] args) {
+    public static void main (String[] args) throws InvalidCommandException {
         // NO static methods needed!
         MainTester m = new MainTester();
 
@@ -96,13 +59,21 @@ public class MainTester {
         lang.addPatterns("Syntax");
 
         // try against different kinds of inputs
-        m.parseText(lang, m.examples);
-        String userInput = "fd 50 rt 90 BACK :distance Left :angle";
+        //m.parseText(lang, m.examples);
+        //String userInput = "sum 10 goto 50 30";
+       // String userInput = "[ fd sum sum sum sum 10 20 30 5 5";
+       String userInput ="fd * greater? 5 3 100";
+       // String userInput = "sum sum sum 10 50 30 40";
+        //String userInput ="[ :dist 10 40 10 ]";
+       // String userInput = "fd fd fd 50";
         // note, this simple "algorithm" will not handle SLogo comments
-        m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));
-        String fileInput =
-                m.readFileToString(MainTester.class.getClassLoader().getResource("square.logo").toExternalForm());
+        //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
+        lang.parseCode(userInput);
+
+
+        //String fileInput =
+               // m.readFileToString(MainTester.class.getClassLoader().getResource("square.logo").toExternalForm());
         // instead it will "comment out" the remainder of the program!
-        m.parseText(lang, Arrays.asList(fileInput.split(WHITESPACE)));
+       // m.parseText(lang, Arrays.asList(fileInput.split(WHITESPACE)));
     }
 }

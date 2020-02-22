@@ -20,4 +20,11 @@ public class Coordinate {
     }
 
 
+    public double getY() {
+        return myY;
+    }
+
+    public double getX() {
+        return myX;
+    }
 }
