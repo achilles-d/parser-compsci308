@@ -19,5 +19,15 @@ public class Coordinate {
         myY = yCord;
     }
 
+    public double getX()
+    {
+        return myX;
+    }
+
+    public double getY()
+    {
+        return myY;
+    }
+
 
 }
