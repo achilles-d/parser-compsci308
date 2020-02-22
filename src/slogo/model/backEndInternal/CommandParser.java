@@ -8,10 +8,10 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CommandParser implements Parser {
-    // where to find resources specifically for this class
+
     private static final String RESOURCES_PACKAGE = CommandParser.class.getPackageName() + ".resources.languages.";
-    // "types" and the regular expression patterns that recognize those types
-    // note, it is a list because order matters (some patterns may be more generic)
+   // private static final String NUMBER_OF_INPUT = CommandParser.class.getPackageName() + ".ArgumentS.languages.";
+    private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Stack<Double> argumentStack=new Stack<>();
     private Stack<String> commandStack=new Stack<>();
@@ -24,7 +24,7 @@ public class CommandParser implements Parser {
     public CommandParser () {
 
         mySymbols = new ArrayList<>();
-        numberOfInputs.put("fd",1);
+       // numberOfInputs.put("fd",1);
     }
 
     @Override
@@ -37,16 +37,13 @@ public class CommandParser implements Parser {
            } else{
                commandStack.add(str);
            }
-           if(commandStack.size()!=0 && areArgumentsEnough()){
+           if(commandStack.size()!=0 && readArgumentSize(getSymbol(commandStack.peek()))<=argumentStack.size()){
                System.out.println(""+commandStack.pop()+":"+argumentStack.peek());
-               //argumentStack.add(Double.parseDouble(str));
-
            }
 
         }
 
         while(commandStack!=null){
-            //System.out.println(""+commandStack.pop()+":"+argumentStack.pop());
 
             System.out.println(""+commandStack.pop()+":"+argumentStack.peek());
 
@@ -60,15 +57,12 @@ public class CommandParser implements Parser {
         return null;
     }
 
-    // check if we have enough argument for the command
-    private boolean areArgumentsEnough(){
-
-
-        System.out.println("Should print " + (argumentStack.size()>=numberOfInputs.get(commandStack.peek())));
-
-        return (argumentStack.size()>=numberOfInputs.get(commandStack.peek()));
-
-    }
+//    // check if we have enough argument for the command
+//    private boolean areArgumentsEnough(){
+//
+//        return (argumentStack.size()>=numberOfInputs.get(commandStack.peek()));
+//
+//    }
 
     /**
      * Adds the given resource file to this language's recognized types
@@ -81,8 +75,8 @@ public class CommandParser implements Parser {
                     // THIS IS THE IMPORTANT LINE
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
 
-            //System.out.println("Used key "+key);
-            //System.out.println("Used regex "+regex);
+           //System.out.println("Used key "+key);
+
         }
     }
 
@@ -93,7 +87,7 @@ public class CommandParser implements Parser {
         final String ERROR = "NO MATCH";
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(text, e.getValue())) {
-                //System.out.println("getSymbol method "+e.getKey());
+              // System.out.println("getSymbol method "+e.getKey());
                 return e.getKey();
             }
         }
@@ -101,13 +95,18 @@ public class CommandParser implements Parser {
         return ERROR;
     }
 
-
     // Returns true if the given text matches the given regular expression pattern
     private boolean match (String text, Pattern regex) {
-        // THIS IS THE IMPORTANT LINE
         return regex.matcher(text).matches();
     }
 
+    private int readArgumentSize(String key){
+       // System.out.println(key);
+        //System.out.println(Integer.parseInt(sizes.getString(key)));
+
+        return Integer.parseInt(sizes.getString(key));
+
+    }
 
 
 }

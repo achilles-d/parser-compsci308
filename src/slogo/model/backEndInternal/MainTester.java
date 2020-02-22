@@ -60,7 +60,7 @@ public class MainTester {
 
         // try against different kinds of inputs
         //m.parseText(lang, m.examples);
-        String userInput = "fd fd fd 50";
+        String userInput = "fd fd fd 50 sum 30 70";
         // note, this simple "algorithm" will not handle SLogo comments
         //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
         lang.parseCode(userInput);
