@@ -10,6 +10,8 @@ public class ViewTurtle {
     private Image myImage;
     private ImageView myView;
     private Coordinate myCoordinates;
+    private double myX;
+    private double myY;
 
     public ViewTurtle()
     {
@@ -18,6 +20,8 @@ public class ViewTurtle {
         myView.setFitWidth(50);
         myView.setFitHeight(50);
         myCoordinates = new Coordinate();
+        myX = myCoordinates.getX();
+        myY = myCoordinates.getY();
     }
 
     public Node getView()
@@ -25,9 +29,10 @@ public class ViewTurtle {
         return myView;
     }
 
-    public void updatePosition(Coordinate updatedCord)
+    public void updatePosition()
     {
-        myCoordinates = updatedCord;
+        myView.setX(myCoordinates.getX());
+        myView.setY(myCoordinates.getY());
     }
 
 }

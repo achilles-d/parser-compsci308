@@ -4,16 +4,15 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import slogo.model.Coordinate;
 
 public class TurtleWindow extends Window {
 
     private StackPane myView;
+    private Pane canvasWrap;
     private Canvas background;
     private ViewTurtle myTurtle;
 
@@ -22,20 +21,35 @@ public class TurtleWindow extends Window {
         myView = new StackPane();
         background = new Canvas();
         myTurtle = new ViewTurtle();
-        background.widthProperty().bind(myView.widthProperty());
-        background.heightProperty().bind(myView.heightProperty());
-        myView.getChildren().addAll(background,myTurtle.getView());
+        canvasWrap = new Pane();
+        canvasWrap.getChildren().addAll(background,myTurtle.getView());
+        background.widthProperty().bind(canvasWrap.widthProperty());
+        background.heightProperty().bind(canvasWrap.heightProperty());
+        //background.widthProperty().bind(myView.widthProperty());
+       // background.heightProperty().bind(myView.heightProperty());
+        myView.getChildren().addAll(canvasWrap);
+
 
         makeBackgroundColor("red");
-        testDrawLine();
+        //testDrawLine();
        // myView.setStyle("-fx-background-color: red");
-        testDrawLine();
-        myTurtle.getView().setTranslateX(200);
+       // System.out.println(myTurtle.getView().getLayoutX());
+        //System.out.println(myTurtle.getView().getTranslateX());
 
     }
 
     public void setBackgroundColor(String color) {
         makeBackgroundColor(color);
+    }
+
+    protected void fitCanvas()
+    {
+        //background.setWidth(myView.getWidth());
+        System.out.println(myView.getHeight());
+        //background.setHeight(myView.getHeight()/2);
+        testDrawLine();
+        myTurtle.updatePosition();
+
     }
 
     private void makeBackgroundColor(String color)
