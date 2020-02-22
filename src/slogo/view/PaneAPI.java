@@ -1,6 +1,6 @@
 package slogo.view;
 
-public interface Pane {
+public interface PaneAPI {
 
     /**
      * this interface can be implemented by different panes in environment so
