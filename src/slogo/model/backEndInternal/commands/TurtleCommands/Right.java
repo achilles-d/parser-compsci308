@@ -1,7 +1,7 @@
-package slogo.model.backEndInternal.commands;
+package slogo.model.backEndInternal.commands.TurtleCommands;
 
-import slogo.model.Coordinate;
 import slogo.model.backEndInternal.BackEndTurtle;
+import slogo.model.backEndInternal.commands.Command;
 
 public class Right implements Command<Double> {
 
