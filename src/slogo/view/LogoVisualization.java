@@ -59,7 +59,7 @@ public class LogoVisualization {
         Scene scene = new Scene(border,1000,1000);
         myStage.setScene(scene);
         myStage.show();
-        graphics.fitCanvas();
+        
 
 
 

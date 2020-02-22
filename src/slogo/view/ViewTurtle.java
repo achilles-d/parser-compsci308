@@ -31,8 +31,8 @@ public class ViewTurtle {
 
     public void updatePosition()
     {
-        myView.setX(myCoordinates.getX());
-        myView.setY(myCoordinates.getY());
+        myView.setX(myX);
+        myView.setY(myY);
     }
 
 }
