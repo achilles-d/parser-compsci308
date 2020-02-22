@@ -13,8 +13,8 @@ public class CommandParser implements Parser {
     // "types" and the regular expression patterns that recognize those types
     // note, it is a list because order matters (some patterns may be more generic)
     private List<Map.Entry<String, Pattern>> mySymbols;
-    private Vector<Double> argumentstack=new Stack<>();
-    private Vector<String> commandStack=new Stack<>();
+    private Stack<Double> argumentStack=new Stack<>();
+    private Stack<String> commandStack=new Stack<>();
     private List<String> commandFraction=new ArrayList<>();
     private Map<String, Integer> numberOfInputs=new HashMap<>();
 
@@ -24,6 +24,7 @@ public class CommandParser implements Parser {
     public CommandParser () {
 
         mySymbols = new ArrayList<>();
+        numberOfInputs.put("fd",1);
     }
 
     @Override
@@ -31,11 +32,23 @@ public class CommandParser implements Parser {
         commandFraction.addAll(Arrays.asList(consoleInput.split(" ")));
 
         for (String str: commandFraction){
-           if(getSymbol (str).equals("Constant")){
-               argumentstack.add(Double.parseDouble(str));
+           if(getSymbol(str).equals("Constant")){
+               argumentStack.add(Double.parseDouble(str));
            } else{
                commandStack.add(str);
            }
+           if(commandStack.size()!=0 && areArgumentsEnough()){
+               System.out.println(""+commandStack.pop()+":"+argumentStack.peek());
+               //argumentStack.add(Double.parseDouble(str));
+
+           }
+
+        }
+
+        while(commandStack!=null){
+            //System.out.println(""+commandStack.pop()+":"+argumentStack.pop());
+
+            System.out.println(""+commandStack.pop()+":"+argumentStack.peek());
 
         }
 
@@ -48,8 +61,13 @@ public class CommandParser implements Parser {
     }
 
     // check if we have enough argument for the command
-    private boolean areArgumentsEnough(String command){
-        return (argumentstack.size()>=numberOfInputs.get(command));
+    private boolean areArgumentsEnough(){
+
+
+        System.out.println("Should print " + (argumentStack.size()>=numberOfInputs.get(commandStack.peek())));
+
+        return (argumentStack.size()>=numberOfInputs.get(commandStack.peek()));
+
     }
 
     /**
