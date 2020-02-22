@@ -17,6 +17,8 @@ public class CommandParser implements Parser {
     private Stack<String> commandStack=new Stack<>();
     private List<String> commandFraction=new ArrayList<>();
     private Map<String, Integer> numberOfInputs=new HashMap<>();
+    private int c=0;
+    //private CommandExecutor executor=new CommandExecutor();
 
     /**
      * Create an empty parser
@@ -24,33 +26,76 @@ public class CommandParser implements Parser {
     public CommandParser () {
 
         mySymbols = new ArrayList<>();
-       // numberOfInputs.put("fd",1);
     }
 
     @Override
     public void parseCode(String consoleInput) throws InvalidCommandException {
         commandFraction.addAll(Arrays.asList(consoleInput.split(" ")));
 
-        for (String str: commandFraction){
-           if(getSymbol(str).equals("Constant")){
-               argumentStack.add(Double.parseDouble(str));
-           } else{
-               commandStack.add(str);
-           }
-           if(commandStack.size()!=0 && readArgumentSize(getSymbol(commandStack.peek()))<=argumentStack.size()){
-               System.out.println(""+commandStack.pop()+":"+argumentStack.peek());
-           }
+        while(c<commandFraction.size()){
+            if(getSymbol(commandFraction.get(c)).equals("Constant")){
+                argumentStack.add(Double.parseDouble(commandFraction.get(c)));
+            } else{
+                commandStack.add(commandFraction.get(c));
+                isThereValidNum(commandFraction);
+            }
+
+
+            buildExecutable();
+            c++;
+
+        }
+    //System.out.println("The size of commandStack is "+commandStack.size());
+        int size=commandStack.size();
+        for(int i=0;i<size;i++){
+            buildExecutable();
+            System.out.println("The size of commandStack is "+commandStack.size());
+        }
 
         }
 
-        while(commandStack!=null){
+    private void buildExecutable() {
+        if(commandStack.size()!=0 && readArgumentSize(getSymbol(commandStack.peek()))<=argumentStack.size()){
 
-            System.out.println(""+commandStack.pop()+":"+argumentStack.peek());
+            double x=0;
+            int l=readArgumentSize(getSymbol(commandStack.peek()));
+            System.out.println("argument size need is "+l);
+            String st=commandStack.pop()+":";
+           // System.out.println(l);
+            for( int j=0;j<l;j++){
+                st=st+" "+argumentStack.peek();
+                x+=argumentStack.pop();
+            }
+            //System.out.println()
+            System.out.println("answer is "+st);
+            argumentStack.add(x);
+            System.out.println("summation is "+x);
 
+        }
+
+    }
+
+    private void isThereValidNum(List<String> commandFraction) {
+        int count=0;
+        System.out.println("C values "+c);
+        for(int k=c+1; k<c+1+readArgumentSize(getSymbol(commandStack.peek()));k++){
+            if(getSymbol(commandFraction.get(k)).equals("Constant")){
+                count++;
+            }
+        }
+        System.out.println("counting values "+count);
+        if(count==readArgumentSize(getSymbol(commandStack.peek()))){
+            for(int k=c+1; k<c+1+readArgumentSize(getSymbol(commandStack.peek()));k++){
+               argumentStack.add(Double.parseDouble(commandFraction.get(k)));
+               System.out.println("Added "+commandFraction.get(k));
+            }
+            c=c+readArgumentSize(getSymbol(commandStack.peek()));
+            System.out.println("C values "+c);
         }
 
 
     }
+
 
     @Override
     public Command getCommand(String commandInput) throws InvalidCommandException {
