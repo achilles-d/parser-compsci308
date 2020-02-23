@@ -6,6 +6,9 @@ import javafx.beans.property.SimpleDoubleProperty;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
+import slogo.view.ViewController;
+import slogo.view.ViewTurtle;
+import slogo.view.ViewTurtlePlan;
 
 import java.util.List;
 
@@ -34,10 +37,12 @@ public class BackEndTurtle implements Turtle {
     //private boolean turtleVisible;
 
     public BackEndTurtle(){
+
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
         penUp.set(false);
         turtleVisible.set(true);
+
     }
 
     /**
@@ -46,8 +51,10 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void setPosition(Coordinate a) {
+
         xLoc.set(a.getXVal());
         yLoc.set(a.getYVal());
+
     }
 
     @Override

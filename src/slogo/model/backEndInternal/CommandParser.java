@@ -68,10 +68,8 @@ public class CommandParser implements Parser {
             } else{
                 matchMethodsToRun.get(getSymbol(commandList.get(commandCounter))).run();
             }
-
             buildExecutable();
             commandCounter++;
-
         }
 
         int size=commandStack.size();

@@ -19,12 +19,12 @@ public class Coordinate {
         myY = yCord;
     }
 
-    public double getX()
+    public double getXVal()
     {
         return myX;
     }
 
-    public double getY()
+    public double getYVal()
     {
         return myY;
     }
