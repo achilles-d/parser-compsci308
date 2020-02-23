@@ -1,6 +1,6 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.Command;
+import slogo.model.backEndInternal.commands.Command;
 import slogo.model.ExecutionException;
 import slogo.model.Executor;
 
@@ -20,7 +20,7 @@ public class CommandExecutor implements Executor {
        commands.get(currentCommand).run();
     }
 
-    private void matchCommands(){
+    public void matchCommands(){
         commands = new HashMap<>();
 
         // Populate commands map

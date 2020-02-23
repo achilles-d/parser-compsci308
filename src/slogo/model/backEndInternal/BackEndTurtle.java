@@ -12,12 +12,17 @@ public class BackEndTurtle implements Turtle {
     private double endX;
     private double endY;
 
+    private Coordinate turtleCoordinate = new Coordinate();
+
     private double heading;
     private boolean penUp;
+    private boolean turtleVisible;
+
     public BackEndTurtle(){
-        xLoc=0;
-        yLoc=0;
-        penUp=false;
+        xLoc = turtleCoordinate.getXVal();
+        yLoc = turtleCoordinate.getYVal();
+        penUp = false;
+        turtleVisible = true;
     }
     @Override
     /**
@@ -25,13 +30,13 @@ public class BackEndTurtle implements Turtle {
      * @param a is turtle's new coordinate
      */
     public void setPosition(Coordinate a) {
-        xLoc=a.getX();
-        yLoc=a.getY();
+        xLoc = a.getXVal();
+        yLoc = a.getYVal();
     }
 
     @Override
     public Coordinate getPosition() {
-        return null;
+        return turtleCoordinate;
     }
 
     @Override
@@ -58,6 +63,13 @@ public class BackEndTurtle implements Turtle {
         penUp=!penUp;
     }
 
+    /**
+     * Toggle whether turtle is visible or not
+     */
+    public void toggleVisibility() {
+        turtleVisible = !turtleVisible;
+    }
+
     @Override
     /**
      * This makes the turtle draw a new line object when it moves, and the pen is also down
@@ -66,8 +78,8 @@ public class BackEndTurtle implements Turtle {
      */
     public void drawLine(Coordinate start, Coordinate end) {
         penUp=false;
-        xLoc=end.getX();
-        yLoc=end.getY();
+        xLoc = end.getXVal();
+        yLoc = end.getYVal();
     }
 
     @Override

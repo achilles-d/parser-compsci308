@@ -30,4 +30,11 @@ public class Coordinate {
     }
 
 
+    public void setXVal(double x) {
+        this.myX = x;
+    }
+
+    public void setYVal(double y) {
+        this.myY = y;
+    }
 }
