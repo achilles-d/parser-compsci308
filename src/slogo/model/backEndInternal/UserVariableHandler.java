@@ -1,43 +1,51 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.Variable;
-import slogo.model.VariableHandler;
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
-public class UserVariableHandler implements VariableHandler {
-    Map<String, UserVariable> variableMap;
+public class UserVariableHandler<T>  {
 
-    public UserVariableHandler(){
-        variableMap=new HashMap<>();
+    private ObservableMap<String, UserVariable<?>> allVariables = FXCollections.observableHashMap();
+    private ObservableList<String> keys =  FXCollections.observableArrayList();
+
+    UserVariableHandler() {
+        allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable<?>> change) -> {
+            boolean removed = change.wasRemoved();
+            if (removed != change.wasAdded()) {
+                // no put for existing key
+                if (removed) {
+                    keys.remove(change.getKey());
+                } else {
+                    keys.add(change.getKey());
+                }
+            }
+        });
     }
 
-    @Override
-    public Variable getVariable(String variableName) {
-        return variableMap.get(variableName);
+    public UserVariable<?> getVariable(String variableName) {
+        return allVariables.get(variableName);
     }
 
-    @Override
-    /**
-     * makes a new variable with a name, value and type and store it to the map
-     */
-    public void makeVariable(String variableName, String variableType, String variableValue) {
-        UserVariable variable=new UserVariable();
-        variable.setVariable(variableName);
-        variable.setType(variableType);
-        variable.setValue(variableValue);
-        variableMap.put(variableName, variable);
-
+    public void makeVariable(String variableName, T variableValue) {
+        keys.add(variableName);
+        UserVariable<T> newVar = new UserVariable<>();
+        newVar.setValue(variableValue);
+        allVariables.put(variableName, newVar);
     }
 
-    @Override
-    /**
-     * returns all the variables stored in the map as a list
-     */
-    public List<Variable> getAllVariables() {
-        return variableMap.values().stream().collect(Collectors.toList());
+    public void removeVariable(String variableName) {
+        allVariables.remove(variableName);
+        keys.remove(variableName);
+    }
+
+    public ObservableList<String> getKeys() {
+        return keys;
+    }
+
+    public ObservableMap<String, UserVariable<?>> getVariableMap() {
+        return allVariables;
     }
 }
