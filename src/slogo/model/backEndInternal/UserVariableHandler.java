@@ -1,7 +1,8 @@
 package slogo.model.backEndInternal;
 
-import java.util.HashMap;
 import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import slogo.model.Variable;
 import slogo.model.VariableHandler;
 
@@ -9,7 +10,11 @@ import java.util.List;
 
 public class UserVariableHandler<T>  {
 
-    private Map<String, UserVariable<?>> allVariables = new HashMap<>();
+    private ObservableMap<String, UserVariable<?>> allVariables = FXCollections.observableHashMap();
+
+    UserVariableHandler() {
+        
+    }
 
     public UserVariable<?> getVariable(String variableName) {
         return allVariables.get(variableName);
