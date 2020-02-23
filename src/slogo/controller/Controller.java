@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.awt.Point;
 import java.util.List;
+import slogo.model.Line;
 import slogo.model.Variable;
 
 public interface Controller {
@@ -26,7 +27,7 @@ public interface Controller {
 
   public double getHeading();
 
-  public List<Point> getLines();
+  public List<Line> getLines();
 
   public Variable getVariable(String varName);
 

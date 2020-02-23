@@ -2,7 +2,9 @@ package slogo.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import slogo.model.Coordinate;
 import slogo.model.InvalidCommandException;
+import slogo.model.Line;
 import slogo.model.Variable;
 
 import java.awt.*;
@@ -45,8 +47,8 @@ public class ParserController implements Controller{
         return ex.getMessage();
     }
 
-    public Point getTurtlePosition() {
-        return new Point((int) myBackEndTurtle.getPosition().getXVal(), (int) myBackEndTurtle.getPosition().getYVal());
+    public Coordinate getTurtlePosition() {
+        return myBackEndTurtle.getPosition();
     }
 
     public double getTurtleHeading() {
@@ -70,7 +72,7 @@ public class ParserController implements Controller{
         return myBackEndTurtle.getHeading();
     }
 
-    public List<Point> getLines() {
+    public List<Line> getLines() {
         return null;
     }
 
