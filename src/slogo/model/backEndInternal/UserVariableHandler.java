@@ -12,9 +12,9 @@ public class UserVariableHandler<T>  {
 
     private ObservableList<String> keys =  FXCollections.observableArrayList();
 
-    private ObservableList<String> values;
+    private ObservableList<String> values = FXCollections.observableArrayList();
 
-    UserVariableHandler() {
+    public UserVariableHandler() {
         allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable<?>> change) -> {
             boolean removed = change.wasRemoved();
             if (removed != change.wasAdded()) {
