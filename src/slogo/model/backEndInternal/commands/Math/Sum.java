@@ -7,7 +7,7 @@ public class Sum implements Command<Double> {
   private double value1;
   private double value2;
 
-  Sum(double v1, double v2) {
+  public Sum(double v1, double v2) {
     this.value1 = v1;
     this.value2 = v2;
   }

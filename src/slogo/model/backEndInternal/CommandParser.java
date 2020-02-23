@@ -1,9 +1,13 @@
 package slogo.model.backEndInternal;
-
-import slogo.model.backEndInternal.commands.Command;
+//import slogo.model.backEndInternal.commands.Math.Sum;
+import slogo.model.backEndInternal.commands.*;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
 
+
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -27,13 +31,11 @@ public class CommandParser implements Parser {
 
         mySymbols = new ArrayList<>();
         matchMethodsToRun=new HashMap<>();
-        //String str;
         matchMethodsToRun.put("Constant", this::parseConstant);
         matchMethodsToRun.put("Command", this::parseCommand);
         matchMethodsToRun.put("Variable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseList);
         matchMethodsToRun.put("GroupStart", this::parseGroup);
-       // matchMethodsToRun.put("Constant", () ->addToStack());
     }
 
     private void parseGroup() {
@@ -59,7 +61,6 @@ public class CommandParser implements Parser {
     @Override
     public void parseCode(String consoleInput) throws InvalidCommandException {
         commandList.addAll(Arrays.asList(consoleInput.split(" ")));
-
 
         while(commandCounter<commandList.size()){
 
@@ -95,6 +96,22 @@ public class CommandParser implements Parser {
             System.out.println(""+st);
             argumentStack.add(x);
            // System.out.println("summation is "+x);
+
+            try {
+                Class<?> c = Class.forName("slogo.model.backEndInternal.commands.Math.Sum");
+
+                Constructor<?> cons = c.getDeclaredConstructor(Double.TYPE, Double.TYPE);
+
+                Object object = cons.newInstance(45.0,45.6);
+               Method method= c.getDeclaredMethod("execute");
+               System.out.println("answe is "+method.invoke(object));
+
+            }
+            catch (Throwable e) {
+                System.err.println(e);
+            }
+
+
 
         }
 
