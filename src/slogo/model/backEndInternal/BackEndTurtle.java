@@ -1,5 +1,8 @@
 package slogo.model.backEndInternal;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
@@ -7,22 +10,34 @@ import slogo.model.Turtle;
 import java.util.List;
 
 public class BackEndTurtle implements Turtle {
-    private double xLoc;
-    private double yLoc;
-    private double endX;
-    private double endY;
+
+    private SimpleDoubleProperty xLoc = new SimpleDoubleProperty();
+    private SimpleDoubleProperty yLoc = new SimpleDoubleProperty();
+
+    private SimpleDoubleProperty endX = new SimpleDoubleProperty();
+    private SimpleDoubleProperty endY = new SimpleDoubleProperty();
+
+    private SimpleDoubleProperty heading = new SimpleDoubleProperty();
+    private SimpleBooleanProperty penUp = new SimpleBooleanProperty();
+    private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
+
+
+    //private double xLoc;
+    //private double yLoc;
+    //private double endX;
+    //private double endY;
 
     private Coordinate turtleCoordinate = new Coordinate();
 
-    private double heading;
-    private boolean penUp;
-    private boolean turtleVisible;
+    //private double heading;
+    //private boolean penUp;
+    //private boolean turtleVisible;
 
     public BackEndTurtle(){
-        xLoc = turtleCoordinate.getXVal();
-        yLoc = turtleCoordinate.getYVal();
-        penUp = false;
-        turtleVisible = true;
+        xLoc.set(turtleCoordinate.getXVal());
+        yLoc.set(turtleCoordinate.getYVal());
+        penUp.set(false);
+        turtleVisible.set(true);
     }
     @Override
     /**
@@ -30,8 +45,8 @@ public class BackEndTurtle implements Turtle {
      * @param a is turtle's new coordinate
      */
     public void setPosition(Coordinate a) {
-        xLoc = a.getXVal();
-        yLoc = a.getYVal();
+        xLoc.set(a.getXVal());
+        yLoc.set(a.getYVal());
     }
 
     @Override
@@ -51,7 +66,7 @@ public class BackEndTurtle implements Turtle {
      * @param changeHeading is the new heading of the Turtle
      */
     public void setHeading(double changeHeading) {
-        heading=changeHeading;
+        heading.set(changeHeading);
     }
 
     @Override
@@ -60,14 +75,14 @@ public class BackEndTurtle implements Turtle {
      *
      */
     public void flipPen() {
-        penUp=!penUp;
+        penUp.set(!penUp.get());
     }
 
     /**
      * Toggle whether turtle is visible or not
      */
     public void toggleVisibility() {
-        turtleVisible = !turtleVisible;
+        turtleVisible.set(!turtleVisible.get());
     }
 
     @Override
@@ -77,9 +92,9 @@ public class BackEndTurtle implements Turtle {
      * @param end is the ending coordinate of the line
      */
     public void drawLine(Coordinate start, Coordinate end) {
-        penUp=false;
-        xLoc = end.getXVal();
-        yLoc = end.getYVal();
+        penUp.set(false);
+        xLoc.set(end.getXVal());
+        yLoc.set(end.getYVal());
     }
 
     @Override
@@ -87,11 +102,19 @@ public class BackEndTurtle implements Turtle {
         return null;
     }
 
+    public DoubleProperty getXLocProp() {
+        return xLoc;
+    }
+
+    public DoubleProperty getYLocProp() {
+        return yLoc;
+    }
+
     public boolean getPenStatus() {
-        return penUp;
+        return penUp.get();
     }
 
     public boolean getVisibility() {
-        return turtleVisible;
+        return turtleVisible.get();
     }
 }
