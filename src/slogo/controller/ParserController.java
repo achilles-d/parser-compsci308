@@ -1,69 +1,88 @@
 package slogo.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import slogo.model.InvalidCommandException;
 import slogo.model.Variable;
 
 import java.awt.*;
 import java.util.List;
+import slogo.model.backEndInternal.BackEndTurtle;
+import slogo.model.backEndInternal.CommandParser;
+import slogo.model.backEndInternal.UserVariableHandler;
 
 public class ParserController implements Controller{
 
-    @Override
+    private BackEndTurtle myBackEndTurtle;
+    private CommandParser myCommandParser;
+    private UserVariableHandler myUserVarHandler;
+
+    public ParserController(){
+        myBackEndTurtle = new BackEndTurtle();
+        myCommandParser = new CommandParser();
+        myUserVarHandler = new UserVariableHandler();
+
+    }
+
     public void updateViewTurtlePosition() {
 
     }
 
-    @Override
     public void updateTrails() {
 
     }
 
-    @Override
     public void toggleVisibility() {
 
     }
 
-    @Override
     public void clearScreen() {
 
     }
 
-    @Override
-    public void displayError() {
+    public void displayError(Exception ex) {
 
     }
 
-    @Override
     public Point getTurtlePosition() {
-        return null;
+        return new Point((int) myBackEndTurtle.getPosition().getXVal(), (int) myBackEndTurtle.getPosition().getYVal());
     }
 
-    @Override
     public double getTurtleHeading() {
-        return 0;
+        return 0.0;
     }
 
-    @Override
-    public void parseCode() {
-
+    public void parseCode(String code) {
+        try{
+            myCommandParser.parseCode(code);
+        }
+        catch(InvalidCommandException exception){
+            displayError(exception);
+        }
     }
 
-    @Override
     public List<String> getCommandHistory() {
         return null;
     }
 
-    @Override
     public double getHeading() {
-        return 0;
+        return myBackEndTurtle.getHeading();
     }
 
-    @Override
     public List<Point> getLines() {
         return null;
     }
 
-    @Override
-    public Variable getVariable() {
-        return null;
+    public Variable getVariable(String varName) {
+        return myUserVarHandler.getVariable(varName);
+    }
+
+    public List<String> getAllVariables(){
+        List<Variable> variables = myUserVarHandler.getAllVariables();
+        List<String> varNames = new ArrayList<String>();
+        for(Variable var : variables){
+            varNames.add(var.toString());
+        }
+        return Collections.unmodifiableList(varNames);
     }
 }

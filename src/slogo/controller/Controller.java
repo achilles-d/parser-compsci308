@@ -14,13 +14,13 @@ public interface Controller {
 
   public void clearScreen();
 
-  public void displayError();
+  public void displayError(Exception ex);
 
   public Point getTurtlePosition();
 
   public double getTurtleHeading();
 
-  public void parseCode();
+  public void parseCode(String code);
 
   public List<String> getCommandHistory();
 
@@ -28,6 +28,8 @@ public interface Controller {
 
   public List<Point> getLines();
 
-  public Variable getVariable();
+  public Variable getVariable(String varName);
+
+  public List<String> getAllVariables();
 
 }
