@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 import slogo.model.Line;
 import slogo.model.Variable;
+import slogo.model.backEndInternal.UserVariable;
 
 public interface Controller {
 
@@ -21,7 +22,7 @@ public interface Controller {
 
   public List<Line> getLines();
 
-  public Variable getVariable(String varName);
+  public UserVariable getVariable(String varName);
 
   public List<String> getAllVariables();
 
