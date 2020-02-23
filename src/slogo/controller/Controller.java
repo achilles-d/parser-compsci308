@@ -14,13 +14,13 @@ public interface Controller {
 
   public void clearScreen();
 
-  public void displayError(Exception ex);
+  public String displayError(Exception ex);
 
   public Point getTurtlePosition();
 
   public double getTurtleHeading();
 
-  public void parseCode(String code);
+  public void parseCode(String code) throws Exception;
 
   public List<String> getCommandHistory();
 

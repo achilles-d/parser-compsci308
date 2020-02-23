@@ -40,8 +40,9 @@ public class ParserController implements Controller{
 
     }
 
-    public void displayError(Exception ex) {
-
+    //To be called by Visualization
+    public String displayError(Exception ex){
+        return ex.getMessage();
     }
 
     public Point getTurtlePosition() {
@@ -52,7 +53,7 @@ public class ParserController implements Controller{
         return 0.0;
     }
 
-    public void parseCode(String code) {
+    public void parseCode(String code) throws InvalidCommandException {
         try{
             myCommandParser.parseCode(code);
         }
@@ -79,10 +80,10 @@ public class ParserController implements Controller{
 
     public List<String> getAllVariables(){
         List<Variable> variables = myUserVarHandler.getAllVariables();
-        List<String> varNames = new ArrayList<String>();
+        List<String> varStrings = new ArrayList<String>();
         for(Variable var : variables){
-            varNames.add(var.toString());
+            varStrings.add(var.toString());
         }
-        return Collections.unmodifiableList(varNames);
+        return Collections.unmodifiableList(varStrings);
     }
 }
