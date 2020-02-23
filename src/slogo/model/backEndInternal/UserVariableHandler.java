@@ -1,23 +1,51 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.Variable;
-import slogo.model.VariableHandler;
+import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
-import java.util.List;
+public class UserVariableHandler<T>  {
 
-public class UserVariableHandler implements VariableHandler {
-    @Override
-    public Variable getVariable(String variableName) {
-        return null;
+    private ObservableMap<String, UserVariable<?>> allVariables = FXCollections.observableHashMap();
+    private ObservableList<String> keys =  FXCollections.observableArrayList();
+
+    UserVariableHandler() {
+        allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable<?>> change) -> {
+            boolean removed = change.wasRemoved();
+            if (removed != change.wasAdded()) {
+                // no put for existing key
+                if (removed) {
+                    keys.remove(change.getKey());
+                } else {
+                    keys.add(change.getKey());
+                }
+            }
+        });
     }
 
-    @Override
-    public void makeVariable(String variableName, String variableType, String variableValue) {
-
+    public UserVariable<?> getVariable(String variableName) {
+        return allVariables.get(variableName);
     }
 
-    @Override
-    public List<Variable> getAllVariables() {
-        return null;
+    public void makeVariable(String variableName, T variableValue) {
+        keys.add(variableName);
+        UserVariable<T> newVar = new UserVariable<>();
+        newVar.setValue(variableValue);
+        allVariables.put(variableName, newVar);
+    }
+
+    public void removeVariable(String variableName) {
+        allVariables.remove(variableName);
+        keys.remove(variableName);
+    }
+
+    public ObservableList<String> getKeys() {
+        return keys;
+    }
+
+    public ObservableMap<String, UserVariable<?>> getVariableMap() {
+        return allVariables;
     }
 }

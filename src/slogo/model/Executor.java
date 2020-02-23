@@ -1,5 +1,7 @@
 package slogo.model;
 
+import slogo.model.backEndInternal.commands.Command;
+
 public interface Executor {
 
 
