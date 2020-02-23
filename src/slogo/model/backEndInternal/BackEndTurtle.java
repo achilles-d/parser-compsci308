@@ -39,11 +39,12 @@ public class BackEndTurtle implements Turtle {
         penUp.set(false);
         turtleVisible.set(true);
     }
-    @Override
+
     /**
      *  position of the turtle based on a coordinate it is given
      * @param a is turtle's new coordinate
      */
+    @Override
     public void setPosition(Coordinate a) {
         xLoc.set(a.getXVal());
         yLoc.set(a.getYVal());
@@ -69,11 +70,11 @@ public class BackEndTurtle implements Turtle {
         heading.set(changeHeading);
     }
 
-    @Override
     /**
      * This will toggle the pen on or off which changes whether or not a line is drawn when the turtle moves
      *
      */
+    @Override
     public void flipPen() {
         penUp.set(!penUp.get());
     }
@@ -85,12 +86,12 @@ public class BackEndTurtle implements Turtle {
         turtleVisible.set(!turtleVisible.get());
     }
 
-    @Override
     /**
      * This makes the turtle draw a new line object when it moves, and the pen is also down
      * @param start is the starting coordinate of the line
      * @param end is the ending coordinate of the line
      */
+    @Override
     public void drawLine(Coordinate start, Coordinate end) {
         penUp.set(false);
         xLoc.set(end.getXVal());
