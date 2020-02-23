@@ -1,8 +1,11 @@
 package slogo.model.backEndInternal;
+//import slogo.model.backEndInternal.commands.Sum;
 
+import slogo.model.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
+
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -13,27 +16,29 @@ public class CommandParser implements Parser {
 
     private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
     private List<Map.Entry<String, Pattern>> mySymbols;
-    private Stack<Double> argumentStack=new Stack<>();
-    private Stack<String> commandStack=new Stack<>();
-    private List<String> commandList=new ArrayList<>();
+    private Stack<Double> argumentStack = new Stack<>();
+    private Stack<String> commandStack = new Stack<>();
+    private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
-    private int commandCounter=0;
+    private CommandFactory commandFactor;
+    private CommandExecutor executor;
+    private int commandCounter = 0;
 
     /**
      * Create an empty parser
      */
 
-    public CommandParser () {
+    public CommandParser() {
 
         mySymbols = new ArrayList<>();
-        matchMethodsToRun=new HashMap<>();
-        //String str;
+        commandFactor= new CommandFactory();
+        matchMethodsToRun = new HashMap<>();
+        executor=new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
         matchMethodsToRun.put("Command", this::parseCommand);
         matchMethodsToRun.put("Variable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseList);
         matchMethodsToRun.put("GroupStart", this::parseGroup);
-       // matchMethodsToRun.put("Constant", () ->addToStack());
     }
 
     private void parseGroup() {
@@ -60,63 +65,88 @@ public class CommandParser implements Parser {
     public void parseCode(String consoleInput) throws InvalidCommandException {
         commandList.addAll(Arrays.asList(consoleInput.split(" ")));
 
+        while (commandCounter < commandList.size()) {
 
-        while(commandCounter<commandList.size()){
-
-            if(!matchMethodsToRun.containsKey(getSymbol(commandList.get(commandCounter)))){
+            if (!matchMethodsToRun.containsKey(getSymbol(commandList.get(commandCounter)))) {
                 matchMethodsToRun.get("Command").run();
-            } else{
+            } else {
                 matchMethodsToRun.get(getSymbol(commandList.get(commandCounter))).run();
             }
             buildExecutable();
             commandCounter++;
         }
 
-        int size=commandStack.size();
-        for(int i=0;i<size;i++){
+        int size = commandStack.size();
+        for (int i = 0; i < size; i++) {
             buildExecutable();
         }
 
-        }
+    }
 
     private void buildExecutable() {
-        if(commandStack.size()!=0 && readArgumentSize(getSymbol(commandStack.peek()))<=argumentStack.size()){
+        if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
 
-            double x=0;
-            int l=readArgumentSize(getSymbol(commandStack.peek()));
+            //double x = 0;
+            int l = readArgumentSize(getSymbol(commandStack.peek()));
             //System.out.println("argument size need is "+l);
-            String st=commandStack.pop()+":";
+            String st = getSymbol(commandStack.pop()) ;
+            //System.out.println(st);
+            Double[] arguments=new Double[l];
 
-            for( int j=0;j<l;j++){
-                st=st+" "+argumentStack.peek();
-                x+=argumentStack.pop();
+            for (int j = 0; j < l; j++) {
+               // st = st + " " + argumentStack.peek();
+                //x += argumentStack.pop();
+                arguments[j]=argumentStack.pop();
             }
 
-            System.out.println(""+st);
-            argumentStack.add(x);
-           // System.out.println("summation is "+x);
+            //System.out.println("" + st);
+            try {
+                argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            // System.out.println("summation is "+x);
+            try {
+               System.out.println(executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+           // System.out.println(commandFactor.getCommand("Difference").execute());
+//
+//            try {
+//
+//                Class<?> c = Class.forName("slogo.model.backEndInternal.commands.Sum");
+//                Constructor<?> cons = c.getDeclaredConstructor(Double.TYPE, Double.TYPE);
+//                Object object = cons.newInstance(45.0, 45.6);
+//                Method method = c.getDeclaredMethod("execute");
+//                System.out.println("answe is " + method.invoke(object));
+//            } catch (Throwable e) {
+//                System.err.println(e);
+//            }
+
 
         }
 
     }
 
     private void addValidNumToTheStack(List<String> commandFraction) {
-        int count=0;
+        int count = 0;
         //System.out.println("C values "+commandCounter);
-        for(int k=commandCounter+1; k<commandCounter+1+readArgumentSize(getSymbol(commandStack.peek()));k++){
-            if(getSymbol(commandFraction.get(k)).equals("Constant")){
+        for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+            if (getSymbol(commandFraction.get(k)).equals("Constant")) {
                 count++;
             }
         }
 
         //System.out.println("counting values "+count);
-        if(count==readArgumentSize(getSymbol(commandStack.peek()))){
-            for(int k=commandCounter+1; k<commandCounter+1+readArgumentSize(getSymbol(commandStack.peek()));k++){
-               argumentStack.add(Double.parseDouble(commandFraction.get(k)));
-               //System.out.println("Added "+commandFraction.get(k));
+        if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
+            for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+                argumentStack.add(Double.parseDouble(commandFraction.get(k)));
+                //System.out.println("Added "+commandFraction.get(k));
             }
-            commandCounter=commandCounter+readArgumentSize(getSymbol(commandStack.peek()));
-            //System.out.println("C values "+commandCounter);
+            commandCounter = commandCounter + readArgumentSize(getSymbol(commandStack.peek()));
+
         }
 
 
@@ -129,11 +159,10 @@ public class CommandParser implements Parser {
     }
 
     /**
-     *
      * @param syntax the name of the syntax source language name
-     *Adds the keys to mySymbols, thus comparison will be done
+     *               Adds the keys to mySymbols, thus comparison will be done
      */
-    public void addPatterns (String syntax) {
+    public void addPatterns(String syntax) {
         ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntax);
         for (String key : Collections.list(resources.getKeys())) {
             String regex = resources.getString(key);
@@ -144,11 +173,10 @@ public class CommandParser implements Parser {
 
 
     /**
-     *
      * @param command the commands as a text
      * @return the commands type
      */
-    public String getSymbol (String command) {
+    public String getSymbol(String command) {
         final String ERROR = "NO MATCH";
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
@@ -160,11 +188,11 @@ public class CommandParser implements Parser {
     }
 
     // Returns true if the given text matches the given regular expression pattern
-    private boolean match (String text, Pattern regex) {
+    private boolean match(String text, Pattern regex) {
         return regex.matcher(text).matches();
     }
 
-    private int readArgumentSize(String key){
+    private int readArgumentSize(String key) {
         return Integer.parseInt(sizes.getString(key));
 
     }
