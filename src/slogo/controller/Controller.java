@@ -7,19 +7,11 @@ import slogo.model.Variable;
 
 public interface Controller {
 
-  public void updateViewTurtlePosition();
-
-  public void updateTrails();
-
   public void toggleVisibility();
-
-  public void clearScreen();
 
   public String displayError(Exception ex);
 
   public Point getTurtlePosition();
-
-  public double getTurtleHeading();
 
   public void parseCode(String code) throws Exception;
 

@@ -6,8 +6,6 @@ import slogo.model.Coordinate;
 import slogo.model.InvalidCommandException;
 import slogo.model.Line;
 import slogo.model.Variable;
-
-import java.awt.*;
 import java.util.List;
 import slogo.model.backEndInternal.BackEndTurtle;
 import slogo.model.backEndInternal.CommandParser;
@@ -26,19 +24,7 @@ public class ParserController implements Controller{
 
     }
 
-    public void updateViewTurtlePosition() {
-
-    }
-
-    public void updateTrails() {
-
-    }
-
     public void toggleVisibility() {
-
-    }
-
-    public void clearScreen() {
 
     }
 
@@ -49,10 +35,6 @@ public class ParserController implements Controller{
 
     public Coordinate getTurtlePosition() {
         return myBackEndTurtle.getPosition();
-    }
-
-    public double getTurtleHeading() {
-        return 0.0;
     }
 
     public void parseCode(String code) throws InvalidCommandException {
