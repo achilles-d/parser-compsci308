@@ -86,4 +86,12 @@ public class BackEndTurtle implements Turtle {
     public List<Line> getLines() {
         return null;
     }
+
+    public boolean getPenStatus() {
+        return penUp;
+    }
+
+    public boolean getVisibility() {
+        return turtleVisible;
+    }
 }
