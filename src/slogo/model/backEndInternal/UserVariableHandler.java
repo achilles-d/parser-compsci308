@@ -9,7 +9,10 @@ import javafx.collections.ObservableMap;
 public class UserVariableHandler<T>  {
 
     private ObservableMap<String, UserVariable<?>> allVariables = FXCollections.observableHashMap();
+
     private ObservableList<String> keys =  FXCollections.observableArrayList();
+
+    private ObservableList<String> values;
 
     UserVariableHandler() {
         allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable<?>> change) -> {
@@ -47,5 +50,12 @@ public class UserVariableHandler<T>  {
 
     public ObservableMap<String, UserVariable<?>> getVariableMap() {
         return allVariables;
+    }
+
+    public ObservableList<String> getValues() {
+        for (Object v : allVariables.entrySet()) {
+            values.add(v.toString());
+        }
+        return values;
     }
 }
