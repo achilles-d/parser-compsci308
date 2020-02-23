@@ -20,8 +20,8 @@ public class ViewTurtle {
         myView.setFitWidth(50);
         myView.setFitHeight(50);
         myCoordinates = new Coordinate();
-        myX = myCoordinates.getX();
-        myY = myCoordinates.getY();
+        myX = myCoordinates.getXVal();
+        myY = myCoordinates.getYVal();
     }
 
     public Node getView()
