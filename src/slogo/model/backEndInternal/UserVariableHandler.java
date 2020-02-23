@@ -1,23 +1,29 @@
 package slogo.model.backEndInternal;
 
+import java.util.HashMap;
+import java.util.Map;
 import slogo.model.Variable;
 import slogo.model.VariableHandler;
 
 import java.util.List;
 
-public class UserVariableHandler implements VariableHandler {
-    @Override
-    public Variable getVariable(String variableName) {
-        return null;
+public class UserVariableHandler<T>  {
+
+    private Map<String, UserVariable<?>> allVariables = new HashMap<>();
+
+    public UserVariable<?> getVariable(String variableName) {
+        return allVariables.get(variableName);
     }
 
-    @Override
-    public void makeVariable(String variableName, String variableType, String variableValue) {
 
+    public void makeVariable(String variableName, T variableValue) {
+        UserVariable<T> newVar = new UserVariable<>();
+        newVar.setValue(variableValue);
+        allVariables.put(variableName, newVar);
     }
 
-    @Override
-    public List<Variable> getAllVariables() {
-        return null;
+
+    public Map<String, UserVariable<?>> getAllVariables() {
+        return allVariables;
     }
 }
