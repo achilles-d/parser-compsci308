@@ -12,6 +12,7 @@ public class ViewTurtle {
     private Coordinate myCoordinates;
     private double myX;
     private double myY;
+    private double myHeading;
 
     public ViewTurtle()
     {
@@ -22,6 +23,8 @@ public class ViewTurtle {
         myCoordinates = new Coordinate();
         myX = myCoordinates.getXVal();
         myY = myCoordinates.getYVal();
+        myHeading = 0;
+
     }
 
     public Node getView()
