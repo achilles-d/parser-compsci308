@@ -14,8 +14,9 @@ public class CommandExecutor implements Executor {
      *
      */
     public Object executeCommand(Command currentCommand) throws ExecutionException {
+        //System.out.println("So far good"+currentCommand.execute().toString());
 
-       return  currentCommand.execute();
+       return currentCommand.execute();
     }
 
 

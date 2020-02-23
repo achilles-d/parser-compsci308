@@ -7,13 +7,17 @@ import java.lang.reflect.Method;
 
 public class CommandFactory  {
 
-    public Command getCommand(String commandType){
-        Command object = null;
+    public Object getCommand(String commandType, Double[] arguments){
+        Object currentCommand = null;
         try {
 
-            Class<?> c = Class.forName("slogo.model.backEndInternal.commands.Difference");
-            Constructor<?> cons = c.getDeclaredConstructor(Double.TYPE, Double.TYPE);
-            object = (Command) cons.newInstance(45.0, 45.6);
+            Class<?> c = Class.forName("slogo.model.backEndInternal.commands."+commandType);
+            Class[] args=new Class[arguments.length];
+            for(int i=0; i<args.length; i++){
+                args[i]=Double.TYPE;
+            }
+            Constructor<?> cons = c.getDeclaredConstructor(args);
+            currentCommand =cons.newInstance((Object[]) arguments);
            // Method method = c.getDeclaredMethod("execute");
             //System.out.println("answe is " + method.invoke(object));
         } catch (Throwable e) {
@@ -21,7 +25,7 @@ public class CommandFactory  {
         }
 
 
-        return object;
+        return currentCommand;
     }
 
 }

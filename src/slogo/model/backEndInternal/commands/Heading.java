@@ -4,9 +4,9 @@ import slogo.model.backEndInternal.BackEndTurtle;
 
 public class Heading implements Command<Double> {
 
- public BackEndTurtle backEndTurtle;
+BackEndTurtle backEndTurtle;
 
-  Heading(BackEndTurtle myTurtle) {
+public  Heading(BackEndTurtle myTurtle) {
     this.backEndTurtle = myTurtle;
   }
 

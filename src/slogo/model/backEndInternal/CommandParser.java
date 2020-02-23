@@ -1,6 +1,7 @@
 package slogo.model.backEndInternal;
 //import slogo.model.backEndInternal.commands.Sum;
 
+import slogo.model.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
@@ -19,6 +20,8 @@ public class CommandParser implements Parser {
     private Stack<String> commandStack = new Stack<>();
     private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
+    private CommandFactory commandFactor;
+    private CommandExecutor executor;
     private int commandCounter = 0;
 
     /**
@@ -28,7 +31,9 @@ public class CommandParser implements Parser {
     public CommandParser() {
 
         mySymbols = new ArrayList<>();
+        commandFactor= new CommandFactory();
         matchMethodsToRun = new HashMap<>();
+        executor=new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
         matchMethodsToRun.put("Command", this::parseCommand);
         matchMethodsToRun.put("Variable", this::parseVariable);
@@ -81,21 +86,33 @@ public class CommandParser implements Parser {
     private void buildExecutable() {
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
 
-            double x = 0;
+            //double x = 0;
             int l = readArgumentSize(getSymbol(commandStack.peek()));
             //System.out.println("argument size need is "+l);
-            String st = commandStack.pop() + ":";
+            String st = getSymbol(commandStack.pop()) ;
+            System.out.println(st);
+            Double[] arguments=new Double[l];
 
             for (int j = 0; j < l; j++) {
-                st = st + " " + argumentStack.peek();
-                x += argumentStack.pop();
+               // st = st + " " + argumentStack.peek();
+                //x += argumentStack.pop();
+                arguments[j]=argumentStack.pop();
             }
 
-            System.out.println("" + st);
-            argumentStack.add(x);
+            //System.out.println("" + st);
+            try {
+                argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             // System.out.println("summation is "+x);
-            CommandFactory cp= new CommandFactory();
-            System.out.println(cp.getCommand("Difference").execute());
+            try {
+               System.out.println(executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+           // System.out.println(commandFactor.getCommand("Difference").execute());
 //
 //            try {
 //
