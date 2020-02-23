@@ -1,6 +1,6 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.Command;
+import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
 

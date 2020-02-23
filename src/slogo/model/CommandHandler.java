@@ -1,6 +1,7 @@
 package slogo.model;
 
 import java.util.List;
+import slogo.model.backEndInternal.commands.Command;
 
 public interface CommandHandler {
     /**
