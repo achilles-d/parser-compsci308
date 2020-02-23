@@ -3,6 +3,9 @@ package slogo.model.backEndInternal;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
+import slogo.view.ViewController;
+import slogo.view.ViewTurtle;
+import slogo.view.ViewTurtlePlan;
 
 import java.util.List;
 
@@ -18,6 +21,10 @@ public class BackEndTurtle implements Turtle {
         xLoc=0;
         yLoc=0;
         penUp=false;
+
+        ViewTurtle turtle=new ViewTurtle();
+
+
     }
     @Override
     /**
@@ -25,6 +32,7 @@ public class BackEndTurtle implements Turtle {
      * @param a is turtle's new coordinate
      */
     public void setPosition(Coordinate a) {
+
         xLoc=a.getX();
         yLoc=a.getY();
     }
