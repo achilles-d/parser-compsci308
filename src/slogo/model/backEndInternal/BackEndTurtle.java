@@ -22,9 +22,6 @@ public class BackEndTurtle implements Turtle {
         yLoc=0;
         penUp=false;
 
-        ViewTurtle turtle=new ViewTurtle();
-
-
     }
     @Override
     /**
