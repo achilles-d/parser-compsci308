@@ -11,7 +11,7 @@ public interface Executor {
      * @throws ExecutionException when there is some error that occurs when trying to run the command.
      * executionError could be extended to create more specific types of errors. For example, there could be math errors like divide by 0
      */
-    public void executeCommand(Command currentCommand) throws ExecutionException;
+    public Object executeCommand(Command currentCommand) throws ExecutionException;
 
 }
 
