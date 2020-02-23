@@ -25,16 +25,9 @@ public class Menu {
        MenuItem itemSpanish = new MenuItem("Spanish");
        MenuItem itemEnglish = new MenuItem("English");
        MenuButton language = new MenuButton("Language",null,itemGerman,itemSpanish,itemEnglish);
-
        Button help = new Button("Help");
-       help.setOnAction(event -> {
-           Stage stage1 = new Stage();
-           Label helpText = new Label("This is a help screen");
-           Group helpGroup = new Group();
-           helpGroup.getChildren().addAll(helpText);
-           Scene helpScreen = new Scene(helpGroup,400,400);
-           stage1.setScene(helpScreen);
-           stage1.show();});
+       help.setOnAction(event -> { makeHelpScreen();
+          });
 
        myView.getChildren().addAll(colors,language,help);
    }
@@ -42,5 +35,16 @@ public class Menu {
    public Node getView()
    {
        return myView;
+   }
+
+   private void makeHelpScreen()
+   {
+       Stage stage1 = new Stage();
+       Label helpText = new Label("This is a help screen");
+       Group helpGroup = new Group();
+       helpGroup.getChildren().addAll(helpText);
+       Scene helpScreen = new Scene(helpGroup,400,400);
+       stage1.setScene(helpScreen);
+       stage1.show();
    }
 }

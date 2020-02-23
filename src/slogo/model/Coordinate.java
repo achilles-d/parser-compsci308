@@ -19,13 +19,16 @@ public class Coordinate {
         myY = yCord;
     }
 
-    public double getXVal() {
+    public double getX()
+    {
         return myX;
     }
 
-    public double getYVal() {
+    public double getY()
+    {
         return myY;
     }
+
 
     public void setXVal(double x) {
         this.myX = x;

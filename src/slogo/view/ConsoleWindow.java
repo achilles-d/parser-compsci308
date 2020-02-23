@@ -28,6 +28,7 @@ public class ConsoleWindow extends Window {
         }));
         reset = new Button("Reset");
         reset.setOnAction((event -> {console.clear();}));
+
         buttonPane = new VBox();
         buttonPane.setPadding(new Insets(10));
         buttonPane.getChildren().addAll(execute,reset);
