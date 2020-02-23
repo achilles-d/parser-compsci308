@@ -90,7 +90,7 @@ public class CommandParser implements Parser {
             int l = readArgumentSize(getSymbol(commandStack.peek()));
             //System.out.println("argument size need is "+l);
             String st = getSymbol(commandStack.pop()) ;
-            System.out.println(st);
+            //System.out.println(st);
             Double[] arguments=new Double[l];
 
             for (int j = 0; j < l; j++) {
