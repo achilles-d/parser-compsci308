@@ -3,26 +3,29 @@ package slogo.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
+
+
+
+import java.util.List;
+
 import slogo.model.Coordinate;
 import slogo.model.InvalidCommandException;
 import slogo.model.Line;
-import slogo.model.Variable;
-import java.util.List;
-import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.model.backEndInternal.CommandParser;
-import slogo.model.backEndInternal.UserVariable;
-import slogo.model.backEndInternal.UserVariableHandler;
+import slogo.model.backEndInternal.*;
+import slogo.model.backEndInternal.commands.Command;
 
 public class ParserController implements Controller{
 
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;
+    private CommandHandlerAPI myCommandHandlerAPI;
     private UserVariableHandler myUserVarHandler;
     private Language myLanguage;
 
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
-        myCommandParser = new CommandParser();
+        myCommandHandlerAPI = new CommandHandlerAPI();
+        myCommandParser = new CommandParser(myCommandHandlerAPI);
         myUserVarHandler = new UserVariableHandler();
         myLanguage = Language.ENGLISH;
     }
@@ -51,7 +54,11 @@ public class ParserController implements Controller{
     }
 
     public List<String> getCommandHistory() {
-        return null;
+        List<String> commandStrings = new ArrayList<>();
+        for(Command cmd : myCommandHandlerAPI.getCommandHistory()){
+            commandStrings.add(cmd.toString());
+        }
+        return commandStrings;
     }
 
     public double getHeading() {
