@@ -16,7 +16,7 @@ public class SetPosition implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     Coordinate currentPosition = backEndTurtle.getPosition();
     Coordinate newPosition = new Coordinate(x, y);
     backEndTurtle.setPosition(newPosition);

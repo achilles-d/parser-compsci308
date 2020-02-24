@@ -1,6 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
-public class Or implements Command<Integer> {
+public class Or implements Command<Double> {
 
   Double value1;
   Double value2;
@@ -11,8 +11,8 @@ public class Or implements Command<Integer> {
   }
 
   @Override
-  public double execute() {
-    return (value1 != 0 || value2 != 0 ) ? 1 : 0;
+  public Double execute() {
+    return (value1 != 0 || value2 != 0 ) ? 1.0 : 0.0;
   }
 }
 

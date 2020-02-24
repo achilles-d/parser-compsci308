@@ -15,7 +15,7 @@ public class SetTowards implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     double newHeading = Math.toDegrees(Math.atan2(y, x));
     backEndTurtle.setHeading(newHeading);
     return newHeading;
