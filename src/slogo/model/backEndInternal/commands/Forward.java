@@ -1,7 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
 import slogo.model.Coordinate;
-import slogo.model.backEndInternal.commands.Command;
 
 public class Forward implements Command<Double> {
 

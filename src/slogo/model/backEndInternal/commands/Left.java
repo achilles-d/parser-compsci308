@@ -1,7 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.model.backEndInternal.commands.Command;
 
 public class Left implements Command<Double> {
 

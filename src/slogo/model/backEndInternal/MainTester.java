@@ -1,7 +1,10 @@
 package slogo.model.backEndInternal;
+import slogo.model.CommandHandler;
+import slogo.model.ExecutionException;
 import slogo.model.InvalidCommandException;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -47,12 +50,14 @@ public class MainTester {
     /**
      * Start of the program --- just run some test examples.
      */
-    public static void main (String[] args) throws InvalidCommandException {
+    public static void main (String[] args) throws InvalidCommandException, NoSuchMethodException, ExecutionException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         // NO static methods needed!
         MainTester m = new MainTester();
 
         // set up the parser, which checks for matches in order given
-        CommandParser lang = new CommandParser();
+        CommandHandlerAPI ch=new CommandHandlerAPI();
+        CommandParser lang = new CommandParser(ch);
+
         // these are more specific, so add them first to ensure they are checked first
         lang.addPatterns("English");
         // general checks, added last
@@ -63,13 +68,29 @@ public class MainTester {
         //String userInput = "sum 10 goto 50 30";
        // String userInput = "[ fd sum sum sum sum 10 20 30 5 5";
        //String userInput ="fd * greater? 5 3 100";
-     String userInput = "sum sum sum 10 50 30 40";
+     //String userInput = "sum sum sum 10 50 30 40";
+      // String userInput="showingp";
+        //String userInput="ycor";
+
         //String userInput ="[ :dist 10 40 10 ]";
-      // String userInput = "fd fd fd 50";
+      //String userInput = "fd fd fd 50";
        //String userInput="minus 50 50";
+
+        //String userInput="and 50 50";
+        //String userInput="and 50 0";
+
+      // String userInput="atan sum sum sum 10 50 30 40";
+
+      String userInput="cos less? sum difference 10 50 30 40";
+
+
+
+
         // note, this simple "algorithm" will not handle SLogo comments
         //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
         lang.parseCode(userInput);
+
+        System.out.println(ch.getCommandHistory().get(1).toString());
 
 
         //String fileInput =
