@@ -1,6 +1,8 @@
 package slogo.view;
 
 import javafx.application.Application;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -21,6 +23,8 @@ public class LogoVisualization {
     Stage myStage;
     private TurtleWindow graphics;
     ViewController myController;
+    private Property activePenColor;
+    private Property activeTurtleImage;
 
     public LogoVisualization(Stage stage)
     {
@@ -40,8 +44,10 @@ public class LogoVisualization {
         VariableWindow myVariables = new VariableWindow();
         HistoryWindow myHistory = new HistoryWindow();
         AvailableCommandsWindow available = new AvailableCommandsWindow("resources.languages.English");
-        graphics = new TurtleWindow();
         Menu toolbar = new Menu();
+        activeTurtleImage = toolbar.getActiveTurtleImage();
+        activePenColor = toolbar.getActivePenColor();
+        graphics = new TurtleWindow(toolbar.getActivePenColor(),toolbar.getActiveTurtleImage());
 
         VBox leftComps = new VBox();
         leftComps.getChildren().addAll(myHistory.getView(),available.getView());
