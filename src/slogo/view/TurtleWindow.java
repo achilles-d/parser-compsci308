@@ -1,5 +1,7 @@
 package slogo.view;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -15,12 +17,13 @@ public class TurtleWindow extends Window {
     private Pane canvasWrap;
     private Canvas background;
     private ViewTurtle myTurtle;
+    private SimpleStringProperty backgroundColor;
 
-    public TurtleWindow()
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImage)
     {
         myView = new StackPane();
         background = new Canvas();
-        myTurtle = new ViewTurtle();
+        myTurtle = new ViewTurtle(turtleImage);
         canvasWrap = new Pane();
         canvasWrap.getChildren().addAll(background,myTurtle.getView());
         background.widthProperty().bind(canvasWrap.widthProperty());
@@ -29,8 +32,12 @@ public class TurtleWindow extends Window {
        // background.heightProperty().bind(myView.heightProperty());
         myView.getChildren().addAll(canvasWrap);
 
+        backgroundColor = new SimpleStringProperty();
+        //backgroundColor.bind(menuBackgroundColor);
+        backgroundColor = (SimpleStringProperty)menuBackgroundColor;
+        backgroundColor.addListener((observable, oldValue, newValue) -> {setBackgroundColor(backgroundColor.getValue());});
 
-        makeBackgroundColor("red");
+        setBackgroundColor(backgroundColor.getValue());
         //testDrawLine();
        // myView.setStyle("-fx-background-color: red");
        // System.out.println(myTurtle.getView().getLayoutX());
@@ -39,7 +46,7 @@ public class TurtleWindow extends Window {
     }
 
     public void setBackgroundColor(String color) {
-        makeBackgroundColor(color);
+        myView.setBackground(new Background(new BackgroundFill(Color.valueOf(color), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     protected void fitCanvas()
@@ -52,10 +59,6 @@ public class TurtleWindow extends Window {
 
     }
 
-    private void makeBackgroundColor(String color)
-    {
-        myView.setBackground(new Background(new BackgroundFill(Color.valueOf(color), CornerRadii.EMPTY, Insets.EMPTY)));
-    }
 
     private void testDrawLine()
     {
