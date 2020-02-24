@@ -18,12 +18,13 @@ public class ParserController implements Controller{
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;
     private UserVariableHandler myUserVarHandler;
+    private Language myLanguage;
 
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
         myCommandParser = new CommandParser();
         myUserVarHandler = new UserVariableHandler();
-
+        myLanguage = Language.ENGLISH;
     }
 
     //To be called by Visualization
@@ -67,6 +68,14 @@ public class ParserController implements Controller{
     }
 
     public List<String> getAllVariables(){
+        return null;
+    }
 
+    public String getLanguage(){
+        return myLanguage.toString();
+    }
+
+    public void setLanguage(String language){
+        myLanguage = Language.valueOf(language);
     }
 }

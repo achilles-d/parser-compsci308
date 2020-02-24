@@ -26,4 +26,8 @@ public interface Controller {
 
   public List<String> getAllVariables();
 
+  public String getLanguage();
+
+  public void setLanguage(String language);
+
 }
