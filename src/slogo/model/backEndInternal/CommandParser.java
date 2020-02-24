@@ -1,4 +1,5 @@
 package slogo.model.backEndInternal;
+import slogo.model.CommandHandler;
 import slogo.model.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
@@ -21,13 +22,14 @@ public class CommandParser implements Parser {
     private CommandFactory commandFactor;
     private CommandExecutor executor;
     private int commandCounter = 0;
+    private CommandHandlerAPI commandHandler;
 
     /**
      * Create an empty parser
      */
 
-    public CommandParser() {
-
+    public CommandParser(CommandHandlerAPI commandHandler) {
+        this.commandHandler=commandHandler;
         mySymbols = new ArrayList<>();
         commandFactor = new CommandFactory();
         matchMethodsToRun = new HashMap<>();
@@ -91,6 +93,7 @@ public class CommandParser implements Parser {
             }
 
             argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st, arguments)));
+            commandHandler.updateCommandHistory((Command)commandFactor.getCommand(st, arguments));
 
             System.out.println(argumentStack.peek());
         }
