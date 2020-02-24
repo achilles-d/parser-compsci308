@@ -1,7 +1,9 @@
 package slogo.model.backEndInternal;
+import slogo.model.ExecutionException;
 import slogo.model.InvalidCommandException;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -47,7 +49,7 @@ public class MainTester {
     /**
      * Start of the program --- just run some test examples.
      */
-    public static void main (String[] args) throws InvalidCommandException {
+    public static void main (String[] args) throws InvalidCommandException, NoSuchMethodException, ExecutionException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
         // NO static methods needed!
         MainTester m = new MainTester();
 
@@ -65,7 +67,7 @@ public class MainTester {
        //String userInput ="fd * greater? 5 3 100";
      //String userInput = "sum sum sum 10 50 30 40";
       // String userInput="showingp";
-        String userInput="ycor";
+        //String userInput="ycor";
 
         //String userInput ="[ :dist 10 40 10 ]";
       //String userInput = "fd fd fd 50";
@@ -76,7 +78,7 @@ public class MainTester {
 
       // String userInput="atan sum sum sum 10 50 30 40";
 
-      // String userInput="cos less? sum difference 10 50 30 40";
+      String userInput="cos less? sum difference 10 50 30 40";
 
 
 

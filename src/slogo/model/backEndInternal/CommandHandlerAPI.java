@@ -6,6 +6,8 @@ import slogo.model.backEndInternal.commands.Command;
 import java.util.List;
 
 public class CommandHandlerAPI implements CommandHandler {
+
+    
     @Override
     public List<Command> getCommandHistory() {
 
