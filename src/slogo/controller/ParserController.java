@@ -25,10 +25,9 @@ public class ParserController implements Controller{
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
         myCommandHandlerAPI = new CommandHandlerAPI();
-        myCommandParser = new CommandParser(myCommandHandlerAPI);
         myUserVarHandler = new UserVariableHandler();
-        myLanguage = Language.ENGLISH;
-        myCommandParser.addPatterns(myLanguage.myPropertyDir);
+        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler);
+        setLanguage("ENGLISH");
     }
 
     //To be called by Visualization
@@ -50,7 +49,7 @@ public class ParserController implements Controller{
             myCommandParser.parseCode(code);
         }
         catch(InvalidCommandException exception){
-            displayError(exception);
+            throw exception;
         }
     }
 
