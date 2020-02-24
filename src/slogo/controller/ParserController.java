@@ -14,7 +14,7 @@ import slogo.model.Line;
 import slogo.model.backEndInternal.*;
 import slogo.model.backEndInternal.commands.Command;
 
-public class ParserController implements Controller{
+public class ParserController {
 
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;

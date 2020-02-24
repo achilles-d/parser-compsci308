@@ -56,15 +56,21 @@ public class LogoVisualization {
         bottom.getChildren().addAll(myVariables.getView(),commandWindow.getView());
 
 
-        border.setBottom(bottom);
+        //border.setCenter(graphics.getView());
         border.setCenter(graphics.getView());
+        border.setBottom(bottom);
+
         border.setLeft(leftComps);
         border.setTop(toolbar.getView());
+
+
 
 
         Scene scene = new Scene(border,1000,1000);
         myStage.setScene(scene);
         myStage.show();
+
+        graphics.getSize();
         
 
 

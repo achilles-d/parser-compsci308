@@ -62,7 +62,6 @@ public class Menu {
            MenuItem imageSelect = new MenuItem(image);
            imageSelect.setOnAction(e -> {
                turtleImage.setValue(turtleImages.getString(image));
-               System.out.println("clicked" + turtleImage.getValue());
            });
            images.getItems().add(imageSelect);
 
