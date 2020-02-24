@@ -4,9 +4,6 @@ import slogo.model.backEndInternal.commands.Command;
 import slogo.model.ExecutionException;
 import slogo.model.Executor;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class CommandExecutor implements Executor {
 
     public CommandExecutor(){
@@ -16,8 +13,11 @@ public class CommandExecutor implements Executor {
     /**
      *
      */
-    public void executeCommand(Command currentCommand) throws ExecutionException {
-       currentCommand.execute();
+    public Object executeCommand(Command currentCommand) throws ExecutionException {
+       //System.out.println("So far good"+currentCommand.execute().toString());
+
+       return (Double) currentCommand.execute();
     }
+
 
 }
