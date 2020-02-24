@@ -28,6 +28,7 @@ public class ParserController implements Controller{
         myCommandParser = new CommandParser(myCommandHandlerAPI);
         myUserVarHandler = new UserVariableHandler();
         myLanguage = Language.ENGLISH;
+        myCommandParser.addPatterns(myLanguage.myPropertyDir);
     }
 
     //To be called by Visualization
@@ -84,5 +85,6 @@ public class ParserController implements Controller{
 
     public void setLanguage(String language){
         myLanguage = Language.valueOf(language);
+        myCommandParser.addPatterns(myLanguage.myPropertyDir);
     }
 }
