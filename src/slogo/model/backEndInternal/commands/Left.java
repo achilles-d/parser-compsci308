@@ -13,7 +13,7 @@ public class Left implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     backEndTurtle.setHeading(backEndTurtle.getHeading() - degrees);
     return degrees;
   }

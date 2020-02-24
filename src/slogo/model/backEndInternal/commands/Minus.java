@@ -9,7 +9,7 @@ public class Minus implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     return value * -1;
   }
 }

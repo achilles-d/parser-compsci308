@@ -9,7 +9,7 @@ public class Sine implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     return Math.sin(value);
   }
 }

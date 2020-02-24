@@ -13,7 +13,7 @@ public class Forward implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     turtlePosition.setYVal(turtlePosition.getYVal() + movement);
     return movement;
   }

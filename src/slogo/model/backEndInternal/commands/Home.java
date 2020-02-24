@@ -12,7 +12,7 @@ public class Home implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     Coordinate currentPosition = backEndTurtle.getPosition();
     Double distance = Math.sqrt(Math.pow(currentPosition.getXVal(), 2) + Math.pow(currentPosition.getYVal(), 2));
     backEndTurtle.setPosition(new Coordinate());

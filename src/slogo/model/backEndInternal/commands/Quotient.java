@@ -11,7 +11,7 @@ public class Quotient implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     return value1 / value2;
   }
 

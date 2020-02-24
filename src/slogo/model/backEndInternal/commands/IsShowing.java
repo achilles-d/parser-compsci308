@@ -2,7 +2,7 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
 
-public class IsShowing implements Command<Integer> {
+public class IsShowing implements Command<Double> {
 
   BackEndTurtle backEndTurtle;
 
@@ -11,7 +11,7 @@ public class IsShowing implements Command<Integer> {
   }
 
   @Override
-  public double execute() {
-    return backEndTurtle.getVisibility() ? 1 : 0;
+  public Double execute() {
+    return (double) (backEndTurtle.getVisibility() ? 1 : 0);
   }
 }

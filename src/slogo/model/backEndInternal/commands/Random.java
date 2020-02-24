@@ -9,7 +9,7 @@ public class Random implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     return Math.floor(Math.random() * max);
   }
 }

@@ -4,7 +4,7 @@ public class Pi implements Command<Double> {
 
   public Pi(){;}
   @Override
-  public double execute() {
+  public Double execute() {
     return Math.PI;
   }
 }

@@ -13,7 +13,7 @@ public class SetHeading implements Command<Double> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     Double calcDegrees = Math.abs(backEndTurtle.getHeading() - degrees);
     backEndTurtle.setHeading(degrees);
     return calcDegrees;

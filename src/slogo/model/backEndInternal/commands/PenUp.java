@@ -2,7 +2,7 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
 
-public class PenUp implements Command<Integer> {
+public class PenUp implements Command<Double> {
 
   BackEndTurtle backEndTurtle;
 
@@ -11,8 +11,8 @@ public class PenUp implements Command<Integer> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     backEndTurtle.flipPen();
-    return 0;
+    return 0.0;
   }
 }
