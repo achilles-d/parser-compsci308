@@ -13,7 +13,7 @@ import slogo.model.backEndInternal.CommandParser;
 import slogo.model.backEndInternal.UserVariable;
 import slogo.model.backEndInternal.UserVariableHandler;
 
-public class ParserController implements Controller{
+public class ParserController {
 
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;
