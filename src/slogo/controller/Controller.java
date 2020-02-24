@@ -2,32 +2,32 @@ package slogo.controller;
 
 import java.awt.Point;
 import java.util.List;
+import slogo.model.Line;
 import slogo.model.Variable;
+import slogo.model.backEndInternal.UserVariable;
 
 public interface Controller {
 
-  public void updateViewTurtlePosition();
-
-  public void updateTrails();
-
   public void toggleVisibility();
 
-  public void clearScreen();
-
-  public void displayError();
+  public String displayError(Exception ex);
 
   public Point getTurtlePosition();
 
-  public double getTurtleHeading();
-
-  public void parseCode();
+  public void parseCode(String code) throws Exception;
 
   public List<String> getCommandHistory();
 
   public double getHeading();
 
-  public List<Point> getLines();
+  public List<Line> getLines();
 
-  public Variable getVariable();
+  public UserVariable getVariable(String varName);
+
+  public List<String> getAllVariables();
+
+  public String getLanguage();
+
+  public void setLanguage(String language);
 
 }

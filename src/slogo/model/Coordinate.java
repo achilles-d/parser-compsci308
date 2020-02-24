@@ -2,6 +2,7 @@ package slogo.model;
 
 //Will implement this class later, just created so that interfaces for API design will compile
 
+//TODO change to extend Point class
 public class Coordinate {
 
     private double myX;
