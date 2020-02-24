@@ -9,7 +9,7 @@ public class NaturalLog implements Command<Double> {
   }
 
   @Override
-  public Double execute() {
+  public double execute() {
     return Math.log(value);
   }
 }

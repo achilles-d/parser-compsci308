@@ -11,7 +11,7 @@ public class NotEqual<T extends Comparable<T>> implements Command<Integer> {
   }
 
   @Override
-  public Integer execute() {
+  public double execute() {
     return value1.equals(value2) ? 0 : 1;
   }
 }

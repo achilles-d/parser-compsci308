@@ -1,7 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.model.backEndInternal.commands.Command;
 
 public class SetHeading implements Command<Double> {
 
@@ -14,7 +13,7 @@ public class SetHeading implements Command<Double> {
   }
 
   @Override
-  public Double execute() {
+  public double execute() {
     Double calcDegrees = Math.abs(backEndTurtle.getHeading() - degrees);
     backEndTurtle.setHeading(degrees);
     return calcDegrees;

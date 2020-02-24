@@ -11,7 +11,7 @@ public  Heading(BackEndTurtle myTurtle) {
   }
 
   @Override
-  public Double execute() {
+  public double execute() {
     return backEndTurtle.getHeading();
   }
 }

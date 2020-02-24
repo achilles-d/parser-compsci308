@@ -11,7 +11,7 @@ public class IsShowing implements Command<Integer> {
   }
 
   @Override
-  public Integer execute() {
+  public double execute() {
     return backEndTurtle.getVisibility() ? 1 : 0;
   }
 }

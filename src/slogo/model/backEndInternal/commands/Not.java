@@ -9,7 +9,7 @@ public class Not implements Command<Integer> {
   }
 
   @Override
-  public Integer execute() {
+  public double execute() {
     return value == 0 ? 1 : 0;
   }
 }

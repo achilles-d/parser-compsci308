@@ -11,7 +11,7 @@ public class Power implements Command<Double> {
   }
 
   @Override
-  public Double execute() {
+  public double execute() {
     return Math.pow(base, exponent);
   }
 }

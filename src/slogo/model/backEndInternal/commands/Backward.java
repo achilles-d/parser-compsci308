@@ -1,7 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
 import slogo.model.Coordinate;
-import slogo.model.backEndInternal.commands.Command;
 
 public class Backward implements Command<Double> {
 
@@ -15,7 +14,7 @@ public class Backward implements Command<Double> {
 
 
   @Override
-  public Double execute() {
+  public double execute() {
     turtlePosition.setYVal(turtlePosition.getYVal() - movement);
     return movement;
   }

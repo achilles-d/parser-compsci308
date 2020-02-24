@@ -11,7 +11,7 @@ public class IsPenDown implements Command<Integer> {
   }
 
   @Override
-  public Integer execute() {
+  public double execute() {
     return backEndTurtle.getPenStatus() ? 0 : 1;
   }
 }

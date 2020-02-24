@@ -9,7 +9,7 @@ public class Tangent implements Command<Double> {
   }
 
   @Override
-  public Double execute() {
+  public double execute() {
     return Math.tan(value);
   }
 }

@@ -106,11 +106,9 @@ public class CommandParser implements Parser {
                 e.printStackTrace();
             }
             // System.out.println("summation is "+x);
-            try {
-               System.out.println(executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+
+               System.out.println(argumentStack.peek());
+
 
            // System.out.println(commandFactor.getCommand("Difference").execute());
 //

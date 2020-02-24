@@ -9,7 +9,7 @@ public class Cosine implements Command<Double> {
   }
 
   @Override
-  public Double execute() {
+  public double execute() {
     return Math.cos(value);
   }
 }

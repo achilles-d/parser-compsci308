@@ -11,7 +11,7 @@ public class LessThan<T extends Comparable<T>> implements Command<Integer> {
   }
 
   @Override
-  public Integer execute() {
+  public double execute() {
     return value1.compareTo(value2) < 0 ? 1 : 0;
   }
 }
