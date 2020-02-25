@@ -57,7 +57,8 @@ public class MainTester {
         // set up the parser, which checks for matches in order given
         CommandHandlerAPI ch=new CommandHandlerAPI();
         UserVariableHandler uh=new UserVariableHandler();
-        CommandParser lang = new CommandParser(ch, uh);
+        BackEndTurtle turtle= new BackEndTurtle();
+        CommandParser lang = new CommandParser(ch, uh, turtle);
 
         // these are more specific, so add them first to ensure they are checked first
         lang.addPatterns("English");

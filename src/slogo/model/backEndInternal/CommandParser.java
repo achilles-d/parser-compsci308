@@ -14,6 +14,7 @@ public class CommandParser implements Parser {
     private static final String RESOURCES_PACKAGE = CommandParser.class.getPackageName() + ".resources.languages.";
 
     private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
+
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Stack<Double> argumentStack = new Stack<>();
     private Stack<String> commandStack = new Stack<>();
@@ -126,10 +127,16 @@ public class CommandParser implements Parser {
 //        int count=0;
 //
 //        for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+//
+//            if(commandFraction.get(commandCounter + 1).equals()){
+//
+//            }
 //            if (getSymbol(commandFraction.get(k)).equals("MakeVariable")) {
 //                count++;
 //            }
+//
 //        }
+//
 //        if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
 //            for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
 //                argumentStack.add(Double.parseDouble(commandFraction.get(k)));
