@@ -99,8 +99,10 @@ public class CommandParser implements Parser {
                 arguments[j] = argumentStack.pop();
             }
 
-            argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st, arguments)));
-            //commandHandler.updateCommandHistory((Command)commandFactor.getCommand(st, arguments));
+            Command com = (Command) commandFactor.getCommand(st, arguments);
+            argumentStack.add((Double) executor.executeCommand(com));
+            commandHandler.updateCommandHistory(st + Arrays.toString(arguments));
+            //commandHandler.updateCommandHistory((String) commandFactor.getCommand(st, arguments));
 
             //System.out.println(argumentStack.peek());
         }
