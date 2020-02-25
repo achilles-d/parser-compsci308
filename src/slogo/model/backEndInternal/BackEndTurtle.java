@@ -16,6 +16,8 @@ import java.util.List;
 
 public class BackEndTurtle implements Turtle {
 
+
+
     private SimpleDoubleProperty xLoc = new SimpleDoubleProperty();
     private SimpleDoubleProperty yLoc = new SimpleDoubleProperty();
 
@@ -56,14 +58,36 @@ public class BackEndTurtle implements Turtle {
     @Override
     public void setPosition(Coordinate a) {
 
+        Coordinate newCord = ensureInBounds(a);
         if(!penUp.getValue())
         {
-            drawLine(turtleCoordinate,a);
+            drawLine(turtleCoordinate,newCord);
         }
-        turtleCoordinate = a;
-        xLoc.set(a.getXVal());
-        yLoc.set(a.getYVal());
+        turtleCoordinate = newCord;
+        xLoc.set(newCord.getXVal());
+        yLoc.set(newCord.getYVal());
 
+
+    }
+
+    private Coordinate ensureInBounds(Coordinate a)
+    {
+        double x =a.getXVal();
+        double y = a.getYVal();
+        System.out.println("Y COORDINATE" + y);
+
+        while(x>350)
+            x--;
+        while(y>809.5)
+            y--;
+
+        while(x<-375)
+            x++;
+        while(y<-286.5)
+            y++;
+
+
+        return new Coordinate(x,y);
 
     }
 
@@ -74,7 +98,7 @@ public class BackEndTurtle implements Turtle {
 
     @Override
     public double getHeading() {
-        return 0;
+        return heading.doubleValue();
     }
 
     @Override

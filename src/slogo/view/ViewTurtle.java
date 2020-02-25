@@ -65,6 +65,7 @@ public class ViewTurtle {
 
     public void setHeading(double heading)
     {
+        System.out.println(heading);
         myHeading = heading;
         myView.setRotate(myHeading);
     }

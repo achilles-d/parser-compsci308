@@ -74,17 +74,16 @@ public class TurtleWindow extends Window {
 
     private double adjustX(double x)
     {
-        return x + X_LAYOUT_SCALING - myTurtle.getSize()/2;
+        return x + X_LAYOUT_SCALING;
     }
 
     private double adjustY(double y)
     {
-        return -y + Y_LAYOUT_SCALING - myTurtle.getSize()/2;
+        return -y + Y_LAYOUT_SCALING;
     }
 
     private void drawLines()
     {
-        System.out.println(myController.getLines().size());
         drawer.clearRect(0,0, background.getWidth(),background.getHeight());
         drawer.setStroke(Color.valueOf(penColor.getValue()));
 
@@ -121,6 +120,7 @@ public class TurtleWindow extends Window {
          */
 
         myTurtle.updatePosition(myController.getTurtlePosition());
+        myTurtle.setHeading(myController.getHeading());
         drawLines();
     }
 
