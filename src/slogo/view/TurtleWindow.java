@@ -95,7 +95,8 @@ public class TurtleWindow extends Window {
 
     @Override
     public void update() {
-
+        myTurtle.updatePosition(myController.getTurtlePosition());
+        drawLines();
     }
 
     @Override
