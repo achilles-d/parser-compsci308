@@ -57,7 +57,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseCommand() {
-        System.out.println("GOT TO PARSECOMMASND");
+        //System.out.println("GOT TO PARSECOMMASND");
         commandStack.add(commandList.get(commandCounter));
         addValidNumToTheStack(commandList);
     }
@@ -75,7 +75,7 @@ public class CommandParser implements Parser {
 
             if (!matchMethodsToRun.containsKey(getSymbol(commandList.get(commandCounter)))) {
                 matchMethodsToRun.get("Command").run();
-                System.out.println("EXECUTED");
+                //System.out.println("EXECUTED");
             } else {
                 matchMethodsToRun.get(getSymbol(commandList.get(commandCounter))).run();
             }
@@ -100,22 +100,22 @@ public class CommandParser implements Parser {
             }
 
             argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st, arguments)));
-            commandHandler.updateCommandHistory((Command)commandFactor.getCommand(st, arguments));
+            //commandHandler.updateCommandHistory((Command)commandFactor.getCommand(st, arguments));
 
-            System.out.println(argumentStack.peek());
+            //System.out.println(argumentStack.peek());
         }
     }
 
     // add valid constant to the stack
     private void addValidNumToTheStack(List<String> commandFraction) {
         int count = 0;
-        System.out.println("PEEK: " + commandStack.peek());
+        //System.out.println("PEEK: " + commandStack.peek());
         for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
             if (getSymbol(commandFraction.get(k)).equals("Constant")) {
                 count++;
             }
         }
-        System.out.println("COUNT = " + count);
+        //System.out.println("COUNT = " + count);
         if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
             for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
                 argumentStack.add(Double.parseDouble(commandFraction.get(k)));
@@ -147,7 +147,7 @@ public class CommandParser implements Parser {
      */
     public String getSymbol(String command) {
         final String ERROR = "NO MATCH";
-        System.out.println("INVALID: " + command + "SIZE: " + command.length());
+        //System.out.println("INVALID: " + command + "SIZE: " + command.length());
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
                 return e.getKey();

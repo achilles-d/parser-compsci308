@@ -86,6 +86,7 @@ public class ParserController {
 
     public void setLanguage(String language){
         myLanguage = Language.valueOf(language);
-        myCommandParser.addPatterns(myLanguage.myPropertyDir);
+        myCommandParser.addPatterns("resources.languages.English");
+        myCommandParser.addPatterns("resources.languages.Syntax");
     }
 }
