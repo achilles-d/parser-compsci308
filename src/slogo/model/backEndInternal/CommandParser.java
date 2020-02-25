@@ -34,7 +34,7 @@ public class CommandParser implements Parser {
         this.commandHandler=commandHandler;
         this.userVariableHandler=userVariableHandler;
         mySymbols = new ArrayList<>();
-        commandFactor = new CommandFactory(turtle);
+        commandFactor = new CommandFactory(turtle, userVariableHandler);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
