@@ -2,11 +2,13 @@ package slogo.model.backEndInternal;
 
         import java.lang.reflect.Constructor;
         import java.lang.reflect.InvocationTargetException;
+        import java.util.List;
 
 public class CommandFactory {
     private BackEndTurtle turtle;
     private UserVariableHandler userVariableHandler;
-    private int counter;
+    private int doubleCounter;
+    private int stringCounter;
 
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler) {
 
@@ -14,16 +16,16 @@ public class CommandFactory {
         this.userVariableHandler=userVariableHandler;
     }
 
-    public Object getCommand(String commandType, Double[] arguments) throws InvocationTargetException,
+    public Object getCommand(List<String> commandWithDependency, Double[] arguments) throws InvocationTargetException,
             NoSuchMethodException, ClassNotFoundException,
             InstantiationException,
             IllegalAccessException {
 
-        return makeCommand(commandType, arguments);
+        return makeCommand(commandWithDependency, arguments);
         //return
     }
 
-    private Object makeCommand(String commandType, Double[] arguments) throws NoSuchMethodException,
+    private Object makeCommand(List<String> commandWithDependency, Double[] arguments) throws NoSuchMethodException,
             IllegalAccessException,
             InvocationTargetException,
             InstantiationException,
@@ -31,13 +33,15 @@ public class CommandFactory {
 
         Object currentCommand = null;
 
+        System.out.println("Should create this constructor "+commandWithDependency.get(0));
+            Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandWithDependency.get(0));
 
-            Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandType);
-            System.out.println(commandType);
 
             Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();
             Object[] ar = new Object[pType.length];
-            counter = 0;
+            doubleCounter = 0;
+            stringCounter= 1;
+
 
             for (int j = 0; j < pType.length; j++) {
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
@@ -47,10 +51,14 @@ public class CommandFactory {
                     ar[j] = turtle.getPosition();
                 }  else if(className.equals("UserVariableHandler")){
                     ar[j]=userVariableHandler;
+                } else if(className.equals("String")){
+                    ar[j]=commandWithDependency.get(stringCounter);
+                    stringCounter++;
+
                 }
                 else {
-                    ar[j] = arguments[counter];
-                    counter++;
+                    ar[j] = arguments[doubleCounter];
+                    doubleCounter++;
                 }
             }
 

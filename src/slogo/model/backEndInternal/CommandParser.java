@@ -40,7 +40,7 @@ public class CommandParser implements Parser {
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
         matchMethodsToRun.put("Command", this::parseCommand);
-        matchMethodsToRun.put("MakeVariable", this::parseVariable);
+        matchMethodsToRun.put("Variable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseList);
         matchMethodsToRun.put("GroupStart", this::parseGroup);
     }
@@ -54,6 +54,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseVariable() {
+       // addValidVariable(commandList);
 
         System.out.println("Variable");
 
@@ -61,7 +62,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseCommand() {
-        //System.out.println("GOT TO PARSECOMMASND");
+        System.out.println("GOT TO PARSECOMMASND");
         commandStack.add(commandList.get(commandCounter));
         addValidNumToTheStack(commandList);
     }
@@ -77,10 +78,14 @@ public class CommandParser implements Parser {
 
         while (commandCounter < commandList.size()) {
 
+            System.out.println(commandList.toString());
+
             if (!matchMethodsToRun.containsKey(getSymbol(commandList.get(commandCounter)))) {
                 matchMethodsToRun.get("Command").run();
-                //System.out.println("EXECUTED");
+                System.out.println("EXECUTED");
             } else {
+                System.out.println(getSymbol(commandList.get(commandCounter)));
+                System.out.println("EXECUTED "+commandList.get(commandCounter));
                 matchMethodsToRun.get(getSymbol(commandList.get(commandCounter))).run();
             }
             buildExecutable();
@@ -97,18 +102,30 @@ public class CommandParser implements Parser {
     private void buildExecutable() throws ExecutionException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
             int l = readArgumentSize(getSymbol(commandStack.peek()));
-            String st = getSymbol(commandStack.pop());
+            String currentCommandName = (commandStack.pop());
+            //System.out.println("LIne 106"+ getSymbol(commandStack.peek()));
+            List<String> commandWithDependency=new ArrayList<>();
             Double[] arguments = new Double[l];
             for (int j = 0; j < l; j++) {
                 arguments[j] = argumentStack.pop();
             }
 
-            Command com = (Command) commandFactor.getCommand(st, arguments);
-            argumentStack.add((Double) executor.executeCommand(com));
-            commandHandler.updateCommandHistory(st + Arrays.toString(arguments));
-            //commandHandler.updateCommandHistory((String) commandFactor.getCommand(st, arguments));
+            if(getSymbol(currentCommandName).equals("Variable") && !matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){
+                System.out.println("The first command is "+ commandStack.peek());
+                commandWithDependency.add(getSymbol(commandStack.peek()));
+                commandWithDependency.add(currentCommandName);
+                currentCommandName=commandStack.pop();
 
-            //System.out.println(argumentStack.peek());
+            } else{
+                commandWithDependency.add(getSymbol(currentCommandName));
+            }
+
+            Command com = (Command) commandFactor.getCommand(commandWithDependency, arguments);
+            commandWithDependency.set(0,currentCommandName);
+           // commandWithDependency.get(0).replaceAll("",currentCommandName);
+            argumentStack.add((Double) executor.executeCommand(com));
+            commandHandler.updateCommandHistory(commandWithDependency.toString() + Arrays.toString(arguments));
+            System.out.println(commandWithDependency.toString() + " "+Arrays.toString(arguments));
         }
     }
 
@@ -117,39 +134,44 @@ public class CommandParser implements Parser {
         int count = 0;
         //System.out.println("PEEK: " + commandStack.peek());
         for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
-            if (getSymbol(commandFraction.get(k)).equals("Constant")) {
+            if (getSymbol(commandFraction.get(k)).equals("Constant") || getSymbol(commandFraction.get(k)).equals(
+                    "Variable") ) {
                 count++;
             }
         }
         //System.out.println("COUNT = " + count);
         if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
-            for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
-                argumentStack.add(Double.parseDouble(commandFraction.get(k)));
+            //ArrayList<String> commandWithVariable=new ArrayList<>();
+            //commandWithVariable.add(commandStack.peek());
+            for (int k = commandCounter + 1; k < commandCounter + 1 + count; k++) {
+                if(getSymbol(commandFraction.get(k)).equals("Variable") ){
+                    commandStack.add(commandFraction.get(k));
+                } else{
+                    argumentStack.add(Double.parseDouble(commandFraction.get(k)));
+                }
             }
-            commandCounter = commandCounter + readArgumentSize(getSymbol(commandStack.peek()));
+            commandCounter = commandCounter + count;
         }
     }
 
 //    private void addValidVariable(List<String> commandFraction){
-//        int count=0;
 //
-//        for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+//        if(commandFraction.get(commandCounter + 1).length()!=0 && getSymbol(commandFraction.get(
+//                commandCounter + 2)).equals("Constant")){
 //
-//            if(commandFraction.get(commandCounter + 1).equals()){
+//            String command=commandFraction.get(commandCounter)+" " +commandFraction.get(commandCounter+1)+" " +
+//                    commandFraction.get(commandCounter+2);
+//            userVariableHandler.makeVariable(commandFraction.get(commandCounter+1),
+//                    Double.parseDouble(commandFraction.get(commandCounter+2)));
 //
-//            }
-//            if (getSymbol(commandFraction.get(k)).equals("MakeVariable")) {
-//                count++;
-//            }
+//            commandHandler.updateCommandHistory(command);
+//            System.out.println(userVariableHandler.getValues());
+//            argumentStack.add(Double.parseDouble(commandFraction.get(commandCounter+2)));
+//            //commandStack.add()
 //
+//            commandCounter+=2;
 //        }
 //
-//        if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
-//            for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
-//                argumentStack.add(Double.parseDouble(commandFraction.get(k)));
-//            }
-//            commandCounter = commandCounter + readArgumentSize(getSymbol(commandStack.peek()));
-//        }
 //
 //    }
 
@@ -188,6 +210,7 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
+        //System.out.println("line 190 "+key);
         return Integer.parseInt(sizes.getString(key));
 
     }
