@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import slogo.controller.ParserController;
 
 import java.lang.reflect.Constructor;
 
@@ -22,13 +23,20 @@ public class LogoVisualization {
     BorderPane border = new BorderPane();
     Stage myStage;
     private TurtleWindow graphics;
-    ViewController myController;
+    private ParserController myController;
     private Property activePenColor;
     private Property activeTurtleImage;
+    private VariableWindow myVariables;
+    private ConsoleWindow myConsole;
+    private HistoryWindow myHistory;
+    private Menu toolbar;
+    AvailableCommandsWindow available;
+    private Button executeButton;
 
-    public LogoVisualization(Stage stage)
+    public LogoVisualization(Stage stage, ParserController control)
     {
         myStage = stage;
+        myController = control;
         init();
     }
 
@@ -40,20 +48,24 @@ public class LogoVisualization {
     public void init()
     {
 
-        ConsoleWindow commandWindow = new ConsoleWindow();
-        VariableWindow myVariables = new VariableWindow();
-        HistoryWindow myHistory = new HistoryWindow();
-        AvailableCommandsWindow available = new AvailableCommandsWindow("resources.languages.English");
-        Menu toolbar = new Menu();
+        executeButton = new Button("Execute");
+        executeButton.setOnAction(event -> {updateAllPanes();});
+
+        myConsole = new ConsoleWindow(executeButton,myController);
+
+        myVariables = new VariableWindow(myController);
+        myHistory = new HistoryWindow(myController);
+        available = new AvailableCommandsWindow("resources.languages.English",myController);
+        toolbar = new Menu(myController);
         activeTurtleImage = toolbar.getActiveTurtleImage();
         activePenColor = toolbar.getActivePenColor();
-        graphics = new TurtleWindow(toolbar.getActivePenColor(),toolbar.getActiveTurtleImage());
+        graphics = new TurtleWindow(toolbar.getActivePenColor(),toolbar.getActiveTurtleImage(),myController);
 
         VBox leftComps = new VBox();
         leftComps.getChildren().addAll(myHistory.getView(),available.getView());
 
         HBox bottom  = new HBox();
-        bottom.getChildren().addAll(myVariables.getView(),commandWindow.getView());
+        bottom.getChildren().addAll(myVariables.getView(),myConsole.getView());
 
 
         //border.setCenter(graphics.getView());
@@ -76,6 +88,29 @@ public class LogoVisualization {
 
 
     }
+
+    private void updateAllPanes()
+    {
+        try {
+            myController.parseCode(myConsole.getConsoleText());
+        }
+        catch (Exception e)
+        {
+            showError(e.getMessage());
+        }
+
+        graphics.update();
+
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        //alert.setTitle(myResources.getString("ErrorTitle"));
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
 
 
 

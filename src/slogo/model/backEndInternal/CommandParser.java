@@ -126,7 +126,7 @@ public class CommandParser implements Parser {
      *               Adds the keys to mySymbols, thus comparison can be done
      */
     public void addPatterns(String syntax) {
-        ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntax);
+        ResourceBundle resources = ResourceBundle.getBundle(syntax);
         for (String key : Collections.list(resources.getKeys())) {
             String regex = resources.getString(key);
             mySymbols.add(new AbstractMap.SimpleEntry<>(key,

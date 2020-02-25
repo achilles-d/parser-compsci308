@@ -3,6 +3,7 @@ package slogo.view;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
@@ -13,10 +14,13 @@ public class AvailableCommandsWindow extends Window {
 
     private TitledPane myView;
     private ListView<String> commands;
+    private ParserController myController;
 
 
-    public AvailableCommandsWindow(String languageFile)
+
+    public AvailableCommandsWindow(String languageFile,ParserController control)
     {
+        myController = control;
         commandNames = java.util.ResourceBundle.getBundle(languageFile);
         myView = new TitledPane();
         myView.setText("Available Commands");

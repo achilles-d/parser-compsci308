@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import slogo.controller.ParserController;
 import slogo.model.Coordinate;
 
 public class TurtleWindow extends Window {
@@ -20,9 +21,12 @@ public class TurtleWindow extends Window {
     private SimpleStringProperty backgroundColor;
     private SimpleStringProperty penColor;
     private GraphicsContext drawer;
+    private ParserController myController;
 
-    public TurtleWindow(Property menuBackgroundColor, Property turtleImage)
+
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImage, ParserController control)
     {
+        myController = control;
         myView = new Pane();
         myView.setMaxSize(750,573);
         //myView.setMinSize(0,0);
@@ -52,7 +56,7 @@ public class TurtleWindow extends Window {
        // System.out.println(myTurtle.getView().getLayoutX());
         //System.out.println(myTurtle.getView().getTranslateX());
 
-        myTurtle.updatePosition(-350,260);
+        myTurtle.updatePosition(-390,-261.5);
 
     }
 
