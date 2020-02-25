@@ -51,7 +51,7 @@ public class ParserController {
 
     public List<String> getCommandHistory() {
         List<String> commandStrings = new ArrayList<>();
-        for(Command cmd : myCommandHandlerAPI.getCommandHistory()){
+        for(String cmd : myCommandHandlerAPI.getCommandHistory()){
             commandStrings.add(cmd.toString());
         }
         return commandStrings;
