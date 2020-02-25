@@ -11,6 +11,7 @@ import java.util.List;
 import slogo.model.Coordinate;
 import slogo.model.InvalidCommandException;
 import slogo.model.Line;
+import slogo.model.Variable;
 import slogo.model.backEndInternal.*;
 import slogo.model.backEndInternal.commands.Command;
 
@@ -25,15 +26,9 @@ public class ParserController {
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
         myCommandHandlerAPI = new CommandHandlerAPI();
-        myCommandParser = new CommandParser(myCommandHandlerAPI);
         myUserVarHandler = new UserVariableHandler();
-        myLanguage = Language.ENGLISH;
-        myCommandParser.addPatterns(myLanguage.myPropertyDir);
-    }
-
-    //To be called by Visualization
-    public void toggleVisibility() {
-
+        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler);
+        setLanguage("ENGLISH");
     }
 
     //To be called by Visualization
@@ -45,12 +40,12 @@ public class ParserController {
         return myBackEndTurtle.getPosition();
     }
 
-    public void parseCode(String code) throws InvalidCommandException {
+    public void parseCode(String code) throws Exception {
         try{
             myCommandParser.parseCode(code);
         }
-        catch(InvalidCommandException exception){
-            displayError(exception);
+        catch(Exception exception){
+            throw exception;
         }
     }
 
@@ -76,7 +71,13 @@ public class ParserController {
     }
 
     public List<String> getAllVariables(){
-        return null;
+        List<String> variables = myUserVarHandler.getKeys();
+        List<String> varNamesAndValues = new ArrayList<>();
+        for(String var : variables){
+            String varValue = myUserVarHandler.getVariable(var).toString();
+            varNamesAndValues.add(var + ":" + varValue);
+        }
+        return Collections.unmodifiableList(varNamesAndValues);
     }
 
     public String getLanguage(){
