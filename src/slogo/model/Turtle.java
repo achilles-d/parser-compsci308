@@ -52,5 +52,5 @@ public interface Turtle {
      * This is a part of the external back-end API
      * @return an unmodifiable list of line objects associated with turtle
      */
-    public List<List<Coordinate>> getLines();
+    public List<Line> getLines();
 }

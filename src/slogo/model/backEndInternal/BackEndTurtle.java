@@ -32,14 +32,14 @@ public class BackEndTurtle implements Turtle {
     //private double endY;
 
     private Coordinate turtleCoordinate = new Coordinate();
-    private LineAPI lines;
+    private List<Line> lines;
 
     //private double heading;
     //private boolean penUp;
     //private boolean turtleVisible;
 
     public BackEndTurtle(){
-        lines=new LineAPI();
+        lines=new ArrayList<>();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
         penUp.set(false);
@@ -101,17 +101,13 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
-        lines.createLine(start, end);
-//        line.
-//
-//        penUp.set(false);
-//        xLoc.set(end.getXVal());
-//        yLoc.set(end.getYVal());
+        LineAPI line=new LineAPI();
+        lines.add(line);
     }
 
     @Override
-    public List<List<Coordinate>> getLines() {
-        return lines.getLineEndpoints();
+    public List<Line> getLines() {
+        return lines;
     }
 
     public DoubleProperty getXLocProp() {
