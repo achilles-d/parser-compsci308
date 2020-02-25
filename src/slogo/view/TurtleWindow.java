@@ -77,7 +77,7 @@ public class TurtleWindow extends Window {
     {
         drawer.clearRect(0,0, background.getWidth(),background.getHeight());
         drawer.setStroke(Color.valueOf(penColor.getValue()));
-        
+
 
 
         /*
