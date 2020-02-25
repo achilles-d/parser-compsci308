@@ -11,6 +11,7 @@ import java.util.List;
 import slogo.model.Coordinate;
 import slogo.model.InvalidCommandException;
 import slogo.model.Line;
+import slogo.model.Variable;
 import slogo.model.backEndInternal.*;
 import slogo.model.backEndInternal.commands.Command;
 
@@ -75,7 +76,13 @@ public class ParserController implements Controller{
     }
 
     public List<String> getAllVariables(){
-        return null;
+        List<String> variables = myUserVarHandler.getKeys();
+        List<String> varNamesAndValues = new ArrayList<>();
+        for(String var : variables){
+            String varValue = myUserVarHandler.getVariable(var).toString();
+            varNamesAndValues.add(var + ":" + varValue);
+        }
+        return Collections.unmodifiableList(varNamesAndValues);
     }
 
     public String getLanguage(){
