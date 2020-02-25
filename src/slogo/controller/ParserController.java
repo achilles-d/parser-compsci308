@@ -40,11 +40,11 @@ public class ParserController {
         return myBackEndTurtle.getPosition();
     }
 
-    public void parseCode(String code) throws InvalidCommandException {
+    public void parseCode(String code) throws Exception {
         try{
             myCommandParser.parseCode(code);
         }
-        catch(InvalidCommandException exception){
+        catch(Exception exception){
             throw exception;
         }
     }
