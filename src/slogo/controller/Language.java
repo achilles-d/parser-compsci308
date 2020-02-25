@@ -8,11 +8,11 @@ public enum Language {
   RUSSIAN("Russian.properties"), ENGLISH("English.properties"), SPANISH("Spanish.properties"),
   URDU("Urdu.properties");
 
-  //FIXME maybe remove the constant
-  private final String RESOURCES_PACKAGE_DIR = CommandParser.class.getPackageName() + ".resources.languages.";
+  //TODO reconsider adding static modifier
+  private final String LANGUAGES_DIR = "resources.languages.";
   public String myPropertyDir;
 
   Language(String languageFileName){
-    myPropertyDir = RESOURCES_PACKAGE_DIR + languageFileName;
+    myPropertyDir = LANGUAGES_DIR + languageFileName;
   }
 }
