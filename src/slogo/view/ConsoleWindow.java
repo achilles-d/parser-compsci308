@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import slogo.controller.ParserController;
 
 public class ConsoleWindow extends Window {
 
@@ -15,9 +16,12 @@ public class ConsoleWindow extends Window {
     private VBox buttonPane;
     private Button execute;
     private Button reset;
+    private ParserController myController;
 
-    public ConsoleWindow(Button execution)
+
+    public ConsoleWindow(Button execution, ParserController control)
     {
+        myController = control;
         myView = new HBox();
         console = new TextArea();
         console.setPrefWidth(650);

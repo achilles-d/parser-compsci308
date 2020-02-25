@@ -51,21 +51,21 @@ public class LogoVisualization {
         executeButton = new Button("Execute");
         executeButton.setOnAction(event -> {updateAllPanes();});
 
-        myConsole = new ConsoleWindow(executeButton);
+        myConsole = new ConsoleWindow(executeButton,myController);
 
-        myVariables = new VariableWindow();
-        myHistory = new HistoryWindow();
-        available = new AvailableCommandsWindow("resources.languages.English");
-        toolbar = new Menu();
+        myVariables = new VariableWindow(myController);
+        myHistory = new HistoryWindow(myController);
+        available = new AvailableCommandsWindow("resources.languages.English",myController);
+        toolbar = new Menu(myController);
         activeTurtleImage = toolbar.getActiveTurtleImage();
         activePenColor = toolbar.getActivePenColor();
-        graphics = new TurtleWindow(toolbar.getActivePenColor(),toolbar.getActiveTurtleImage());
+        graphics = new TurtleWindow(toolbar.getActivePenColor(),toolbar.getActiveTurtleImage(),myController);
 
         VBox leftComps = new VBox();
         leftComps.getChildren().addAll(myHistory.getView(),available.getView());
 
         HBox bottom  = new HBox();
-        bottom.getChildren().addAll(myVariables.getView(),commandWindow.getView());
+        bottom.getChildren().addAll(myVariables.getView(),myConsole.getView());
 
 
         //border.setCenter(graphics.getView());
@@ -99,6 +99,7 @@ public class LogoVisualization {
             showError(e.getMessage());
         }
 
+        graphics.update();
 
     }
 
