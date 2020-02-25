@@ -1,6 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
-public class GreaterThan<T extends Comparable<T>> implements Command<Integer> {
+public class GreaterThan<T extends Comparable<T>> implements Command<Double> {
 
   T value1;
   T value2;
@@ -11,7 +11,7 @@ public class GreaterThan<T extends Comparable<T>> implements Command<Integer> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     return value2.compareTo(value1) > 0 ? 1.0 : 0.0;
   }
 }

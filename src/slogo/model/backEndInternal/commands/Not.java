@@ -10,6 +10,6 @@ public class Not implements Command<Double> {
 
   @Override
   public Double execute() {
-    return value == 0 ? 1.0 : 0.0;
+    return (double) (value == 0 ? 1 : 0);
   }
 }

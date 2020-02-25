@@ -2,7 +2,7 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
 
-public class HideTurtle implements Command<Integer> {
+public class HideTurtle implements Command<Double> {
 
   BackEndTurtle backEndTurtle;
 
@@ -11,8 +11,8 @@ public class HideTurtle implements Command<Integer> {
   }
 
   @Override
-  public double execute() {
+  public Double execute() {
     backEndTurtle.toggleVisibility();
-    return 0;
+    return (double) 0;
   }
 }

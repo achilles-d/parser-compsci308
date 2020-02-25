@@ -12,6 +12,6 @@ public class IsShowing implements Command<Double> {
 
   @Override
   public Double execute() {
-    return backEndTurtle.getVisibility() ? 1.0 : 0.0;
+    return (double) (backEndTurtle.getVisibility() ? 1 : 0);
   }
 }

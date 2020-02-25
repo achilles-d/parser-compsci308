@@ -12,7 +12,7 @@ public class Or implements Command<Double> {
 
   @Override
   public Double execute() {
-    return (value1 != 0 || value2 != 0 ) ? 1.0 : 0.0;
+    return (double) ((value1 != 0 || value2 != 0) ? 1 : 0);
   }
 }
 
