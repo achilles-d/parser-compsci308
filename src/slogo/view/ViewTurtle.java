@@ -9,6 +9,8 @@ import slogo.model.Coordinate;
 
 public class ViewTurtle {
 
+    private static final int X_LAYOUT_SCALING = 350;
+    private static final double Y_LAYOUT_SCALING = 261.5;
     private Image myImage;
     private SimpleStringProperty imageName;
     private ImageView myView;
@@ -64,11 +66,17 @@ public class ViewTurtle {
 
     public void updatePosition(double x, double y)
     {
+        x = x+ X_LAYOUT_SCALING;
+        y = -y+ Y_LAYOUT_SCALING;
         while(x>750-myView.getFitWidth()/2)
             x--;
-        while(y>573-myView.getFitHeight())
+        while(y>573-myView.getFitHeight()/2)
             y--;
 
+        while(x<0+myView.getFitWidth()/2)
+            x++;
+        while(y<0+myView.getFitHeight()/2)
+            y++;
         myView.setLayoutX(x);
         myView.setLayoutY(y);
 
