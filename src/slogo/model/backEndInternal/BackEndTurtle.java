@@ -10,6 +10,7 @@ import slogo.view.ViewController;
 import slogo.view.ViewTurtle;
 import slogo.view.ViewTurtlePlan;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BackEndTurtle implements Turtle {
@@ -31,13 +32,14 @@ public class BackEndTurtle implements Turtle {
     //private double endY;
 
     private Coordinate turtleCoordinate = new Coordinate();
+    private LineAPI lines;
 
     //private double heading;
     //private boolean penUp;
     //private boolean turtleVisible;
 
     public BackEndTurtle(){
-
+        lines=new LineAPI();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
         penUp.set(false);
@@ -99,15 +101,17 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
-
-        penUp.set(false);
-        xLoc.set(end.getXVal());
-        yLoc.set(end.getYVal());
+        lines.createLine(start, end);
+//        line.
+//
+//        penUp.set(false);
+//        xLoc.set(end.getXVal());
+//        yLoc.set(end.getYVal());
     }
 
     @Override
-    public List<Line> getLines() {
-        return null;
+    public List<List<Coordinate>> getLines() {
+        return lines.getLineEndpoints();
     }
 
     public DoubleProperty getXLocProp() {

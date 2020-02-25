@@ -82,8 +82,8 @@ public class MainTester {
 
       // String userInput="atan sum sum sum 10 50 30 40";
 
-     // String userInput="cos less? sum difference 10 50 30 40";
-      String userInput="make pi";
+     String userInput="cos less? sum difference 10 50 30 40";
+      //String userInput="make pi";
 
 
 
