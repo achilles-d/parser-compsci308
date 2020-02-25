@@ -32,7 +32,7 @@ public class BackEndTurtle implements Turtle {
     //private double endX;
     //private double endY;
 
-    private Coordinate turtleCoordinate = new Coordinate();
+    private Coordinate turtleCoordinate;
     private List<Line> lines;
 
     //private double heading;
@@ -41,6 +41,7 @@ public class BackEndTurtle implements Turtle {
 
     public BackEndTurtle(){
         lines=new ArrayList<>();
+        turtleCoordinate = new Coordinate();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
         penUp.set(false);
@@ -54,6 +55,8 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void setPosition(Coordinate a) {
+
+        turtleCoordinate = a;
         xLoc.set(a.getXVal());
         yLoc.set(a.getYVal());
 

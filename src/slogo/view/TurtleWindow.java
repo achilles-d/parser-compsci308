@@ -56,7 +56,7 @@ public class TurtleWindow extends Window {
        // System.out.println(myTurtle.getView().getLayoutX());
         //System.out.println(myTurtle.getView().getTranslateX());
 
-        myTurtle.updatePosition(new Coordinate(-391,260.5));
+       // myTurtle.updatePosition(new Coordinate(-391,260.5));
 
     }
 
@@ -95,6 +95,8 @@ public class TurtleWindow extends Window {
 
     @Override
     public void update() {
+        System.out.println("tried to update");
+        System.out.println(myController.getTurtlePosition());
         myTurtle.updatePosition(myController.getTurtlePosition());
         drawLines();
     }

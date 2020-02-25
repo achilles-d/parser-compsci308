@@ -38,4 +38,10 @@ public class Coordinate {
     public void setYVal(double y) {
         this.myY = y;
     }
+
+    @Override
+    public String toString()
+    {
+        return myX + "," + myY;
+    }
 }
