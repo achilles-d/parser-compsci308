@@ -19,9 +19,11 @@ public class ViewTurtle {
     private double myY;
     private double myHeading;
     private boolean turtleVisibility;
+    private int size;
 
     public ViewTurtle(Property turtleImage)
     {
+        size = 50;
         imageName = new SimpleStringProperty();
         //imageName.bind(turtleImage);
         imageName = (SimpleStringProperty)turtleImage;
@@ -30,12 +32,17 @@ public class ViewTurtle {
 
         myImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName.getValue()));
         myView = new ImageView(myImage);
-        myView.setFitWidth(50);
-        myView.setFitHeight(50);
+        myView.setFitWidth(size);
+        myView.setFitHeight(size);
         myCoordinates = new Coordinate(0,0);
         updatePosition(myCoordinates);
         myHeading = 0;
 
+    }
+
+    public int getSize()
+    {
+        return size;
     }
 
     private void setXY()
@@ -58,6 +65,7 @@ public class ViewTurtle {
 
     public void setHeading(double heading)
     {
+        System.out.println(heading);
         myHeading = heading;
         myView.setRotate(myHeading);
     }
@@ -89,5 +97,7 @@ public class ViewTurtle {
 
 
     }
+
+
 
 }

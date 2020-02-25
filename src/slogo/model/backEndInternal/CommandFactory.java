@@ -33,7 +33,7 @@ public class CommandFactory {
 
 
             Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandType);
-            System.out.println(commandType);
+            //System.out.println(commandType);
 
             Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();
             Object[] ar = new Object[pType.length];
