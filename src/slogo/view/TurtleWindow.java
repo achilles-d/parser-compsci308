@@ -52,7 +52,7 @@ public class TurtleWindow extends Window {
        // System.out.println(myTurtle.getView().getLayoutX());
         //System.out.println(myTurtle.getView().getTranslateX());
 
-        myTurtle.updatePosition(-350,260);
+        myTurtle.updatePosition(-390,-261.5);
 
     }
 

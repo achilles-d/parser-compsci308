@@ -16,16 +16,13 @@ public class ConsoleWindow extends Window {
     private Button execute;
     private Button reset;
 
-    public ConsoleWindow()
+    public ConsoleWindow(Button execution)
     {
         myView = new HBox();
         console = new TextArea();
         console.setPrefWidth(650);
         console.setMaxWidth(Double.MAX_VALUE);
-        execute = new Button("Execute");
-        execute.setOnAction((event -> {
-            System.out.println(console.getText());
-        }));
+        execute = execution;
         reset = new Button("Reset");
         reset.setOnAction((event -> {console.clear();}));
 
@@ -40,6 +37,11 @@ public class ConsoleWindow extends Window {
 
     public void update() {
 
+    }
+
+    public String getConsoleText()
+    {
+        return console.getText();
     }
 
     public Node getView() {
