@@ -53,7 +53,10 @@ public class CommandParser implements Parser {
     }
 
     private void parseVariable() {
+
         System.out.println("Variable");
+
+
     }
 
     private void parseCommand() {
@@ -116,11 +119,25 @@ public class CommandParser implements Parser {
                 argumentStack.add(Double.parseDouble(commandFraction.get(k)));
             }
             commandCounter = commandCounter + readArgumentSize(getSymbol(commandStack.peek()));
-
         }
-
-
     }
+
+//    private void addValidVariable(List<String> commandFraction){
+//        int count=0;
+//
+//        for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+//            if (getSymbol(commandFraction.get(k)).equals("MakeVariable")) {
+//                count++;
+//            }
+//        }
+//        if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
+//            for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+//                argumentStack.add(Double.parseDouble(commandFraction.get(k)));
+//            }
+//            commandCounter = commandCounter + readArgumentSize(getSymbol(commandStack.peek()));
+//        }
+//
+//    }
 
     /**
      * @param syntax the name of the syntax source language name
