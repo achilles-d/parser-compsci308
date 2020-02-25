@@ -1,5 +1,7 @@
 package slogo.view;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -10,16 +12,32 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.ResourceBundle;
+
 public class Menu {
 
-   private HBox myView;
+    private static final String PEN_COLOR = "resources.colors.PenColor";
+    private static final String TURTLE_IMAGES = "resources.TurtleImage";
+
+    private HBox myView;
+    private ResourceBundle penColors = java.util.ResourceBundle.getBundle(PEN_COLOR);
+    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+    private MenuButton colors;
+    private MenuButton images;
+    private SimpleStringProperty activePenColor;
+    private SimpleStringProperty turtleImage;
 
    public Menu()
    {
        myView = new HBox();
-       MenuItem itemBlue = new MenuItem("Blue");
-       MenuItem itemGreen = new MenuItem("Green");
-       MenuButton colors = new MenuButton("Colors",null,itemBlue,itemGreen);
+       activePenColor = new SimpleStringProperty("White");
+       colors = new MenuButton("Colors");
+       makePenColorsMenu();
+
+       turtleImage = new SimpleStringProperty("turtle.jpg");
+       images = new MenuButton("Turtle Images");
+       makeImagesMenu();
+
 
        MenuItem itemGerman = new MenuItem("German");
        MenuItem itemSpanish = new MenuItem("Spanish");
@@ -29,12 +47,49 @@ public class Menu {
        help.setOnAction(event -> { makeHelpScreen();
           });
 
-       myView.getChildren().addAll(colors,language,help);
+       myView.getChildren().addAll(colors,language,images,help);
+   }
+
+   public Property getActiveTurtleImage()
+   {
+       return turtleImage;
+   }
+
+   private void makeImagesMenu()
+   {
+       for(String image: turtleImages.keySet())
+       {
+           MenuItem imageSelect = new MenuItem(image);
+           imageSelect.setOnAction(e -> {
+               turtleImage.setValue(turtleImages.getString(image));
+           });
+           images.getItems().add(imageSelect);
+
+       }
+
+   }
+
+   private void makePenColorsMenu()
+   {
+        for(String color: penColors.keySet())
+        {
+
+            MenuItem penColor = new MenuItem(color);
+            penColor.setOnAction(e -> {
+                activePenColor.setValue(color);
+            });
+            colors.getItems().add(penColor);
+        }
    }
 
    public Node getView()
    {
        return myView;
+   }
+
+   public Property getActivePenColor()
+   {
+       return activePenColor;
    }
 
    private void makeHelpScreen()

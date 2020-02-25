@@ -3,5 +3,9 @@ package slogo.model;
 //This exception will let the user know if a command they entered is invalid
 public class InvalidCommandException extends Exception{
 
+    //Default
+    public InvalidCommandException(){
+        super("Invalid command. For a list of commands, see the \"Help\" pane.");
+    }
 
 }
