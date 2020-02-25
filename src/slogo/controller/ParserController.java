@@ -63,7 +63,7 @@ public class ParserController {
 
     //TODO implement when Model is ready
     public List<Line> getLines() {
-        return null;
+        return Collections.unmodifiableList(myBackEndTurtle.getLines());
     }
 
     public UserVariable getVariable(String varName) {
