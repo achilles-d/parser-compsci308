@@ -7,22 +7,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LineAPI implements Line {
-    private List<List<Coordinate>> points;
+
+    private Coordinate start;
+    private Coordinate end;
 
     public LineAPI(){
-        points=new ArrayList<>();
+        start=new Coordinate();
+        end=new Coordinate();
     }
-    @Override
-    public List<List<Coordinate>> getLineEndpoints() {
 
-        return points;
+    @Override
+    public Coordinate getStart() {
+        return start;
+    }
+
+    @Override
+    public Coordinate getEnd() {
+        return end;
     }
 
     @Override
     public void createLine(Coordinate start, Coordinate end) {
-        List<Coordinate> line=new ArrayList<>();
-        line.add(start);
-        line.add(end);
-        points.add(line);
+        this.start=start;
+        this.end=end;
     }
 }

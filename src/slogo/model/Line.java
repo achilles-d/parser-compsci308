@@ -12,7 +12,9 @@ public interface Line {
      * draw them correctly on the screen
      * @return list of the starting and end point for line
      */
-    public List<List<Coordinate>> getLineEndpoints();
+
+    public Coordinate getStart ();
+    public Coordinate getEnd();
 
     public void createLine(Coordinate start, Coordinate end);
 
