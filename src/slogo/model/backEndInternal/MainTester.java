@@ -56,7 +56,8 @@ public class MainTester {
 
         // set up the parser, which checks for matches in order given
         CommandHandlerAPI ch=new CommandHandlerAPI();
-        CommandParser lang = new CommandParser(ch);
+        UserVariableHandler uh=new UserVariableHandler();
+        CommandParser lang = new CommandParser(ch, uh);
 
         // these are more specific, so add them first to ensure they are checked first
         lang.addPatterns("English");
@@ -81,7 +82,8 @@ public class MainTester {
 
       // String userInput="atan sum sum sum 10 50 30 40";
 
-      String userInput="cos less? sum difference 10 50 30 40";
+     // String userInput="cos less? sum difference 10 50 30 40";
+      String userInput="make pi";
 
 
 
@@ -90,7 +92,7 @@ public class MainTester {
         //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
         lang.parseCode(userInput);
 
-        System.out.println(ch.getCommandHistory().get(1).toString());
+        System.out.println(ch.getCommandHistory().get(0));
 
 
         //String fileInput =

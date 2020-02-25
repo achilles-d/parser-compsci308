@@ -23,20 +23,22 @@ public class CommandParser implements Parser {
     private CommandExecutor executor;
     private int commandCounter = 0;
     private CommandHandlerAPI commandHandler;
+    private UserVariableHandler  userVariableHandler;
 
     /**
      * Create an empty parser
      */
 
-    public CommandParser(CommandHandlerAPI commandHandler) {
+    public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler) {
         this.commandHandler=commandHandler;
+        this.userVariableHandler=userVariableHandler;
         mySymbols = new ArrayList<>();
         commandFactor = new CommandFactory();
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
         matchMethodsToRun.put("Command", this::parseCommand);
-        matchMethodsToRun.put("Variable", this::parseVariable);
+        matchMethodsToRun.put("MakeVariable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseList);
         matchMethodsToRun.put("GroupStart", this::parseGroup);
     }
@@ -50,6 +52,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseVariable() {
+        System.out.println("Variable");
     }
 
     private void parseCommand() {
@@ -116,12 +119,6 @@ public class CommandParser implements Parser {
         }
 
 
-    }
-
-
-    @Override
-    public Command getCommand(String commandInput) throws InvalidCommandException {
-        return null;
     }
 
     /**
