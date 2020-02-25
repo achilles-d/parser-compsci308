@@ -11,7 +11,7 @@ import slogo.model.backEndInternal.UserVariableHandler;
 public class VariableWindow extends Window {
 
     private TitledPane myView;
-    private TableView<String> variables;
+    private ListView<String> variables;
     UserVariableHandler handler = new UserVariableHandler();
 
     public VariableWindow()
@@ -20,6 +20,10 @@ public class VariableWindow extends Window {
         myView.setCollapsible(false);
         myView.setText("Variables");
         myView.setPrefHeight(200);
+        variables = new ListView<>();
+        myView.setContent(variables);
+        variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
+        /*
         variables = new TableView<>(handler.getKeys());
         //variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
         myView.setContent(variables);
@@ -35,6 +39,8 @@ public class VariableWindow extends Window {
         TableColumn<String,String> col2 = new TableColumn<>("Value");
         col2.setCellValueFactory(cd -> Bindings.valueAt(handler.getVariableMap(),cd.getValue()));
         variables.getColumns().setAll(col1,col2);
+        */
+
 
 
     }

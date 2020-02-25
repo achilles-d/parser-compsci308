@@ -46,16 +46,13 @@ public class TurtleWindow extends Window {
 
         penColor = new SimpleStringProperty();
 
-        myView.setOnMouseClicked(event -> {
-            System.out.println(event.getX() + " " + event.getY());
-        });
         setBackgroundColor(backgroundColor.getValue());
         //testDrawLine();
        // myView.setStyle("-fx-background-color: red");
        // System.out.println(myTurtle.getView().getLayoutX());
         //System.out.println(myTurtle.getView().getTranslateX());
 
-        myTurtle.updatePosition(70,50);
+        myTurtle.updatePosition(-350,260);
 
     }
 

@@ -49,7 +49,7 @@ public class ParserController {
         try{
             myCommandParser.parseCode(code);
         }
-        catch(InvalidCommandException exception){
+        catch(Exception exception){
             displayError(exception);
         }
     }
