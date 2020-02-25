@@ -2,15 +2,15 @@ package slogo.model.backEndInternal;
 
 import slogo.model.Variable;
 
-public class UserVariable<T> {
+public class UserVariable {
 
-    private T value;
+    private Double value;
 
-    public void setValue(T var) {
+    public void setValue(Double var) {
         this.value = var;
     }
 
-    public T getValue() {
+    public Double getValue() {
         return value;
     }
 

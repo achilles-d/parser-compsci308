@@ -1,5 +1,6 @@
 package slogo.model.backEndInternal;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -117,6 +118,12 @@ public class BackEndTurtle implements Turtle {
     public DoubleProperty getYLocProp() {
         return yLoc;
     }
+
+    public DoubleProperty getHeadingProp() { return heading; }
+
+    public BooleanProperty getTurtleVisibility() { return turtleVisible; }
+
+    public BooleanProperty getPenVisibility() { return penUp; }
 
     public boolean getPenStatus() {
         return penUp.get();
