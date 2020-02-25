@@ -5,11 +5,13 @@ package slogo.model.backEndInternal;
 
 public class CommandFactory {
     private BackEndTurtle turtle;
+    private UserVariableHandler userVariableHandler;
     private int counter;
 
-    public CommandFactory() {
+    public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler) {
 
-        turtle = new BackEndTurtle();
+        this.turtle = turtle;
+        this.userVariableHandler=userVariableHandler;
     }
 
     public Object getCommand(String commandType, Double[] arguments) throws InvocationTargetException,
@@ -43,7 +45,10 @@ public class CommandFactory {
                     ar[j] = turtle;
                 } else if (className.equals("Coordinate")) {
                     ar[j] = turtle.getPosition();
-                } else {
+                }  else if(className.equals("UserVariableHandler")){
+                    ar[j]=userVariableHandler;
+                }
+                else {
                     ar[j] = arguments[counter];
                     counter++;
                 }

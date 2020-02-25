@@ -29,11 +29,12 @@ public class CommandParser implements Parser {
      * Create an empty parser
      */
 
-    public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler) {
+    public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
+                         BackEndTurtle turtle) {
         this.commandHandler=commandHandler;
         this.userVariableHandler=userVariableHandler;
         mySymbols = new ArrayList<>();
-        commandFactor = new CommandFactory();
+        commandFactor = new CommandFactory(turtle, userVariableHandler);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
