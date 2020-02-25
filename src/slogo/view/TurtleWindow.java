@@ -8,9 +8,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import slogo.controller.ParserController;
 import slogo.model.Coordinate;
+import slogo.model.Line;
 
 public class TurtleWindow extends Window {
 
@@ -22,6 +22,8 @@ public class TurtleWindow extends Window {
     private SimpleStringProperty penColor;
     private GraphicsContext drawer;
     private ParserController myController;
+    private static final int X_LAYOUT_SCALING = 375;
+    private static final double Y_LAYOUT_SCALING = 286.5;
 
 
     public TurtleWindow(Property menuBackgroundColor, Property turtleImage, ParserController control)
@@ -56,7 +58,7 @@ public class TurtleWindow extends Window {
        // System.out.println(myTurtle.getView().getLayoutX());
         //System.out.println(myTurtle.getView().getTranslateX());
 
-        myTurtle.updatePosition(new Coordinate(-391,260.5));
+       // myTurtle.updatePosition(new Coordinate(-391,260.5));
 
     }
 
@@ -70,13 +72,30 @@ public class TurtleWindow extends Window {
         myView.setBackground(new Background(new BackgroundFill(Color.valueOf(color), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+    private double adjustX(double x)
+    {
+        return x + X_LAYOUT_SCALING;
+    }
 
-
+    private double adjustY(double y)
+    {
+        return -y + Y_LAYOUT_SCALING;
+    }
 
     private void drawLines()
     {
         drawer.clearRect(0,0, background.getWidth(),background.getHeight());
         drawer.setStroke(Color.valueOf(penColor.getValue()));
+
+        for(Line l: myController.getLines())
+        {
+            double startX = adjustX(l.getStart().getXVal());
+            double startY = adjustY(l.getStart().getYVal());
+            double endX = adjustX(l.getEnd().getXVal());
+            double endY = adjustY(l.getEnd().getYVal());
+            System.out.println(startX + "," + startY + "  " + endX + "," + endY);
+            drawer.strokeLine(startX,startY,endX,endY);
+        }
 
 
 
@@ -95,7 +114,13 @@ public class TurtleWindow extends Window {
 
     @Override
     public void update() {
+        /*
+        System.out.println("tried to update");
+        System.out.println(myController.getTurtlePosition());
+         */
+
         myTurtle.updatePosition(myController.getTurtlePosition());
+        myTurtle.setHeading(myController.getHeading());
         drawLines();
     }
 

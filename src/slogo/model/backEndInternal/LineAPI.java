@@ -11,9 +11,9 @@ public class LineAPI implements Line {
     private Coordinate start;
     private Coordinate end;
 
-    public LineAPI(){
-        start=new Coordinate();
-        end=new Coordinate();
+    public LineAPI(Coordinate start, Coordinate end){
+        this.start=start;
+        this.end=end;
     }
 
     @Override

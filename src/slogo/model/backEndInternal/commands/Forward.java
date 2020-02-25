@@ -15,11 +15,14 @@ public class Forward implements Command<Double> {
 
   @Override
   public Double execute() {
-    double angle = myTurtle.getHeading();
+    double angle = Math.toRadians(myTurtle.getHeading());
     double deltaX = delta * Math.sin(angle);
     double deltaY = delta * Math.cos(angle);
+    System.out.println("Xmoves " + deltaX);
+    System.out.println("Ymoves " + deltaY);
     Coordinate currentPos = myTurtle.getPosition();
     Coordinate newPosition = new Coordinate(currentPos.getXVal() + deltaX, currentPos.getYVal() + deltaY);
+    System.out.println(newPosition);
     myTurtle.setPosition(newPosition);
     return delta;
   }
