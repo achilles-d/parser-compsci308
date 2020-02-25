@@ -8,21 +8,19 @@ import java.util.List;
 
 public class CommandHandlerAPI implements CommandHandler {
 
-    private List<Command> commands;
+    private List<String> commands;
     public CommandHandlerAPI(){
         commands=new ArrayList<>();
     }
 
     @Override
-    public List<Command> getCommandHistory() {
-
+    public List<String> getCommandHistory() {
         return commands;
     }
 
     @Override
-    public void updateCommandHistory(Command nextCommand) {
+    public void updateCommandHistory(String nextCommand) {
         commands.add(nextCommand);
-
     }
 
 }

@@ -63,7 +63,7 @@ public class ParserController {
 
     //TODO implement when Model is ready
     public List<Line> getLines() {
-        return null;
+        return Collections.unmodifiableList(myBackEndTurtle.getLines());
     }
 
     public UserVariable getVariable(String varName) {
@@ -86,6 +86,7 @@ public class ParserController {
 
     public void setLanguage(String language){
         myLanguage = Language.valueOf(language);
-        myCommandParser.addPatterns(myLanguage.myPropertyDir);
+        myCommandParser.addPatterns("resources.languages.English");
+        myCommandParser.addPatterns("resources.languages.Syntax");
     }
 }

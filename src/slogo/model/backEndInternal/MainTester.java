@@ -19,6 +19,7 @@ import java.util.List;
  * @author Robert C. Duvall
  */
 public class MainTester {
+    /*
     // regular expression representing any whitespace characters (space, tab, or newline)
     public static final String WHITESPACE = "\\s+";
 
@@ -57,25 +58,27 @@ public class MainTester {
         // set up the parser, which checks for matches in order given
         CommandHandlerAPI ch=new CommandHandlerAPI();
         UserVariableHandler uh=new UserVariableHandler();
+
         BackEndTurtle turtle= new BackEndTurtle();
         CommandParser lang = new CommandParser(ch, uh, turtle);
 
+
         // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("English");
+        lang.addPatterns("resources.languages.English");
         // general checks, added last
-        lang.addPatterns("Syntax");
+        lang.addPatterns("resources.languages.Syntax");
 
         // try against different kinds of inputs
         //m.parseText(lang, m.examples);
         //String userInput = "sum 10 goto 50 30";
        // String userInput = "[ fd sum sum sum sum 10 20 30 5 5";
        //String userInput ="fd * greater? 5 3 100";
-     //String userInput = "sum sum sum 10 50 30 40";
+        //String userInput = "sum sum sum 10 50 30 40";
       // String userInput="showingp";
         //String userInput="ycor";
 
         //String userInput ="[ :dist 10 40 10 ]";
-      //String userInput = "fd fd fd 50";
+      String userInput = "fd 50";
        //String userInput="minus 50 50";
 
         //String userInput="and 50 50";
@@ -83,7 +86,7 @@ public class MainTester {
 
       // String userInput="atan sum sum sum 10 50 30 40";
 
-     String userInput="cos less? sum difference 10 50 30 40";
+     //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";
 
 
@@ -93,12 +96,14 @@ public class MainTester {
         //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
         lang.parseCode(userInput);
 
-        System.out.println(ch.getCommandHistory().get(0));
+        //System.out.println(ch.getCommandHistory().get(0));
 
 
         //String fileInput =
                // m.readFileToString(MainTester.class.getClassLoader().getResource("square.logo").toExternalForm());
         // instead it will "comment out" the remainder of the program!
        // m.parseText(lang, Arrays.asList(fileInput.split(WHITESPACE)));
+
     }
+
 }

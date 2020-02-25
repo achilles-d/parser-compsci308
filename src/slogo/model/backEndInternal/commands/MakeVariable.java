@@ -1,21 +1,20 @@
 package slogo.model.backEndInternal.commands;
 
-import slogo.model.backEndInternal.UserVariable;
 import slogo.model.backEndInternal.UserVariableHandler;
 
-public class MakeVariable<T> implements Command<UserVariable<?>> {
+public class MakeVariable<T> implements Command<Double> {
 
   private UserVariableHandler<T> myHandler;
   private String variableName;
 
-  public MakeVariable(UserVariableHandler<T> handler, String name, T userVal) {
+  public MakeVariable(UserVariableHandler handler, String name, Double userVal) {
     this.variableName = name;
     this.myHandler = handler;
     handler.makeVariable(name, userVal);
   }
 
   @Override
-  public UserVariable<?> execute() {
-    return myHandler.getVariable(variableName);
+  public Double execute() {
+    return myHandler.getVariable(variableName).getValue();
   }
 }

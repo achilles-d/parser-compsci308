@@ -8,14 +8,14 @@ import javafx.collections.ObservableMap;
 
 public class UserVariableHandler<T>  {
 
-    private ObservableMap<String, UserVariable<?>> allVariables = FXCollections.observableHashMap();
+    private ObservableMap<String, UserVariable> allVariables = FXCollections.observableHashMap();
 
     private ObservableList<String> keys =  FXCollections.observableArrayList();
 
     private ObservableList<String> values = FXCollections.observableArrayList();
 
     public UserVariableHandler() {
-        allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable<?>> change) -> {
+        allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable> change) -> {
             boolean removed = change.wasRemoved();
             if (removed != change.wasAdded()) {
                 // no put for existing key
@@ -28,13 +28,13 @@ public class UserVariableHandler<T>  {
         });
     }
 
-    public UserVariable<?> getVariable(String variableName) {
+    public UserVariable getVariable(String variableName) {
         return allVariables.get(variableName);
     }
 
-    public void makeVariable(String variableName, T variableValue) {
+    public void makeVariable(String variableName, Double variableValue) {
         keys.add(variableName);
-        UserVariable<T> newVar = new UserVariable<>();
+        UserVariable newVar = new UserVariable();
         newVar.setValue(variableValue);
         allVariables.put(variableName, newVar);
     }
@@ -48,7 +48,7 @@ public class UserVariableHandler<T>  {
         return keys;
     }
 
-    public ObservableMap<String, UserVariable<?>> getVariableMap() {
+    public ObservableMap<String, UserVariable> getVariableMap() {
         return allVariables;
     }
 

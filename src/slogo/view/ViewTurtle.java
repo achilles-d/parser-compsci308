@@ -32,12 +32,16 @@ public class ViewTurtle {
         myView = new ImageView(myImage);
         myView.setFitWidth(50);
         myView.setFitHeight(50);
-        myCoordinates = new Coordinate(350,350);
-        myX = myCoordinates.getXVal();
-        myY = myCoordinates.getYVal();
+        myCoordinates = new Coordinate(0,0);
+        updatePosition(myCoordinates);
         myHeading = 0;
-        updatePosition(700,700);
 
+    }
+
+    private void setXY()
+    {
+        myX = myCoordinates.getXVal()+ X_LAYOUT_SCALING - myView.getFitWidth()/2;
+        myY = -myCoordinates.getYVal()+ Y_LAYOUT_SCALING - myView.getFitHeight()/2;
     }
 
     private void updateImage(String imgName)
@@ -64,23 +68,23 @@ public class ViewTurtle {
         myView.setVisible(turtleVisibility);
     }
 
-    public void updatePosition(double x, double y)
+    public void updatePosition(Coordinate a)
     {
-        x = x+ X_LAYOUT_SCALING - myView.getFitWidth()/2;
-        y = -y+ Y_LAYOUT_SCALING - myView.getFitHeight()/2;
-        while(x>750-myView.getFitWidth()/2)
-            x--;
-        while(y>573-myView.getFitHeight())
-            y--;
+        myCoordinates =a;
+        setXY();
+        while(myX>750-myView.getFitWidth()/2)
+            myX--;
+        while(myY>573-myView.getFitHeight())
+            myY--;
 
-        while(x<0)
-            x++;
-        while(y<0)
-            y++;
-        myView.setLayoutX(x);
-        myView.setLayoutY(y);
-        System.out.println("Xcord " + x);
-        System.out.println("Ycord " + y);
+        while(myX<0)
+            myX++;
+        while(myY<0)
+            myY++;
+        myView.setLayoutX(myX);
+        myView.setLayoutY(myY);
+        //System.out.println("Xcord " + x);
+        //System.out.println("Ycord " + y);
 
 
 
