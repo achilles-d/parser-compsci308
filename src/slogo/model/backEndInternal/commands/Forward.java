@@ -1,20 +1,26 @@
 package slogo.model.backEndInternal.commands;
 
 import slogo.model.Coordinate;
+import slogo.model.backEndInternal.BackEndTurtle;
 
 public class Forward implements Command<Double> {
 
-  private Coordinate turtlePosition;
-  private double movement;
+  private BackEndTurtle myTurtle;
+  private double delta;
 
-  public Forward(Coordinate pos, double delta) {
-    this.turtlePosition = pos;
-    this.movement = delta;
+  public Forward(BackEndTurtle t, double d) {
+    this.myTurtle = t;
+    this.delta = d;
   }
 
   @Override
   public Double execute() {
-    turtlePosition.setYVal(turtlePosition.getYVal() + movement);
-    return movement;
+    double angle = myTurtle.getHeading();
+    double deltaX = delta * Math.sin(angle);
+    double deltaY = delta * Math.cos(angle);
+    Coordinate currentPos = myTurtle.getPosition();
+    Coordinate newPosition = new Coordinate(currentPos.getXVal() + deltaX, currentPos.getYVal() + deltaY);
+    myTurtle.setPosition(newPosition);
+    return delta;
   }
 }
