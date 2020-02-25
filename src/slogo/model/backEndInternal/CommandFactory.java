@@ -33,7 +33,7 @@ public class CommandFactory {
 
         Object currentCommand = null;
 
-        System.out.println("Should create this constructor "+commandWithDependency.get(0));
+        //System.out.println("Should create this constructor "+commandWithDependency.get(0));
             Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandWithDependency.get(0));
 
 
