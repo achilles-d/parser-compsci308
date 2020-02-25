@@ -27,7 +27,7 @@ public class ParserController {
         myBackEndTurtle = new BackEndTurtle();
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
-        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler);
+        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
         setLanguage("ENGLISH");
     }
 
