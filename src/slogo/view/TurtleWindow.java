@@ -48,7 +48,7 @@ public class TurtleWindow extends Window {
         backgroundColor = (SimpleStringProperty)menuBackgroundColor;
         backgroundColor.addListener((observable, oldValue, newValue) -> {setBackgroundColor(backgroundColor.getValue());});
 
-        penColor = new SimpleStringProperty();
+        penColor = new SimpleStringProperty("Black");
 
         setBackgroundColor(backgroundColor.getValue());
         //testDrawLine();
@@ -56,7 +56,7 @@ public class TurtleWindow extends Window {
        // System.out.println(myTurtle.getView().getLayoutX());
         //System.out.println(myTurtle.getView().getTranslateX());
 
-        myTurtle.updatePosition(-390,-261.5);
+        myTurtle.updatePosition(new Coordinate(-391,260.5));
 
     }
 
@@ -73,11 +73,11 @@ public class TurtleWindow extends Window {
 
 
 
-    private void testDrawLine()
+    private void drawLines()
     {
+        drawer.clearRect(0,0, background.getWidth(),background.getHeight());
         drawer.setStroke(Color.valueOf(penColor.getValue()));
-        drawer.strokeLine(0,0,100,100);
-        drawer.strokeLine(0,0,100,0);
+        
 
 
         /*
@@ -98,6 +98,8 @@ public class TurtleWindow extends Window {
         myTurtle.updatePosition(myController.getTurtlePosition());
         drawLines();
     }
+
+
 
     @Override
     public Pane getView() {

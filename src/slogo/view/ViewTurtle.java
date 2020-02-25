@@ -32,8 +32,8 @@ public class ViewTurtle {
         myView = new ImageView(myImage);
         myView.setFitWidth(50);
         myView.setFitHeight(50);
-        myCoordinates = new Coordinate(350,350);
-        setXY();
+        myCoordinates = new Coordinate(0,0);
+        updatePosition(myCoordinates);
         myHeading = 0;
 
     }
@@ -83,8 +83,8 @@ public class ViewTurtle {
             myY++;
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
-        System.out.println("Xcord " + x);
-        System.out.println("Ycord " + y);
+        //System.out.println("Xcord " + x);
+        //System.out.println("Ycord " + y);
 
 
 
