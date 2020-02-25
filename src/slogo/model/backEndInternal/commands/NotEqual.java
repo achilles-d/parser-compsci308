@@ -1,6 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
-public class NotEqual<T extends Comparable<T>> implements Command<Integer> {
+public class NotEqual<T extends Comparable<T>> implements Command<Double> {
 
   T value1;
   T value2;
@@ -11,7 +11,7 @@ public class NotEqual<T extends Comparable<T>> implements Command<Integer> {
   }
 
   @Override
-  public Integer execute() {
-    return value1.equals(value2) ? 0 : 1;
+  public Double execute() {
+    return (double) (value1.equals(value2) ? 0 : 1);
   }
 }

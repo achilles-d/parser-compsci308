@@ -1,12 +1,11 @@
 package slogo.model.backEndInternal;
-//import slogo.model.backEndInternal.commands.Sum;
-
+import slogo.model.CommandHandler;
 import slogo.model.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
 
-
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -23,20 +22,23 @@ public class CommandParser implements Parser {
     private CommandFactory commandFactor;
     private CommandExecutor executor;
     private int commandCounter = 0;
+    private CommandHandlerAPI commandHandler;
+    private UserVariableHandler  userVariableHandler;
 
     /**
      * Create an empty parser
      */
 
-    public CommandParser() {
-
+    public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler) {
+        this.commandHandler=commandHandler;
+        this.userVariableHandler=userVariableHandler;
         mySymbols = new ArrayList<>();
-        commandFactor= new CommandFactory();
+        commandFactor = new CommandFactory();
         matchMethodsToRun = new HashMap<>();
-        executor=new CommandExecutor();
+        executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
         matchMethodsToRun.put("Command", this::parseCommand);
-        matchMethodsToRun.put("Variable", this::parseVariable);
+        matchMethodsToRun.put("MakeVariable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseList);
         matchMethodsToRun.put("GroupStart", this::parseGroup);
     }
@@ -50,6 +52,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseVariable() {
+        System.out.println("Variable");
     }
 
     private void parseCommand() {
@@ -62,7 +65,7 @@ public class CommandParser implements Parser {
     }
 
     @Override
-    public void parseCode(String consoleInput) throws InvalidCommandException {
+    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         commandList.addAll(Arrays.asList(consoleInput.split(" ")));
 
         while (commandCounter < commandList.size()) {
@@ -83,67 +86,33 @@ public class CommandParser implements Parser {
 
     }
 
-    private void buildExecutable() {
+    private void buildExecutable() throws ExecutionException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
-
-            //double x = 0;
             int l = readArgumentSize(getSymbol(commandStack.peek()));
-            //System.out.println("argument size need is "+l);
-            String st = getSymbol(commandStack.pop()) ;
-            //System.out.println(st);
-            Double[] arguments=new Double[l];
-
+            String st = getSymbol(commandStack.pop());
+            Double[] arguments = new Double[l];
             for (int j = 0; j < l; j++) {
-               // st = st + " " + argumentStack.peek();
-                //x += argumentStack.pop();
-                arguments[j]=argumentStack.pop();
+                arguments[j] = argumentStack.pop();
             }
 
-            //System.out.println("" + st);
-            try {
-                argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            // System.out.println("summation is "+x);
-            try {
-               System.out.println(executor.executeCommand((Command) commandFactor.getCommand(st,arguments)));
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            argumentStack.add((Double) executor.executeCommand((Command) commandFactor.getCommand(st, arguments)));
+            commandHandler.updateCommandHistory((Command)commandFactor.getCommand(st, arguments));
 
-           // System.out.println(commandFactor.getCommand("Difference").execute());
-//
-//            try {
-//
-//                Class<?> c = Class.forName("slogo.model.backEndInternal.commands.Sum");
-//                Constructor<?> cons = c.getDeclaredConstructor(Double.TYPE, Double.TYPE);
-//                Object object = cons.newInstance(45.0, 45.6);
-//                Method method = c.getDeclaredMethod("execute");
-//                System.out.println("answe is " + method.invoke(object));
-//            } catch (Throwable e) {
-//                System.err.println(e);
-//            }
-
-
+            System.out.println(argumentStack.peek());
         }
-
     }
 
+    // add valid constant to the stack
     private void addValidNumToTheStack(List<String> commandFraction) {
         int count = 0;
-        //System.out.println("C values "+commandCounter);
         for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
             if (getSymbol(commandFraction.get(k)).equals("Constant")) {
                 count++;
             }
         }
-
-        //System.out.println("counting values "+count);
         if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
             for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
                 argumentStack.add(Double.parseDouble(commandFraction.get(k)));
-                //System.out.println("Added "+commandFraction.get(k));
             }
             commandCounter = commandCounter + readArgumentSize(getSymbol(commandStack.peek()));
 
@@ -152,15 +121,9 @@ public class CommandParser implements Parser {
 
     }
 
-
-    @Override
-    public Command getCommand(String commandInput) throws InvalidCommandException {
-        return null;
-    }
-
     /**
      * @param syntax the name of the syntax source language name
-     *               Adds the keys to mySymbols, thus comparison will be done
+     *               Adds the keys to mySymbols, thus comparison can be done
      */
     public void addPatterns(String syntax) {
         ResourceBundle resources = ResourceBundle.getBundle(RESOURCES_PACKAGE + syntax);
@@ -187,7 +150,6 @@ public class CommandParser implements Parser {
         return ERROR;
     }
 
-    // Returns true if the given text matches the given regular expression pattern
     private boolean match(String text, Pattern regex) {
         return regex.matcher(text).matches();
     }

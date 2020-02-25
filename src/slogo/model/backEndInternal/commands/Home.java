@@ -2,7 +2,6 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.Coordinate;
 import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.model.backEndInternal.commands.Command;
 
 public class Home implements Command<Double> {
 

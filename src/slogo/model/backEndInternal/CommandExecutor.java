@@ -6,6 +6,7 @@ import slogo.model.Executor;
 
 public class CommandExecutor implements Executor {
 
+
     public CommandExecutor(){
 
     }
@@ -14,9 +15,7 @@ public class CommandExecutor implements Executor {
      *
      */
     public Object executeCommand(Command currentCommand) throws ExecutionException {
-       //System.out.println("So far good"+currentCommand.execute().toString());
-
-       return (Double) currentCommand.execute();
+        return currentCommand.execute();
     }
 
 

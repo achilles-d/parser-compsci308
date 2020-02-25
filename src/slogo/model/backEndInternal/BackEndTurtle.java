@@ -51,7 +51,6 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void setPosition(Coordinate a) {
-
         xLoc.set(a.getXVal());
         yLoc.set(a.getYVal());
 
@@ -100,6 +99,7 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
+
         penUp.set(false);
         xLoc.set(end.getXVal());
         yLoc.set(end.getYVal());

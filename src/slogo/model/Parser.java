@@ -2,6 +2,8 @@ package slogo.model;
 
 import slogo.model.backEndInternal.commands.Command;
 
+import java.lang.reflect.InvocationTargetException;
+
 public interface Parser {
 
     /**
@@ -12,14 +14,14 @@ public interface Parser {
      * @param consoleInput this is the input by the user
      * @throws InvalidCommandException if some command that is being parsed is invalid
      */
-    public void parseCode(String consoleInput) throws InvalidCommandException;
+    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 
-    /**
-     * This method can be used by the internal back-end API when it needs to retrieve a certain command based on a string
-     * @param commandInput the name of the command
-     * @return a Command associated with the input
-     * @throws InvalidCommandException if the command name is invalid
-     */
-    public Command getCommand(String commandInput) throws InvalidCommandException;
+//    /**
+//     * This method can be used by the internal back-end API when it needs to retrieve a certain command based on a string
+//     * @param commandInput the name of the command
+//     * @return a Command associated with the input
+//     * @throws InvalidCommandException if the command name is invalid
+//     */
+//    public Command getCommand(String commandInput) throws InvalidCommandException;
 
 }
