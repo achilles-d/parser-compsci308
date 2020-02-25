@@ -2,6 +2,7 @@ package slogo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import slogo.controller.ParserController;
 import slogo.view.LogoVisualization;
 
 /**
@@ -17,7 +18,9 @@ public class Main extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-        LogoVisualization myVis = new LogoVisualization(primaryStage);
+        ParserController controller = new ParserController();
+        LogoVisualization myVis = new LogoVisualization(primaryStage, controller);
+
 
     }
 }

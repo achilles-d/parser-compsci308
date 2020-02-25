@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import slogo.controller.ParserController;
 import slogo.model.backEndInternal.UserVariableHandler;
 
 public class VariableWindow extends Window {
@@ -13,9 +14,12 @@ public class VariableWindow extends Window {
     private TitledPane myView;
     private ListView<String> variables;
     UserVariableHandler handler = new UserVariableHandler();
+    private ParserController myController;
 
-    public VariableWindow()
+
+    public VariableWindow(ParserController control)
     {
+        myController = control;
         myView = new TitledPane();
         myView.setCollapsible(false);
         myView.setText("Variables");

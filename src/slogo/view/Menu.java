@@ -11,6 +11,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
@@ -26,9 +27,12 @@ public class Menu {
     private MenuButton images;
     private SimpleStringProperty activePenColor;
     private SimpleStringProperty turtleImage;
+    private ParserController myController;
 
-   public Menu()
+
+    public Menu(ParserController control)
    {
+       myController = control;
        myView = new HBox();
        activePenColor = new SimpleStringProperty("White");
        colors = new MenuButton("Colors");
