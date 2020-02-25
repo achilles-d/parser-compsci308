@@ -8,8 +8,6 @@ import slogo.model.backEndInternal.UserVariable;
 
 public interface Controller {
 
-  public void toggleVisibility();
-
   public String displayError(Exception ex);
 
   public Point getTurtlePosition();

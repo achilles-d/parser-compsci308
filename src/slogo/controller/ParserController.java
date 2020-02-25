@@ -32,11 +32,6 @@ public class ParserController implements Controller{
     }
 
     //To be called by Visualization
-    public void toggleVisibility() {
-
-    }
-
-    //To be called by Visualization
     public String displayError(Exception ex){
         return ex.getMessage();
     }
