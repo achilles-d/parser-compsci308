@@ -7,9 +7,9 @@ public class CommandFactory {
     private BackEndTurtle turtle;
     private int counter;
 
-    public CommandFactory() {
+    public CommandFactory(BackEndTurtle turtle) {
 
-        turtle = new BackEndTurtle();
+        this.turtle = turtle;
     }
 
     public Object getCommand(String commandType, Double[] arguments) throws InvocationTargetException,
