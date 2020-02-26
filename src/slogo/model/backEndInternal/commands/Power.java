@@ -1,5 +1,7 @@
 package slogo.model.backEndInternal.commands;
 
+import java.util.List;
+
 public class Power implements Command<Double> {
 
   private double base;
@@ -13,5 +15,15 @@ public class Power implements Command<Double> {
   @Override
   public Double execute() {
     return Math.pow(base, exponent);
+  }
+
+  @Override
+  public List<String> updateRawCommands() {
+    return null;
+  }
+
+  @Override
+  public Integer updateCounter() {
+    return null;
   }
 }

@@ -9,9 +9,13 @@ public class CommandFactory {
     private UserVariableHandler userVariableHandler;
     private int doubleCounter;
     private int stringCounter;
+    private List<String> unExecutedCommands;
+    private int commandCounter;
 
-    public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler) {
-
+    public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
+                          List<String> unExecutedCommands, int counter) {
+        this.commandCounter=counter;
+        this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtle;
         this.userVariableHandler=userVariableHandler;
     }
@@ -20,6 +24,7 @@ public class CommandFactory {
             NoSuchMethodException, ClassNotFoundException,
             InstantiationException,
             IllegalAccessException {
+
 
         return makeCommand(commandWithDependency, arguments);
         //return
@@ -30,21 +35,20 @@ public class CommandFactory {
             InvocationTargetException,
             InstantiationException,
             ClassNotFoundException {
+            Object currentCommand = null;
 
-        Object currentCommand = null;
-
-        //System.out.println("Should create this constructor "+commandWithDependency.get(0));
             Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandWithDependency.get(0));
-
-
             Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();
             Object[] ar = new Object[pType.length];
             doubleCounter = 0;
             stringCounter= 1;
+            System.out.println("Constructor arguemnt size " + pType.length);
 
 
             for (int j = 0; j < pType.length; j++) {
+
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+
                 if (className.equals("BackEndTurtle")) {
                     ar[j] = turtle;
                 } else if (className.equals("Coordinate")) {
@@ -55,8 +59,16 @@ public class CommandFactory {
                     ar[j]=commandWithDependency.get(stringCounter);
                     stringCounter++;
 
+                } else if(className.equals("List")){ //list of commands
+                    //System.out.println("Class name list "+ className);
+                    ar[j]=unExecutedCommands;
+
+                }  else if(className.equals("Integer")){
+                    //System.out.println("Counter integer "+ className);
+                    ar[j]=commandCounter;
                 }
                 else {
+                    //System.out.println("Counter double "+ className);
                     ar[j] = arguments[doubleCounter];
                     doubleCounter++;
                 }
