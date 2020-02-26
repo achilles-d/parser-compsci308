@@ -1,6 +1,7 @@
 package slogo.view;
 
 import javafx.beans.property.Property;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -37,7 +38,6 @@ public class LogoVisualization {
 
     public void init()
     {
-
         executeButton = new Button("Execute");
         executeButton.setOnAction(event -> {updateAllPanes();});
 
@@ -61,7 +61,6 @@ public class LogoVisualization {
 
         border.setLeft(leftComps);
         border.setTop(toolbar.getView());
-
 
 
 

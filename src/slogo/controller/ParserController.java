@@ -87,7 +87,7 @@ public class ParserController {
     }
 
     public void setLanguage(String language){
-        myLanguage = Language.valueOf(language);
+        myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile());
         myCommandParser.addPatterns(SYNTAX);
     }

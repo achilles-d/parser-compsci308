@@ -77,6 +77,7 @@ public class Menu {
        {
            MenuItem languageSelect = new MenuItem(language);
            languageSelect.setOnAction(e -> {
+               System.out.println(language);
                myController.setLanguage(language);
                activeLanguage.setValue(language);
            });
