@@ -8,11 +8,16 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 
+import java.util.ResourceBundle;
+
 public class LogoVisualization {
 
-    Pane root = new Pane();
-    BorderPane border = new BorderPane();
-    Stage myStage;
+    private static final String UI_TEXT = "resources.UIText";
+    private static final String EXECUTE = "execute";
+
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+    private BorderPane border = new BorderPane();
+    private Stage myStage;
     private TurtleWindow graphics;
     private ParserController myController;
     private Property activePenColor;
@@ -38,7 +43,7 @@ public class LogoVisualization {
 
     public void init()
     {
-        executeButton = new Button("Execute");
+        executeButton = new Button(visualText.getString(EXECUTE));
         executeButton.setOnAction(event -> {updateAllPanes();});
 
         toolbar = new Menu(myController);
@@ -55,10 +60,8 @@ public class LogoVisualization {
         bottom.getChildren().addAll(myVariables.getView(),myConsole.getView());
 
 
-        //border.setCenter(graphics.getView());
         border.setCenter(graphics.getView());
         border.setBottom(bottom);
-
         border.setLeft(leftComps);
         border.setTop(toolbar.getView());
 
@@ -67,10 +70,6 @@ public class LogoVisualization {
         Scene scene = new Scene(border,1000,1000);
         myStage.setScene(scene);
         myStage.show();
-
-        graphics.getSize();
-        
-
 
 
     }
