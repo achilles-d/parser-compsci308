@@ -214,13 +214,10 @@ public class CommandParser implements Parser {
             if (match(command, e.getValue())) {
                 return e.getKey();
             }
+            //System.out.println("Availabale commands " +e.getValue());
         }
         // FIXME: perhaps throw an exception instead
-//        commandList.clear();
-//        commandStack.clear();
-//        argumentStack.clear();
-//        commandCounter=0;
-        //System.out.println("Get symbol "+command);
+
         return ERROR;
     }
 

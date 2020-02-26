@@ -29,7 +29,8 @@ public class ParserController {
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
-        setLanguage("ENGLISH");
+        //setLanguage("ENGLISH");
+        setLanguage("German");
     }
 
     //To be called by Visualization

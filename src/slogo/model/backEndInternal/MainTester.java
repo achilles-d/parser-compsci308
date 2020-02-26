@@ -64,7 +64,7 @@ public class MainTester {
 
 
         // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("resources.languages.English");
+        lang.addPatterns("resources.languages.German");
         // general checks, added last
         lang.addPatterns("resources.languages.Syntax");
 
@@ -78,11 +78,16 @@ public class MainTester {
       //String userInput="repeat 5 [ fd fd fd sum 40 50 ] sum 20 40";
         //String userInput="make :var 50";
 
-        String userInput="repeat 5 [ fd 50 ]";
+        //String userInput="repeat 5 [ fd 50 ]";
 
         //String userInput ="[ :dist 10 40 10 ]";
-      //String userInput = "fd 50";
-       //String userInput="minus 50 50";
+
+        //String userInput = "vorw�rts 50";
+        String userInput="fd 50";
+
+        //String userInput="minus 50 50";
+
+        //String userInput="repete 5 [ dev 50 ]";
 
         //String userInput="and 50 50";
         //String userInput="and 50 0";
