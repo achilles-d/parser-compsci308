@@ -11,6 +11,7 @@ import slogo.model.backEndInternal.UserVariableHandler;
 
 public class VariableWindow extends Window {
 
+    private static final String VARIABLES = "Variables";
     private TitledPane myView;
     private ListView<String> variables;
     UserVariableHandler handler = new UserVariableHandler();
@@ -22,7 +23,7 @@ public class VariableWindow extends Window {
         myController = control;
         myView = new TitledPane();
         myView.setCollapsible(false);
-        myView.setText("Variables");
+        myView.setText(VARIABLES);
         myView.setPrefHeight(200);
         variables = new ListView<>();
         myView.setContent(variables);
