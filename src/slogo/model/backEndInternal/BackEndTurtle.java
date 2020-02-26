@@ -61,17 +61,18 @@ public class BackEndTurtle implements Turtle {
     public void setPosition(Coordinate a) {
 
         Coordinate newCord = ensureInBounds(a);
-        System.out.println("YAFTERADJUST " + newCord.getYVal());
-        System.out.println("XAFTERADJUST" + newCord.getXVal());
+
         if(!penUp.getValue())
         {
             drawLine(turtleCoordinate,newCord);
         }
+
+        System.out.println(" before " + turtleCoordinate);
+
         turtleCoordinate = newCord;
+        System.out.println( " after " + turtleCoordinate);
         xLoc.set(newCord.getXVal());
         yLoc.set(newCord.getYVal());
-
-
     }
 
     private Coordinate ensureInBounds(Coordinate a) {

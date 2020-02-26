@@ -3,6 +3,8 @@ package slogo.model.backEndInternal.commands;
 import slogo.model.Coordinate;
 import slogo.model.backEndInternal.BackEndTurtle;
 
+import java.util.List;
+
 public class Backward implements Command<Double> {
 
   private BackEndTurtle myTurtle;
@@ -15,6 +17,7 @@ public class Backward implements Command<Double> {
 
   @Override
   public Double execute() {
+    System.out.println("got here");
     double angle = Math.toRadians(myTurtle.getHeading());
     double deltaX = delta * Math.sin(angle);
     double deltaY = delta * Math.cos(angle);
@@ -22,5 +25,15 @@ public class Backward implements Command<Double> {
     Coordinate newPosition = new Coordinate(currentPos.getXVal() - deltaX, currentPos.getYVal() - deltaY);
     myTurtle.setPosition(newPosition);
     return delta;
+  }
+
+  @Override
+  public List<String> updateRawCommands() {
+    return null;
+  }
+
+  @Override
+  public Integer updateCounter() {
+    return null;
   }
 }
