@@ -72,12 +72,14 @@ public class MainTester {
         //m.parseText(lang, m.examples);
         //String userInput = "sum 10 goto 50 30";
        // String userInput = "[ fd sum sum sum sum 10 20 30 5 5";
-       String userInput ="fd * greater? 5 3 100";
+       //String userInput ="fd * greater? 5 3 100";
        //String userInput ="fd * greater? 5 make :var 100";
 
         //String userInput = "sum sum sum 10 50 30 40";
       //String userInput="repeat 5 [ fd fd fd sum 40 50 ] sum 20 40";
         //String userInput="make :var 50";
+
+        String userInput="repeat 5 [ fd 50 ]";
 
         //String userInput ="[ :dist 10 40 10 ]";
       //String userInput = "fd 50";

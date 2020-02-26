@@ -23,6 +23,7 @@ public class Forward implements Command<Double> {
     Coordinate currentPos = myTurtle.getPosition();
     Coordinate newPosition = new Coordinate(currentPos.getXVal() + deltaX, currentPos.getYVal() + deltaY);
     System.out.println(newPosition);
+    myTurtle.drawLine(currentPos, newPosition);
     myTurtle.setPosition(newPosition);
     return delta;
   }
