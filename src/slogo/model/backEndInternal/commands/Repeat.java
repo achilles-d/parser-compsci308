@@ -20,17 +20,12 @@ public class Repeat implements Command<Double> {
 
   public Repeat(List<String> sCom, Double repeat, Integer counter) {
     this.commandList = sCom;
-
-    //this.argumentArray = aArray;
     this.size = commandList.size();
     this.newCounter=counter;
     this.repeat=repeat.intValue();
-    System.out.println("Conter is "+newCounter);
 
   }
-public Repeat(){
 
-}
   @Override
   public Double execute() {
 
@@ -38,52 +33,44 @@ public Repeat(){
 
     if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
       newCounter +=3;
-
-      while(newCounter < commandList.size()){
-
-        if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
-            newCounter++;
-            break;
-        }
-        commands.append(commandList.get(newCounter));
-        commands.append(" ");
-        newCounter++;
-      }
-
-      System.out.println("commands as string extracted "+ commands.toString());
-      ArrayList<Integer> repCount = repCount();
-
-      for (int i = 0; i < repeat; i ++) {
-        int repCountCounter = 0;
-        String[] com = commands.toString().split(" ");
-        System.out.println("commands parsed length  "+ com.length);
-        for (int j = 0; j < com.length; j++) {
-          if ((repCount.size()!=0) && j == repCount.get(repCountCounter) ) {
-            commandToRepeat.add(Integer.toString(i));
-            repCountCounter++;
-          } else {
-            commandToRepeat.add(com[j]);
-          }
-        }
-        //commandToRepeat.addAll(Arrays.asList(commands.toString().split(" ")));
-      }
-      System.out.println("after commands elongate"+ commandToRepeat.toString());
-
+      updateCommands();
+      updateRepcountValues(commandToRepeat);
       List<String> rightSide = commandList.subList(newCounter, size);
-      System.out.println("Right side left"+rightSide);
       commandToRepeat.addAll(rightSide);
       commandList = commandToRepeat;
-
-      System.out.println("Command to runt next "+ commandList.toString());
-      System.out.println("Command to runt next "+ commandList.size());
-
-      newCounter=0;
-
       return Double.MAX_VALUE;
-
     } else {
-      System.out.println("Command to runt next "+ commandList.toString());
       return 0.0;
+    }
+  }
+
+  private void updateRepcountValues(ArrayList<String> commandToRepeat) {
+    ArrayList<Integer> repCount = repCount();
+
+    for (int i = 0; i < repeat; i ++) {
+      int repCountCounter = 0;
+      String[] com = commands.toString().split(" ");
+      for (int j = 0; j < com.length; j++) {
+        if ((repCount.size()!=0) && j == repCount.get(repCountCounter) ) {
+          commandToRepeat.add(Integer.toString(i));
+          repCountCounter++;
+        } else {
+          commandToRepeat.add(com[j]);
+        }
+      }
+    }
+  }
+
+  private void updateCommands() {
+    while(newCounter < commandList.size()){
+
+      if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
+          newCounter++;
+          break;
+      }
+      commands.append(commandList.get(newCounter));
+      commands.append(" ");
+      newCounter++;
     }
   }
 
@@ -92,7 +79,7 @@ public Repeat(){
    * @return the new counter
    */
   public Integer updateCounter(){
-    return 0;
+    return -1;
   }
 
   /**
@@ -100,8 +87,8 @@ public Repeat(){
    * @return the new commandList which is not yet executed
    */
   public List<String> updateRawCommands(){
-    return Arrays.asList(("fd 50").split(" "));
-    //return commandList;
+    //return Arrays.asList(("fd 50").split(" "));
+    return commandList;
   }
 
 

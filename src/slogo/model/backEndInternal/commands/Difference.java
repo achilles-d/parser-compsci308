@@ -1,5 +1,7 @@
 package slogo.model.backEndInternal.commands;
 
+import java.util.List;
+
 public class Difference implements Command<Double> {
 
   private double value1;
@@ -14,4 +16,14 @@ public class Difference implements Command<Double> {
   public Double execute() {
     return value1 - value2;
   }
+
+    @Override
+    public List<String> updateRawCommands() {
+        return null;
+    }
+
+    @Override
+    public Integer updateCounter() {
+        return null;
+    }
 }

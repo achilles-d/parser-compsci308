@@ -1,5 +1,7 @@
 package slogo.model.backEndInternal.commands;
 
+import java.util.List;
+
 public interface Command<T> {
 
     /**
@@ -9,4 +11,9 @@ public interface Command<T> {
      * @return
      */
     T execute();
+
+    List<String> updateRawCommands();
+
+    Integer updateCounter();
+
 }

@@ -94,10 +94,12 @@ public class CommandParser implements Parser {
             buildExecutable();
             commandCounter++;
         }
+
         int size = commandStack.size();
         for (int i = 0; i < size; i++) {
             buildExecutable();
         }
+
     }
 
 
@@ -106,71 +108,44 @@ public class CommandParser implements Parser {
             NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
+
             int l = readArgumentSize(getSymbol(commandStack.peek()));
             String currentCommandName = (commandStack.pop());
 
             List<String> commandWithDependency = new ArrayList<>();
             Double[] arguments = new Double[l];
 
-            for (int j = 0; j < l; j++) {
-                arguments[j] = argumentStack.pop();
-            }
-
+            for (int j = 0; j < l; j++) { arguments[j] = argumentStack.pop(); }
             currentCommandName = findCommandDependents(currentCommandName, commandWithDependency);
             System.out.println(commandWithDependency.get(0));
-
             Command com = (Command) commandFactor.getCommand(commandWithDependency, arguments);
             commandWithDependency.set(0, currentCommandName);
-            Double rtn = (Double) executor.executeCommand(com);
-
-            if(!rtn.equals(Double.MAX_VALUE)){
-                System.out.println("not infinity");
-                argumentStack.add(rtn);
-
-            } else {
-                System.out.println(" infinity");
-                commandCounter=-1;
-                commandList= new ArrayList<>();
-//                commandList.add("fd");
-////                commandList.add("50");
-////                commandList.add("fd");
-////                commandList.add("50");
-                Repeat rep=new Repeat();
-                commandList=rep.updateRawCommands();
-                System.out.println("Update counter "+ rep.updateCounter());
-                System.out.println("Update list "+ rep.updateRawCommands());
-
-                numOfCommandsToExecute=commandList.size();
-
-            }
-
+            checkIfCommandExecutable(com);
             System.out.println("Executed Commands "+commandWithDependency.toString() + Arrays.toString(arguments));
             commandHandler.updateCommandHistory(commandWithDependency.toString() + Arrays.toString(arguments));
 
-            System.out.println("After execution "+commandList.size());
-            System.out.println("After execution counter is  "+commandCounter);
 
         }
     }
 
+    private void checkIfCommandExecutable(Command com) throws ExecutionException {
+        Double rtn = (Double) executor.executeCommand(com);
 
+        if(!rtn.equals(Double.MAX_VALUE)){
+            System.out.println("not infinity " + rtn);
+            //System.out.println("Size of command Stack "+ commandStack.peek());
+            argumentStack.add(rtn);
 
-//    private void updateStackAndCommandHandler(String currentCommandName, List<String> commandWithDependency,
-//                                              Double[] arguments, Command com) throws ExecutionException {
-//        commandWithDependency.set(0, currentCommandName);
-//        Double rtn = (Double) executor.executeCommand(com);
-//        if(!rtn.isInfinite()){
-//            System.out.println("not infinity");
-//            argumentStack.add(rtn);
-//        } else {
-//            commandCounter=0;
-//
-//        }
-//
-//        commandHandler.updateCommandHistory(commandWithDependency.toString() + Arrays.toString(arguments));
-//    }
+        } else {
+            System.out.println(" infinity");
+            commandCounter=-1;
+            commandList=com.updateRawCommands();
+            System.out.println("Update counter "+ com.updateCounter());
+            System.out.println("Update list "+ com.updateRawCommands());
+            numOfCommandsToExecute=commandList.size();
 
-
+        }
+    }
 
     private String findCommandDependents(String currentCommandName, List<String> commandWithDependency) {
         if (getSymbol(currentCommandName).equals("Variable") && !matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))) {
@@ -241,6 +216,11 @@ public class CommandParser implements Parser {
             }
         }
         // FIXME: perhaps throw an exception instead
+//        commandList.clear();
+//        commandStack.clear();
+//        argumentStack.clear();
+//        commandCounter=0;
+        //System.out.println("Get symbol "+command);
         return ERROR;
     }
 
@@ -249,7 +229,15 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-        System.out.println("get size of "+key);
+        //System.out.println("Key to be checked "+key);
+
+        if(!sizes.containsKey(key)){
+            commandList.clear();
+            commandStack.clear();
+            argumentStack.clear();
+            commandCounter=0;
+        }
+
 
         return Integer.parseInt(sizes.getString(key));
 
