@@ -9,7 +9,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import slogo.controller.ParserController;
 
+import java.util.ResourceBundle;
+
 public class ConsoleWindow extends Window {
+
+    private static final String UI_TEXT = "resources.UIText";
+    private static final String RESET = "reset";
+
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     private HBox myView;
     private TextArea console;
@@ -27,7 +34,7 @@ public class ConsoleWindow extends Window {
         console.setPrefWidth(650);
         console.setMaxWidth(Double.MAX_VALUE);
         execute = execution;
-        reset = new Button("Reset");
+        reset = new Button(visualText.getString(RESET));
         reset.setOnAction((event -> {console.clear();}));
 
         buttonPane = new VBox();
