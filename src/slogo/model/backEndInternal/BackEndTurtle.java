@@ -29,6 +29,8 @@ public class BackEndTurtle implements Turtle {
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
 
 
+
+
     //private double xLoc;
     //private double yLoc;
     //private double endX;
@@ -73,26 +75,42 @@ public class BackEndTurtle implements Turtle {
         yLoc.set(newCord.getYVal());
     }
 
-    private Coordinate ensureInBounds(Coordinate a)
-    {
-        double x =a.getXVal();
+    private Coordinate ensureInBounds(Coordinate a) {
+
+        double x = a.getXVal();
         double y = a.getYVal();
-        System.out.println("Y COORDINATE" + y);
 
-        while(x>350)
+        boolean hitXWall = false;
+        boolean hitYWall = false;
+
+
+        while (x > 370) {
             x--;
-        while(y>809.5)
-            y--;
-
-        while(x<-375)
+            hitXWall = true;
+        }
+        while (x < -370) {
             x++;
-        while(y<-286.5)
+            hitXWall = true;
+        }
+
+        while (y > 280){
+            y--;
+            hitYWall = true;
+
+        }
+
+        while (y < -280){
             y++;
+            hitYWall = true;
+
+        }
 
 
-        return new Coordinate(x,y);
+        return new Coordinate((!hitXWall && hitYWall? turtleCoordinate.getXVal():x),(hitXWall && !hitYWall? turtleCoordinate.getYVal():y));
 
     }
+
+
 
     @Override
     public Coordinate getPosition() {
