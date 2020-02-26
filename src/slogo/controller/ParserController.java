@@ -72,6 +72,7 @@ public class ParserController {
 
     public List<String> getAllVariables(){
         List<String> variables = myUserVarHandler.getKeys();
+        System.out.println(myUserVarHandler.getKeys().size());
         List<String> varNamesAndValues = new ArrayList<>();
         for(String var : variables){
             String varValue = myUserVarHandler.getVariable(var).toString();

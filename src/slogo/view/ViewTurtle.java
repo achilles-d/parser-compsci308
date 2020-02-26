@@ -91,8 +91,8 @@ public class ViewTurtle {
             myY++;
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
-        //System.out.println("Xcord " + x);
-        //System.out.println("Ycord " + y);
+        System.out.println("Xcord " + myX);
+        System.out.println("Ycord " + myY);
 
 
 

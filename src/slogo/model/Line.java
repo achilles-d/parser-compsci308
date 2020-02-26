@@ -18,6 +18,11 @@ public interface Line {
 
     public void createLine(Coordinate start, Coordinate end);
 
+    public boolean isDrawn();
+
+    public void drewLine();
+
+
 
 }
 
