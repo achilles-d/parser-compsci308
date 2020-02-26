@@ -41,12 +41,11 @@ public class LogoVisualization {
         executeButton = new Button("Execute");
         executeButton.setOnAction(event -> {updateAllPanes();});
 
+        toolbar = new Menu(myController);
         myConsole = new ConsoleWindow(executeButton,myController);
-
         myVariables = new VariableWindow(myController);
         myHistory = new HistoryWindow(myController);
-        available = new AvailableCommandsWindow("resources.languages.English",myController);
-        toolbar = new Menu(myController);
+        available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController);
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
 
         VBox leftComps = new VBox();

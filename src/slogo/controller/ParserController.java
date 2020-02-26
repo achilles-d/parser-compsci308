@@ -17,6 +17,7 @@ import slogo.model.backEndInternal.commands.Command;
 
 public class ParserController {
 
+    private static final String SYNTAX = "resources.languages.Syntax";
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;
     private CommandHandlerAPI myCommandHandlerAPI;
@@ -82,12 +83,12 @@ public class ParserController {
     }
 
     public String getLanguage(){
-        return myLanguage.toString();
+        return myLanguage.getLanguageFile();
     }
 
     public void setLanguage(String language){
         myLanguage = Language.valueOf(language);
-        myCommandParser.addPatterns("resources.languages.English");
-        myCommandParser.addPatterns("resources.languages.Syntax");
+        myCommandParser.addPatterns(myLanguage.getLanguageFile());
+        myCommandParser.addPatterns(SYNTAX);
     }
 }

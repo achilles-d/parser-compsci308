@@ -20,17 +20,21 @@ public class Menu {
     private static final String PEN_COLOR = "resources.colors.PenColor";
     private static final String BACKGROUND_COLOR = "resources.colors.BackgroundColor";
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
+    private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
 
     private HBox myView;
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
     private ResourceBundle bgColorsNames = java.util.ResourceBundle.getBundle(BACKGROUND_COLOR);
     private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+    private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
     private MenuButton bgColors;
     private MenuButton images;
     private MenuButton penColors;
+    private MenuButton languages;
     private SimpleStringProperty activeBackgroundColor;
     private SimpleStringProperty activePenColor;
     private SimpleStringProperty turtleImage;
+    private SimpleStringProperty activeLanguage;
     private ParserController myController;
 
 
@@ -51,23 +55,36 @@ public class Menu {
        images = new MenuButton("Turtle Images");
        makeImagesMenu();
 
+       activeLanguage = new SimpleStringProperty("English");
+       languages = new MenuButton("Language");
+       makeLanguagesMenu();
 
-
-       MenuItem itemGerman = new MenuItem("German");
-       MenuItem itemSpanish = new MenuItem("Spanish");
-       MenuItem itemEnglish = new MenuItem("English");
-       MenuButton language = new MenuButton("Language",null,itemGerman,itemSpanish,itemEnglish);
        Button help = new Button("Help");
        help.setOnAction(event -> { makeHelpScreen();
           });
 
-       myView.getChildren().addAll(bgColors,penColors,language,images,help);
+       myView.getChildren().addAll(bgColors,penColors,languages,images,help);
    }
 
    public Property getActiveTurtleImage()
    {
        return turtleImage;
    }
+
+   private void makeLanguagesMenu()
+   {
+       for(String language: languageModes.keySet())
+       {
+           MenuItem languageSelect = new MenuItem(language);
+           languageSelect.setOnAction(e -> {
+               myController.setLanguage(language);
+               activeLanguage.setValue(language);
+           });
+           languages.getItems().add(languageSelect);
+       }
+   }
+
+   public Property getActiveLanguage(){ return activeLanguage;}
 
    private void makeImagesMenu()
    {
