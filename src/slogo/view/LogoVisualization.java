@@ -1,21 +1,12 @@
 package slogo.view;
 
-import javafx.application.Application;
 import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
-
-import java.lang.reflect.Constructor;
 
 public class LogoVisualization {
 
@@ -47,19 +38,15 @@ public class LogoVisualization {
 
     public void init()
     {
-
         executeButton = new Button("Execute");
         executeButton.setOnAction(event -> {updateAllPanes();});
 
+        toolbar = new Menu(myController);
         myConsole = new ConsoleWindow(executeButton,myController);
-
         myVariables = new VariableWindow(myController);
         myHistory = new HistoryWindow(myController);
-        available = new AvailableCommandsWindow("resources.languages.English",myController);
-        toolbar = new Menu(myController);
-        activeTurtleImage = toolbar.getActiveTurtleImage();
-        activePenColor = toolbar.getActivePenColor();
-        graphics = new TurtleWindow(toolbar.getActivePenColor(),toolbar.getActiveTurtleImage(),myController);
+        available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController);
+        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
 
         VBox leftComps = new VBox();
         leftComps.getChildren().addAll(myHistory.getView(),available.getView());
@@ -74,7 +61,6 @@ public class LogoVisualization {
 
         border.setLeft(leftComps);
         border.setTop(toolbar.getView());
-
 
 
 
@@ -100,6 +86,8 @@ public class LogoVisualization {
         }
 
         graphics.update();
+        myHistory.update();
+        myVariables.update();
 
     }
 

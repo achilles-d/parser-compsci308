@@ -15,4 +15,9 @@ public enum Language {
   Language(String languageFileName){
     myPropertyDir = LANGUAGES_DIR + languageFileName;
   }
+
+  public String getLanguageFile(){
+    return myPropertyDir;
+  }
+
 }
