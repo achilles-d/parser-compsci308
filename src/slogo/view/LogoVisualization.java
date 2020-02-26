@@ -14,6 +14,7 @@ public class LogoVisualization {
 
     private static final String UI_TEXT = "resources.UIText";
     private static final String EXECUTE = "execute";
+    private static final String CSS_FILE = "/resources/uistyle.css";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
     private BorderPane border = new BorderPane();
@@ -68,6 +69,7 @@ public class LogoVisualization {
 
 
         Scene scene = new Scene(border,1000,1000);
+        scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         myStage.setScene(scene);
         myStage.show();
 
