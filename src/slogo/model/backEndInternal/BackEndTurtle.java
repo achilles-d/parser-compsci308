@@ -63,7 +63,9 @@ public class BackEndTurtle implements Turtle {
         {
             drawLine(turtleCoordinate,newCord);
         }
+        System.out.println(" before " + turtleCoordinate);
         turtleCoordinate = newCord;
+        System.out.println( " after " + turtleCoordinate);
         xLoc.set(newCord.getXVal());
         yLoc.set(newCord.getYVal());
     }
