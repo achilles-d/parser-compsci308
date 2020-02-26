@@ -26,7 +26,7 @@ public class VariableWindow extends Window {
         myView.setPrefHeight(200);
         variables = new ListView<>();
         myView.setContent(variables);
-        variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
+
         /*
         variables = new TableView<>(handler.getKeys());
         //variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
@@ -56,7 +56,11 @@ public class VariableWindow extends Window {
 
     public void update()
     {
-
+        variables.getItems().clear();
+        for(String s : myController.getAllVariables())
+        {
+            variables.getItems().add(s);
+        }
     }
 
 

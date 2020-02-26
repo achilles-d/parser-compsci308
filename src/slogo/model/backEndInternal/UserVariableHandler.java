@@ -22,7 +22,7 @@ public class UserVariableHandler<T>  {
                 if (removed) {
                     keys.remove(change.getKey());
                 } else {
-                    keys.add(change.getKey());
+                    //keys.add(change.getKey());
                 }
             }
         });
