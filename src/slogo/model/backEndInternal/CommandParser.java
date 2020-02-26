@@ -5,6 +5,7 @@ import slogo.model.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
+import slogo.model.backEndInternal.commands.Repeat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -130,10 +131,15 @@ public class CommandParser implements Parser {
                 System.out.println(" infinity");
                 commandCounter=-1;
                 commandList= new ArrayList<>();
-                commandList.add("fd");
-                commandList.add("50");
-                commandList.add("fd");
-                commandList.add("50");
+//                commandList.add("fd");
+////                commandList.add("50");
+////                commandList.add("fd");
+////                commandList.add("50");
+                Repeat rep=new Repeat();
+                commandList=rep.updateRawCommands();
+                System.out.println("Update counter "+ rep.updateCounter());
+                System.out.println("Update list "+ rep.updateRawCommands());
+
                 numOfCommandsToExecute=commandList.size();
 
             }

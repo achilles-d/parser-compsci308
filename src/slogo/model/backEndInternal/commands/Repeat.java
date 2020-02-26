@@ -28,7 +28,9 @@ public class Repeat implements Command<Double> {
     System.out.println("Conter is "+newCounter);
 
   }
+public Repeat(){
 
+}
   @Override
   public Double execute() {
 
@@ -85,6 +87,25 @@ public class Repeat implements Command<Double> {
     }
   }
 
+  /**
+   *
+   * @return the new counter
+   */
+  public Integer updateCounter(){
+    return 0;
+  }
+
+  /**
+   *
+   * @return the new commandList which is not yet executed
+   */
+  public List<String> updateRawCommands(){
+    return Arrays.asList(("fd 50").split(" "));
+    //return commandList;
+  }
+
+
+
   private ArrayList<Integer> repCount() {
     String[] arrayofS = commands.toString().split(" ");
     ArrayList<Integer> locs = new ArrayList<>();
@@ -95,5 +116,7 @@ public class Repeat implements Command<Double> {
     }
     return locs;
   }
+
+
 
 }
