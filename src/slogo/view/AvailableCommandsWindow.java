@@ -11,8 +11,11 @@ import java.util.ResourceBundle;
 
 public class AvailableCommandsWindow extends Window {
 
+    private static final String UI_TEXT = "resources.UIText";
 
-    private static final String AVAILABLE_COMMANDS = "Available Commands";
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+
+    private static final String AVAILABLE_COMMANDS = "available";
     private ResourceBundle commandNames;
 
     private TitledPane myView;
@@ -31,7 +34,7 @@ public class AvailableCommandsWindow extends Window {
         commandNames = java.util.ResourceBundle.getBundle(myController.getLanguage());
 
         myView = new TitledPane();
-        myView.setText(AVAILABLE_COMMANDS);
+        myView.setText(visualText.getString(AVAILABLE_COMMANDS));
         availableCommands =  new ListView<>();
         populateCommands();
 

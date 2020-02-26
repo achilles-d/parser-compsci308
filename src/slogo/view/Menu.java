@@ -21,12 +21,21 @@ public class Menu {
     private static final String BACKGROUND_COLOR = "resources.colors.BackgroundColor";
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
+    private static final String UI_TEXT = "resources.UIText";
+    private static final String DEFAULT_BACKGROUND_COLOR = "White";
+    private static final String DEFAULT_PEN_COLOR = "Black";
+    private static final String BGCOLORS = "bgcolors";
+    private static final String PENCOLORS = "pencolors";
+    private static final String IMAGES = "images";
+    private static final String LANGUAGE = "language";
+    private static final String HELP = "help";
 
     private HBox myView;
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
     private ResourceBundle bgColorsNames = java.util.ResourceBundle.getBundle(BACKGROUND_COLOR);
     private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
     private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
     private MenuButton bgColors;
     private MenuButton images;
     private MenuButton penColors;
@@ -43,23 +52,23 @@ public class Menu {
        myController = control;
        myView = new HBox();
 
-       activeBackgroundColor = new SimpleStringProperty("White");
-       bgColors = new MenuButton("Background Colors");
+       activeBackgroundColor = new SimpleStringProperty(DEFAULT_BACKGROUND_COLOR);
+       bgColors = new MenuButton(visualText.getString(BGCOLORS));
        makeBackgroundColorsMenu();
 
-       activePenColor = new SimpleStringProperty("Black");
-       penColors = new MenuButton("Pen Colors");
+       activePenColor = new SimpleStringProperty(DEFAULT_PEN_COLOR);
+       penColors = new MenuButton(visualText.getString(PENCOLORS));
        makePenColorsMenu();
 
        turtleImage = new SimpleStringProperty("turtle.jpg");
-       images = new MenuButton("Turtle Images");
+       images = new MenuButton(visualText.getString(IMAGES));
        makeImagesMenu();
 
        activeLanguage = new SimpleStringProperty("English");
-       languages = new MenuButton("Language");
+       languages = new MenuButton(visualText.getString(LANGUAGE));
        makeLanguagesMenu();
 
-       Button help = new Button("Help");
+       Button help = new Button(visualText.getString(HELP));
        help.setOnAction(event -> { makeHelpScreen();
           });
 
@@ -77,7 +86,6 @@ public class Menu {
        {
            MenuItem languageSelect = new MenuItem(language);
            languageSelect.setOnAction(e -> {
-               System.out.println(language);
                myController.setLanguage(language);
                activeLanguage.setValue(language);
            });
