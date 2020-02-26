@@ -52,7 +52,7 @@ public class ParserController {
     public List<String> getCommandHistory() {
         List<String> commandStrings = new ArrayList<>();
         for(String cmd : myCommandHandlerAPI.getCommandHistory()){
-            commandStrings.add(cmd.toString());
+            commandStrings.add(cmd);
         }
         return commandStrings;
     }
