@@ -20,7 +20,7 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Stack<Double> argumentStack = new Stack<>();
     private Stack<String> commandStack = new Stack<>();
-    private List<String> commandList = new ArrayList<>();
+    private List commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
     private CommandFactory commandFactor;
     private CommandExecutor executor;
@@ -28,6 +28,7 @@ public class CommandParser implements Parser {
     private CommandHandlerAPI commandHandler;
     private UserVariableHandler userVariableHandler;
     private int numOfCommandsToExecute=0;
+    private BackEndTurtle turtle;
 
     /**
      * Create an empty parser
@@ -37,9 +38,9 @@ public class CommandParser implements Parser {
                          BackEndTurtle turtle) {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
+        this.turtle=turtle;
         mySymbols = new ArrayList<>();
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
-
+       commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
@@ -66,12 +67,10 @@ public class CommandParser implements Parser {
     }
 
     private void parseCommand() {
-
         commandStack.add(commandList.get(commandCounter));
         addValidValuesToTheStack();
 
     }
-
 
 
     private void parseConstant() {
@@ -82,7 +81,9 @@ public class CommandParser implements Parser {
 
     @Override
     public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        clearAll();
         commandList.addAll(Arrays.asList(consoleInput.split(" ")));
+
         numOfCommandsToExecute=commandList.size();
 
         while (commandCounter < numOfCommandsToExecute) {
@@ -100,9 +101,8 @@ public class CommandParser implements Parser {
             buildExecutable();
         }
 
+
     }
-
-
 
     private void buildExecutable() throws ExecutionException, ClassNotFoundException,
             NoSuchMethodException,
@@ -117,7 +117,10 @@ public class CommandParser implements Parser {
 
             for (int j = 0; j < l; j++) { arguments[j] = argumentStack.pop(); }
             currentCommandName = findCommandDependents(currentCommandName, commandWithDependency);
-            System.out.println(commandWithDependency.get(0));
+            //System.out.println("Command to call "+commandWithDependency.get(0));
+
+            //commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+
             Command com = (Command) commandFactor.getCommand(commandWithDependency, arguments);
             commandWithDependency.set(0, currentCommandName);
             checkIfCommandExecutable(com);
@@ -229,14 +232,21 @@ public class CommandParser implements Parser {
         //System.out.println("Key to be checked "+key);
 
         if(!sizes.containsKey(key)){
-            commandList.clear();
-            commandStack.clear();
-            argumentStack.clear();
-            commandCounter=0;
+            clearAll();
         }
 
 
         return Integer.parseInt(sizes.getString(key));
+
+    }
+
+    private void clearAll(){
+        commandList.clear();
+        commandStack.clear();
+        argumentStack.clear();
+        commandCounter=0;
+        numOfCommandsToExecute=0;
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
 
     }
 
