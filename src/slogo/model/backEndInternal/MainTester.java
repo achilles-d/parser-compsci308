@@ -83,10 +83,10 @@ public class MainTester {
         //String userInput ="[ :dist 10 40 10 ]";
 
         //String userInput = "vorw�rts 50";
-        //String userInput="fd 50";
-        //String userInput="for [ :x 1 8 2 ] [ fd :x ]";
 
-        String userInput="if 2 [ fd 50 ] fd 50";
+  //~~~~~~~~~      String userInput="Repeat 10 [ fd :repcount rt 90 ]"; ~~~~~~~~~~~~~~~~~~~~~~~ DOESN'T WORK
+
+        String userInput= "IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
         //String userInput="repete 5 [ dev 50 ]";
 

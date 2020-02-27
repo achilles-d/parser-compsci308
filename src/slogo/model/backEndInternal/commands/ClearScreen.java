@@ -1,5 +1,33 @@
 package slogo.model.backEndInternal.commands;
 
-public class ClearScreen {
-    // TODO: WRITE THIS CLASS
+import slogo.model.Coordinate;
+import slogo.model.backEndInternal.BackEndTurtle;
+
+import java.util.List;
+
+public class ClearScreen implements Command<Double> {
+
+    BackEndTurtle myTurtle;
+
+    public ClearScreen(BackEndTurtle bT) {
+        this.myTurtle = bT;
+    }
+
+    @Override
+    public Double execute() {
+        myTurtle.getLines().clear();
+        Coordinate currentPos = myTurtle.getPosition();
+        myTurtle.setPosition(new Coordinate());
+        return Math.sqrt(Math.pow(currentPos.getXVal(), 2) + Math.pow(currentPos.getYVal(), 2));
+    }
+
+    @Override
+    public List<String> updateRawCommands() {
+        return null;
+    }
+
+    @Override
+    public Integer updateCounter() {
+        return null;
+    }
 }

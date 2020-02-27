@@ -23,7 +23,7 @@ public class Repeat implements Command<Double> {
     this.size = commandList.size();
     this.newCounter=counter;
     this.repeat=repeat.intValue();
-
+    System.out.println(commandList);
   }
 
   @Override
@@ -32,9 +32,11 @@ public class Repeat implements Command<Double> {
     ArrayList<String> commandToRepeat = new ArrayList<>();
 
     if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
-      newCounter +=3;
+      newCounter += 3;
       updateCommands();
+
       updateRepcountValues(commandToRepeat);
+
       List<String> rightSide = commandList.subList(newCounter, size);
       commandToRepeat.addAll(rightSide);
       commandList = commandToRepeat;
@@ -62,11 +64,11 @@ public class Repeat implements Command<Double> {
   }
 
   private void updateCommands() {
-    while(newCounter < commandList.size()){
 
+    while(newCounter < commandList.size()){
       if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
-          newCounter++;
-          break;
+        newCounter++;
+        break;
       }
       commands.append(commandList.get(newCounter));
       commands.append(" ");
