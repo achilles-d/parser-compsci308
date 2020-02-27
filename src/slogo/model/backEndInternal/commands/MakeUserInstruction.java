@@ -36,7 +36,7 @@ public class MakeUserInstruction implements Command<Double> {
 
     @Override
     public Double execute() {
-        
+
         return 0.0;
     }
 
