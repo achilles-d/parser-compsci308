@@ -33,6 +33,8 @@ public class IfElse implements Command<Double> {
         rightSide = rightSide.subList(1, rightSide.size());
 
         if (check != 0) {
+
+
             if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
                 newCounter += 3;
                 updateCommands();
@@ -72,6 +74,7 @@ public class IfElse implements Command<Double> {
     }
 
     private void updateCommands() {
+
         while(newCounter < commandList.size()){
             if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
                 newCounter++;
