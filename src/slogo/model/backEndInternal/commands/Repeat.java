@@ -23,6 +23,7 @@ public class Repeat implements Command<Double> {
     this.size = commandList.size();
     this.newCounter=counter;
     this.repeat=repeat.intValue();
+    System.out.println(commandList);
   }
 
   @Override
