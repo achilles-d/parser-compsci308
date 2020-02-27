@@ -40,7 +40,7 @@ public class CommandParser implements Parser {
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
         mySymbols = new ArrayList<>();
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+       //commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
@@ -119,7 +119,7 @@ public class CommandParser implements Parser {
             currentCommandName = findCommandDependents(currentCommandName, commandWithDependency);
             //System.out.println("Command to call "+commandWithDependency.get(0));
 
-            //commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+            commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
 
             Command com = (Command) commandFactor.getCommand(commandWithDependency, arguments);
 
@@ -230,7 +230,7 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-        //System.out.println("Key to be checked "+key);
+        System.out.println("Key to be checked "+key);
 
         if(!sizes.containsKey(key)){
             clearAll();
