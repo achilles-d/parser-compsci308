@@ -229,7 +229,7 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-        //System.out.println("Key to be checked "+key);
+        System.out.println("Key to be checked "+key);
 
         if(!sizes.containsKey(key)){
             clearAll();
