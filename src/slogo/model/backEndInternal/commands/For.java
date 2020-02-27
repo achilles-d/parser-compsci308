@@ -50,7 +50,7 @@ public class For implements Command<Double> {
             for (int i=start; i<=end; i+=increment)
 
             while(numberOfLeft>numberOfRight){
-                
+
             }
         }
 
