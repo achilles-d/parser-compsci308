@@ -1,6 +1,7 @@
 package slogo.model.backEndInternal.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DoTimes implements Command<Double> {
@@ -28,6 +29,11 @@ public class DoTimes implements Command<Double> {
         if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
             newCounter += 3;
             updateCommands();
+
+            System.out.println(commands.toString());
+
+            updateList(commandToRepeat);
+
             List<String> rightSide = commandList.subList(newCounter, size);
             commandToRepeat.addAll(rightSide);
             commandList = commandToRepeat;
@@ -37,7 +43,15 @@ public class DoTimes implements Command<Double> {
         }
     }
 
+    private void updateList(ArrayList<String> commandToRepeat) {
+        for (int i = 0 ; i < repeat; i++) {
+            String[] com = commands.toString().split(" ");
+            commandToRepeat.addAll(Arrays.asList(com));
+        }
+    }
+
     private void updateCommands() {
+
         while(newCounter < commandList.size()){
             if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
                 newCounter++;
