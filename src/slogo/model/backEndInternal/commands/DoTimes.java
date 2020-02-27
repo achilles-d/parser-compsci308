@@ -1,34 +1,61 @@
-//package slogo.model.backEndInternal.commands;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Stack;
-//
-//public class DoTimes implements Command<Double> {
-//
-//  Integer numOfTimes;
-//  Stack<Command> commandStack;
-//  Stack<Command> argumentStack;
-//
-//  public DoTimes(Integer n, Stack<Command> comStack, Stack<Command> argStack, ) {
-//    this.numOfTimes = n;
-//    this.commandStack = comStack;
-//    this.argumentStack = argStack;
-//  }
-//
-//  @Override
-//  public void execute() {
-//    List<Command> allTheCommands = new ArrayList<>();
-//    List<Command> allTheArgs = new ArrayList<>();
-//
-//    for (int i = 0; i < numOfTimes; i++) {
-//      allTheCommands.add("COMMAND_NAME");
-//      allTheCommands.add("ALL_ARGUMENTS");
-//    }
-//
-//    commandStack.addAll(allTheCommands);
-//    argumentStack.addAll();
-//
-//  return 0.0;
-//  }
-//}
+package slogo.model.backEndInternal.commands;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DoTimes implements Command<Double> {
+
+    private List<String> commandList;
+    private String LEFT_BRACKET = "[";
+    private String RIGHT_BRACKET = "]";
+    private int size;
+    private StringBuilder commands = new StringBuilder();
+    private Integer repeat;
+    private Integer newCounter;
+
+    public DoTimes(List<String> sCom, Double repeat, Integer counter) {
+        this.commandList = sCom;
+        this.size = commandList.size();
+        this.newCounter=counter;
+        this.repeat=repeat.intValue();
+    }
+
+    @Override
+    public Double execute() {
+
+        ArrayList<String> commandToRepeat = new ArrayList<>();
+
+        if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
+            newCounter += 3;
+            updateCommands();
+            List<String> rightSide = commandList.subList(newCounter, size);
+            commandToRepeat.addAll(rightSide);
+            commandList = commandToRepeat;
+            return Double.MAX_VALUE;
+        } else {
+            return  0.0;
+        }
+    }
+
+    private void updateCommands() {
+        while(newCounter < commandList.size()){
+            if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
+                newCounter++;
+                break;
+            }
+            commands.append(commandList.get(newCounter));
+            commands.append(" ");
+            newCounter++;
+        }
+    }
+
+    @Override
+    public List<String> updateRawCommands() {
+        return commandList;
+    }
+
+    @Override
+    public Integer updateCounter() {
+        return -1;
+    }
+}
