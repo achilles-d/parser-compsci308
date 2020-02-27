@@ -144,8 +144,8 @@ public class BackEndTurtle implements Turtle {
     /**
      * Toggle whether turtle is visible or not
      */
-    public void toggleVisibility() {
-        turtleVisible.set(!turtleVisible.get());
+    public void setVisibility(boolean visible) {
+        turtleVisible.set(visible);
     }
 
     /**

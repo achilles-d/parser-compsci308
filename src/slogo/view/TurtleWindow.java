@@ -130,6 +130,7 @@ public class TurtleWindow extends Window {
 
         myTurtle.updatePosition(myController.getTurtlePosition());
         myTurtle.setHeading(myController.getHeading());
+        myTurtle.setVisibility(myController.getTurtleVisibility());
         drawLines();
     }
 
