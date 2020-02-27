@@ -2,6 +2,8 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.UserVariableHandler;
 
+import java.util.List;
+
 public class MakeVariable<T> implements Command<Double> {
 
   private UserVariableHandler<T> myHandler;
@@ -16,5 +18,15 @@ public class MakeVariable<T> implements Command<Double> {
   @Override
   public Double execute() {
     return myHandler.getVariable(variableName).getValue();
+  }
+
+  @Override
+  public List<String> updateRawCommands() {
+    return null;
+  }
+
+  @Override
+  public Integer updateCounter() {
+    return null;
   }
 }

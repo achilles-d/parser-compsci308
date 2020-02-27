@@ -9,7 +9,14 @@ import javafx.scene.control.TitledPane;
 import slogo.controller.ParserController;
 import slogo.model.backEndInternal.UserVariableHandler;
 
+import java.util.ResourceBundle;
+
 public class VariableWindow extends Window {
+
+    private static final String UI_TEXT = "resources.UIText";
+    private static final String VARWINDOW = "varwindow";
+
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     private TitledPane myView;
     private ListView<String> variables;
@@ -22,11 +29,11 @@ public class VariableWindow extends Window {
         myController = control;
         myView = new TitledPane();
         myView.setCollapsible(false);
-        myView.setText("Variables");
+        myView.setText(visualText.getString(VARWINDOW));
         myView.setPrefHeight(200);
         variables = new ListView<>();
         myView.setContent(variables);
-        variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
+
         /*
         variables = new TableView<>(handler.getKeys());
         //variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
@@ -56,7 +63,11 @@ public class VariableWindow extends Window {
 
     public void update()
     {
-
+        variables.getItems().clear();
+        for(String s : myController.getAllVariables())
+        {
+            variables.getItems().add(s);
+        }
     }
 
 

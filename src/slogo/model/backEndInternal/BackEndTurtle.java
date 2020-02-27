@@ -25,8 +25,10 @@ public class BackEndTurtle implements Turtle {
     private SimpleDoubleProperty endY = new SimpleDoubleProperty();
 
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
-    private SimpleBooleanProperty penUp = new SimpleBooleanProperty();
+    private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
+
+
 
 
     //private double xLoc;
@@ -46,7 +48,7 @@ public class BackEndTurtle implements Turtle {
         turtleCoordinate = new Coordinate();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
-        penUp.set(false);
+        penDown.set(true);
         turtleVisible.set(true);
 
     }
@@ -59,7 +61,8 @@ public class BackEndTurtle implements Turtle {
     public void setPosition(Coordinate a) {
 
         Coordinate newCord = ensureInBounds(a);
-        if(!penUp.getValue())
+
+        if(penDown.getValue())
         {
             drawLine(turtleCoordinate,newCord);
         }
@@ -70,26 +73,42 @@ public class BackEndTurtle implements Turtle {
         yLoc.set(newCord.getYVal());
     }
 
-    private Coordinate ensureInBounds(Coordinate a)
-    {
-        double x =a.getXVal();
+    private Coordinate ensureInBounds(Coordinate a) {
+
+        double x = a.getXVal();
         double y = a.getYVal();
-        System.out.println("Y COORDINATE" + y);
 
-        while(x>350)
+        boolean hitXWall = false;
+        boolean hitYWall = false;
+
+
+        while (x > 370) {
             x--;
-        while(y>809.5)
-            y--;
-
-        while(x<-375)
+            hitXWall = true;
+        }
+        while (x < -370) {
             x++;
-        while(y<-286.5)
+            hitXWall = true;
+        }
+
+        while (y > 280){
+            y--;
+            hitYWall = true;
+
+        }
+
+        while (y < -280){
             y++;
+            hitYWall = true;
+
+        }
 
 
-        return new Coordinate(x,y);
+        return new Coordinate((!hitXWall && hitYWall? turtleCoordinate.getXVal():x),(hitXWall && !hitYWall? turtleCoordinate.getYVal():y));
 
     }
+
+
 
     @Override
     public Coordinate getPosition() {
@@ -116,15 +135,15 @@ public class BackEndTurtle implements Turtle {
      *
      */
     @Override
-    public void flipPen() {
-        penUp.set(!penUp.get());
+    public void setPen(boolean penState) {
+        penDown.set(penState);
     }
 
     /**
      * Toggle whether turtle is visible or not
      */
-    public void toggleVisibility() {
-        turtleVisible.set(!turtleVisible.get());
+    public void setVisibility(boolean visible) {
+        turtleVisible.set(visible);
     }
 
     /**
@@ -134,6 +153,7 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
+        System.out.println("haha still drewa a line");
         LineAPI line=new LineAPI(start,end);
         lines.add(line);
     }
@@ -155,10 +175,10 @@ public class BackEndTurtle implements Turtle {
 
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
-    public BooleanProperty getPenVisibility() { return penUp; }
+    public BooleanProperty getPenVisibility() { return penDown; }
 
     public boolean getPenStatus() {
-        return penUp.get();
+        return penDown.get();
     }
 
     public boolean getVisibility() {

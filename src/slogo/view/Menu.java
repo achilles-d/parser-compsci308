@@ -18,15 +18,32 @@ import java.util.ResourceBundle;
 public class Menu {
 
     private static final String PEN_COLOR = "resources.colors.PenColor";
+    private static final String BACKGROUND_COLOR = "resources.colors.BackgroundColor";
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
+    private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
+    private static final String UI_TEXT = "resources.UIText";
+    private static final String DEFAULT_BACKGROUND_COLOR = "White";
+    private static final String DEFAULT_PEN_COLOR = "Black";
+    private static final String BGCOLORS = "bgcolors";
+    private static final String PENCOLORS = "pencolors";
+    private static final String IMAGES = "images";
+    private static final String LANGUAGE = "language";
+    private static final String HELP = "help";
 
     private HBox myView;
-    private ResourceBundle penColors = java.util.ResourceBundle.getBundle(PEN_COLOR);
+    private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
+    private ResourceBundle bgColorsNames = java.util.ResourceBundle.getBundle(BACKGROUND_COLOR);
     private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
-    private MenuButton colors;
+    private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+    private MenuButton bgColors;
     private MenuButton images;
+    private MenuButton penColors;
+    private MenuButton languages;
+    private SimpleStringProperty activeBackgroundColor;
     private SimpleStringProperty activePenColor;
     private SimpleStringProperty turtleImage;
+    private SimpleStringProperty activeLanguage;
     private ParserController myController;
 
 
@@ -34,30 +51,49 @@ public class Menu {
    {
        myController = control;
        myView = new HBox();
-       activePenColor = new SimpleStringProperty("White");
-       colors = new MenuButton("Colors");
+
+       activeBackgroundColor = new SimpleStringProperty(DEFAULT_BACKGROUND_COLOR);
+       bgColors = new MenuButton(visualText.getString(BGCOLORS));
+       makeBackgroundColorsMenu();
+
+       activePenColor = new SimpleStringProperty(DEFAULT_PEN_COLOR);
+       penColors = new MenuButton(visualText.getString(PENCOLORS));
        makePenColorsMenu();
 
        turtleImage = new SimpleStringProperty("turtle.jpg");
-       images = new MenuButton("Turtle Images");
+       images = new MenuButton(visualText.getString(IMAGES));
        makeImagesMenu();
 
+       activeLanguage = new SimpleStringProperty("English");
+       languages = new MenuButton(visualText.getString(LANGUAGE));
+       makeLanguagesMenu();
 
-       MenuItem itemGerman = new MenuItem("German");
-       MenuItem itemSpanish = new MenuItem("Spanish");
-       MenuItem itemEnglish = new MenuItem("English");
-       MenuButton language = new MenuButton("Language",null,itemGerman,itemSpanish,itemEnglish);
-       Button help = new Button("Help");
+       Button help = new Button(visualText.getString(HELP));
        help.setOnAction(event -> { makeHelpScreen();
           });
 
-       myView.getChildren().addAll(colors,language,images,help);
+       myView.getChildren().addAll(bgColors,penColors,languages,images,help);
    }
 
    public Property getActiveTurtleImage()
    {
        return turtleImage;
    }
+
+   private void makeLanguagesMenu()
+   {
+       for(String language: languageModes.keySet())
+       {
+           MenuItem languageSelect = new MenuItem(language);
+           languageSelect.setOnAction(e -> {
+               myController.setLanguage(language);
+               activeLanguage.setValue(language);
+           });
+           languages.getItems().add(languageSelect);
+       }
+   }
+
+   public Property getActiveLanguage(){ return activeLanguage;}
 
    private void makeImagesMenu()
    {
@@ -74,15 +110,28 @@ public class Menu {
    }
 
    private void makePenColorsMenu()
-   {
-        for(String color: penColors.keySet())
+    {
+        for(String color: penColorsNames.keySet())
         {
 
             MenuItem penColor = new MenuItem(color);
             penColor.setOnAction(e -> {
                 activePenColor.setValue(color);
             });
-            colors.getItems().add(penColor);
+            penColors.getItems().add(penColor);
+        }
+    }
+
+   private void makeBackgroundColorsMenu()
+   {
+        for(String color: bgColorsNames.keySet())
+        {
+
+            MenuItem bgColor = new MenuItem(color);
+            bgColor.setOnAction(e -> {
+                activeBackgroundColor.setValue(color);
+            });
+            bgColors.getItems().add(bgColor);
         }
    }
 
@@ -91,10 +140,12 @@ public class Menu {
        return myView;
    }
 
-   public Property getActivePenColor()
+   public Property getActiveBackgroundColor()
    {
-       return activePenColor;
+       return activeBackgroundColor;
    }
+
+   public Property getActivePenColor() { return activePenColor;}
 
    private void makeHelpScreen()
    {

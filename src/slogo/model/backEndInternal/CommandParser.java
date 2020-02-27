@@ -1,9 +1,11 @@
 package slogo.model.backEndInternal;
+
 import slogo.model.CommandHandler;
 import slogo.model.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.InvalidCommandException;
 import slogo.model.Parser;
+import slogo.model.backEndInternal.commands.Repeat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -18,13 +20,15 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
     private Stack<Double> argumentStack = new Stack<>();
     private Stack<String> commandStack = new Stack<>();
-    private List<String> commandList = new ArrayList<>();
+    private List commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
     private CommandFactory commandFactor;
     private CommandExecutor executor;
-    private int commandCounter = 0;
+    private Integer commandCounter = 0;
     private CommandHandlerAPI commandHandler;
-    private UserVariableHandler  userVariableHandler;
+    private UserVariableHandler userVariableHandler;
+    private int numOfCommandsToExecute=0;
+    private BackEndTurtle turtle;
 
     /**
      * Create an empty parser
@@ -32,10 +36,11 @@ public class CommandParser implements Parser {
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
                          BackEndTurtle turtle) {
-        this.commandHandler=commandHandler;
-        this.userVariableHandler=userVariableHandler;
+        this.commandHandler = commandHandler;
+        this.userVariableHandler = userVariableHandler;
+        this.turtle=turtle;
         mySymbols = new ArrayList<>();
-        commandFactor = new CommandFactory(turtle, userVariableHandler);
+       commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
@@ -54,7 +59,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseVariable() {
-       // addValidVariable(commandList);
+        // addValidVariable(commandList);
 
         System.out.println("Variable");
 
@@ -62,31 +67,28 @@ public class CommandParser implements Parser {
     }
 
     private void parseCommand() {
-        //System.out.println("GOT TO PARSECOMMASND");
         commandStack.add(commandList.get(commandCounter));
-        if(getSymbol(commandList.get(commandCounter)).equals("Repeat")){
-            commandList = repeatCommands(commandList);
-        } else{
-            addValidValuesToTheStack(commandList);
-        }
+        addValidValuesToTheStack();
 
     }
+
 
     private void parseConstant() {
         argumentStack.add(Double.parseDouble(commandList.get(commandCounter)));
     }
 
+
+
     @Override
     public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        clearAll();
         commandList.addAll(Arrays.asList(consoleInput.split(" ")));
 
+        numOfCommandsToExecute=commandList.size();
 
-        while (commandCounter < commandList.size()) {
-
-
+        while (commandCounter < numOfCommandsToExecute) {
             if (!matchMethodsToRun.containsKey(getSymbol(commandList.get(commandCounter)))) {
                 matchMethodsToRun.get("Command").run();
-
             } else {
                 matchMethodsToRun.get(getSymbol(commandList.get(commandCounter))).run();
             }
@@ -99,100 +101,95 @@ public class CommandParser implements Parser {
             buildExecutable();
         }
 
+
     }
 
-    private void buildExecutable() throws ExecutionException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void buildExecutable() throws ExecutionException, ClassNotFoundException,
+            NoSuchMethodException,
+            InstantiationException, IllegalAccessException, InvocationTargetException {
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
+
             int l = readArgumentSize(getSymbol(commandStack.peek()));
             String currentCommandName = (commandStack.pop());
-            //System.out.println("LIne 106"+ getSymbol(commandStack.peek()));
-            List<String> commandWithDependency=new ArrayList<>();
+
+            List<String> commandWithDependency = new ArrayList<>();
             Double[] arguments = new Double[l];
-            for (int j = 0; j < l; j++) {
-                arguments[j] = argumentStack.pop();
-            }
 
-            if(getSymbol(currentCommandName).equals("Variable") && !matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){
-                //System.out.println("The first command is "+ commandStack.peek());
-                commandWithDependency.add(getSymbol(commandStack.peek()));
-                commandWithDependency.add(currentCommandName);
-                currentCommandName=commandStack.pop();
+            for (int j = 0; j < l; j++) { arguments[j] = argumentStack.pop(); }
+            currentCommandName = findCommandDependents(currentCommandName, commandWithDependency);
+            //System.out.println("Command to call "+commandWithDependency.get(0));
 
-            } else{
-                commandWithDependency.add(getSymbol(currentCommandName));
-            }
+            //commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
 
             Command com = (Command) commandFactor.getCommand(commandWithDependency, arguments);
-            commandWithDependency.set(0,currentCommandName);
-            argumentStack.add((Double) executor.executeCommand(com));
+            commandWithDependency.set(0, currentCommandName);
+            checkIfCommandExecutable(com);
+            System.out.println("Executed Commands "+commandWithDependency.toString() + Arrays.toString(arguments));
             commandHandler.updateCommandHistory(commandWithDependency.toString() + Arrays.toString(arguments));
-            //System.out.println(commandWithDependency.toString() + " "+Arrays.toString(arguments));
+
+
         }
     }
 
-    // add valid constant to the stack
-    private void addValidValuesToTheStack(List<String> commandFraction) {
-        int count = 0;
-        //System.out.println("PEEK: " + commandStack.peek());
+    private void checkIfCommandExecutable(Command com) throws ExecutionException {
+        Double rtn = (Double) executor.executeCommand(com);
 
+        if(!rtn.equals(Double.MAX_VALUE)){
+            System.out.println("not infinity " + rtn);
+            //System.out.println("Size of command Stack "+ commandStack.peek());
+            argumentStack.add(rtn);
 
-        for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
-            if (getSymbol(commandFraction.get(k)).equals("Constant") || getSymbol(commandFraction.get(k)).equals(
-                    "Variable") ) {
-                count++;
-            }
+        } else {
+            System.out.println(" infinity");
+            commandCounter=-1;
+            commandList=com.updateRawCommands();
+            System.out.println("Update counter "+ com.updateCounter());
+            System.out.println("Update list "+ com.updateRawCommands());
+            numOfCommandsToExecute=commandList.size();
+
         }
+    }
+
+    private String findCommandDependents(String currentCommandName, List<String> commandWithDependency) {
+        if (getSymbol(currentCommandName).equals("Variable") && !matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))) {
+            commandWithDependency.add(getSymbol(commandStack.peek()));
+            commandWithDependency.add(currentCommandName);
+            currentCommandName = commandStack.pop();
+
+        } else {
+            commandWithDependency.add(getSymbol(currentCommandName));
+        }
+        return currentCommandName;
+    }
+
+
+    private void addValidValuesToTheStack() {
+
+        int count = 0;
+
+        count = countImmediateValues(commandList, count);
+
         if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
             for (int k = commandCounter + 1; k < commandCounter + 1 + count; k++) {
-                if(getSymbol(commandFraction.get(k)).equals("Variable") ){
-                    commandStack.add(commandFraction.get(k));
-                } else{
-                    argumentStack.add(Double.parseDouble(commandFraction.get(k)));
+                if (getSymbol(commandList.get(k)).equals("Variable")) {
+                    commandStack.add(commandList.get(k));
+                } else {
+                    argumentStack.add(Double.parseDouble(commandList.get(k)));
                 }
             }
             commandCounter = commandCounter + count;
         }
     }
 
-    private List<String> repeatCommands(List<String> commandFraction) {
-        if(getSymbol(commandFraction.get(commandCounter+1)).equals("Constant") &&
-                getSymbol(commandFraction.get(commandCounter+2)).equals("ListStart")){
-            ArrayList<String> commandToRepeat=new ArrayList<>();
-            commandStack.pop();
-            int repeat=Integer.parseInt(commandFraction.get(commandCounter+1));
-            int newCounter=commandCounter+3;
-            StringBuilder commands= new StringBuilder();
-            while(newCounter<commandFraction.size()){
-                if(getSymbol(commandFraction.get(newCounter)).equals("ListEnd")){
-                    newCounter+=1;
-                    break;
-                } else{
-                    commands.append(commandFraction.get(newCounter)).append(" ");
-                    newCounter+=1;
-                }
-
+    private int countImmediateValues(List<String> commandFraction, int count) {
+        System.out.println("Commands from the stack"+commandStack.peek());
+        for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
+            if (getSymbol(commandFraction.get(k)).equals("Constant") || getSymbol(commandFraction.get(k)).equals(
+                    "Variable")) {
+                count++;
             }
-
-            for(int i=0; i<repeat;i++){
-                commandToRepeat.addAll(Arrays.asList(commands.toString().split(" ")));
-            }
-
-            int size=commandFraction.size();
-
-            List<String> rightSide=commandFraction.subList(newCounter, size);
-            //List<String> leftSide=commandFraction.subList(0,commandCounter);
-            commandToRepeat.addAll(rightSide);
-
-            //leftSide.addAll(commandToRepeat);
-            commandFraction=commandToRepeat;
-            commandCounter=0;
-           // System.out.println("CommandFraction after update"+commandFraction.toString());
-            //System.out.println("Command counter "+commandCounter);
-            //commandCounter=commandCounter-1;
-
-
         }
-        return commandFraction;
+        return count;
     }
 
     /**
@@ -220,8 +217,10 @@ public class CommandParser implements Parser {
             if (match(command, e.getValue())) {
                 return e.getKey();
             }
+            //System.out.println("Availabale commands " +e.getValue());
         }
         // FIXME: perhaps throw an exception instead
+
         return ERROR;
     }
 
@@ -230,8 +229,24 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
+        //System.out.println("Key to be checked "+key);
+
+        if(!sizes.containsKey(key)){
+            clearAll();
+        }
+
 
         return Integer.parseInt(sizes.getString(key));
+
+    }
+
+    private void clearAll(){
+        commandList.clear();
+        commandStack.clear();
+        argumentStack.clear();
+        commandCounter=0;
+        numOfCommandsToExecute=0;
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
 
     }
 

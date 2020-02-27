@@ -14,6 +14,8 @@ import slogo.model.Line;
 
 public class TurtleWindow extends Window {
 
+    private static final int MAX_WIDTH = 750;
+    private static final int MAX_HEIGHT = 573;
     private Pane myView;
     private Pane canvasWrap;
     private Canvas background;
@@ -26,18 +28,19 @@ public class TurtleWindow extends Window {
     private static final double Y_LAYOUT_SCALING = 286.5;
 
 
-    public TurtleWindow(Property menuBackgroundColor, Property turtleImage, ParserController control)
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImage, ParserController control,Property menuPenColor)
     {
         myController = control;
         myView = new Pane();
-        myView.setMaxSize(750,573);
+        myView.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
         //myView.setMinSize(0,0);
         background = new Canvas();
         drawer = background.getGraphicsContext2D();
         myTurtle = new ViewTurtle(turtleImage);
         canvasWrap = new Pane();
         //canvasWrap.setMaxSize(0,0);
-        canvasWrap.setMaxSize(750,573);
+        canvasWrap.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
+        canvasWrap.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.getChildren().addAll(background,myTurtle.getView());
         background.widthProperty().bind(canvasWrap.widthProperty());
         background.heightProperty().bind(canvasWrap.heightProperty());
@@ -50,7 +53,9 @@ public class TurtleWindow extends Window {
         backgroundColor = (SimpleStringProperty)menuBackgroundColor;
         backgroundColor.addListener((observable, oldValue, newValue) -> {setBackgroundColor(backgroundColor.getValue());});
 
-        penColor = new SimpleStringProperty("Black");
+        penColor = (SimpleStringProperty)menuPenColor;
+        penColor.addListener((observable, oldValue, newValue) -> setPenColor(newValue));
+
 
         setBackgroundColor(backgroundColor.getValue());
         //testDrawLine();
@@ -60,6 +65,11 @@ public class TurtleWindow extends Window {
 
        // myTurtle.updatePosition(new Coordinate(-391,260.5));
 
+    }
+
+    private void setPenColor(String color)
+    {
+        penColor.setValue(color);
     }
 
     public void getSize()
@@ -82,45 +92,45 @@ public class TurtleWindow extends Window {
         return -y + Y_LAYOUT_SCALING;
     }
 
-    private void drawLines()
+    private void clearScreen()
     {
         drawer.clearRect(0,0, background.getWidth(),background.getHeight());
-        drawer.setStroke(Color.valueOf(penColor.getValue()));
+    }
 
-        for(Line l: myController.getLines())
+    private void drawLines()
+    {
+        if(myController.getLines().size() ==0)
+            clearScreen();
+        else
         {
-            double startX = adjustX(l.getStart().getXVal());
-            double startY = adjustY(l.getStart().getYVal());
-            double endX = adjustX(l.getEnd().getXVal());
-            double endY = adjustY(l.getEnd().getYVal());
-            System.out.println(startX + "," + startY + "  " + endX + "," + endY);
-            drawer.strokeLine(startX,startY,endX,endY);
+            drawer.setStroke(Color.valueOf(penColor.getValue()));
+            for(Line l: myController.getLines())
+            {
+                if(!l.isDrawn())
+                {
+                    double startX = adjustX(l.getStart().getXVal());
+                    double startY = adjustY(l.getStart().getYVal());
+                    double endX = adjustX(l.getEnd().getXVal());
+                    double endY = adjustY(l.getEnd().getYVal());
+                    drawer.strokeLine(startX,startY,endX,endY);
+                    l.drewLine();
+                }
+
+            }
+
         }
 
 
-
-        /*
-        Line testLine = new Line();
-        testLine.setStartX(500);
-        testLine.setEndX(500);
-        testLine.setStartY(100);
-        testLine.setStartY(400);
-        //Line testLine3 = new Line(0,0,100,0);
-        //Line testLine2 = new Line(100,100,400,100);
-        myView.getChildren().addAll(testLine);
-        */
 
     }
 
     @Override
     public void update() {
-        /*
-        System.out.println("tried to update");
-        System.out.println(myController.getTurtlePosition());
-         */
+
 
         myTurtle.updatePosition(myController.getTurtlePosition());
         myTurtle.setHeading(myController.getHeading());
+        myTurtle.setVisibility(myController.getTurtleVisibility());
         drawLines();
     }
 

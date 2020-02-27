@@ -65,7 +65,6 @@ public class ViewTurtle {
 
     public void setHeading(double heading)
     {
-        System.out.println(heading);
         myHeading = heading;
         myView.setRotate(myHeading);
     }
@@ -91,8 +90,8 @@ public class ViewTurtle {
             myY++;
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
-        //System.out.println("Xcord " + x);
-        //System.out.println("Ycord " + y);
+        System.out.println("Xcord " + myX);
+        System.out.println("Ycord " + myY);
 
 
 

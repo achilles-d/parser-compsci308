@@ -17,6 +17,7 @@ import slogo.model.backEndInternal.commands.Command;
 
 public class ParserController {
 
+    private static final String SYNTAX = "resources.languages.Syntax";
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;
     private CommandHandlerAPI myCommandHandlerAPI;
@@ -28,6 +29,7 @@ public class ParserController {
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
+        //setLanguage("ENGLISH");
         setLanguage("ENGLISH");
     }
 
@@ -57,6 +59,10 @@ public class ParserController {
         return commandStrings;
     }
 
+    public boolean getTurtleVisibility()
+    {
+        return myBackEndTurtle.getVisibility();
+    }
     public double getHeading() {
         return myBackEndTurtle.getHeading();
     }
@@ -72,6 +78,7 @@ public class ParserController {
 
     public List<String> getAllVariables(){
         List<String> variables = myUserVarHandler.getKeys();
+        System.out.println(myUserVarHandler.getKeys().size());
         List<String> varNamesAndValues = new ArrayList<>();
         for(String var : variables){
             String varValue = myUserVarHandler.getVariable(var).toString();
@@ -81,12 +88,12 @@ public class ParserController {
     }
 
     public String getLanguage(){
-        return myLanguage.toString();
+        return myLanguage.getLanguageFile();
     }
 
     public void setLanguage(String language){
-        myLanguage = Language.valueOf(language);
-        myCommandParser.addPatterns("resources.languages.English");
-        myCommandParser.addPatterns("resources.languages.Syntax");
+        myLanguage = Language.valueOf(language.toUpperCase());
+        myCommandParser.addPatterns(myLanguage.getLanguageFile());
+        myCommandParser.addPatterns(SYNTAX);
     }
 }

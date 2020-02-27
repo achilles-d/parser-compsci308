@@ -2,6 +2,8 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
 
+import java.util.List;
+
 public class Right implements Command<Double> {
 
   private BackEndTurtle backEndTurtle;
@@ -16,5 +18,15 @@ public class Right implements Command<Double> {
   public Double execute() {
     backEndTurtle.setHeading(backEndTurtle.getHeading() + degrees);
     return degrees;
+  }
+
+  @Override
+  public List<String> updateRawCommands() {
+    return null;
+  }
+
+  @Override
+  public Integer updateCounter() {
+    return null;
   }
 }
