@@ -31,9 +31,7 @@ private List<String> leftCommand = new ArrayList<>();
     public Double execute() {
 
         if(userVal!=0){
-            System.out.println(" Counter "+ commandCounter);
-            System.out.println(" User val "+userVal);
-            System.out.println(" Unexecurted counter " + unexecutedCounter);
+
             findCommandToExecute();
 
             System.out.println(" Counter "+ commandCounter);

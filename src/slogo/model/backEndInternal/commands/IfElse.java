@@ -19,20 +19,22 @@ public class IfElse implements Command<Double> {
         this.commandList = sCom;
         this.size = commandList.size();
         this.newCounter = counter;
-        this.check = Integer.parseInt(commandList.get(1));
     }
 
 
     @Override
     public Double execute() {
         ArrayList<String> commandToRepeat = new ArrayList<>();
-
+        newCounter = commandList.indexOf("IfElse");
+        check = Integer.parseInt(commandList.get(newCounter + 1));
         System.out.println(commandList);
         List<String> intList = commandList.subList(commandList.lastIndexOf(LEFT_BRACKET), commandList.size());
         List<String> rightSide = intList.subList(intList.indexOf(RIGHT_BRACKET), intList.size());
         rightSide = rightSide.subList(1, rightSide.size());
 
         if (check != 0) {
+
+
             if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
                 newCounter += 3;
                 updateCommands();
@@ -72,6 +74,7 @@ public class IfElse implements Command<Double> {
     }
 
     private void updateCommands() {
+
         while(newCounter < commandList.size()){
             if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
                 newCounter++;

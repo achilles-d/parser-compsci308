@@ -86,9 +86,9 @@ public class MainTester {
 
   //~~~~~~~~~      String userInput="Repeat 10 [ fd :repcount rt 90 ]"; ~~~~~~~~~~~~~~~~~~~~~~~ DOESN'T WORK
 
-        String userInput= "IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
+        //String userInput= "fd 50 IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
-        //String userInput="Repeat 3 [ fd 50 ]";
+        String userInput="fd 50 DoTimes 3 [ fd 50 ] fd 50";
 
        // String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
         //String userInput="and 50 0";
