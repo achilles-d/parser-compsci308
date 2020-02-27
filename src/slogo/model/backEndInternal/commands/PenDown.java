@@ -14,7 +14,7 @@ public class PenDown implements Command<Double> {
 
   @Override
   public Double execute() {
-    backEndTurtle.flipPen();
+    backEndTurtle.setPen(true);
     return 1.0;
   }
 
