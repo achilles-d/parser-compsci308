@@ -84,11 +84,12 @@ public class MainTester {
 
         //String userInput = "vorw�rts 50";
         //String userInput="fd 50";
-        //String userInput="for [ :x 1 8 2 ] [ fd :x ]";
+        String userInput="fd 50 for [ :x 1 8 2 ] [ fd :x ] fd 50";
 
-        String userInput="if 2 [ fd 50 ] fd 50";
+        //String userInput="if 2 [ fd 50 ] fd 50";
 
-        //String userInput="repete 5 [ dev 50 ]";
+        //String userInput="fd 50 repeat 5 [ fd 50 ] fd 50";
+
 
         //String userInput="and 50 50";
         //String userInput="and 50 0";

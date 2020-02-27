@@ -70,6 +70,7 @@ private List<String> leftCommand = new ArrayList<>();
             } else if(commandList.get(commandCounter).equals(RIGHT_BRACKET)){
                 rightBracketCounter++;
             }
+
             if(leftBracketCounter==rightBracketCounter){
                 commandCounter++;
                 break;
