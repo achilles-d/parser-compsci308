@@ -33,7 +33,8 @@ public class For implements Command<Double> {
 
     @Override
     public Double execute() {
-        System.out.println("Elements in the list "+ commandList.get(commandCounter));
+        System.out.println("cCounte initiallly "+ commandCounter);
+        //commandCounter=0;
         if(commandList.get(commandCounter+1).equals(LEFT_BRACKET)){
             commandCounter+=2;
             System.out.println("Elements in the list "+ commandList.get(commandCounter));

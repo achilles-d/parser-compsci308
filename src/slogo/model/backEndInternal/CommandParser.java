@@ -107,9 +107,12 @@ public class CommandParser implements Parser {
     private void buildExecutable() throws ExecutionException, ClassNotFoundException,
             NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
+        System.out.println(" arguemtn size of command "+readArgumentSize(getSymbol(commandStack.peek())));
+        System.out.println(" command "+ commandStack.peek());
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
 
             int l = readArgumentSize(getSymbol(commandStack.peek()));
+
             String currentCommandName = (commandStack.pop());
 
             List<String> commandWithDependency = new ArrayList<>();
@@ -176,7 +179,7 @@ public class CommandParser implements Parser {
             for (int k = commandCounter + 1; k < commandCounter + 1 + count; k++) {
                 if (getSymbol(commandList.get(k)).equals("Variable")) {
                     commandStack.add(commandList.get(k));
-                } else {
+                } else if(getSymbol(commandList.get(k)).equals("Constant")) {
                     argumentStack.add(Double.parseDouble(commandList.get(k)));
                 }
             }
