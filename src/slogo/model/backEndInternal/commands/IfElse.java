@@ -61,8 +61,8 @@ public class IfElse implements Command<Double> {
 
     @Override
     public List<String> updateRawCommands() {
-        //System.out.println("ahdsajldfslskjjlkdsjlkadfs");
-        //System.out.println(commandList);
+//        System.out.println("ahdsajldfslskjjlkdsjlkadfs");
+//        System.out.println(commandList);
         return commandList;
     }
 

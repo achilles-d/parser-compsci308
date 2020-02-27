@@ -88,12 +88,12 @@ public class MainTester {
 
         String userInput= "IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
-        //String userInput="repete 5 [ dev 50 ]";
+        //String userInput="Repeat 3 [ fd 50 ]";
 
-        //String userInput="and 50 50";
+       // String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
         //String userInput="and 50 0";
 
-      // String userInput="atan sum sum sum 10 50 30 40";
+       //String userInput="atan sum sum sum 10 50 30 40";
 
      //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";
