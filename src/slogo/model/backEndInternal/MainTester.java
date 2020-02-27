@@ -83,18 +83,17 @@ public class MainTester {
         //String userInput ="[ :dist 10 40 10 ]";
 
         //String userInput = "vorw�rts 50";
-        //String userInput="fd 50";
-        String userInput="fd 50 for [ :x 1 8 2 ] [ fd :x ] fd 50";
 
-        //String userInput="if 2 [ fd 50 ] fd 50";
+  //~~~~~~~~~      String userInput="Repeat 10 [ fd :repcount rt 90 ]"; ~~~~~~~~~~~~~~~~~~~~~~~ DOESN'T WORK
 
-        //String userInput="fd 50 repeat 5 [ fd 50 ] fd 50";
+        String userInput= "IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
+        //String userInput="Repeat 3 [ fd 50 ]";
 
-        //String userInput="and 50 50";
+       // String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
         //String userInput="and 50 0";
 
-      // String userInput="atan sum sum sum 10 50 30 40";
+       //String userInput="atan sum sum sum 10 50 30 40";
 
      //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";

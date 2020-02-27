@@ -20,7 +20,5 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         ParserController controller = new ParserController();
         LogoVisualization myVis = new LogoVisualization(primaryStage, controller);
-
-
     }
 }

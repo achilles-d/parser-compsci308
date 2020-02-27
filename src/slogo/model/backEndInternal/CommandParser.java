@@ -40,7 +40,7 @@ public class CommandParser implements Parser {
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
         mySymbols = new ArrayList<>();
-       //commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
         matchMethodsToRun.put("Constant", this::parseConstant);
@@ -122,9 +122,12 @@ public class CommandParser implements Parser {
             currentCommandName = findCommandDependents(currentCommandName, commandWithDependency);
             //System.out.println("Command to call "+commandWithDependency.get(0));
 
-            commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+
+            //commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+            commandFactor.updateCounter(0);
 
             Command com = (Command) commandFactor.getCommand(commandWithDependency, arguments);
+
             commandWithDependency.set(0, currentCommandName);
             checkIfCommandExecutable(com);
             System.out.println("Executed Commands "+commandWithDependency.toString() + Arrays.toString(arguments));
@@ -144,8 +147,8 @@ public class CommandParser implements Parser {
 
         } else {
             System.out.println(" infinity");
-            commandCounter=-1;
-            commandList=com.updateRawCommands();
+            commandCounter = -1;
+            commandList = com.updateRawCommands();
             System.out.println("Update counter "+ com.updateCounter());
             System.out.println("Update list "+ com.updateRawCommands());
             numOfCommandsToExecute=commandList.size();

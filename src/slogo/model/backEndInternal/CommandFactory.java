@@ -79,4 +79,8 @@ public class CommandFactory {
         return currentCommand;
     }
 
+    public void updateCounter(Integer v) {
+        commandCounter = v;
+    }
+
 }
