@@ -25,6 +25,7 @@ public class DoTimes implements Command<Double> {
     public Double execute() {
 
         ArrayList<String> commandToRepeat = new ArrayList<>();
+        newCounter = commandList.indexOf("DoTimes");
 
         if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
             newCounter += 3;

@@ -107,7 +107,7 @@ public class CommandParser implements Parser {
     private void buildExecutable() throws ExecutionException, ClassNotFoundException,
             NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
-        System.out.println(" arguemtn size of command "+readArgumentSize(getSymbol(commandStack.peek())));
+        //System.out.println(" arguemtn size of command "+readArgumentSize(getSymbol(commandStack.peek())));
         System.out.println(" command "+ commandStack.peek());
         if (commandStack.size() != 0 && readArgumentSize(getSymbol(commandStack.peek())) <= argumentStack.size()) {
 
@@ -173,11 +173,11 @@ public class CommandParser implements Parser {
 
         int count = 0;
 
-        count = countImmediateValues(commandList, count);
+        count = countImmediateValues(count);
 
         if (count == readArgumentSize(getSymbol(commandStack.peek()))) {
             for (int k = commandCounter + 1; k < commandCounter + 1 + count; k++) {
-                if (getSymbol(commandList.get(k)).equals("Variable")) {
+                if (getSymbol(commandList.get(k)).equals("Variable") || getSymbol(commandList.get(k)).equals("Command")) {
                     commandStack.add(commandList.get(k));
                 } else if(getSymbol(commandList.get(k)).equals("Constant")) {
                     argumentStack.add(Double.parseDouble(commandList.get(k)));
@@ -187,14 +187,17 @@ public class CommandParser implements Parser {
         }
     }
 
-    private int countImmediateValues(List<String> commandFraction, int count) {
+    private int countImmediateValues(int count) {
         System.out.println("Commands from the stack"+commandStack.peek());
         for (int k = commandCounter + 1; k < commandCounter + 1 + readArgumentSize(getSymbol(commandStack.peek())); k++) {
-            if (getSymbol(commandFraction.get(k)).equals("Constant") || getSymbol(commandFraction.get(k)).equals(
-                    "Variable")) {
+
+            if (getSymbol(commandList.get(k)).equals("Constant") || getSymbol(commandList.get(k)).equals(
+                    "Variable") || getSymbol(commandList.get(k)).equals("Command")) {
                 count++;
             }
         }
+        System.out.println("command counter + " + commandCounter);
+        System.out.println("Count: " + count);
         return count;
     }
 
