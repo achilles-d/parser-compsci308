@@ -14,7 +14,7 @@ public class HideTurtle implements Command<Double> {
 
   @Override
   public Double execute() {
-    backEndTurtle.toggleVisibility();
+    backEndTurtle.setVisibility(false);
     return (double) 0;
   }
 

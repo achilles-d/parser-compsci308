@@ -14,7 +14,7 @@ public class ShowTurtle implements Command<Double> {
 
   @Override
   public Double execute() {
-    backEndTurtle.toggleVisibility();
+    backEndTurtle.setVisibility(true);
     return 1.0;
   }
 

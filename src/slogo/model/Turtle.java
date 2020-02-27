@@ -37,7 +37,7 @@ public interface Turtle {
      * This will toggle the pen on or off which changes whether or not a line is drawn when the turtle moves
      * This is part of the internal back-end API
      */
-    public void flipPen();
+    public void setPen(boolean penState);
 
     /**
      * This makes the turtle draw a new line object when it moves, and the pen is also down

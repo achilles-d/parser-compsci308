@@ -59,6 +59,10 @@ public class ParserController {
         return commandStrings;
     }
 
+    public boolean getTurtleVisibility()
+    {
+        return myBackEndTurtle.getVisibility();
+    }
     public double getHeading() {
         return myBackEndTurtle.getHeading();
     }

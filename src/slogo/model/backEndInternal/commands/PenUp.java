@@ -14,7 +14,7 @@ public class PenUp implements Command<Double> {
 
   @Override
   public Double execute() {
-    backEndTurtle.flipPen();
+    backEndTurtle.setPen(false);
     return 0.0;
   }
 
