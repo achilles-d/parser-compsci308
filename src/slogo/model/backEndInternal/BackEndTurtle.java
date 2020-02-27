@@ -25,7 +25,7 @@ public class BackEndTurtle implements Turtle {
     private SimpleDoubleProperty endY = new SimpleDoubleProperty();
 
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
-    private SimpleBooleanProperty penUp = new SimpleBooleanProperty();
+    private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
 
 
@@ -48,7 +48,7 @@ public class BackEndTurtle implements Turtle {
         turtleCoordinate = new Coordinate();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
-        penUp.set(false);
+        penDown.set(true);
         turtleVisible.set(true);
 
     }
@@ -62,15 +62,13 @@ public class BackEndTurtle implements Turtle {
 
         Coordinate newCord = ensureInBounds(a);
 
-        if(!penUp.getValue())
+        if(penDown.getValue())
         {
             drawLine(turtleCoordinate,newCord);
         }
 
-        System.out.println(" before " + turtleCoordinate);
 
         turtleCoordinate = newCord;
-        System.out.println( " after " + turtleCoordinate);
         xLoc.set(newCord.getXVal());
         yLoc.set(newCord.getYVal());
     }
@@ -137,15 +135,15 @@ public class BackEndTurtle implements Turtle {
      *
      */
     @Override
-    public void flipPen() {
-        penUp.set(!penUp.get());
+    public void setPen(boolean penState) {
+        penDown.set(penState);
     }
 
     /**
      * Toggle whether turtle is visible or not
      */
-    public void toggleVisibility() {
-        turtleVisible.set(!turtleVisible.get());
+    public void setVisibility(boolean visible) {
+        turtleVisible.set(visible);
     }
 
     /**
@@ -155,6 +153,7 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
+        System.out.println("haha still drewa a line");
         LineAPI line=new LineAPI(start,end);
         lines.add(line);
     }
@@ -176,10 +175,10 @@ public class BackEndTurtle implements Turtle {
 
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
-    public BooleanProperty getPenVisibility() { return penUp; }
+    public BooleanProperty getPenVisibility() { return penDown; }
 
     public boolean getPenStatus() {
-        return penUp.get();
+        return penDown.get();
     }
 
     public boolean getVisibility() {
