@@ -59,6 +59,7 @@ public class LogoVisualization extends BorderPane{
 
         HBox bottom  = new HBox();
         bottom.getChildren().addAll(myConsole.getView());
+        bottom.setMaxHeight(50);
 
 
         this.setCenter(graphics.getView());

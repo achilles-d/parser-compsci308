@@ -50,9 +50,9 @@ public class ConsoleWindow extends Window {
         myContainer.getChildren().addAll(console,buttonPane);
         myContainer.setMaxHeight(150);
         consoleItems.setContent(myContainer);
-        consoleItems.setMaxHeight(150);
+       // consoleItems.setMaxHeight(150);
 
-        myView.getChildren().add(consoleItems);
+        myView.getChildren().add(myContainer);
         myView.setMaxHeight(150);
     }
 
@@ -66,6 +66,6 @@ public class ConsoleWindow extends Window {
     }
 
     public Node getView() {
-        return consoleItems;
+        return myView;
     }
 }
