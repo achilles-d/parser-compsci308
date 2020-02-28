@@ -25,6 +25,11 @@
     -fx-text-fill: white;
     -fx-border-color:white
 }
+
+.dialog-pane
+{
+    -fx-background-color: black;
+}
 .button {
     -fx-text-fill: white;
     -fx-border-color: white;

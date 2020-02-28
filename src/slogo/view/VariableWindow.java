@@ -31,7 +31,6 @@ public class VariableWindow extends Window {
 
         myController = control;
         myView = new TitledPane();
-        myView.setCollapsible(false);
         myView.setText(visualText.getString(VARWINDOW));
         myView.setPrefHeight(200);
 //

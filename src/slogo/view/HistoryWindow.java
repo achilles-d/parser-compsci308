@@ -26,7 +26,6 @@ public class HistoryWindow extends Window {
         myView.setText(visualText.getString(HISTORYWINDOW));
         commandHistory =  new ListView<>();
         myView.setContent(commandHistory);
-        myView.setCollapsible(false);
     }
 
     public void update() {

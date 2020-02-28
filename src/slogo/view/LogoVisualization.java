@@ -55,16 +55,17 @@ public class LogoVisualization extends BorderPane{
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
 
         VBox leftComps = new VBox();
-        leftComps.getChildren().addAll(myHistory.getView(),available.getView());
+        leftComps.getChildren().addAll(myHistory.getView(),available.getView(),myVariables.getView());
 
         HBox bottom  = new HBox();
-        bottom.getChildren().addAll(myVariables.getView(),myConsole.getView());
+        bottom.getChildren().addAll(myConsole.getView());
 
 
         this.setCenter(graphics.getView());
         this.setBottom(bottom);
         this.setLeft(leftComps);
         this.setTop(toolbar.getView());
+
 
 
         /*

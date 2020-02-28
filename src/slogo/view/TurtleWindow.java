@@ -39,6 +39,7 @@ public class TurtleWindow extends Window {
         myTurtle = new ViewTurtle(turtleImage);
         canvasWrap = new Pane();
         //canvasWrap.setMaxSize(0,0);
+        canvasWrap.setMinSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.getChildren().addAll(background,myTurtle.getView());
