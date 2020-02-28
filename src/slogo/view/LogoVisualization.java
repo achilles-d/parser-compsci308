@@ -10,14 +10,14 @@ import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
-public class LogoVisualization {
+public class LogoVisualization extends BorderPane{
 
     private static final String UI_TEXT = "resources.UIText";
     private static final String EXECUTE = "execute";
     private static final String CSS_FILE = "/resources/uistyle.css";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
-    private BorderPane border = new BorderPane();
+    //private BorderPane border = new BorderPane();
     private Stage myStage;
     private TurtleWindow graphics;
     private ParserController myController;
@@ -30,9 +30,9 @@ public class LogoVisualization {
     AvailableCommandsWindow available;
     private Button executeButton;
 
-    public LogoVisualization(Stage stage, ParserController control)
+    public LogoVisualization(ParserController control)
     {
-        myStage = stage;
+        //myStage = stage;
         myController = control;
         init();
     }
@@ -61,17 +61,19 @@ public class LogoVisualization {
         bottom.getChildren().addAll(myVariables.getView(),myConsole.getView());
 
 
-        border.setCenter(graphics.getView());
-        border.setBottom(bottom);
-        border.setLeft(leftComps);
-        border.setTop(toolbar.getView());
+        this.setCenter(graphics.getView());
+        this.setBottom(bottom);
+        this.setLeft(leftComps);
+        this.setTop(toolbar.getView());
 
 
-
+        /*
         Scene scene = new Scene(border,1000,1000);
         scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         myStage.setScene(scene);
         myStage.show();
+
+         */
 
 
     }
