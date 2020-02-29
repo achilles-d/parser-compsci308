@@ -4,14 +4,15 @@ import java.util.List;
 
 public class Cosine implements Command<Double> {
 
-  private double value;
+  private Command cmd;
 
-  public Cosine(Double v1) {
-    this.value = v1;
+  public Cosine(Command cmd) {
+    this.cmd=cmd;
   }
 
   @Override
   public Double execute() {
+    double value = (double) cmd.execute();
     return Math.cos(value);
   }
 

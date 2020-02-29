@@ -221,19 +221,32 @@ public class CommandParser implements Parser {
         for(String str: lines){
             if(str.contains("#")){
                int index= str.indexOf("#");
-                com.append(str, 0, index);
+                com.append(str, 0, index).append(" ");
 
             } else{
-                com.append(str);
+                com.append(str).append(" ");
             }
         }
-        consoleInput=com.toString();
-        consoleInput.replaceAll("[\r\n]+", " ");
+        consoleInput=com.toString().trim();
+        //consoleInput.replaceAll("[\r\n]+", " ");
+        System.out.println(" string"+consoleInput+"then this");
+        List<String> commandList=Arrays.asList(consoleInput.split(" "));
+        for(String str: commandList){
+            System.out.println("Input string before"+str+"removing");
 
-        commandStack.addAll(Arrays.asList(consoleInput.split(" ")));
+                str= str.replaceAll("\\p{Blank}","");
+                str=str.replaceAll("\\s+","");
+
+            System.out.println("Input string after"+str+"removing");
+
+                if(!str.equals("")){
+                    commandStack.add(str);
+                }
+
+        }
+        //commandStack.addAll(Arrays.asList(consoleInput.split(" ")));
 
         while(commandStack.size()!=0){
-
 
             if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
                 matchMethodsToRun.get(getSymbol(commandStack.peek())).run();
@@ -273,7 +286,8 @@ public class CommandParser implements Parser {
      */
     public String getSymbol(String command) {
         final String ERROR = "NO MATCH";
-        System.out.println("INVALID: " + command + "is " + command);
+       System.out.println("INVALID:"+command+"is" + command+"this");
+       //System.out.println("Asciii code is "+ (int) command.toCharArray());
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
                 return e.getKey();
@@ -290,11 +304,12 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-        System.out.println("Key to be checked "+key);
-
-        if(!sizes.containsKey(key)){
-            clearAll();
-        }
+        //
+        // System.out.println("Key to be checked "+key);
+//
+//        if(!sizes.containsKey(key)){
+//            clearAll();
+//        }
 
 
         return Integer.parseInt(sizes.getString(key));

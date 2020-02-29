@@ -4,14 +4,16 @@ import java.util.List;
 
 public class Tangent implements Command<Double> {
 
-  private double value;
+  private Command cmd;
 
-  public Tangent(double v1) {
-    this.value = v1;
+  public Tangent(Command cmd) {
+    this.cmd=cmd;
+
   }
 
   @Override
   public Double execute() {
+    double value = (double) cmd.execute();
     return Math.tan(value);
   }
 

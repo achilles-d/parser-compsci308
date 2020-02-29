@@ -4,15 +4,17 @@ import java.util.List;
 
 public class NaturalLog implements Command<Double> {
 
-  private double value;
+    private final Command cmd;
 
- public NaturalLog(Double v1) {
-    this.value = v1;
+    public NaturalLog(Command cmd) {
+    this.cmd=cmd;
+
   }
 
   @Override
   public Double execute() {
-    return Math.log(value);
+      double value = (double) cmd.execute();
+     return Math.log(value);
   }
 
     @Override
