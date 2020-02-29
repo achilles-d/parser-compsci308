@@ -49,15 +49,20 @@ public class CommandFactory {
             for (int j = 0; j < pType.length; j++) {
 
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+                System.out.println("Constructor command name " + className);
 
                 if (className.equals("BackEndTurtle")) {
                     ar[j] = turtle;
                 } else if (className.equals("Coordinate")) {
                     ar[j] = turtle.getPosition();
-                }  else if(className.equals("UserVariableHandler")){
-                    ar[j]=userVariableHandler;
-                } else{
+                }  else if(className.equals("UserVariableHandler")) {
+                    ar[j] = userVariableHandler;
+
+                } else if(className.equals("List")){
+                    ar[j]=arguments;
+                } else {
                     ar[j]=arguments.get(inputCounter);
+                    System.out.println("here is the data "+arguments.get(inputCounter).toString());
                     inputCounter++;
                 }
             }

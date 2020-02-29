@@ -66,33 +66,38 @@ public class CommandParser implements Parser {
        matchMethodsToRun.put("GroupStart", this::parseGroupStart);
     }
 
-    private void parseListStart() {
+    private void parseListEnd() {
         leftBracketCounter=0;
         rightBracketCounter=0;
+        List<Object> argumentsToBuildCommand= new ArrayList<>();
+        String currentCommand=getSymbol(commandStack.peek());
+        System.out.println("Current comamnd is "+currentCommand);
+        Command com = null;
 
-        //getSymbol(commandStack.pop());
-        leftBracketCounter++;
-        List<String> group=new ArrayList<>();
-
-        while(leftBracketCounter>rightBracketCounter){
-            group.add(commandStack.pop());
+        rightBracketCounter++;
+        while(leftBracketCounter<rightBracketCounter){
+            argumentsToBuildCommand.add(commandStack.pop());
             if(commandStack.peek().equals(RIGHT_BRACKET)){
                 rightBracketCounter++;
             } else if(commandStack.peek().equals(LEFT_BRACKET)){
                 leftBracketCounter++;
             }
             if(leftBracketCounter==rightBracketCounter){
-                group.add(commandStack.pop());
+                argumentsToBuildCommand.add(commandStack.pop());
                 break;
             }
-
-
-
         }
+        try {
+            com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException
+                | ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    argumentStack.add(com);
 
     }
 
-    private void parseListEnd(){
+    private void parseListStart(){
         throw  new InvalidCommandException();
     }
 
@@ -115,9 +120,6 @@ public class CommandParser implements Parser {
 
                 break;
             }
-
-
-
         }
 
     }
@@ -142,11 +144,8 @@ public class CommandParser implements Parser {
         String currentCommand=getSymbol(commandStack.pop());
 
         Command com = null;
-        //com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         if(userVariableHandler.getKeys().contains(variableName)){
-   //currentCommand= getSymbol(Integer.toString(userVariableHandler.getVariable(variableName).getValue().intValue()));
             commandStack.add(Integer.toString(userVariableHandler.getVariable(variableName).getValue().intValue()))   ;
-            //System.out.println("Variable stored "+ currentCommand);
             parseConstant();
         } else{
 
@@ -158,13 +157,10 @@ public class CommandParser implements Parser {
             }
             argumentStack.add(com);
         }
-
-
     }
 
     private void parseName() {
-
-
+        commandStack.pop();
     }
 
     private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException,
@@ -180,7 +176,6 @@ public class CommandParser implements Parser {
           if(argumentStack.size()==0){
               throw new InvalidCommandException();
           } else{
-              //argumentStack.peek().execute();
               argumentsToBuildCommand.add(argumentStack.pop());
 
           }
@@ -203,8 +198,6 @@ public class CommandParser implements Parser {
         String currentCommand=getSymbol(commandStack.pop());
 
         Command com = null;
-        //com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
@@ -217,10 +210,11 @@ public class CommandParser implements Parser {
 
 
     @Override
-    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
+            ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         clearAll();
         consoleInput = getCommandWithNoComment(consoleInput);
-        System.out.println(" string"+consoleInput+"then this");
+        System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);
         while(commandStack.size()!=0){
 
@@ -234,18 +228,18 @@ public class CommandParser implements Parser {
         while(argumentStack.size()!=0){
            System.out.println("Answer is "+argumentStack.pop().execute());
         }
-        
+
     }
 
     private void fillStackWithValidCommand(String consoleInput) {
         List<String> commandList= Arrays.asList(consoleInput.split(" "));
         for(String str: commandList){
-            System.out.println("Input string before"+str+"removing");
+            //System.out.println("Input string before"+str+"removing");
 
                 str= str.replaceAll("\\p{Blank}","");
                 str=str.replaceAll("\\s+","");
 
-            System.out.println("Input string after"+str+"removing");
+            //System.out.println("Input string after"+str+"removing");
 
                 if(!str.equals("")){
                     commandStack.add(str);
@@ -291,13 +285,13 @@ public class CommandParser implements Parser {
      */
     public String getSymbol(String command) {
         final String ERROR = "NO MATCH";
-       System.out.println("INVALID:"+command+  "is" + command+  "this");
+       System.out.println("INVALID:"+command+  "is |" + command+  "this");
        //System.out.println("Asciii code is "+ (int) command.toCharArray());
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
+                System.out.println("The key is "+e.getKey());
                 return e.getKey();
             }
-            //System.out.println("Availabale commands " +e.getValue());
         }
         // FIXME: perhaps throw an exception instead
 
