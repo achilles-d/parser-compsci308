@@ -4,14 +4,16 @@ import java.util.List;
 
 public class Not implements Command<Double> {
 
-  Double value;
+  private Command cmd;
 
-  public Not(Double v1) {
-    this.value = v1;
+  public Not(Command cmd) {
+    this.cmd=cmd;
+
   }
 
   @Override
   public Double execute() {
+    Double value = (Double) cmd.execute();
     return (double) (value == 0 ? 1 : 0);
   }
 

@@ -1,5 +1,7 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.InvalidCommandException;
+import slogo.model.backEndInternal.UserVariable;
 import slogo.model.backEndInternal.UserVariableHandler;
 
 import java.util.List;
@@ -7,17 +9,34 @@ import java.util.List;
 public class MakeVariable<T> implements Command<Double> {
 
   private UserVariableHandler<T> myHandler;
-  private String variableName;
+  private Command nameCmd;
+  private Command valueCmd;
 
-  public MakeVariable(UserVariableHandler handler, String name, Double userVal) {
-    this.variableName = name;
+  public MakeVariable(UserVariableHandler handler, Command nameCmd, Command valueCmd) {
+    this.nameCmd=nameCmd;
+    this.valueCmd=valueCmd;
     this.myHandler = handler;
-    handler.makeVariable(name, userVal);
   }
 
   @Override
   public Double execute() {
-    return myHandler.getVariable(variableName).getValue();
+
+    Class<?> result=nameCmd.execute().getClass();
+    String className = (((Class) result).getName().split("[.]"))[result.getName().split("[.]").length - 1];
+
+    if(className.equals("Double")){
+     System.out.println("Answer should stop here");
+        throw new InvalidCommandException();// two variables create
+   } else{
+     System.out.println("Type is "+className);
+     String variableName = (String) nameCmd.execute();
+     Double value = (Double) valueCmd.execute();
+
+     myHandler.makeVariable(variableName, value);
+
+     return myHandler.getVariable(variableName).getValue();
+   }
+
   }
 
   @Override

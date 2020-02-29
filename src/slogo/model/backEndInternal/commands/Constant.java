@@ -2,18 +2,18 @@ package slogo.model.backEndInternal.commands;
 
 import java.util.List;
 
-public class Minus implements Command<Double> {
+public class Constant implements  Command<Double> {
 
-  private Command cmd;
+    private Double input;
 
- public Minus(Command cmd) {
-    this.cmd = cmd;
-  }
+    public Constant (String input){
+        this.input= Double.parseDouble(input);
+    }
 
-  @Override
-  public Double execute() {
-    return (double)cmd.execute() * -1;
-  }
+    @Override
+    public Double execute() {
+        return input;
+    }
 
     @Override
     public List<String> updateRawCommands() {

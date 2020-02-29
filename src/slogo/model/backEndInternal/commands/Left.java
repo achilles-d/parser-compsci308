@@ -8,14 +8,17 @@ public class Left implements Command<Double> {
 
   private BackEndTurtle backEndTurtle;
   private double degrees;
+  private Command cmd;
 
- public Left(BackEndTurtle turtle, double angle) {
+ public Left(BackEndTurtle turtle, Command cmd) {
     this.backEndTurtle = turtle;
-    this.degrees = angle;
+    this.cmd = cmd;
+
   }
 
   @Override
   public Double execute() {
+     degrees= (double) cmd.execute();
     backEndTurtle.setHeading(backEndTurtle.getHeading() - degrees);
     return degrees;
   }
