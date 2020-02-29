@@ -43,6 +43,7 @@ public class ParserController {
     }
 
     public void parseCode(String code) throws Exception {
+       // code = code.replaceAll("[\r\n]+", " ");
         try{
             myCommandParser.parseCode(code);
         }

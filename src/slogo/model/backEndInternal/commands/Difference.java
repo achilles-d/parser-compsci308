@@ -4,18 +4,20 @@ import java.util.List;
 
 public class Difference implements Command<Double> {
 
-  private double value1;
-  private double value2;
+    private Command cmd1;
+    private Command cmd2;
 
- public Difference(double v1, double v2) {
-    this.value1 = v1;
-    this.value2 = v2;
-  }
+    public Difference(Command v1, Command v2) {
+        this.cmd1 = v1;
+        this.cmd2 = v2;
 
-  @Override
-  public Double execute() {
-    return value1 - value2;
-  }
+    }
+
+    @Override
+    public Double execute() {
+
+        return (double) (cmd1).execute() - (double) (cmd2).execute();
+    }
 
     @Override
     public List<String> updateRawCommands() {

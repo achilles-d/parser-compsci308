@@ -4,15 +4,15 @@ import java.util.List;
 
 public class Minus implements Command<Double> {
 
-  private double value;
+  private Command cmd;
 
- public Minus(double v1) {
-    this.value = v1;
+ public Minus(Command cmd) {
+    this.cmd = cmd;
   }
 
   @Override
   public Double execute() {
-    return value * -1;
+    return (double)cmd.execute() * -1;
   }
 
     @Override

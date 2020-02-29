@@ -17,13 +17,15 @@ public class Repeat implements Command<Double> {
   private StringBuilder commands = new StringBuilder();
   private Integer repeat;
   private Integer newCounter;
+  private int leftBracketCounter=0;
+  private int rightBracketCounter=0;
 
   public Repeat(List<String> sCom, Double repeat, Integer counter) {
     this.commandList = sCom;
     this.size = commandList.size();
     this.newCounter=counter;
     this.repeat=repeat.intValue();
-
+    System.out.println(commandList);
   }
 
   @Override
@@ -31,10 +33,13 @@ public class Repeat implements Command<Double> {
 
     ArrayList<String> commandToRepeat = new ArrayList<>();
 
-    if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
-      newCounter +=3;
+    if (commandList.get(newCounter + 1).equals(LEFT_BRACKET)) {
+      System.out.println(" counter "+ newCounter);
+      newCounter +=1;
       updateCommands();
+
       updateRepcountValues(commandToRepeat);
+
       List<String> rightSide = commandList.subList(newCounter, size);
       commandToRepeat.addAll(rightSide);
       commandList = commandToRepeat;
@@ -62,14 +67,21 @@ public class Repeat implements Command<Double> {
   }
 
   private void updateCommands() {
-    while(newCounter < commandList.size()){
+    newCounter++;
+    leftBracketCounter+=1;
+    while(newCounter < commandList.size() && leftBracketCounter>rightBracketCounter){
 
-      if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
-          newCounter++;
-          break;
+      if(commandList.get(newCounter).equals(LEFT_BRACKET)){
+        leftBracketCounter++;
+      } else if(commandList.get(newCounter).equals(RIGHT_BRACKET)){
+        rightBracketCounter++;
       }
-      commands.append(commandList.get(newCounter));
-      commands.append(" ");
+
+      if(leftBracketCounter==rightBracketCounter){
+        newCounter++;
+        break;
+      }
+      commands.append(commandList.get(newCounter)).append(" ");
       newCounter++;
     }
   }

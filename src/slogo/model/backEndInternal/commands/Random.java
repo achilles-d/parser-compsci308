@@ -4,15 +4,17 @@ import java.util.List;
 
 public class Random implements Command<Double> {
 
-  private double max;
+    private Command cmd;
 
- public Random(double v1) {
-    this.max = v1;
+ public Random(Command cmd) {
+     this.cmd=cmd;
   }
 
   @Override
   public Double execute() {
-    return Math.floor(Math.random() * max);
+
+      double max = (double) cmd.execute();
+     return Math.floor(Math.random() * max);
   }
 
     @Override
