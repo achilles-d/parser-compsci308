@@ -27,12 +27,10 @@ public class CommandParser implements Parser {
 
     private CommandFactory commandFactor;
     private CommandExecutor executor;
-    private Integer commandCounter = 0;
     private CommandHandlerAPI commandHandler;
     private UserVariableHandler userVariableHandler;
     private int numOfCommandsToExecute=0;
     private BackEndTurtle turtle;
-    private String currentCommand;
 
     private String LEFT_BRACKET = "[";
     private String RIGHT_BRACKET = "]";
@@ -52,6 +50,7 @@ public class CommandParser implements Parser {
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
         mySymbols = new ArrayList<>();
+        Integer commandCounter = 0;
         commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
@@ -145,16 +144,22 @@ public class CommandParser implements Parser {
         Command com = null;
         //com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         if(userVariableHandler.getKeys().contains(variableName)){
-            currentCommand=getSymbol(userVariableHandler.getVariable(variableName).getValue().toString());
+   //currentCommand= getSymbol(Integer.toString(userVariableHandler.getVariable(variableName).getValue().intValue()));
+            commandStack.add(Integer.toString(userVariableHandler.getVariable(variableName).getValue().intValue()))   ;
+            //System.out.println("Variable stored "+ currentCommand);
+            parseConstant();
+        } else{
+
+            try {
+                com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+            } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
+                    ClassNotFoundException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            argumentStack.add(com);
         }
 
-        try {
-            com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-        } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
-                ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        argumentStack.add(com);
+
     }
 
     private void parseName() {
@@ -165,7 +170,7 @@ public class CommandParser implements Parser {
     private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
 
-        currentCommand=getSymbol(commandStack.pop());
+        String currentCommand = getSymbol(commandStack.pop());
 
         int numOfArguments=readArgumentSize(currentCommand);
 
@@ -213,24 +218,27 @@ public class CommandParser implements Parser {
 
     @Override
     public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        //clearAll();
-// should store the commands
+        clearAll();
+        consoleInput = getCommandWithNoComment(consoleInput);
+        System.out.println(" string"+consoleInput+"then this");
+        fillStackWithValidCommand(consoleInput);
+        while(commandStack.size()!=0){
 
-        String[] lines=consoleInput.split("[\r\n]+");
-        StringBuilder com=new StringBuilder();
-        for(String str: lines){
-            if(str.contains("#")){
-               int index= str.indexOf("#");
-                com.append(str, 0, index).append(" ");
-
-            } else{
-                com.append(str).append(" ");
+            if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
+                matchMethodsToRun.get(getSymbol(commandStack.peek())).run();
+            } else {
+                buildExecutableCommand(); // if it is command like for and repeat
             }
         }
-        consoleInput=com.toString().trim();
-        //consoleInput.replaceAll("[\r\n]+", " ");
-        System.out.println(" string"+consoleInput+"then this");
-        List<String> commandList=Arrays.asList(consoleInput.split(" "));
+
+        while(argumentStack.size()!=0){
+           System.out.println("Answer is "+argumentStack.pop().execute());
+        }
+        
+    }
+
+    private void fillStackWithValidCommand(String consoleInput) {
+        List<String> commandList= Arrays.asList(consoleInput.split(" "));
         for(String str: commandList){
             System.out.println("Input string before"+str+"removing");
 
@@ -244,25 +252,22 @@ public class CommandParser implements Parser {
                 }
 
         }
-        //commandStack.addAll(Arrays.asList(consoleInput.split(" ")));
+    }
 
-        while(commandStack.size()!=0){
+    private String getCommandWithNoComment(String consoleInput) {
+        String[] lines=consoleInput.split("[\r\n]+");
+        StringBuilder com=new StringBuilder();
+        for(String str: lines){
+            if(str.contains("#")){
+               int index= str.indexOf("#");
+                com.append(str, 0, index).append(" ");
 
-            if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
-                matchMethodsToRun.get(getSymbol(commandStack.peek())).run();
-            } else {
-                buildExecutableCommand(); // if it is command like for and repeat
+            } else{
+                com.append(str).append(" ");
             }
-
-            //System.out.println("Value is "+(commandStack.peek()));
         }
-
-        while(argumentStack.size()!=0){
-            //System.out.println("Answer "+argumentStack.peek().execute());
-           System.out.println("Answer is "+argumentStack.pop().execute());
-        }
-
-
+        consoleInput=com.toString().trim();
+        return consoleInput;
     }
 
 
@@ -286,7 +291,7 @@ public class CommandParser implements Parser {
      */
     public String getSymbol(String command) {
         final String ERROR = "NO MATCH";
-       System.out.println("INVALID:"+command+"is" + command+"this");
+       System.out.println("INVALID:"+command+  "is" + command+  "this");
        //System.out.println("Asciii code is "+ (int) command.toCharArray());
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
@@ -304,12 +309,6 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-        //
-        // System.out.println("Key to be checked "+key);
-//
-//        if(!sizes.containsKey(key)){
-//            clearAll();
-//        }
 
 
         return Integer.parseInt(sizes.getString(key));
@@ -320,9 +319,7 @@ public class CommandParser implements Parser {
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
-        commandCounter=0;
-        numOfCommandsToExecute=0;
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+        userVariableHandler.getKeys().clear();
 
     }
 

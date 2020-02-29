@@ -43,7 +43,7 @@ public class CommandFactory {
             Object[] ar = new Object[pType.length];
             inputCounter = 0;
 
-           // System.out.println("Constructor arguemnt size " + pType.length);
+           System.out.println("Constructor command name " + commandName);
 
 
             for (int j = 0; j < pType.length; j++) {
@@ -63,7 +63,7 @@ public class CommandFactory {
             }
 
             Constructor<?> cons = c.getDeclaredConstructor(pType);
-           // System.out.println("Inputs to constructor "+ar[ar.length-1].toString());
+           System.out.println("Inputs to constructor "+ar[ar.length-1].toString());
 
             currentCommand = cons.newInstance(ar);
         return currentCommand;

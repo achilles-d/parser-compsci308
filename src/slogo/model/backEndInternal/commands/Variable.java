@@ -1,18 +1,31 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.InvalidCommandException;
+import slogo.model.backEndInternal.UserVariableHandler;
+
 import java.util.List;
 
 public class Variable implements Command {
 
 
     private String name;
-    public Variable(String variableName){
+    private UserVariableHandler handler;
+
+    public Variable(UserVariableHandler handler, String variableName)
+    {
+        this.handler=handler;
         this.name=variableName;
     }
 
     @Override
     public Object execute() {
-        return name;
+        if(handler.getKeys().contains(name)){
+            //handler.getVariable(name).
+            return (double)handler.getVariable(name).getValue();
+
+        } else{
+            return (String) name;
+        }
     }
 
     @Override
