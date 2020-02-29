@@ -7,7 +7,7 @@ public class Power implements Command<Double> {
   private double base;
   private double exponent;
 
-  public Power(double v1, double v2) {
+  public Power(Double v1, Double v2) {
     this.base = v1;
     this.exponent = v2;
   }

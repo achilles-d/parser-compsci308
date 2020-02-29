@@ -8,16 +8,18 @@ import java.util.List;
 public class Forward implements Command<Double> {
 
   private BackEndTurtle myTurtle;
+  private Command cmd;
   private double delta;
 
-  public Forward(BackEndTurtle t, double d) {
+  public Forward(BackEndTurtle t, Command d) {
     this.myTurtle = t;
-    this.delta = d;
+    this.cmd = d;
   }
 
   @Override
   public Double execute() {
     double angle = Math.toRadians(myTurtle.getHeading());
+    delta= (double) cmd.execute();
     double deltaX = delta * Math.sin(angle);
     double deltaY = delta * Math.cos(angle);
     System.out.println("Xmoves " + deltaX);

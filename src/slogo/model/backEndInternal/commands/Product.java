@@ -7,7 +7,7 @@ public class Product implements Command<Double> {
   private double value1;
   private double value2;
 
-  public Product(double v1, double v2) {
+  public Product(Double v1, Double v2) {
     this.value1 = v1;
     this.value2 = v2;
   }

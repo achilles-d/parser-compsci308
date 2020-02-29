@@ -7,9 +7,9 @@ public class Sum implements Command<Double> {
   private double value1;
   private double value2;
 
-  public Sum(Double v1, Double v2) {
-    this.value1 = v1;
-    this.value2 = v2;
+  public Sum(Command v1, Command v2) {
+    this.value1 = (double) (v1).execute();
+    this.value2 = (double) (v2).execute();
   }
 
   @Override

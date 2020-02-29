@@ -2,18 +2,18 @@ package slogo.model.backEndInternal.commands;
 
 import java.util.List;
 
-public class NaturalLog implements Command<Double> {
+public class Constant implements  Command<Double> {
 
-  private double value;
+    private Double input;
 
- public NaturalLog(Double v1) {
-    this.value = v1;
-  }
+    public Constant (String input){
+        this.input= Double.parseDouble(input);
+    }
 
-  @Override
-  public Double execute() {
-    return Math.log(value);
-  }
+    @Override
+    public Double execute() {
+        return input;
+    }
 
     @Override
     public List<String> updateRawCommands() {

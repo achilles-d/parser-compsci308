@@ -6,7 +6,7 @@ public class Cosine implements Command<Double> {
 
   private double value;
 
-  public Cosine(double v1) {
+  public Cosine(Double v1) {
     this.value = v1;
   }
 
