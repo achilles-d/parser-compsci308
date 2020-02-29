@@ -7,16 +7,23 @@ import java.util.List;
 public class MakeVariable<T> implements Command<Double> {
 
   private UserVariableHandler<T> myHandler;
-  private String variableName;
+  private Command nameCmd;
+  private Command valueCmd;
 
-  public MakeVariable(UserVariableHandler handler, String name, Double userVal) {
-    this.variableName = name;
+  public MakeVariable(UserVariableHandler handler, Command nameCmd, Command valueCmd) {
+    this.nameCmd=nameCmd;
+    this.valueCmd=valueCmd;
     this.myHandler = handler;
-    handler.makeVariable(name, userVal);
   }
 
   @Override
   public Double execute() {
+
+    String variableName = (String) nameCmd.execute();
+    Double value = (Double) valueCmd.execute();
+
+    myHandler.makeVariable(variableName, value);
+
     return myHandler.getVariable(variableName).getValue();
   }
 

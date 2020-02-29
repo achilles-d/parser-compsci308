@@ -72,24 +72,24 @@ public class CommandParser implements Parser {
         rightBracketCounter=0;
 
         //getSymbol(commandStack.pop());
-       leftBracketCounter++;
-       List<String> group=new ArrayList<>();
+        leftBracketCounter++;
+        List<String> group=new ArrayList<>();
 
-       while(leftBracketCounter>rightBracketCounter){
-           group.add(commandStack.pop());
-           if(commandStack.peek().equals(RIGHT_BRACKET)){
-               rightBracketCounter++;
-           } else if(commandStack.peek().equals(LEFT_BRACKET)){
-               leftBracketCounter++;
-           }
-           if(leftBracketCounter==rightBracketCounter){
-               group.add(commandStack.pop());
-               break;
-           }
+        while(leftBracketCounter>rightBracketCounter){
+            group.add(commandStack.pop());
+            if(commandStack.peek().equals(RIGHT_BRACKET)){
+                rightBracketCounter++;
+            } else if(commandStack.peek().equals(LEFT_BRACKET)){
+                leftBracketCounter++;
+            }
+            if(leftBracketCounter==rightBracketCounter){
+                group.add(commandStack.pop());
+                break;
+            }
 
 
 
-       }
+        }
 
     }
 
@@ -129,6 +129,7 @@ public class CommandParser implements Parser {
     private void parseNewLine(){
         commandStack.pop();
     }
+
     private void parseWhiteSpace(){
         commandStack.pop();
     }
@@ -138,10 +139,14 @@ public class CommandParser implements Parser {
 
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         argumentsToBuildCommand.add(commandStack.peek());
+        String variableName=commandStack.peek();
         String currentCommand=getSymbol(commandStack.pop());
 
         Command com = null;
         //com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+        if(userVariableHandler.getKeys().contains(variableName)){
+            currentCommand=getSymbol(userVariableHandler.getVariable(variableName).getValue().toString());
+        }
 
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);

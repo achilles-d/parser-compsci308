@@ -8,18 +8,21 @@ import java.util.List;
 public class SetPosition implements Command<Double> {
 
   private BackEndTurtle backEndTurtle;
-  private double x;
-  private double y;
+    private Command cmd1;
+  private Command cmd2;
 
- public SetPosition(BackEndTurtle myTurtle, double val1, double val2) {
+
+ public SetPosition(BackEndTurtle myTurtle, Command cmd1, Command cmd2) {
     this.backEndTurtle = myTurtle;
-    this.x = val1;
-    this.y = val2;
+    this.cmd1 =cmd1;
+    this.cmd2= cmd2;
   }
 
   @Override
   public Double execute() {
-    Coordinate currentPosition = backEndTurtle.getPosition();
+     double x = (double) cmd1.execute();
+     double y = (double) cmd2.execute();
+     Coordinate currentPosition = backEndTurtle.getPosition();
     Coordinate newPosition = new Coordinate(x, y);
     backEndTurtle.setPosition(newPosition);
 
