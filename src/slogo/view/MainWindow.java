@@ -41,13 +41,14 @@ public class MainWindow {
         myBorder.setCenter(myTabs);
         myBorder.setTop(makeWorkspace);
 
-        Scene scene = new Scene(myBorder,1000,1000);
+        Scene scene = new Scene(myBorder,1500,1000);
 
         scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         tabNameInput.getDialogPane().getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
 
         myStage.setScene(scene);
         myStage.show();
+
 
     }
 

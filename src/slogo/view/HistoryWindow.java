@@ -1,5 +1,6 @@
 package slogo.view;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
@@ -17,11 +18,17 @@ public class HistoryWindow extends Window {
     private TitledPane myView;
     private ParserController myController;
     private ListView<String> commandHistory;
+    private SimpleBooleanProperty tellUpdate;
+    private CodeStage myCode;
 
 
-    public HistoryWindow(ParserController control)
+
+    public HistoryWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
+        tellUpdate = update;
+        myCode = code;
+
         myView = new TitledPane();
         myView.setText(visualText.getString(HISTORYWINDOW));
         commandHistory =  new ListView<>();

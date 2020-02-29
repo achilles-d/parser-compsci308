@@ -1,5 +1,6 @@
 package slogo.view;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ public class ConsoleWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
     private static final String RESET = "reset";
+    private static final String EXECUTE = "execute";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
@@ -26,10 +28,15 @@ public class ConsoleWindow extends Window {
     private Button execute;
     private Button reset;
     private ParserController myController;
+    private SimpleBooleanProperty tellUpdate;
+    private CodeStage myCode;
 
 
-    public ConsoleWindow(Button execution, ParserController control)
+    public ConsoleWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
+        tellUpdate = update;
+        myCode = code;
+
         myView = new HBox();
         consoleItems = new TitledPane();
         consoleItems.setText("Console");
@@ -38,7 +45,11 @@ public class ConsoleWindow extends Window {
         console = new TextArea();
         console.setPrefWidth(650);
         console.setMaxWidth(Double.MAX_VALUE);
-        execute = execution;
+        //execute = execution;
+
+        execute = new Button(visualText.getString(EXECUTE));
+        execute.setOnAction(event -> {codeEntered();});
+
         reset = new Button(visualText.getString(RESET));
         reset.setOnAction((event -> {console.clear();}));
 
@@ -56,14 +67,20 @@ public class ConsoleWindow extends Window {
         myView.setMaxHeight(150);
     }
 
+    private void codeEntered()
+    {
+        myCode.addCodeToBeParsed(console.getText());
+        tellUpdate.setValue(true);
+    }
+
     public void update() {
 
     }
 
-    public String getConsoleText()
-    {
-        return console.getText();
-    }
+//    public String getConsoleText()
+//    {
+//        return console.getText();
+//    }
 
     public Node getView() {
         return myView;

@@ -1,6 +1,7 @@
 package slogo.view;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -23,15 +24,20 @@ public class AvailableCommandsWindow extends Window {
     private ParserController myController;
     private SimpleStringProperty languageChanged;
     private ListView<String> availableCommands;
+    private SimpleBooleanProperty tellUpdate;
+    private CodeStage myCode;
 
 
-    public AvailableCommandsWindow(Property language, ParserController control)
+    public AvailableCommandsWindow(Property language, ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
         languageChanged = (SimpleStringProperty)language;
         languageChanged.addListener((observable, oldValue, newValue) -> update());
 
         myController = control;
         commandNames = java.util.ResourceBundle.getBundle(myController.getLanguage());
+
+        tellUpdate = update;
+        myCode = code;
 
         myView = new TitledPane();
         myView.setText(visualText.getString(AVAILABLE_COMMANDS));

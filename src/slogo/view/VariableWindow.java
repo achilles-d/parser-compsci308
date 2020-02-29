@@ -1,6 +1,7 @@
 package slogo.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -24,12 +25,17 @@ public class VariableWindow extends Window {
     private ListView<String> variables;
     UserVariableHandler handler = new UserVariableHandler();
     private ParserController myController;
+    private SimpleBooleanProperty tellUpdate;
+    private CodeStage myCode;
 
 
-    public VariableWindow(ParserController control)
+    public VariableWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
 
         myController = control;
+        tellUpdate = update;
+        myCode = code;
+
         myView = new TitledPane();
         myView.setText(visualText.getString(VARWINDOW));
         myView.setPrefHeight(200);
