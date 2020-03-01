@@ -20,7 +20,7 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     private Stack<Command> argumentStack = new Stack<>();
-    private Stack<String> commandStack = new Stack<>();
+    public static Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
