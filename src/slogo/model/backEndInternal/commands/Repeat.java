@@ -33,9 +33,13 @@ public class Repeat implements Command<Double> {
 
     ArrayList<String> commandToRepeat = new ArrayList<>();
 
-    if (commandList.get(newCounter + 1).equals(LEFT_BRACKET)) {
+    newCounter = commandList.indexOf("repeat");
+
+    if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
       System.out.println(" counter "+ newCounter);
-      newCounter +=1;
+      newCounter += 3;
+
+      System.out.println("command list " + commandList);
       updateCommands();
 
       updateRepcountValues(commandToRepeat);
@@ -67,7 +71,7 @@ public class Repeat implements Command<Double> {
   }
 
   private void updateCommands() {
-    newCounter++;
+    //newCounter++;
     leftBracketCounter+=1;
     while(newCounter < commandList.size() && leftBracketCounter>rightBracketCounter){
 
