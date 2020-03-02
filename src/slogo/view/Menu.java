@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
@@ -104,6 +106,11 @@ public class Menu {
        for(String image: turtleImages.keySet())
        {
            MenuItem imageSelect = new MenuItem(image);
+           String imgName = turtleImages.getString(image).replaceAll("\"","");
+           ImageView menuIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imgName)));
+           menuIcon.setFitHeight(30);
+           menuIcon.setFitWidth(30);
+           imageSelect.setGraphic(menuIcon);
            imageSelect.setOnAction(e -> {
                turtleImage.setValue(turtleImages.getString(image));
            });
@@ -118,7 +125,7 @@ public class Menu {
         for(String color: penColorsNames.keySet())
         {
 
-            MenuItem penColor = new MenuItem(color);
+            MenuItem penColor = new MenuItem(color + ":" + penColorsNames.getString(color));
             penColor.setOnAction(e -> {
                 activePenColor.setValue(color);
             });
