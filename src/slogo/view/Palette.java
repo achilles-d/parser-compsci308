@@ -47,7 +47,9 @@ public class Palette {
         makeImagesPalette();
 
         paletteContainer.getChildren().addAll(colorPalette,imagePalette);
+        myView.setText("Palette");
         myView.setContent(paletteContainer);
+        myView.setMaxWidth(50);
 
     }
 
