@@ -15,13 +15,4 @@ public class Constant implements  Command<Double> {
         return input;
     }
 
-    @Override
-    public List<String> updateRawCommands() {
-        return null;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
-    }
 }

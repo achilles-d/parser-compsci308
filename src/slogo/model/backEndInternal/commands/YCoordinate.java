@@ -16,14 +16,5 @@ public class YCoordinate implements Command<Double> {
   public Double execute() {
     return backEndTurtle.getPosition().getYVal();
   }
-
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
+  
 }

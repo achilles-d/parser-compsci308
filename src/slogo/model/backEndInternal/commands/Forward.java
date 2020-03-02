@@ -31,13 +31,4 @@ public class Forward implements Command<Double> {
     return delta;
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

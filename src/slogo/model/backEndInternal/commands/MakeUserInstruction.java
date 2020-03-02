@@ -1,11 +1,12 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.backEndInternal.CommandHelper;
 import slogo.model.backEndInternal.UserVariable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MakeUserInstruction implements Command<Double> {
+public class MakeUserInstruction extends CommandHelper implements Command<Double> {
 //    test [" :x :y"] [ " fd x rt y"]
 //    UserVariable newVar = new UserVariable();
 //        newVar.setValue(0.0);

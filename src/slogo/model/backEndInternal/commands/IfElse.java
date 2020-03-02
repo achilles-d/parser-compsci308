@@ -1,11 +1,13 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.backEndInternal.CommandHelper;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IfElse implements Command<Double> {
+public class IfElse extends CommandHelper implements Command<Double> {
 
     private List<String> commandList;
     private String LEFT_BRACKET = "[";

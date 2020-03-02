@@ -20,13 +20,4 @@ public class Power implements Command<Double> {
     return Math.pow(base, exponent);
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

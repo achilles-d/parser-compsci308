@@ -17,13 +17,4 @@ public class XCoordinate implements Command<Double> {
     return backEndTurtle.getPosition().getXVal();
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

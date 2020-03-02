@@ -17,13 +17,4 @@ public class Tangent implements Command<Double> {
     return Math.tan(value);
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

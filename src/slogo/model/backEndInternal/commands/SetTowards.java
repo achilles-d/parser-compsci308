@@ -26,13 +26,4 @@ public class SetTowards implements Command<Double> {
     return newHeading;
   }
 
-    @Override
-    public List<String> updateRawCommands() {
-        return null;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
-    }
 }

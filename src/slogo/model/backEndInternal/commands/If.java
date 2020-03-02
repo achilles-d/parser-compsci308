@@ -1,10 +1,12 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.backEndInternal.CommandHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class If implements Command<Double>{
+public class If extends CommandHelper implements Command<Double>{
 
 private List<String> commandList;
 private Integer userVal;

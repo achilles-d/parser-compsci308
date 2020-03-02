@@ -17,14 +17,5 @@ public class ArcTangent implements Command<Double> {
     value= (double) cmd.execute();
     return Math.atan(value);
   }
-
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
+  
 }

@@ -23,13 +23,4 @@ public class GreaterThan<T extends Comparable<T>> implements Command<Double> {
     return value2.compareTo(value1) > 0 ? 1.0 : 0.0;
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

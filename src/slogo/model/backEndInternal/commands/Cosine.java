@@ -16,13 +16,4 @@ public class Cosine implements Command<Double> {
     return Math.cos(value);
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

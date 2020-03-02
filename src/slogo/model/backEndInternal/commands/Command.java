@@ -11,9 +11,4 @@ public interface Command<T> {
      * @return
      */
     T execute();
-
-    List<String> updateRawCommands();
-
-    Integer updateCounter();
-
 }

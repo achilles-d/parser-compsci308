@@ -21,13 +21,4 @@ public class Home implements Command<Double> {
     return distance;
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

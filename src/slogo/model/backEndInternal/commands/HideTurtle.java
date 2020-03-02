@@ -18,13 +18,4 @@ public class HideTurtle implements Command<Double> {
     return (double) 0;
   }
 
-  @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }

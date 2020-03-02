@@ -1,9 +1,11 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.backEndInternal.CommandHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class For implements Command<Double> {
+public class For extends CommandHelper implements Command<Double> {
 
     private int commandCounter;
     private int unexecutedCounter;

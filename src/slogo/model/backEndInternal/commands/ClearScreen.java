@@ -21,13 +21,4 @@ public class ClearScreen implements Command<Double> {
         return Math.sqrt(Math.pow(currentPos.getXVal(), 2) + Math.pow(currentPos.getYVal(), 2));
     }
 
-    @Override
-    public List<String> updateRawCommands() {
-        return null;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
-    }
 }

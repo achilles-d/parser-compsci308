@@ -30,13 +30,4 @@ public class SetPosition implements Command<Double> {
                       Math.pow(newPosition.getYVal() - currentPosition.getYVal(), 2));
   }
 
-    @Override
-    public List<String> updateRawCommands() {
-        return null;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
-    }
 }
