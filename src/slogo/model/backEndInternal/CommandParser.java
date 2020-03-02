@@ -60,10 +60,10 @@ public class CommandParser implements Parser {
         matchMethodsToRun.put("Variable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseListStart);
         matchMethodsToRun.put("ListEnd", this::parseListEnd);
-       matchMethodsToRun.put("Whitespace", this::parseWhiteSpace);
-       matchMethodsToRun.put("Newline", this::parseNewLine);
-       matchMethodsToRun.put("GroupEnd", this::parseGroupEnd);
-       matchMethodsToRun.put("GroupStart", this::parseGroupStart);
+        matchMethodsToRun.put("Whitespace", this::parseWhiteSpace);
+        matchMethodsToRun.put("Newline", this::parseNewLine);
+        matchMethodsToRun.put("GroupEnd", this::parseGroupEnd);
+        matchMethodsToRun.put("GroupStart", this::parseGroupStart);
     }
 
     private void parseListEnd() {
@@ -137,7 +137,6 @@ public class CommandParser implements Parser {
 
 
     private void parseVariable(){
-
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         argumentsToBuildCommand.add(commandStack.peek());
         String variableName=commandStack.peek();

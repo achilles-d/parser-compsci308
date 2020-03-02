@@ -1,9 +1,6 @@
 package slogo.model.backEndInternal;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
@@ -28,7 +25,8 @@ public class BackEndTurtle implements Turtle {
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
 
-
+    private SimpleStringProperty penColor = new SimpleStringProperty();
+    private SimpleStringProperty backgroundColor = new SimpleStringProperty();
 
 
     //private double xLoc;
@@ -50,7 +48,6 @@ public class BackEndTurtle implements Turtle {
         yLoc.set(turtleCoordinate.getYVal());
         penDown.set(true);
         turtleVisible.set(true);
-
     }
 
     /**
@@ -158,6 +155,14 @@ public class BackEndTurtle implements Turtle {
         lines.add(line);
     }
 
+    public void setPenColor(String color) {
+        this.penColor.set(color);
+    }
+
+    public void setBackgroundColor(String color) {
+        this.backgroundColor.set(color);
+    }
+
     @Override
     public List<Line> getLines() {
         return lines;
@@ -176,6 +181,10 @@ public class BackEndTurtle implements Turtle {
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
     public BooleanProperty getPenVisibility() { return penDown; }
+
+    public StringProperty getTurtleColor() { return penColor; }
+
+    public StringProperty getBackgroundColor() { return backgroundColor; }
 
     public boolean getPenStatus() {
         return penDown.get();
