@@ -243,11 +243,11 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
-                System.out.println("size of command stack "+commandStack.size());
-//                for(int i=0; i<commandStack.size();i++){
+                //System.out.println("size of command stack "+commandStack.);
+//                for(int i=0; i<=commandStack.size()+1;i++){
 //                    System.out.println("What is added to the stack is "+commandStack.pop());
 //                }
-                buildAndExecuteCommand();
+               buildAndExecuteCommand();
             }
 
         }
