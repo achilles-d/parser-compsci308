@@ -1,6 +1,7 @@
 package slogo.view;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -24,6 +25,9 @@ public class TurtleWindow extends Window {
     private SimpleStringProperty penColor;
     private GraphicsContext drawer;
     private ParserController myController;
+    private SimpleBooleanProperty tellUpdate;
+    private CodeStage myCode;
+
     private static final int X_LAYOUT_SCALING = 375;
     private static final double Y_LAYOUT_SCALING = 286.5;
 
@@ -39,6 +43,7 @@ public class TurtleWindow extends Window {
         myTurtle = new ViewTurtle(turtleImage);
         canvasWrap = new Pane();
         //canvasWrap.setMaxSize(0,0);
+        canvasWrap.setMinSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.getChildren().addAll(background,myTurtle.getView());

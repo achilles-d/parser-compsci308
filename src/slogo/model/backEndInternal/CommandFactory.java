@@ -7,7 +7,7 @@ package slogo.model.backEndInternal;
 public class CommandFactory {
     private BackEndTurtle turtle;
     private UserVariableHandler userVariableHandler;
-    private int doubleCounter;
+    private int inputCounter;
     private int stringCounter;
     private List<String> unExecutedCommands;
     private int commandCounter;
@@ -20,61 +20,56 @@ public class CommandFactory {
         this.userVariableHandler=userVariableHandler;
     }
 
-    public Object getCommand(List<String> commandWithDependency, Double[] arguments) throws InvocationTargetException,
+    public Object getCommand(String commandName, List<Object> arguments) throws InvocationTargetException,
             NoSuchMethodException, ClassNotFoundException,
             InstantiationException,
             IllegalAccessException {
 
+        return makeCommand(commandName, arguments);
 
-        return makeCommand(commandWithDependency, arguments);
         //return
     }
 
-    private Object makeCommand(List<String> commandWithDependency, Double[] arguments) throws NoSuchMethodException,
+    private Object makeCommand(String commandName, List<Object> arguments) throws NoSuchMethodException,
             IllegalAccessException,
             InvocationTargetException,
             InstantiationException,
             ClassNotFoundException {
+
             Object currentCommand = null;
 
-            Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandWithDependency.get(0));
-            Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();
+            Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandName);
+            Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
             Object[] ar = new Object[pType.length];
-            doubleCounter = 0;
-            stringCounter= 1;
-            System.out.println("Constructor arguemnt size " + pType.length);
+            inputCounter = 0;
+
+           System.out.println("Constructor command name " + commandName);
 
 
             for (int j = 0; j < pType.length; j++) {
 
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+                System.out.println("Constructor command name " + className);
 
                 if (className.equals("BackEndTurtle")) {
                     ar[j] = turtle;
                 } else if (className.equals("Coordinate")) {
                     ar[j] = turtle.getPosition();
-                }  else if(className.equals("UserVariableHandler")){
-                    ar[j]=userVariableHandler;
-                } else if(className.equals("String")){
-                    ar[j]=commandWithDependency.get(stringCounter);
-                    stringCounter++;
+                }  else if(className.equals("UserVariableHandler")) {
+                    ar[j] = userVariableHandler;
 
-                } else if(className.equals("List")){ //list of commands
-                    //System.out.println("Class name list "+ className);
-                    ar[j]=unExecutedCommands;
-
-                }  else if(className.equals("Integer")){
-                    //System.out.println("Counter integer "+ className);
-                    ar[j]=commandCounter;
-                }
-                else {
-                    //System.out.println("Counter double "+ className);
-                    ar[j] = arguments[doubleCounter];
-                    doubleCounter++;
+                } else if(className.equals("List")){
+                    ar[j]=arguments;
+                } else {
+                    ar[j]=arguments.get(inputCounter);
+                    System.out.println("here is the data "+arguments.get(inputCounter).toString());
+                    inputCounter++;
                 }
             }
 
             Constructor<?> cons = c.getDeclaredConstructor(pType);
+           System.out.println("Inputs to constructor "+ar[ar.length-1].toString());
+
             currentCommand = cons.newInstance(ar);
         return currentCommand;
     }

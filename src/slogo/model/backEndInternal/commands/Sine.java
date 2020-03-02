@@ -4,14 +4,16 @@ import java.util.List;
 
 public class Sine implements Command<Double> {
 
-  private double value;
+  private Command cmd;
 
-  public Sine(double v1) {
-    this.value = v1;
+  public Sine(Command cmd) {
+    this.cmd=cmd;
+
   }
 
   @Override
   public Double execute() {
+    double value = (double) cmd.execute();
     return Math.sin(value);
   }
 

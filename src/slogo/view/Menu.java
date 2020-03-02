@@ -1,6 +1,7 @@
 package slogo.view;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -44,13 +45,16 @@ public class Menu {
     private SimpleStringProperty activePenColor;
     private SimpleStringProperty turtleImage;
     private SimpleStringProperty activeLanguage;
+    private SimpleBooleanProperty tellUpdate;
     private ParserController myController;
 
 
-    public Menu(ParserController control)
+    public Menu(ParserController control,SimpleBooleanProperty update)
    {
        myController = control;
        myView = new HBox();
+
+       tellUpdate = update;
 
        activeBackgroundColor = new SimpleStringProperty(DEFAULT_BACKGROUND_COLOR);
        bgColors = new MenuButton(visualText.getString(BGCOLORS));

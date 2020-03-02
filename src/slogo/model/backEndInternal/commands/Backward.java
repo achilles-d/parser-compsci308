@@ -10,14 +10,16 @@ public class Backward implements Command<Double> {
   private BackEndTurtle myTurtle;
   private double delta;
 
-  public Backward(BackEndTurtle t, double d) {
+  private Command cmd;
+  public Backward(BackEndTurtle t,Command d) {
     this.myTurtle = t;
-    this.delta = d;
+    this.cmd = d;
   }
 
   @Override
   public Double execute() {
     System.out.println("got here");
+    delta=(double) cmd.execute();
     double angle = Math.toRadians(myTurtle.getHeading());
     double deltaX = delta * Math.sin(angle);
     double deltaY = delta * Math.cos(angle);

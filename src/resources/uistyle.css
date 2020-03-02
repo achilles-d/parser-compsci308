@@ -12,18 +12,38 @@
 }
 .list-cell
 {
-    -fx-background-color: black;
+    -fx-background-color: #3b3f41;
     -fx-text-fill: white;
+    -fx-horizontal-grid-lines-visible: black;
+
+
+}
+
+.list-cell:hover
+{
+    -fx-background-color: black;
+}
+
+.list-cell:selected
+{
+    -fx-background-color: rgba(0, 0, 255, 0.45);
+    -fx-text-fill:white;
 }
 .list-view
 {
     -fx-text-fill: white;
+    -fx-grid-lines-visible: true;
 }
 .text-area
 {
     -fx-control-inner-background: black;
     -fx-text-fill: white;
     -fx-border-color:white
+}
+
+.dialog-pane
+{
+    -fx-background-color: black;
 }
 .button {
     -fx-text-fill: white;
