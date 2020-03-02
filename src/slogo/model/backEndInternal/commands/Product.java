@@ -4,17 +4,18 @@ import java.util.List;
 
 public class Product implements Command<Double> {
 
-  private double value1;
-  private double value2;
+  private  Command cmd1;
+  private  Command cmd2;
+  public Product(Command v1, Command v2) {
+    this.cmd1=v1;
+    this.cmd2=v2;
 
-  public Product(double v1, double v2) {
-    this.value1 = v1;
-    this.value2 = v2;
   }
 
   @Override
   public Double execute() {
-    return value1 * value2;
+
+    return (double) (cmd1).execute() * (double) (cmd2).execute();
   }
 
   @Override

@@ -4,16 +4,19 @@ import java.util.List;
 
 public class Power implements Command<Double> {
 
-  private double base;
-  private double exponent;
+  private Command cmdBase;
+  private Command cmdExponent;
 
-  public Power(double v1, double v2) {
-    this.base = v1;
-    this.exponent = v2;
+  public Power(Command cmd1, Command cmd2) {
+
+    this.cmdBase=cmd1;
+    this.cmdExponent=cmd2;
   }
 
   @Override
   public Double execute() {
+    double base = (double) cmdBase.execute();
+    double exponent = (double) cmdExponent.execute();
     return Math.pow(base, exponent);
   }
 
