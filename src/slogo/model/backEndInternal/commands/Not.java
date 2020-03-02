@@ -16,14 +16,8 @@ public class Not implements Command<Double> {
     Double value = (Double) cmd.execute();
     return (double) (value == 0 ? 1 : 0);
   }
-
   @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
+  public boolean isItExecutable() {
+    return true;
   }
 }

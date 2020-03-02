@@ -20,7 +20,7 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     private Stack<Command> argumentStack = new Stack<>();
-    public static Stack<String> commandStack = new Stack<>();
+    public  Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
@@ -76,17 +76,19 @@ public class CommandParser implements Parser {
 
         rightBracketCounter++;
         while(leftBracketCounter<rightBracketCounter){
-            argumentsToBuildCommand.add(commandStack.pop());
+            argumentsToBuildCommand.add(0,commandStack.pop());
             if(commandStack.peek().equals(RIGHT_BRACKET)){
                 rightBracketCounter++;
             } else if(commandStack.peek().equals(LEFT_BRACKET)){
                 leftBracketCounter++;
             }
             if(leftBracketCounter==rightBracketCounter){
-                argumentsToBuildCommand.add(commandStack.pop());
+                argumentsToBuildCommand.add(0,commandStack.pop());
                 break;
             }
+
         }
+        //argumentsToBuildCommand
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException
@@ -183,7 +185,15 @@ public class CommandParser implements Parser {
 
 
         Command com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-        argumentStack.add(com);
+        if(com.isItExecutable()){
+            argumentStack.add(com);
+        } else{
+            System.out.println("Here it comes");
+            commandStack.addAll((Collection<? extends String>) com.execute());
+            System.out.println("Working code");
+        }
+
+
 
 
     }
@@ -234,12 +244,9 @@ public class CommandParser implements Parser {
     private void fillStackWithValidCommand(String consoleInput) {
         List<String> commandList= Arrays.asList(consoleInput.split(" "));
         for(String str: commandList){
-            //System.out.println("Input string before"+str+"removing");
 
                 str= str.replaceAll("\\p{Blank}","");
                 str=str.replaceAll("\\s+","");
-
-            //System.out.println("Input string after"+str+"removing");
 
                 if(!str.equals("")){
                     commandStack.add(str);

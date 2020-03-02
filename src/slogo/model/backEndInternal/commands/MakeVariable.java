@@ -38,14 +38,8 @@ public class MakeVariable<T> implements Command<Double> {
    }
 
   }
-
   @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
+  public boolean isItExecutable() {
+    return true;
   }
 }

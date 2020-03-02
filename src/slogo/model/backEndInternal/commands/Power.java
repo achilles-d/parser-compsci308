@@ -19,14 +19,8 @@ public class Power implements Command<Double> {
     double exponent = (double) cmdExponent.execute();
     return Math.pow(base, exponent);
   }
-
   @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
+  public boolean isItExecutable() {
+    return true;
   }
 }

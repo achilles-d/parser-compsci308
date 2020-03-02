@@ -60,6 +60,7 @@ public class CommandFactory {
 
                 } else if(className.equals("List")){
                     ar[j]=arguments;
+                    System.out.println("here is the data for the group "+arguments.toString());
                 } else {
                     ar[j]=arguments.get(inputCounter);
                     System.out.println("here is the data "+arguments.get(inputCounter).toString());
