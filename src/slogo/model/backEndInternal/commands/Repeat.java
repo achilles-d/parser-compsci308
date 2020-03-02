@@ -5,10 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import slogo.model.backEndInternal.CommandHelper;
 import slogo.model.backEndInternal.UserVariable;
 import slogo.model.backEndInternal.UserVariableHandler;
 
-public class Repeat implements Command<Object> {
+public class Repeat extends CommandHelper implements Command<Object> {
 
   private  Stack<String> stack;
   private Command num;
