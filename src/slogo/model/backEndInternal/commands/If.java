@@ -86,13 +86,8 @@ private List<String> leftCommand = new ArrayList<>();
 
 
     @Override
-    public List<String> updateRawCommands() {
-        return commandList;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
+    public boolean isItExecutable() {
+        return true;
     }
 
 }

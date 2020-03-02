@@ -78,7 +78,9 @@ public class MainTester {
       //String userInput="repeat 5 [ fd fd fd sum 40 50 ] sum 20 40";
         //String userInput="make :var 50";
 
-        //String userInput="repeat 5 [ fd 50 ]";
+       // String userInput="make :x 20 make :y 40 repeat :x [ fd :x ]";
+        //String userInput="make :x 4 repeat :x [ fd 100 rt 90 ]";
+        String userInput="for [ :dist 1 5 1 ] [ product :dist 3 ]";
 
         //String userInput ="[ :dist 10 40 10 ]";
 
@@ -94,7 +96,7 @@ public class MainTester {
 
        // String userInput="to test [ :x ] [ fd :x ]";
 
-       String userInput="atan sum sum sum 10 50 30 40";
+       //String userInput="atan sum sum sum 10 50 30 40";
 
      //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";

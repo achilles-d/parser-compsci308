@@ -1,42 +1,66 @@
 package slogo.model.backEndInternal.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
-
-import slogo.model.backEndInternal.UserVariable;
+import slogo.model.InvalidCommandException;
 import slogo.model.backEndInternal.UserVariableHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Repeat implements Command<Object> {
 
-  private  Stack<String> stack;
-  private Command num;
-  private Command group;
   private List<String> groupedCodes;
-  private int repeatSize;
+  private int repeatSize=0;
+  private boolean isItExecutable;
+  private UserVariableHandler handler;
+  private Command variableCommand;
+  private String name;
 
   private List<String> commandsToAddToStack;
 
-  public Repeat(Stack<String> stack, Command num, Command group) {
-   this.num=num;
-   this.group=group;
-   this.stack=stack;
+  public Repeat(UserVariableHandler handler, Command num, Command group) {
+    this.handler=handler;
+    this.groupedCodes= (List<String>) group.execute();
+    variableCommand=num;
 
+    commandsToAddToStack=new ArrayList<>();
+
+
+  }
+
+  private void checkExecutability(UserVariableHandler handler, Command num) {
+    Class<?> result=num.execute().getClass();
+    String className = (((Class) result).getName().split("[.]"))[result.getName().split("[.]").length - 1];
+    if(className.equals("String") && handler.getKeys().contains(num.execute())){
+      this.repeatSize= handler.getVariable((String) num.execute()).getValue().intValue();
+      isItExecutable=false;
+    } else if(className.equals("String") && !handler.getKeys().contains(num.execute())){
+      name= (String) variableCommand.execute();
+      isItExecutable=false;
+    } else if(className.equals("Double")){
+      this.repeatSize=  ((Double) num.execute()).intValue();
+      isItExecutable=false;
+    } else{
+      isItExecutable=true;// return zero
+    }
   }
 
   @Override
   public Object execute() {
 
-    groupedCodes= (List<String>) group.execute();
-    repeatSize= (int) num.execute();
-    cleanTheFirstLayerBrackets();
-    repeatCommands();
-    if(commandsToAddToStack.size()==0){
-      stack.addAll(commandsToAddToStack);
-    } else{
+    if(isItExecutable){
       return 0.0;
     }
+    if(repeatSize!=0){
+      cleanTheFirstLayerBrackets();
+      repeatCommands();
+    } else{
+      commandsToAddToStack.add("repeat");
+      //String name= (String) variableCommand.execute();
+      commandsToAddToStack.add(name);
+      commandsToAddToStack.addAll(groupedCodes);
+    }
+
     return commandsToAddToStack;
   }
 
@@ -56,6 +80,7 @@ public class Repeat implements Command<Object> {
       for(String str:groupedCodes){
 
         if(leftBracketIndex<=i && i<= righBracketIndex){
+          commandsToAddToStack.add(str);
         continue;
       }
 
@@ -72,19 +97,11 @@ public class Repeat implements Command<Object> {
 
   /**
    *
-   * @return the new counter
-   */
-  public Integer updateCounter(){
-    return -1;
-  }
-
-  /**
-   *
    * @return the new commandList which is not yet executed
    */
-  public List<String> updateRawCommands(){
-    //return Arrays.asList(("fd 50").split(" "));
-    return null;
+  public boolean isItExecutable(){
+    checkExecutability(handler, variableCommand);
+    return isItExecutable;
   }
 
 }

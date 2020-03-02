@@ -12,8 +12,6 @@ public interface Command<T> {
      */
     T execute();
 
-    List<String> updateRawCommands();
-
-    Integer updateCounter();
+    boolean isItExecutable();
 
 }

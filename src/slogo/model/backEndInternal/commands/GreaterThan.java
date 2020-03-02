@@ -20,16 +20,10 @@ public class GreaterThan<T extends Comparable<T>> implements Command<Double> {
     value1= cmd1.execute();
     value2= cmd2.execute();
 
-    return value2.compareTo(value1) > 0 ? 1.0 : 0.0;
+    return value2.compareTo(value1) < 0 ? 1.0 : 0.0;
   }
-
   @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
+  public boolean isItExecutable() {
+    return true;
   }
 }

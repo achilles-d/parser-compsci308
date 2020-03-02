@@ -21,14 +21,8 @@ public class Equal<T extends Comparable<T>> implements Command<Double> {
 
     return (double) (value1.compareTo(value2) == 0 ? 1 : 0);
   }
-
   @Override
-  public List<String> updateRawCommands() {
-    return null;
-  }
-
-  @Override
-  public Integer updateCounter() {
-    return null;
+  public boolean isItExecutable() {
+    return true;
   }
 }

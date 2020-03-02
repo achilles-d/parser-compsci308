@@ -20,12 +20,8 @@ public class And implements Command<Double> {
   }
 
   @Override
-  public List<String> updateRawCommands() {
-    return null;
+  public boolean isItExecutable() {
+    return true;
   }
 
-  @Override
-  public Integer updateCounter() {
-    return null;
-  }
 }
