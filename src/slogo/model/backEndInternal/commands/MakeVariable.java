@@ -26,7 +26,7 @@ public class MakeVariable<T> implements Command<Double> {
 
     if(className.equals("Double")){
      System.out.println("Answer should stop here");
-        throw new InvalidCommandException();// two variables create
+        throw new InvalidCommandException();// cannot create two variables with the same name
    } else{
      System.out.println("Type is "+className);
      String variableName = (String) nameCmd.execute();

@@ -183,22 +183,15 @@ public class CommandParser implements Parser {
           }
         }
 
-
         Command com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-        if(com.isItExecutable()){
-            argumentStack.add(com);
-        } else{
-            System.out.println("Here it comes");
-            commandStack.addAll((Collection<? extends String>) com.execute());
-            System.out.println("Working code");
-        }
+
+        argumentStack.add(com);
+
 
 
 
 
     }
-
-
 
 
     private void parseConstant() throws InvalidCommandException{
@@ -226,6 +219,15 @@ public class CommandParser implements Parser {
         consoleInput = getCommandWithNoComment(consoleInput);
         System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);
+
+        buildAndExecuteCommand();
+
+    }
+
+    private void buildAndExecuteCommand() throws ClassNotFoundException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException, InvocationTargetException {
+        numOfCommandsToExecute++;
+System.out.println("step 1 in the loop" +numOfCommandsToExecute);
         while(commandStack.size()!=0){
 
             if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
@@ -236,9 +238,19 @@ public class CommandParser implements Parser {
         }
 
         while(argumentStack.size()!=0){
-           System.out.println("Answer is "+argumentStack.pop().execute());
-        }
+            if(argumentStack.peek().isItExecutable()){
+                System.out.println("Answer is "+argumentStack.pop().execute());
+            } else{
+                System.out.println("Shoudl reiterate back to the stack");
+                commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                System.out.println("What is added to the stack is "+commandStack.peek());
+//                for(int i=0; i<commandStack.size();i++){
+//                    System.out.println("What is added to the stack is "+commandStack.pop());
+//                }
+                buildAndExecuteCommand();
+            }
 
+        }
     }
 
     private void fillStackWithValidCommand(String consoleInput) {
@@ -310,8 +322,6 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-
-
         return Integer.parseInt(sizes.getString(key));
 
     }
