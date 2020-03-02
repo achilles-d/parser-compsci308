@@ -79,7 +79,8 @@ public class MainTester {
         //String userInput="make :var 50";
 
        // String userInput="make :x 20 make :y 40 repeat :x [ fd :x ]";
-        String userInput="make :x 4 repeat :x [ fd 100 rt 90 ]";
+        //String userInput="make :x 4 repeat :x [ fd 100 rt 90 ]";
+        String userInput="for [ :dist 1 5 1 ] [ product :dist 3 ]";
 
         //String userInput ="[ :dist 10 40 10 ]";
 

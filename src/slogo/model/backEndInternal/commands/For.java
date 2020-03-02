@@ -1,110 +1,100 @@
 package slogo.model.backEndInternal.commands;
 
+import slogo.model.backEndInternal.UserVariableHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class For implements Command<Double> {
+public class For implements Command<Object> {
+    private List<String> groupedCodes;
+    private boolean isItExecutable;
 
-    private int commandCounter;
-    private int unexecutedCounter;
-    private List<String> commandList;
+    private List<String> index;
+
+    private List<String> commandsToAddToStack;
+    private   String RIGHT_BRACKET = "]";
     private String LEFT_BRACKET = "[";
-    private String RIGHT_BRACKET = "]";
-    private int start;
-    private int end;
-    private int increment;
-    private String vairableName;
-    private int numberOfLeft=0;
-    private int numberOfRight=0;
-    private int forLoopRun;
-    private List<String> commandToRepeat;
-    private List<String> parsedCommand;
 
-    public For(List<String> commandList, Integer counter){
-        this.commandCounter=counter;
-        this.commandList=commandList;
-        this.unexecutedCounter=commandList.size();
-        commandToRepeat=new ArrayList<>();
-        parsedCommand=new ArrayList<>();
+    public For(Command index, Command group){
 
+        this.index=(List<String>)index.execute();
+        this.groupedCodes= (List<String>) group.execute();
+
+        commandsToAddToStack=new ArrayList<>();
+        parseAndRepeatTheCommand();
+
+        isItExecutable=commandsToAddToStack.size()==0;
 
     }
-
 
     @Override
-    public Double execute() {
-        System.out.println("cCounte initiallly "+ commandCounter);
-        //commandCounter=0;
-        if(commandList.get(commandCounter+1).equals(LEFT_BRACKET)){
-            commandCounter+=2;
-            System.out.println("Elements in the list "+ commandList.get(commandCounter));
-            vairableName=commandList.get(commandCounter);
-            start=Integer.parseInt(commandList.get(commandCounter+1));
-            System.out.println("Start fo the " +start);
-            end=Integer.parseInt(commandList.get(commandCounter+2));
-            System.out.println("Start fo the " +end);
-            increment=Integer.parseInt((commandList.get(commandCounter+3)));
-            System.out.println("Start fo the " +increment);
-            commandCounter+=5; // ends skip the closing bracket
-            System.out.println("Elements in the list "+ commandList.get(commandCounter));
-        }
-
-       getTheCommandToRepeat();
-        System.out.println("For, command to repeat "+commandToRepeat);
-        parseAndRepeatTheCommand();
-        parsedCommand.addAll( commandList.subList(commandCounter, unexecutedCounter));
-        if(parsedCommand!=null){
-            return Double.MAX_VALUE;
-        } else{
+    public Object execute() {
+        //parseAndRepeatTheCommand();
+        if(isItExecutable){
             return 0.0;
+        } else{
+            System.out.println(" next command to execute "+commandsToAddToStack.toString());
+            return commandsToAddToStack;
         }
 
     }
 
-    private void getTheCommandToRepeat() {
-        //commandToRepeat = new ArrayList<>();
-        if (commandList.get(commandCounter).equals(LEFT_BRACKET)) {
-            commandCounter += 1;
-            numberOfLeft += 1;
-            while (numberOfLeft > numberOfRight && commandCounter<unexecutedCounter) {
-
-                    System.out.println("Command to add "+ commandList.get(commandCounter));
-                    if(commandList.get(commandCounter).equals(LEFT_BRACKET)){
-                        numberOfLeft+=1;
-                    } else if(commandList.get(commandCounter).equals(RIGHT_BRACKET)){
-                        numberOfRight+=1;
-                    }
-                    if(numberOfRight!=numberOfLeft) {
-                        commandToRepeat.add(commandList.get(commandCounter));
-                    }
-
-                    commandCounter+=1;
-            }
-        }
-    }
-
+    //    for [ :dist 1 110 1 ]
+//            [
+//    fd :dist
+//    rt product :dist 3
+//            ]
 
     private void parseAndRepeatTheCommand(){
+    //System.out.println("To repeat "+groupedCodes);
+        cleanTheFirstLayerBrackets();
+        int leftBracketIndex=groupedCodes.indexOf(LEFT_BRACKET);
+
+        int righBracketIndex=groupedCodes.lastIndexOf(RIGHT_BRACKET);
+
+        //System.out.println("Answer for the "+index);
+        String variableName=index.get(1);
+        int start=Integer.parseInt(index.get(2));
+        int end=Integer.parseInt(index.get(3));
+        int increment=Integer.parseInt(index.get(4));
+        System.out.println(start);
+        System.out.println(end);
+        System.out.println(increment);
+        //System.out.println("to repeat "+groupedCodes.toString());
 
         for(int i=start; i<=end; i+=increment){
+            System.out.println(" Commands to repeat"+groupedCodes.toString());
+            System.out.println(" Left bracket "+leftBracketIndex);
+            System.out.println(" Left bracket "+righBracketIndex);
+            for(String str:groupedCodes){
 
-            for(String str: commandToRepeat){
-                System.out.println("Command to repeat is "+str);
-                if(str.equals(vairableName)){
-                    parsedCommand.add(i+"");
-                } else {
-                    parsedCommand.add(str);
+
+                if(leftBracketIndex<=i && i<= righBracketIndex){
+                    commandsToAddToStack.add(str);
+                    continue;
                 }
+
+                if(str.equals(variableName)){
+                    commandsToAddToStack.add(Integer.toString(i));
+                } else{
+                    commandsToAddToStack.add(str);
+                }
+
             }
 
         }
 
 
 
+    }
+
+    private void cleanTheFirstLayerBrackets() {
+        groupedCodes.remove(0);
+        groupedCodes.remove(groupedCodes.size()-1);
     }
 
     @Override
     public boolean isItExecutable() {
-        return true;
+        return isItExecutable;
     }
 }

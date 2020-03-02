@@ -18,36 +18,28 @@
 //
 //
 //    public DoTimes(Command group, Command repeat) {
-//        this.groupCmd=group;
-//        this.repeatCmd=repeat;
+//        this.groupCmd = group;
+//        this.repeatCmd = repeat;
 //    }
+//
+////    for [ :dist 1 110 1 ]
+////            [
+////    fd :dist
+////    rt product :dist 3
+////            ]
+//
 //
 //    @Override
 //    public Double execute() {
 //
 //        ArrayList<String> commandToRepeat = new ArrayList<>();
 //
-//        newCounter = commandList.indexOf("DoTimes");
 //
-//        if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
-//            newCounter += 3;
-//            updateCommands();
-//
-//            System.out.println(commands.toString());
-//
-//            updateList(commandToRepeat);
-//
-//            List<String> rightSide = commandList.subList(newCounter, size);
-//            commandToRepeat.addAll(rightSide);
-//            commandList = commandToRepeat;
-//            return Double.MAX_VALUE;
-//        } else {
-//            return  0.0;
-//        }
 //    }
 //
+//
 //    private void updateList(ArrayList<String> commandToRepeat) {
-//        for (int i = 0 ; i < repeat; i++) {
+//        for (int i = 0; i < repeat; i++) {
 //            String[] com = commands.toString().split(" ");
 //            commandToRepeat.addAll(Arrays.asList(com));
 //        }
@@ -55,24 +47,10 @@
 //
 //    private void updateCommands() {
 //
-//        while(newCounter < commandList.size()){
-//            if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
-//                newCounter++;
-//                break;
-//            }
-//            commands.append(commandList.get(newCounter));
-//            commands.append(" ");
-//            newCounter++;
-//        }
 //    }
 //
 //    @Override
-//    public List<String> updateRawCommands() {
-//        return commandList;
-//    }
-//
-//    @Override
-//    public Integer updateCounter() {
-//        return -1;
+//    public boolean isItExecutable() {
+//        return false;
 //    }
 //}
