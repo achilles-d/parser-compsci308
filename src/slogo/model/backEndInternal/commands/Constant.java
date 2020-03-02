@@ -6,7 +6,7 @@ public class Constant implements  Command<Double> {
 
     private Double input;
 
-    public Constant (String input){
+    public Constant(String input){
         this.input= Double.parseDouble(input);
     }
 
