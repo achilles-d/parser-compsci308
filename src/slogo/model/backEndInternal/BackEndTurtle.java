@@ -143,9 +143,35 @@ public class BackEndTurtle implements Turtle {
 
         }
 
+        double adjustX = x;
+        double adjustY = y;
+
         System.out.println("YAY " );
 
+        /*
+        if(!hitXWall && hitYWall)
+        {
+            adjustX = (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
+            adjustY = y;
+        }
+
+        else if (hitXWall && !hitYWall)
+        {
+            adjustY = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
+            adjustX = x;
+        }
+
+        else if(hitXWall && hitYWall)
+        {
+            adjustX = (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
+            adjustY = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
+        }
+
+
+
+         */
         return new Coordinate((!hitXWall && hitYWall? (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal():x),(hitXWall && !hitYWall? (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal():y));
+        //return new Coordinate(adjustX,adjustY);
 
     }
 

@@ -1,11 +1,15 @@
 package slogo.view;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+
 
 import java.util.ResourceBundle;
 
@@ -33,6 +37,7 @@ public class Palette {
     private TitledPane imagePalette;
     private HBox paletteContainer;
 
+    //https://stackoverflow.com/questions/25570803/image-in-javafx-listview
     public Palette()
     {
         myView = new TitledPane();
@@ -40,6 +45,8 @@ public class Palette {
 
         colorPalette = new TitledPane();
         colorMatcher = new ListView<String>();
+        colorMatcher.setCellFactory(listView -> new PaletteColorCell());
+
         makePenColorsPalette();
 
         imagePalette = new TitledPane();
@@ -58,8 +65,11 @@ public class Palette {
         colorPalette.setText(visualText.getString(PENCOLORS));
         for(String color: penColorsNames.keySet())
         {
-            colorMatcher.getItems().add(color + " " + penColorsNames.getString(color));
+
+            colorMatcher.getItems().add(color);
+
         }
+
         colorPalette.setContent(colorMatcher);
 
 
