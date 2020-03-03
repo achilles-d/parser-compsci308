@@ -27,7 +27,7 @@ public class BackEndTurtle implements Turtle {
 
     private SimpleDoubleProperty penColor = new SimpleDoubleProperty();
     private SimpleDoubleProperty backgroundColor = new SimpleDoubleProperty();
-
+    private SimpleDoubleProperty shapeIndex = new SimpleDoubleProperty();
 
     //private double xLoc;
     //private double yLoc;
@@ -155,13 +155,15 @@ public class BackEndTurtle implements Turtle {
         lines.add(line);
     }
 
-    public void setPenColor(Double color) {
+    public void setPenColorIndex(Double color) {
         this.penColor.set(color);
     }
 
-    public void setBackgroundColor(Double color) {
+    public void setBackgroundColorIndex(Double color) {
         this.backgroundColor.set(color);
     }
+
+    public void setShapeIndex(Double shape) { this.shapeIndex.set(shape); }
 
     @Override
     public List<Line> getLines() {

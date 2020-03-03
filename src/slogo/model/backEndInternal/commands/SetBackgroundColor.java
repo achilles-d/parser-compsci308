@@ -16,8 +16,9 @@ public class SetBackgroundColor implements Command<Double> {
 
     @Override
     public Double execute() {
-        myTurtle.setBackgroundColor((Double) index.execute());
-        return (Double) index.execute();
+        Double i = (Double) index.execute();
+        myTurtle.setBackgroundColorIndex(i);
+        return i;
     }
 
     @Override

@@ -14,7 +14,9 @@ public class SetShape implements Command<Double> {
 
     @Override
     public Double execute() {
-        return null;
+        Double i = (Double) index.execute();
+        myTurtle.setShapeIndex(i);
+        return i;
     }
 
     @Override

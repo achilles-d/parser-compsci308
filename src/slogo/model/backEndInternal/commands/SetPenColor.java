@@ -16,8 +16,9 @@ public class SetPenColor implements Command<Double> {
 
     @Override
     public Double execute() {
-        myTurtle.setPenColor((Double) index.execute());
-        return (Double) index.execute();
+        Double i = (Double) index.execute();
+        myTurtle.setPenColorIndex(i);
+        return i;
     }
 
     @Override
