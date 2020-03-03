@@ -188,6 +188,8 @@ public class BackEndTurtle implements Turtle {
 
     public DoubleProperty getBackgroundColor() { return backgroundColor; }
 
+    public DoubleProperty getShapeIndex() { return shapeIndex; }
+
     public boolean getPenStatus() {
         return penDown.get();
     }
