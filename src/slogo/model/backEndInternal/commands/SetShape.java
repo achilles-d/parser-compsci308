@@ -2,27 +2,23 @@ package slogo.model.backEndInternal.commands;
 
 import slogo.model.backEndInternal.BackEndTurtle;
 
-import java.util.List;
-
-public class SetPenColor implements Command<Double> {
+public class SetShape implements Command<Double> {
 
     BackEndTurtle myTurtle;
     Command index;
 
-    public SetPenColor(BackEndTurtle t, Command i) {
+    public SetShape(BackEndTurtle t, Command i) {
         this.myTurtle = t;
         this.index = i;
     }
 
     @Override
     public Double execute() {
-        myTurtle.setPenColor((Double) index.execute());
-        return (Double) index.execute();
+        return null;
     }
 
     @Override
     public boolean isItExecutable() {
         return true;
     }
-
 }

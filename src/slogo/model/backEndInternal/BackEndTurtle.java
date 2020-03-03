@@ -25,8 +25,8 @@ public class BackEndTurtle implements Turtle {
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
 
-    private SimpleStringProperty penColor = new SimpleStringProperty();
-    private SimpleStringProperty backgroundColor = new SimpleStringProperty();
+    private SimpleDoubleProperty penColor = new SimpleDoubleProperty();
+    private SimpleDoubleProperty backgroundColor = new SimpleDoubleProperty();
 
 
     //private double xLoc;
@@ -155,11 +155,11 @@ public class BackEndTurtle implements Turtle {
         lines.add(line);
     }
 
-    public void setPenColor(String color) {
+    public void setPenColor(Double color) {
         this.penColor.set(color);
     }
 
-    public void setBackgroundColor(String color) {
+    public void setBackgroundColor(Double color) {
         this.backgroundColor.set(color);
     }
 
@@ -182,9 +182,9 @@ public class BackEndTurtle implements Turtle {
 
     public BooleanProperty getPenVisibility() { return penDown; }
 
-    public StringProperty getTurtleColor() { return penColor; }
+    public DoubleProperty getTurtleColor() { return penColor; }
 
-    public StringProperty getBackgroundColor() { return backgroundColor; }
+    public DoubleProperty getBackgroundColor() { return backgroundColor; }
 
     public boolean getPenStatus() {
         return penDown.get();
