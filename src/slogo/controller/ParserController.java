@@ -1,13 +1,14 @@
 package slogo.controller;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-
-
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
+
 
 import slogo.model.Coordinate;
 import slogo.model.InvalidCommandException;
@@ -82,7 +83,6 @@ public class ParserController {
         return myBackEndTurtle.getHeading();
     }
 
-    //TODO implement when Model is ready
     public List<Line> getLines() {
         return Collections.unmodifiableList(myBackEndTurtle.getLines());
     }
@@ -110,5 +110,20 @@ public class ParserController {
         myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile());
         myCommandParser.addPatterns(SYNTAX);
+    }
+
+    public void saveCommandHistory() throws IOException {
+        DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
+        String filename = "command_history" + df.format(new Date()) + ".txt";
+        try {
+            BufferedWriter commandWriter = new BufferedWriter(new FileWriter(filename));
+            for (String command : getCommandHistory()) {
+                commandWriter.write(command);
+                commandWriter.newLine();
+            }
+        }
+        catch(IOException ex){
+            throw ex;
+        }
     }
 }
