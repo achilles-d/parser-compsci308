@@ -1,6 +1,7 @@
 package slogo.model;
 
 import slogo.model.backEndInternal.commands.Command;
+import slogo.model.exceptions.ExecutionException;
 
 public interface Executor {
 

@@ -1,16 +1,8 @@
 package slogo.model.backEndInternal;
-import slogo.model.CommandHandler;
-import slogo.model.ExecutionException;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.ExecutionException;
+import slogo.model.exceptions.InvalidCommandException;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
