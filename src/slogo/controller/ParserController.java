@@ -11,7 +11,7 @@ import java.util.List;
 
 
 import slogo.model.Coordinate;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.Line;
 import slogo.model.Variable;
 import slogo.model.backEndInternal.*;
@@ -112,6 +112,7 @@ public class ParserController {
         myCommandParser.addPatterns(SYNTAX);
     }
 
+    //TODO remove magic vars.
     public void saveCommandHistory() throws IOException {
         DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
         String filename = "command_history" + df.format(new Date()) + ".txt";
@@ -121,6 +122,7 @@ public class ParserController {
                 commandWriter.write(command);
                 commandWriter.newLine();
             }
+            commandWriter.close();
         }
         catch(IOException ex){
             throw ex;

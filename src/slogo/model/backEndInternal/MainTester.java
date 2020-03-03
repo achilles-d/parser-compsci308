@@ -89,11 +89,11 @@ public class MainTester {
 
        // String userInput="to test [ :x ] [ fd :x ]";
 
-<<<<<<< HEAD
-       String userInput="make :x 100";
-=======
+
+
+
        //String userInput="atan sum sum sum 10 50 30 40";
->>>>>>> master
+
 
      //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";
