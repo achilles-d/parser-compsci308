@@ -7,16 +7,21 @@ import java.util.List;
 public class SetBackgroundColor implements Command<String> {
 
     private BackEndTurtle myTurtle;
-    private String color;
+    private Command color;
 
-    public SetBackgroundColor(BackEndTurtle t, String c) {
+    public SetBackgroundColor(BackEndTurtle t, Command c) {
         this.myTurtle = t;
         this.color = c;
     }
 
     @Override
     public String execute() {
-        myTurtle.setBackgroundColor(color);
-        return color;
+        myTurtle.setBackgroundColor((String) color.execute());
+        return (String) color.execute();
+    }
+
+    @Override
+    public boolean isItExecutable() {
+        return true;
     }
 }

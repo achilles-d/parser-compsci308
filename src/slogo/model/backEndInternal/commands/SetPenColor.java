@@ -20,4 +20,9 @@ public class SetPenColor implements Command<String> {
         return (String) color.execute();
     }
 
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
+
 }
