@@ -64,7 +64,7 @@ public class LogoVisualization extends BorderPane{
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
-        myPalette = new Palette();
+        myPalette = new Palette(myController,updateNeeded);
 
 
         VBox leftComps = new VBox();
@@ -121,6 +121,7 @@ public class LogoVisualization extends BorderPane{
         graphics.update();
         myHistory.update();
         myVariables.update();
+        myPalette.update();
 
         myCode.clearStagedCode();
         updateNeeded.setValue(false);

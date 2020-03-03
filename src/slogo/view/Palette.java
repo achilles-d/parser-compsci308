@@ -1,14 +1,10 @@
 package slogo.view;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Pos;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import slogo.controller.ParserController;
 
 
 import java.util.ResourceBundle;
@@ -31,63 +27,78 @@ public class Palette {
 
 
     private TitledPane myView;
-    private TitledPane colorPalette;
+    private ParserController myController;
+    private ColorPalette myColorPalette;
+    private TitledPane colorPaletteView;
     private ListView colorMatcher;
     private ListView imageMatcher;
-    private TitledPane imagePalette;
+    private TitledPane imagePaletteView;
+    private SimpleBooleanProperty tellUpdate;
     private HBox paletteContainer;
 
-    //https://stackoverflow.com/questions/25570803/image-in-javafx-listview
-    public Palette()
+    public Palette(ParserController control, SimpleBooleanProperty update)
     {
+        tellUpdate = update;
+        myController = control;
+        myColorPalette = myController.getColorPalette();
+
         myView = new TitledPane();
         paletteContainer = new HBox();
 
-        colorPalette = new TitledPane();
+        colorPaletteView = new TitledPane();
         colorMatcher = new ListView<String>();
-        colorMatcher.setCellFactory(listView -> new PaletteColorCell());
+        colorMatcher.setCellFactory(listView -> new PaletteColorCell(myColorPalette));
 
-        makePenColorsPalette();
+        fillPenColorsPalette();
 
-        imagePalette = new TitledPane();
+        imagePaletteView = new TitledPane();
         imageMatcher = new ListView<String>();
-        makeImagesPalette();
+        imageMatcher.setCellFactory(listView -> new PaletteImagecell());
 
-        paletteContainer.getChildren().addAll(colorPalette,imagePalette);
+        fillImagesPalette();
+
+        paletteContainer.getChildren().addAll(colorPaletteView, imagePaletteView);
         myView.setText("Palette");
         myView.setContent(paletteContainer);
         myView.setMaxWidth(50);
 
     }
 
-    private void makePenColorsPalette()
+    private void fillPenColorsPalette()
     {
-        colorPalette.setText(visualText.getString(PENCOLORS));
-        for(String color: penColorsNames.keySet())
+        colorMatcher.getItems().clear();
+        colorPaletteView.setText(visualText.getString(PENCOLORS));
+        for(int index: myColorPalette.getAvailableIndices())
         {
 
-            colorMatcher.getItems().add(color);
+            colorMatcher.getItems().add(index+"");
 
         }
 
-        colorPalette.setContent(colorMatcher);
+        colorPaletteView.setContent(colorMatcher);
 
 
     }
 
-    private void makeImagesPalette()
+    private void fillImagesPalette()
     {
-        imagePalette.setText(visualText.getString(IMAGES));
+        imageMatcher.getItems().clear();
+        imagePaletteView.setText(visualText.getString(IMAGES));
         for(String image: turtleImages.keySet())
         {
-            imageMatcher.getItems().add(image + " " + turtleImages.getString(image));
+            imageMatcher.getItems().add(image);
         }
-        imagePalette.setContent(imageMatcher);
+        imagePaletteView.setContent(imageMatcher);
     }
 
     public Node getView()
     {
         return myView;
+    }
+
+    public void update()
+    {
+        fillPenColorsPalette();
     }
 
 }
