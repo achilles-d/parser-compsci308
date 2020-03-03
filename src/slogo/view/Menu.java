@@ -127,7 +127,7 @@ public class Menu {
 
             MenuItem penColor = new MenuItem(color + ":" + penColorsNames.getString(color));
             penColor.setOnAction(e -> {
-                activePenColor.setValue(color);
+                activePenColor.setValue(penColorsNames.getString(color));
             });
             penColors.getItems().add(penColor);
         }
