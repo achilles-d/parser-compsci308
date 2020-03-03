@@ -22,6 +22,7 @@ public class GreaterThan<T extends Comparable<T>> implements Command<Double> {
 
     return value2.compareTo(value1) < 0 ? 1.0 : 0.0;
   }
+
   @Override
   public boolean isItExecutable() {
     return true;

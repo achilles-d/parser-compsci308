@@ -1,9 +1,6 @@
 package slogo.model.backEndInternal;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
@@ -30,8 +27,9 @@ public class BackEndTurtle implements Turtle {
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
 
-
-
+    private SimpleDoubleProperty penColor = new SimpleDoubleProperty();
+    private SimpleDoubleProperty backgroundColor = new SimpleDoubleProperty();
+    private SimpleDoubleProperty shapeIndex = new SimpleDoubleProperty();
 
     //private double xLoc;
     //private double yLoc;
@@ -52,7 +50,6 @@ public class BackEndTurtle implements Turtle {
         yLoc.set(turtleCoordinate.getYVal());
         penDown.set(true);
         turtleVisible.set(true);
-
     }
 
     /**
@@ -224,6 +221,16 @@ public class BackEndTurtle implements Turtle {
         lines.add(line);
     }
 
+    public void setPenColorIndex(Double color) {
+        this.penColor.set(color);
+    }
+
+    public void setBackgroundColorIndex(Double color) {
+        this.backgroundColor.set(color);
+    }
+
+    public void setShapeIndex(Double shape) { this.shapeIndex.set(shape); }
+
     @Override
     public List<Line> getLines() {
         return lines;
@@ -242,6 +249,12 @@ public class BackEndTurtle implements Turtle {
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
     public BooleanProperty getPenVisibility() { return penDown; }
+
+    public DoubleProperty getTurtleColor() { return penColor; }
+
+    public DoubleProperty getBackgroundColor() { return backgroundColor; }
+
+    public DoubleProperty getShapeIndex() { return shapeIndex; }
 
     public boolean getPenStatus() {
         return penDown.get();

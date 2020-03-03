@@ -90,13 +90,18 @@ public class MainTester {
 
        // String userInput= "fd 50 IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
+        //String userInput="repeat 36 [ fd 50 rt 10 ]";
         //String userInput="fd 50 for hi jdlls - ls 3 [ fd 50 ] fd 50 - - ";
 
-       // String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
+     //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
        // String userInput="to test [ :x ] [ fd :x ]";
 
+<<<<<<< HEAD
+       String userInput="make :x 100";
+=======
        //String userInput="atan sum sum sum 10 50 30 40";
+>>>>>>> master
 
      //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";
@@ -106,6 +111,9 @@ public class MainTester {
 
         // note, this simple "algorithm" will not handle SLogo comments
         //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
+        lang.parseCode(userInput);
+
+        userInput = "fd :x";
         lang.parseCode(userInput);
 
         //System.out.println(ch.getCommandHistory().get(0));
