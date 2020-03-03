@@ -25,4 +25,5 @@ public class NotEqual<T extends Comparable<T>> implements Command<Double> {
   public boolean isItExecutable() {
     return true;
   }
+
 }

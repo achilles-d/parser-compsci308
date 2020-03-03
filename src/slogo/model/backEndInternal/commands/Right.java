@@ -26,4 +26,5 @@ public class Right implements Command<Double> {
   public boolean isItExecutable() {
     return true;
   }
+
 }

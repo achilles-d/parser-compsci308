@@ -1,14 +1,21 @@
 package slogo.controller;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
+
 
 
 import java.util.List;
 
 import slogo.model.Coordinate;
+import slogo.model.InvalidCommandException;
 import slogo.model.Line;
+import slogo.model.Variable;
 import slogo.model.backEndInternal.*;
+import slogo.model.backEndInternal.commands.Command;
+import slogo.view.ColorPalette;
 
 public class ParserController {
 
@@ -18,12 +25,14 @@ public class ParserController {
     private CommandHandlerAPI myCommandHandlerAPI;
     private UserVariableHandler myUserVarHandler;
     private Language myLanguage;
+    private ColorPalette myColorPalette;
 
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
+        myColorPalette = new ColorPalette();
         //setLanguage("ENGLISH");
         setLanguage("ENGLISH");
     }
@@ -35,6 +44,16 @@ public class ParserController {
 
     public Coordinate getTurtlePosition() {
         return myBackEndTurtle.getPosition();
+    }
+
+    public void setColorPaletteIndex(int index, int r, int g, int b)
+    {
+        myColorPalette.setColor(index,r,g,b);
+    }
+
+    public ColorPalette getColorPalette()
+    {
+        return myColorPalette;
     }
 
     public void parseCode(String code) throws Exception {

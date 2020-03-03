@@ -1,6 +1,5 @@
 package slogo.model.backEndInternal.commands;
 
-import slogo.model.backEndInternal.UserVariableHandler;
 
 import java.util.ArrayList;
 import java.util.List;

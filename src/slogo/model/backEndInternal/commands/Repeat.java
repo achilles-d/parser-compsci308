@@ -24,7 +24,6 @@ public class Repeat implements Command<Object> {
 
     commandsToAddToStack=new ArrayList<>();
 
-
   }
 
   private void checkExecutability(UserVariableHandler handler, Command num) {

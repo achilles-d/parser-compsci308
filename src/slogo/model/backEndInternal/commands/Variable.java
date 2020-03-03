@@ -26,8 +26,10 @@ public class Variable implements Command {
             return (String) name;
         }
     }
+
     @Override
     public boolean isItExecutable() {
         return isItExecutable;
     }
+
 }

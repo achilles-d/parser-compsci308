@@ -35,6 +35,7 @@ public class MakeVariable<T> implements Command<Double> {
    }
 
   }
+
   @Override
   public boolean isItExecutable() {
     return true;

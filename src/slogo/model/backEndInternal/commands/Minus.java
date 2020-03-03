@@ -10,8 +10,8 @@ public class Minus implements Command<Double> {
     this.cmd = cmd;
   }
 
-  @Override
-  public Double execute() {
+    @Override
+    public Double execute() {
     return (double)cmd.execute() * -1;
   }
 
@@ -19,4 +19,5 @@ public class Minus implements Command<Double> {
     public boolean isItExecutable() {
         return true;
     }
+
 }

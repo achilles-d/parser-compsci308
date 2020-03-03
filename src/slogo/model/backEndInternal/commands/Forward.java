@@ -19,7 +19,7 @@ public class Forward implements Command<Double> {
   @Override
   public Double execute() {
     double angle = Math.toRadians(myTurtle.getHeading());
-    delta= (double) cmd.execute();
+    delta = (double) cmd.execute();
     double deltaX = delta * Math.sin(angle);
     double deltaY = delta * Math.cos(angle);
     System.out.println("Xmoves " + deltaX);

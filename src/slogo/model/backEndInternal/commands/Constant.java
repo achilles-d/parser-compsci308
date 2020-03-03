@@ -6,7 +6,7 @@ public class Constant implements  Command<Double> {
 
     private Double input;
 
-    public Constant (String input){
+    public Constant(String input){
         this.input= Double.parseDouble(input);
     }
 
@@ -14,6 +14,7 @@ public class Constant implements  Command<Double> {
     public Double execute() {
         return input;
     }
+
     @Override
     public boolean isItExecutable() {
         return true;
