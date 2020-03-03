@@ -27,6 +27,7 @@ public class ParserController {
     private UserVariableHandler myUserVarHandler;
     private Language myLanguage;
     private ColorPalette myColorPalette;
+    private CommandFileIO myCommandFileIO;
 
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
@@ -34,7 +35,7 @@ public class ParserController {
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
         myColorPalette = new ColorPalette();
-        //setLanguage("ENGLISH");
+        myCommandFileIO = new CommandFileIO();
         setLanguage("ENGLISH");
     }
 
@@ -114,15 +115,9 @@ public class ParserController {
 
     //TODO remove magic vars.
     public void saveCommandHistory() throws IOException {
-        DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
-        String filename = "command_history" + df.format(new Date()) + ".txt";
         try {
-            BufferedWriter commandWriter = new BufferedWriter(new FileWriter(filename));
-            for (String command : getCommandHistory()) {
-                commandWriter.write(command);
-                commandWriter.newLine();
-            }
-            commandWriter.close();
+            myCommandFileIO.updateCommandHistory(getCommandHistory());
+            myCommandFileIO.saveCommandHistory();
         }
         catch(IOException ex){
             throw ex;
