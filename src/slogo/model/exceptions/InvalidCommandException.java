@@ -4,8 +4,8 @@ package slogo.model.exceptions;
 public class InvalidCommandException extends RuntimeException{
 
     //Default
-    public InvalidCommandException(){
-        super("Invalid command. For a list of commands, see the \"Help\" pane.");
+    public InvalidCommandException(String message){
+        super(message);
     }
 
 }
