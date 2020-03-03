@@ -4,12 +4,12 @@ import slogo.model.backEndInternal.BackEndTurtle;
 
 import java.util.List;
 
-public class SetBackgroundColor implements Command<Double> {
+public class SetBackground implements Command<Double> {
 
     private BackEndTurtle myTurtle;
     private Command index;
 
-    public SetBackgroundColor(BackEndTurtle t, Command i) {
+    public SetBackground(BackEndTurtle t, Command i) {
         this.myTurtle = t;
         this.index = i;
     }
