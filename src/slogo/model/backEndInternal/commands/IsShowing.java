@@ -17,4 +17,8 @@ public class IsShowing implements Command<Double> {
     return (double) (backEndTurtle.getVisibility() ? 1 : 0);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

@@ -18,4 +18,8 @@ public class HideTurtle implements Command<Double> {
     return (double) 0;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

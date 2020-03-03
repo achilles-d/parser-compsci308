@@ -17,4 +17,8 @@ public class IsPenDown implements Command<Double> {
     return (double) (backEndTurtle.getPenStatus() ? 0 : 1);
   }
 
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
 }

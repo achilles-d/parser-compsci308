@@ -18,4 +18,9 @@ public class Product implements Command<Double> {
     return (double) (cmd1).execute() * (double) (cmd2).execute();
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
+
 }

@@ -6,7 +6,7 @@ import slogo.model.backEndInternal.UserVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MakeUserInstruction extends CommandHelper implements Command<Double> {
+public class MakeUserInstruction implements Command<Double> {
 //    test [" :x :y"] [ " fd x rt y"]
 //    UserVariable newVar = new UserVariable();
 //        newVar.setValue(0.0);
@@ -40,14 +40,8 @@ public class MakeUserInstruction extends CommandHelper implements Command<Double
 
         return 0.0;
     }
-
     @Override
-    public List<String> updateRawCommands() {
-        return null;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
+    public boolean isItExecutable() {
+        return true;
     }
 }

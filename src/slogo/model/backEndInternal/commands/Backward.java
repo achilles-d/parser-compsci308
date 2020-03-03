@@ -28,4 +28,9 @@ public class Backward implements Command<Double> {
     myTurtle.setPosition(newPosition);
     return delta;
   }
+
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

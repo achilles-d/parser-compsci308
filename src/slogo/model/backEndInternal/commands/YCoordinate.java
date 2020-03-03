@@ -17,4 +17,9 @@ public class YCoordinate implements Command<Double> {
     return backEndTurtle.getPosition().getYVal();
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
+
 }

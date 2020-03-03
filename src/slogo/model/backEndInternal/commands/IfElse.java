@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IfElse extends CommandHelper implements Command<Double> {
+public class IfElse implements Command<Double> {
 
     private List<String> commandList;
     private String LEFT_BRACKET = "[";
@@ -64,15 +64,8 @@ public class IfElse extends CommandHelper implements Command<Double> {
     }
 
     @Override
-    public List<String> updateRawCommands() {
-//        System.out.println("ahdsajldfslskjjlkdsjlkadfs");
-//        System.out.println(commandList);
-        return commandList;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return -1;
+    public boolean isItExecutable() {
+        return true;
     }
 
     private void updateCommands() {

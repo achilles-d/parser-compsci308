@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class If extends CommandHelper implements Command<Double>{
+public class If implements Command<Double>{
 
 private List<String> commandList;
 private Integer userVal;
@@ -88,13 +88,8 @@ private List<String> leftCommand = new ArrayList<>();
 
 
     @Override
-    public List<String> updateRawCommands() {
-        return commandList;
-    }
-
-    @Override
-    public Integer updateCounter() {
-        return null;
+    public boolean isItExecutable() {
+        return true;
     }
 
 }

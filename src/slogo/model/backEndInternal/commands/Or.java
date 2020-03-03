@@ -20,5 +20,9 @@ public class Or implements Command<Double> {
     return (double) ((value1 != 0 || value2 != 0) ? 1 : 0);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }
 

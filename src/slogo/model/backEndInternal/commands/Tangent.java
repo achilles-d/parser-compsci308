@@ -17,4 +17,8 @@ public class Tangent implements Command<Double> {
     return Math.tan(value);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

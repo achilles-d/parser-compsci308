@@ -16,4 +16,8 @@ public class Random implements Command<Double> {
       return Math.floor(Math.random() * max);
   }
 
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
 }

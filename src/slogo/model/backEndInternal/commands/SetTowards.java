@@ -26,4 +26,7 @@ public class SetTowards implements Command<Double> {
     return newHeading;
   }
 
+    public boolean isItExecutable() {
+        return true;
+    }
 }

@@ -21,4 +21,8 @@ public class Home implements Command<Double> {
     return distance;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

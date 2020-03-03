@@ -23,4 +23,8 @@ public class SetHeading implements Command<Double> {
     return calcDegrees;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

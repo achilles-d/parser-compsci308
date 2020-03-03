@@ -5,9 +5,10 @@ import slogo.model.backEndInternal.UserVariableHandler;
 
 import java.util.List;
 
+
 public class Variable implements Command {
 
-
+    private boolean isItExecutable;
     private String name;
     private UserVariableHandler handler;
 
@@ -15,17 +16,23 @@ public class Variable implements Command {
     {
         this.handler=handler;
         this.name=variableName;
+        isItExecutable=handler.getKeys().contains(name);
+
     }
 
     @Override
     public Object execute() {
         if(handler.getKeys().contains(name)){
-            //handler.getVariable(name).
             return (double)handler.getVariable(name).getValue();
 
         } else{
             return (String) name;
         }
+    }
+
+    @Override
+    public boolean isItExecutable() {
+        return isItExecutable;
     }
 
 }

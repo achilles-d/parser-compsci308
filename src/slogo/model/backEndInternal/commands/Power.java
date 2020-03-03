@@ -20,4 +20,9 @@ public class Power implements Command<Double> {
     return Math.pow(base, exponent);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
+
 }

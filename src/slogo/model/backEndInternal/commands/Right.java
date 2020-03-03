@@ -22,4 +22,9 @@ public class Right implements Command<Double> {
     return degrees;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
+
 }

@@ -20,7 +20,7 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     private Stack<Command> argumentStack = new Stack<>();
-    public static Stack<String> commandStack = new Stack<>();
+    public  Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
@@ -76,17 +76,19 @@ public class CommandParser implements Parser {
 
         rightBracketCounter++;
         while(leftBracketCounter<rightBracketCounter){
-            argumentsToBuildCommand.add(commandStack.pop());
+            argumentsToBuildCommand.add(0,commandStack.pop());
             if(commandStack.peek().equals(RIGHT_BRACKET)){
                 rightBracketCounter++;
             } else if(commandStack.peek().equals(LEFT_BRACKET)){
                 leftBracketCounter++;
             }
             if(leftBracketCounter==rightBracketCounter){
-                argumentsToBuildCommand.add(commandStack.pop());
+                argumentsToBuildCommand.add(0,commandStack.pop());
                 break;
             }
+
         }
+        //argumentsToBuildCommand
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException
@@ -180,14 +182,15 @@ public class CommandParser implements Parser {
           }
         }
 
-
         Command com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+
         argumentStack.add(com);
 
 
+
+
+
     }
-
-
 
 
     private void parseConstant() throws InvalidCommandException{
@@ -215,6 +218,15 @@ public class CommandParser implements Parser {
         consoleInput = getCommandWithNoComment(consoleInput);
         System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);
+
+        buildAndExecuteCommand();
+
+    }
+
+    private void buildAndExecuteCommand() throws ClassNotFoundException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException, InvocationTargetException {
+        numOfCommandsToExecute++;
+System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         while(commandStack.size()!=0){
 
             if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
@@ -225,20 +237,27 @@ public class CommandParser implements Parser {
         }
 
         while(argumentStack.size()!=0){
-           System.out.println("Answer is "+argumentStack.pop().execute());
-        }
+            if(argumentStack.peek().isItExecutable()){
+                System.out.println("Answer is "+argumentStack.pop().execute());
+            } else{
+                System.out.println("Shoudl reiterate back to the stack");
+                commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                //System.out.println("size of command stack "+commandStack.);
+//                for(int i=0; i<=commandStack.size()+1;i++){
+//                    System.out.println("What is added to the stack is "+commandStack.pop());
+//                }
+               buildAndExecuteCommand();
+            }
 
+        }
     }
 
     private void fillStackWithValidCommand(String consoleInput) {
         List<String> commandList= Arrays.asList(consoleInput.split(" "));
         for(String str: commandList){
-            //System.out.println("Input string before"+str+"removing");
 
                 str= str.replaceAll("\\p{Blank}","");
                 str=str.replaceAll("\\s+","");
-
-            //System.out.println("Input string after"+str+"removing");
 
                 if(!str.equals("")){
                     commandStack.add(str);
@@ -302,8 +321,6 @@ public class CommandParser implements Parser {
     }
 
     private int readArgumentSize(String key) {
-
-
         return Integer.parseInt(sizes.getString(key));
 
     }

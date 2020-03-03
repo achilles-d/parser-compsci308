@@ -11,4 +11,6 @@ public interface Command<T> {
      * @return
      */
     T execute();
+
+    boolean isItExecutable();
 }

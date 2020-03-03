@@ -1,7 +1,5 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.Variable;
-
 public class UserVariable {
 
     private Double value;

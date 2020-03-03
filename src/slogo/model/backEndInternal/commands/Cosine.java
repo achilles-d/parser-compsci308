@@ -16,4 +16,8 @@ public class Cosine implements Command<Double> {
     return Math.cos(value);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

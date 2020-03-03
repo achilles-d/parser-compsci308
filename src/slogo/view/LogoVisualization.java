@@ -24,6 +24,7 @@ public class LogoVisualization extends BorderPane{
     private CodeStage myCode;
     private TurtleWindow graphics;
     private ParserController myController;
+    private Palette myPalette;
     private MoveTurtleComponent turtleMover;
     private Property activePenColor;
     private Property activeTurtleImage;
@@ -63,6 +64,7 @@ public class LogoVisualization extends BorderPane{
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
+        myPalette = new Palette();
 
 
         VBox leftComps = new VBox();
@@ -73,7 +75,7 @@ public class LogoVisualization extends BorderPane{
         bottom.setMaxHeight(50);
 
         VBox rightComps = new VBox();
-        rightComps.getChildren().addAll(turtleMover.getView());
+        rightComps.getChildren().addAll(turtleMover.getView(),myPalette.getView());
 
         bottom.setAlignment(Pos.CENTER);
 

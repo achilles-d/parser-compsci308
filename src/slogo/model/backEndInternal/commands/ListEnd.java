@@ -12,8 +12,12 @@ public class ListEnd implements Command<Object> {
 
     @Override
     public List<String> execute() {
-        System.out.println(" it comes here"+group.toString());
+        System.out.println(" it comes here in the command "+group.toString());
         return group;
     }
 
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
 }

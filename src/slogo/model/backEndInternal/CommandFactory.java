@@ -49,7 +49,7 @@ public class CommandFactory {
             for (int j = 0; j < pType.length; j++) {
 
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
-                System.out.println("Constructor command name " + className);
+                System.out.println("Constructor name is " + className);
 
                 if (className.equals("BackEndTurtle")) {
                     ar[j] = turtle;
@@ -60,6 +60,8 @@ public class CommandFactory {
 
                 } else if(className.equals("List")){
                     ar[j]=arguments;
+                    System.out.println("here is the data for the group "+arguments.toString());
+                    System.out.println("size of the arguments "+j);
                 } else {
                     ar[j]=arguments.get(inputCounter);
                     System.out.println("here is the data "+arguments.get(inputCounter).toString());
@@ -68,7 +70,7 @@ public class CommandFactory {
             }
 
             Constructor<?> cons = c.getDeclaredConstructor(pType);
-           System.out.println("Inputs to constructor "+ar[ar.length-1].toString());
+           System.out.println("Inputs size to constructor "+ar.length);
 
             currentCommand = cons.newInstance(ar);
         return currentCommand;

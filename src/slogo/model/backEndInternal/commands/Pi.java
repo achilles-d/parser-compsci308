@@ -10,4 +10,9 @@ public class Pi implements Command<Double> {
     return Math.PI;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
+
 }

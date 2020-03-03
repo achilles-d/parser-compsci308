@@ -17,4 +17,8 @@ public  Heading(BackEndTurtle myTurtle) {
     return backEndTurtle.getHeading();
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

@@ -7,17 +7,17 @@ import java.util.List;
 public class SetPenColor implements Command<String> {
 
     BackEndTurtle myTurtle;
-    String color;
+    Command color;
 
-    public SetPenColor(BackEndTurtle t, String c) {
+    public SetPenColor(BackEndTurtle t, Command c) {
         this.myTurtle = t;
         this.color = c;
     }
 
     @Override
     public String execute() {
-        myTurtle.setPenColor(color);
-        return "";
+        myTurtle.setPenColor((String) color.execute());
+        return (String) color.execute();
     }
 
 }

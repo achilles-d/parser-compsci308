@@ -30,4 +30,8 @@ public class SetPosition implements Command<Double> {
                       Math.pow(newPosition.getYVal() - currentPosition.getYVal(), 2));
   }
 
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
 }

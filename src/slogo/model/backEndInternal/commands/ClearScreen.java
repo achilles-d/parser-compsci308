@@ -21,4 +21,9 @@ public class ClearScreen implements Command<Double> {
         return Math.sqrt(Math.pow(currentPos.getXVal(), 2) + Math.pow(currentPos.getYVal(), 2));
     }
 
+
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
 }

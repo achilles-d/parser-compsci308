@@ -15,4 +15,8 @@ public class Constant implements  Command<Double> {
         return input;
     }
 
+    @Override
+    public boolean isItExecutable() {
+        return true;
+    }
 }

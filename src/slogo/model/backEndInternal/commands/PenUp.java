@@ -18,4 +18,8 @@ public class PenUp implements Command<Double> {
     return 0.0;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

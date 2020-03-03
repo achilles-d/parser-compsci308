@@ -31,4 +31,8 @@ public class Forward implements Command<Double> {
     return delta;
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

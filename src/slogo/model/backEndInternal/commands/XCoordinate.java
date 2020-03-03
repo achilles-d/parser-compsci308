@@ -17,4 +17,9 @@ public class XCoordinate implements Command<Double> {
     return backEndTurtle.getPosition().getXVal();
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
+
 }

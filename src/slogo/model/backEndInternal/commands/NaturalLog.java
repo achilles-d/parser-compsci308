@@ -17,4 +17,9 @@ public class NaturalLog implements Command<Double> {
      return Math.log(value);
   }
 
+
+  @Override
+  public boolean isItExecutable() {
+        return true;
+    }
 }

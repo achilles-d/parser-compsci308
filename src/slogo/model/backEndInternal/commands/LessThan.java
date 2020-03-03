@@ -21,4 +21,8 @@ public class LessThan<T extends Comparable<T>> implements Command<Double> {
     return (double) (value1.compareTo(value2) < 0 ? 1 : 0);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }

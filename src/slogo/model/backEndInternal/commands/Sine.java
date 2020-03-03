@@ -17,4 +17,8 @@ public class Sine implements Command<Double> {
     return Math.sin(value);
   }
 
+  @Override
+  public boolean isItExecutable() {
+    return true;
+  }
 }
