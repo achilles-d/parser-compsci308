@@ -1,16 +1,8 @@
 package slogo.model.backEndInternal;
-import slogo.model.CommandHandler;
-import slogo.model.ExecutionException;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.ExecutionException;
+import slogo.model.exceptions.InvalidCommandException;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -97,11 +89,11 @@ public class MainTester {
 
        // String userInput="to test [ :x ] [ fd :x ]";
 
-<<<<<<< HEAD
-       String userInput="make :x 100";
-=======
+
+
+
        //String userInput="atan sum sum sum 10 50 30 40";
->>>>>>> master
+
 
      //String userInput="cos less? sum difference 10 50 30 40";
       //String userInput="make pi";

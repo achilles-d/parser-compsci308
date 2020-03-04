@@ -1,16 +1,18 @@
 package slogo.controller;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-
-
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.List;
 
+
 import slogo.model.Coordinate;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.Line;
 import slogo.model.Variable;
 import slogo.model.backEndInternal.*;
@@ -26,6 +28,7 @@ public class ParserController {
     private UserVariableHandler myUserVarHandler;
     private Language myLanguage;
     private ColorPalette myColorPalette;
+    private CommandFileIO myCommandFileIO;
 
     public ParserController(){
         myBackEndTurtle = new BackEndTurtle();
@@ -33,7 +36,7 @@ public class ParserController {
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
         myColorPalette = new ColorPalette();
-        //setLanguage("ENGLISH");
+        myCommandFileIO = new CommandFileIO();
         setLanguage("ENGLISH");
     }
 
@@ -82,7 +85,6 @@ public class ParserController {
         return myBackEndTurtle.getHeading();
     }
 
-    //TODO implement when Model is ready
     public List<Line> getLines() {
         return Collections.unmodifiableList(myBackEndTurtle.getLines());
     }
@@ -110,5 +112,24 @@ public class ParserController {
         myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile());
         myCommandParser.addPatterns(SYNTAX);
+    }
+
+    public void saveCommandHistory() throws IOException {
+        try {
+            myCommandFileIO.updateCommandHistory(getCommandHistory());
+            myCommandFileIO.saveCommandHistory();
+        }
+        catch(IOException ex){
+            throw ex;
+        }
+    }
+
+    public void parseFileCode(File commandFile) throws Exception {
+        try {
+            parseCode(myCommandFileIO.readCommandFile(commandFile));
+        }
+        catch(Exception ex){
+            throw ex;
+        }
     }
 }

@@ -1,11 +1,9 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.CommandHandler;
-import slogo.model.ExecutionException;
+import slogo.model.exceptions.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.Parser;
-import slogo.model.backEndInternal.commands.Repeat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
