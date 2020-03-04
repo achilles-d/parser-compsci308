@@ -103,16 +103,16 @@ public class Menu {
 
    private void makeImagesMenu()
    {
-       for(String image: turtleImages.keySet())
+       for(String imageIndex: turtleImages.keySet())
        {
-           MenuItem imageSelect = new MenuItem(image);
-           String imgName = turtleImages.getString(image).replaceAll("\"","");
+           MenuItem imageSelect = new MenuItem(imageIndex);
+           String imgName = turtleImages.getString(imageIndex).replaceAll("\"","");
            ImageView menuIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imgName)));
            menuIcon.setFitHeight(30);
            menuIcon.setFitWidth(30);
            imageSelect.setGraphic(menuIcon);
            imageSelect.setOnAction(e -> {
-               turtleImage.setValue(turtleImages.getString(image));
+               turtleImage.setValue(turtleImages.getString(imageIndex));
            });
            images.getItems().add(imageSelect);
 

@@ -92,11 +92,6 @@ public class TurtleWindow extends Window {
         penColor.setValue(color);
     }
 
-    public void getSize()
-    {
-        System.out.println(myView.getHeight());
-        System.out.println(myView.getWidth());
-    }
 
     public void setBackgroundColor(String color) {
         myView.setBackground(new Background(new BackgroundFill(Color.valueOf(color), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -119,13 +114,11 @@ public class TurtleWindow extends Window {
 
     private void drawLines(int turtleID)
     {
-        System.out.println("TURTLE ID " + turtleID);
-        System.out.println(myTurtleController.getLines(turtleID).size());
+
         if(myTurtleController.getLines(turtleID).size() ==0)
         {
 
             clearScreen();
-            System.out.println("SCREEN CLEARED");
         }
         else
         {

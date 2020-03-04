@@ -6,10 +6,12 @@ import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -17,8 +19,11 @@ import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import slogo.model.Coordinate;
 
+import java.util.ResourceBundle;
+
 public class ViewTurtle {
 
+    private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final int X_LAYOUT_SCALING = 375;
     private static final double Y_LAYOUT_SCALING = 286.5;
     private Image myImage;
@@ -30,6 +35,12 @@ public class ViewTurtle {
     private double myY;
     private double myHeading;
     private boolean turtleVisibility;
+    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+
+
+
+    private SimpleDoubleProperty penColorIndex;
+    private SimpleDoubleProperty shapeIndex;
 
     private int size;
     private int myID;
@@ -39,6 +50,10 @@ public class ViewTurtle {
         myID = id;
         size = 50;
         activeTurtle = new SimpleBooleanProperty(true);
+        penColorIndex = new SimpleDoubleProperty(0);
+        shapeIndex = new SimpleDoubleProperty(0);
+        shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)newValue);});
+
         setImageProperty(new SimpleStringProperty("turtle.jpg"));
 
         myImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName.getValue()));
@@ -49,6 +64,11 @@ public class ViewTurtle {
         updatePosition(myCoordinates);
         myHeading = 0;
 
+    }
+
+    private void setImageWithIndex(int i)
+    {
+        updateImage(turtleImages.getString(i+""));
     }
 
     public int getSize()
