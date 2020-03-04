@@ -31,7 +31,7 @@ public class TurtleStatesWindow extends Window{
     @Override
     public void update() {
         turtleID = makeLabel(visualText.getString("turtleid"),myViewTurtle.getID()+"");
-        turtlePosition = makeLabel(visualText.getString("turtleposition"),myViewTurtle.getCoordinates().toString())
+        turtlePosition = makeLabel(visualText.getString("turtleposition"),myViewTurtle.getCoordinates().toString());
         turtleHeading = makeLabel(visualText.getString("turtleheading"),myViewTurtle.getHeading() + "");
     }
 
