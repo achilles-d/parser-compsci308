@@ -9,13 +9,13 @@ import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
-public class Palette {
+public class PaletteWindow {
 
     private static final String DEFAULT_PEN_COLOR = "Black";
     private static final String PEN_COLOR = "resources.colors.PenColor";
     private static final String UI_TEXT = "resources.UIText";
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
-    private static final String PENCOLORS = "pencolors";
+    private static final String AVAILABLE_COLORS = "availablecolors";
     private static final String IMAGES = "images";
 
 
@@ -36,7 +36,7 @@ public class Palette {
     private SimpleBooleanProperty tellUpdate;
     private HBox paletteContainer;
 
-    public Palette(ParserController control, SimpleBooleanProperty update)
+    public PaletteWindow(ParserController control, SimpleBooleanProperty update)
     {
         tellUpdate = update;
         myController = control;
@@ -67,7 +67,7 @@ public class Palette {
     private void fillPenColorsPalette()
     {
         colorMatcher.getItems().clear();
-        colorPaletteView.setText(visualText.getString(PENCOLORS));
+        colorPaletteView.setText(visualText.getString(AVAILABLE_COLORS));
         for(int index: myColorPalette.getAvailableIndices())
         {
 

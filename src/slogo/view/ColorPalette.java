@@ -41,6 +41,7 @@ public class ColorPalette {
         return colorMatch.get(index);
     }
 
+
     public Set<Integer> getAvailableIndices()
     {
         return colorMatch.keySet();

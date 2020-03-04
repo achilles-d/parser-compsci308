@@ -2,6 +2,7 @@ package slogo.view;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -13,6 +14,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 
@@ -25,13 +27,14 @@ public class Menu {
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
     private static final String UI_TEXT = "resources.UIText";
-    private static final String DEFAULT_BACKGROUND_COLOR = "White";
-    private static final String DEFAULT_PEN_COLOR = "Black";
+    private static final Double DEFAULT_BACKGROUND_COLOR = 6.0;
+    private static final Double DEFAULT_PEN_COLOR = 7.0;
     private static final String BGCOLORS = "bgcolors";
     private static final String PENCOLORS = "pencolors";
     private static final String IMAGES = "images";
     private static final String LANGUAGE = "language";
     private static final String HELP = "help";
+    private static final int ICON_SIZE = 20;
 
     private HBox myView;
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
@@ -43,28 +46,31 @@ public class Menu {
     private MenuButton images;
     private MenuButton penColors;
     private MenuButton languages;
-    private SimpleStringProperty activeBackgroundColor;
-    private SimpleStringProperty activePenColor;
+    private SimpleDoubleProperty activeBackgroundColor;
+    private SimpleDoubleProperty activePenColor;
     private SimpleStringProperty turtleImage;
     private SimpleStringProperty activeLanguage;
     private SimpleBooleanProperty tellUpdate;
     private ParserController myController;
+    private ColorPalette myColorPalette;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update)
+    public Menu(ParserController control,SimpleBooleanProperty update,ColorPalette colors)
    {
        myController = control;
        myView = new HBox();
 
        tellUpdate = update;
+       myColorPalette = colors;
 
-       activeBackgroundColor = new SimpleStringProperty(DEFAULT_BACKGROUND_COLOR);
+       activeBackgroundColor = new SimpleDoubleProperty(DEFAULT_BACKGROUND_COLOR);
        bgColors = new MenuButton(visualText.getString(BGCOLORS));
-       makeBackgroundColorsMenu();
+       makeColorsMenu(activeBackgroundColor,bgColors);
 
-       activePenColor = new SimpleStringProperty(DEFAULT_PEN_COLOR);
+       activePenColor = new SimpleDoubleProperty(DEFAULT_PEN_COLOR);
        penColors = new MenuButton(visualText.getString(PENCOLORS));
-       makePenColorsMenu();
+       makeColorsMenu(activePenColor,penColors);
+
 
        turtleImage = new SimpleStringProperty("turtle.jpg");
        images = new MenuButton(visualText.getString(IMAGES));
@@ -103,16 +109,16 @@ public class Menu {
 
    private void makeImagesMenu()
    {
-       for(String image: turtleImages.keySet())
+       for(String imageIndex: turtleImages.keySet())
        {
-           MenuItem imageSelect = new MenuItem(image);
-           String imgName = turtleImages.getString(image).replaceAll("\"","");
+           MenuItem imageSelect = new MenuItem(imageIndex);
+           String imgName = turtleImages.getString(imageIndex).replaceAll("\"","");
            ImageView menuIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imgName)));
            menuIcon.setFitHeight(30);
            menuIcon.setFitWidth(30);
            imageSelect.setGraphic(menuIcon);
            imageSelect.setOnAction(e -> {
-               turtleImage.setValue(turtleImages.getString(image));
+               turtleImage.setValue(turtleImages.getString(imageIndex));
            });
            images.getItems().add(imageSelect);
 
@@ -120,31 +126,20 @@ public class Menu {
 
    }
 
-   private void makePenColorsMenu()
-    {
-        for(String color: penColorsNames.keySet())
-        {
-
-            MenuItem penColor = new MenuItem(color + ":" + penColorsNames.getString(color));
-            penColor.setOnAction(e -> {
-                activePenColor.setValue(penColorsNames.getString(color));
-            });
-            penColors.getItems().add(penColor);
-        }
-    }
-
-   private void makeBackgroundColorsMenu()
+   private void makeColorsMenu(SimpleDoubleProperty activeColor, MenuButton colorButton)
    {
-        for(String color: bgColorsNames.keySet())
-        {
-
-            MenuItem bgColor = new MenuItem(color);
-            bgColor.setOnAction(e -> {
-                activeBackgroundColor.setValue(color);
-            });
-            bgColors.getItems().add(bgColor);
-        }
+       colorButton.getItems().clear();
+       for(int color: myColorPalette.getAvailableIndices())
+       {
+           MenuItem colorItem = new MenuItem(color +"");
+           colorItem.setGraphic(new Rectangle(ICON_SIZE, ICON_SIZE,myColorPalette.getColor(color)));
+           colorItem.setOnAction(e -> {
+               activeColor.setValue(color);
+           });
+           colorButton.getItems().add(colorItem);
+       }
    }
+
 
    public Node getView()
    {
@@ -167,5 +162,11 @@ public class Menu {
        Scene helpScreen = new Scene(helpGroup,400,400);
        stage1.setScene(helpScreen);
        stage1.show();
+   }
+
+   public void update()
+   {
+       makeColorsMenu(activePenColor,penColors);
+       makeColorsMenu(activeBackgroundColor,bgColors);
    }
 }
