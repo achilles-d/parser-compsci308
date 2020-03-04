@@ -30,6 +30,7 @@ public class LogoVisualization extends BorderPane{
     private ConsoleWindow myConsole;
     private HistoryWindow myHistory;
     private Menu toolbar;
+    private TurtleCompleteInfoWindow myTurtleInfo;
     AvailableCommandsWindow available;
     private Button executeButton;
 
@@ -59,6 +60,7 @@ public class LogoVisualization extends BorderPane{
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor(),myController.getColorPalette());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
         myPalette = new PaletteWindow(myController,updateNeeded);
+        myTurtleInfo = new TurtleCompleteInfoWindow(myController);
 
 
         VBox leftComps = new VBox();
@@ -69,7 +71,7 @@ public class LogoVisualization extends BorderPane{
         bottom.setMaxHeight(50);
 
         VBox rightComps = new VBox();
-        rightComps.getChildren().addAll(turtleMover.getView(),myPalette.getView());
+        rightComps.getChildren().addAll(turtleMover.getView(),myPalette.getView(),myTurtleInfo.getView());
 
         bottom.setAlignment(Pos.CENTER);
 
@@ -116,6 +118,7 @@ public class LogoVisualization extends BorderPane{
         myHistory.update();
         myVariables.update();
         myPalette.update();
+        myTurtleInfo.update();
 
         myCode.clearStagedCode();
         updateNeeded.setValue(false);

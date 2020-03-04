@@ -20,6 +20,8 @@ public class TurtleStatesWindow extends Window{
 
     public TurtleStatesWindow(ViewTurtle view)
     {
+        myView = new VBox();
+        myView.setMaxWidth(50);
         myViewTurtle = view;
         update();
         myView.getChildren().addAll(turtleID,turtlePosition,turtleHeading);

@@ -51,7 +51,6 @@ public class PenStateWindow extends Window {
         penThickButtons.getChildren().addAll(thinPen,thickPen);
         penStatusButtons.getChildren().addAll(penUp,penDown);
         penChanger.getChildren().addAll(penStatusButtons,penThickButtons);
-        penInfo.getChildren().addAll(penStatus,penThickness,penColor);
 
         myView.getChildren().addAll(penInfo,penChanger);
     }
@@ -114,10 +113,12 @@ public class PenStateWindow extends Window {
         penThickness = makeLabel(visualText.getString("penthickness"),myViewTurtle.getPenSize()+"");
         Rectangle colorPatch = new Rectangle(ICON_SIZE, ICON_SIZE,myColorPalette.getColor((int)myViewTurtle.getPenColorIndex()));
         penColor = makeLabelWithGraphic(visualText.getString("pencolor"),colorPatch);
+        penInfo.getChildren().clear();
+        penInfo.getChildren().addAll(penStatus,penThickness,penColor);
     }
 
     @Override
     public Node getView() {
-        return null;
+        return myView;
     }
 }

@@ -7,7 +7,11 @@ import javafx.scene.layout.VBox;
 import slogo.controller.ParserController;
 import slogo.controller.TurtleController;
 
-public class TurtleCompleteInfoWindow {
+import java.util.ResourceBundle;
+
+public class TurtleCompleteInfoWindow extends Window {
+
+    private static final String UI_TEXT = "resources.UIText";
 
     private TitledPane myView;
     private VBox turtleStates;
@@ -15,35 +19,43 @@ public class TurtleCompleteInfoWindow {
     private TurtleController myTurtleController;
     private ColorPalette myColorPalette;
 
-    public TurtleCompleteInfoWindow(ParserController control, ColorPalette colors)
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+
+
+    public TurtleCompleteInfoWindow(ParserController control)
     {
         myController = control;
         myTurtleController = control.getTurtleController();
-        myColorPalette = colors;
-        init();
+        myColorPalette = control.getColorPalette();
+        turtleStates = new VBox();
+        myView = new TitledPane();
+        myView.setText(visualText.getString("turtleinfo"));
+        update();
+        myView.setContent(turtleStates);
     }
 
-    private void init()
-    {
 
-    }
-
-    private Node makeNewTurtleStatesWindow(int id)
+    private Node makeNewTurtleStatesWindow(ViewTurtle viewTurt)
     {
         HBox info = new HBox();
-        ViewTurtle active = myTurtleController.getViewTurtle(id);
-        info.getChildren().add(new TurtleStatesWindow(active).getView());
-        info.getChildren().add(new PenStateWindow(active,myColorPalette).getView());
+        info.getChildren().add(new TurtleStatesWindow(viewTurt).getView());
+        info.getChildren().add(new PenStateWindow(viewTurt,myColorPalette).getView());
         return info;
     }
 
     @Override
     public void update() {
+        turtleStates.getChildren().clear();
+
+        for(ViewTurtle view: myTurtleController.getAllActiveViewTurtles())
+        {
+            turtleStates.getChildren().add(makeNewTurtleStatesWindow(view));
+        }
 
     }
 
     @Override
     public Node getView() {
-        return null;
+        return myView;
     }
 }

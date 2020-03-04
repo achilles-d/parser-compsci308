@@ -55,6 +55,7 @@ public class ViewTurtle {
         penColorIndex = new SimpleDoubleProperty(0);
         penSize = new SimpleDoubleProperty(5);
         shapeIndex = new SimpleDoubleProperty(0);
+        penStatus = new SimpleBooleanProperty(true);
 
         shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)shapeIndex.get());});
 
