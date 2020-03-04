@@ -26,6 +26,7 @@ public class BackEndTurtle implements Turtle {
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
+    private SimpleBooleanProperty activeTurtle = new SimpleBooleanProperty();
 
     private SimpleDoubleProperty penColor = new SimpleDoubleProperty();
     private SimpleDoubleProperty backgroundColor = new SimpleDoubleProperty();
@@ -38,18 +39,21 @@ public class BackEndTurtle implements Turtle {
 
     private Coordinate turtleCoordinate;
     private List<Line> lines;
+    private int myID;
 
     //private double heading;
     //private boolean penUp;
     //private boolean turtleVisible;
 
-    public BackEndTurtle(){
+    public BackEndTurtle(int id){
+        myID = id;
         lines=new ArrayList<>();
         turtleCoordinate = new Coordinate();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
         penDown.set(true);
         turtleVisible.set(true);
+        activeTurtle.set(true);
     }
 
     /**
@@ -248,7 +252,7 @@ public class BackEndTurtle implements Turtle {
 
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
-    public BooleanProperty getPenVisibility() { return penDown; }
+    public BooleanProperty getPenVisibilityProperty() { return penDown; }
 
     public DoubleProperty getTurtleColor() { return penColor; }
 
@@ -263,4 +267,11 @@ public class BackEndTurtle implements Turtle {
     public boolean getVisibility() {
         return turtleVisible.get();
     }
+
+    public BooleanProperty getActiveProperty()
+    {
+        return activeTurtle;
+    }
+
+
 }

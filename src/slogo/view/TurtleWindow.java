@@ -10,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import slogo.controller.ParserController;
+import slogo.controller.TurtleController;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 
@@ -20,19 +21,20 @@ public class TurtleWindow extends Window {
     private Pane myView;
     private Pane canvasWrap;
     private Canvas background;
-    private ViewTurtle myTurtle;
+    private TurtleController myTurtleController;
     private SimpleStringProperty backgroundColor;
     private SimpleStringProperty penColor;
     private GraphicsContext drawer;
     private ParserController myController;
     private SimpleBooleanProperty tellUpdate;
+    private SimpleStringProperty turtleImage;
     private CodeStage myCode;
 
     private static final int X_LAYOUT_SCALING = 375;
     private static final double Y_LAYOUT_SCALING = 286.5;
 
 
-    public TurtleWindow(Property menuBackgroundColor, Property turtleImage, ParserController control,Property menuPenColor)
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor)
     {
         myController = control;
         myView = new Pane();
@@ -40,13 +42,14 @@ public class TurtleWindow extends Window {
         //myView.setMinSize(0,0);
         background = new Canvas();
         drawer = background.getGraphicsContext2D();
-        myTurtle = new ViewTurtle(turtleImage);
+        myTurtleController = control.getTurtleController();
         canvasWrap = new Pane();
         //canvasWrap.setMaxSize(0,0);
         canvasWrap.setMinSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
         canvasWrap.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
-        canvasWrap.getChildren().addAll(background,myTurtle.getView());
+        turtleImage = (SimpleStringProperty) turtleImg;
+        fillCanvas();
         background.widthProperty().bind(canvasWrap.widthProperty());
         background.heightProperty().bind(canvasWrap.heightProperty());
         //background.widthProperty().bind(myView.widthProperty());
@@ -69,6 +72,18 @@ public class TurtleWindow extends Window {
         //System.out.println(myTurtle.getView().getTranslateX());
 
        // myTurtle.updatePosition(new Coordinate(-391,260.5));
+
+    }
+
+
+    private void fillCanvas()
+    {
+        canvasWrap.getChildren().clear();
+        canvasWrap.getChildren().add(background);
+        for(ViewTurtle turtle:myTurtleController.getAllActiveViewTurtles()) {
+            canvasWrap.getChildren().add(turtle.getView());
+            turtle.setImageProperty(turtleImage);
+        }
 
     }
 
@@ -102,14 +117,20 @@ public class TurtleWindow extends Window {
         drawer.clearRect(0,0, background.getWidth(),background.getHeight());
     }
 
-    private void drawLines()
+    private void drawLines(int turtleID)
     {
-        if(myController.getLines().size() ==0)
+        System.out.println("TURTLE ID " + turtleID);
+        System.out.println(myTurtleController.getLines(turtleID).size());
+        if(myTurtleController.getLines(turtleID).size() ==0)
+        {
+
             clearScreen();
+            System.out.println("SCREEN CLEARED");
+        }
         else
         {
             drawer.setStroke(Color.valueOf(penColor.getValue()));
-            for(Line l: myController.getLines())
+            for(Line l: myTurtleController.getLines(turtleID))
             {
                 if(!l.isDrawn())
                 {
@@ -132,11 +153,15 @@ public class TurtleWindow extends Window {
     @Override
     public void update() {
 
+        fillCanvas();
+        for(ViewTurtle view: myTurtleController.getAllActiveViewTurtles())
+        {
+            view.updatePosition(myController.getTurtlePosition());
+            view.setHeading(myController.getHeading());
+            view.setVisibility(myController.getTurtleVisibility());
+            drawLines(view.getID());
+        }
 
-        myTurtle.updatePosition(myController.getTurtlePosition());
-        myTurtle.setHeading(myController.getHeading());
-        myTurtle.setVisibility(myController.getTurtleVisibility());
-        drawLines();
     }
 
 

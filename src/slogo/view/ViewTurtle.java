@@ -1,10 +1,20 @@
 package slogo.view;
 
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.HLineTo;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 import slogo.model.Coordinate;
 
 public class ViewTurtle {
@@ -13,22 +23,23 @@ public class ViewTurtle {
     private static final double Y_LAYOUT_SCALING = 286.5;
     private Image myImage;
     private SimpleStringProperty imageName;
+    private SimpleBooleanProperty activeTurtle;
     private ImageView myView;
     private Coordinate myCoordinates;
     private double myX;
     private double myY;
     private double myHeading;
     private boolean turtleVisibility;
-    private int size;
 
-    public ViewTurtle(Property turtleImage)
+    private int size;
+    private int myID;
+
+    public ViewTurtle(int id)
     {
+        myID = id;
         size = 50;
-        imageName = new SimpleStringProperty();
-        //imageName.bind(turtleImage);
-        imageName = (SimpleStringProperty)turtleImage;
-        imageName.addListener((observable, oldValue, newValue) -> { updateImage(imageName.getValue());
-            System.out.println(imageName.getValue());});
+        activeTurtle = new SimpleBooleanProperty(true);
+        setImageProperty(new SimpleStringProperty("turtle.jpg"));
 
         myImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName.getValue()));
         myView = new ImageView(myImage);
@@ -75,26 +86,39 @@ public class ViewTurtle {
         myView.setVisible(turtleVisibility);
     }
 
-    public void updatePosition(Coordinate a)
+    public SimpleBooleanProperty getActiveProperty()
     {
-        myCoordinates =a;
+        return activeTurtle;
+    }
+
+    public void setImageProperty(SimpleStringProperty name)
+    {
+        imageName = name;
+        imageName.addListener((observable, oldValue, newValue) -> { if(activeTurtle.get())
+        {updateImage(imageName.getValue());}});
+    }
+
+    public void updatePosition(Coordinate a) {
+        myCoordinates = a;
         setXY();
-        while(myX>750-myView.getFitWidth()/2)
+        while (myX > 750 - myView.getFitWidth() / 2)
             myX--;
-        while(myY>573-myView.getFitHeight())
+        while (myY > 573 - myView.getFitHeight())
             myY--;
 
-        while(myX<0)
+        while (myX < 0)
             myX++;
-        while(myY<0)
+        while (myY < 0)
             myY++;
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
         System.out.println("Xcord " + myX);
         System.out.println("Ycord " + myY);
+    }
 
-
-
+    public int getID()
+    {
+        return myID;
     }
 
 
