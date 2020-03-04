@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.awt.*;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -113,13 +114,21 @@ public class ParserController {
         myCommandParser.addPatterns(SYNTAX);
     }
 
-    //TODO remove magic vars.
     public void saveCommandHistory() throws IOException {
         try {
             myCommandFileIO.updateCommandHistory(getCommandHistory());
             myCommandFileIO.saveCommandHistory();
         }
         catch(IOException ex){
+            throw ex;
+        }
+    }
+
+    public void parseFileCode(File commandFile) throws Exception {
+        try {
+            parseCode(myCommandFileIO.readCommandFile(commandFile));
+        }
+        catch(Exception ex){
             throw ex;
         }
     }
