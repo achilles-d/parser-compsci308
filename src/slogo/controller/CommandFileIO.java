@@ -24,6 +24,7 @@ public class CommandFileIO {
         myCommandHistory = Collections.unmodifiableList(currentCommandHistory);
     }
 
+    //TODO remove magic vars.
     public void saveCommandHistory() throws IOException {
         DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
         String filename = "command_history" + df.format(new Date()) + ".txt";

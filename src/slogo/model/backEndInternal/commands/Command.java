@@ -10,7 +10,7 @@ public interface Command<T> {
      * like math commands, or movement commands. Each of them will implement execute differently based on what they need to do
      * @return
      */
-    T execute();
+    T execute() throws Exception;
 
     boolean isItExecutable();
 }
