@@ -52,7 +52,7 @@ public class ViewTurtle {
         myID = id;
         size = 50;
         activeTurtle = new SimpleBooleanProperty(true);
-        penColorIndex = new SimpleDoubleProperty(0);
+        penColorIndex = new SimpleDoubleProperty(7);
         penSize = new SimpleDoubleProperty(5);
         shapeIndex = new SimpleDoubleProperty(0);
         penStatus = new SimpleBooleanProperty(true);

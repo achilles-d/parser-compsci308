@@ -1,5 +1,7 @@
 package slogo.view;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +17,7 @@ public class PenStateWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
     private static final int ICON_SIZE = 20;
+    private static final String CSS_ID = "PenState";
 
     private HBox myView;
     private VBox penInfo;
@@ -30,6 +33,7 @@ public class PenStateWindow extends Window {
     private Button penDown;
     private Button thickPen;
     private Button thinPen;
+    private SimpleDoubleProperty checkPenColor;
 
 
     private String penStatusText;
@@ -39,20 +43,37 @@ public class PenStateWindow extends Window {
     public PenStateWindow(ViewTurtle view, ColorPalette colors)
     {
         myView = new HBox();
+        myView.setId(CSS_ID);
         penInfo = new VBox();
         penChanger = new VBox();
+        setSizing(penInfo,120);
+        setSizing(penChanger,100);
         penThickButtons = new HBox();
         penStatusButtons = new HBox();
 
         myColorPalette = colors;
         myViewTurtle = view;
+
+
         initButtons();
         update();
+
         penThickButtons.getChildren().addAll(thinPen,thickPen);
+        penThickButtons.setAlignment(Pos.CENTER);
         penStatusButtons.getChildren().addAll(penUp,penDown);
         penChanger.getChildren().addAll(penStatusButtons,penThickButtons);
 
+        checkPenColor = myViewTurtle.getPenColorProperty();
+        checkPenColor.addListener(e->{update();});
+
+
         myView.getChildren().addAll(penInfo,penChanger);
+    }
+
+    private void setSizing(VBox node,int size)
+    {
+        node.setMaxWidth(size);
+        node.setPrefWidth(size);
     }
 
     private void initButtons()

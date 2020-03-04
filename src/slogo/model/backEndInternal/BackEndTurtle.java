@@ -197,7 +197,7 @@ public class BackEndTurtle implements Turtle {
      * @param changeHeading is the new heading of the Turtle
      */
     public void setHeading(double changeHeading) {
-        heading.set(changeHeading);
+        heading.set(changeHeading%360);
     }
 
     /**

@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 public class TurtleStatesWindow extends Window{
     private static final String UI_TEXT = "resources.UIText";
+    private static final String CSS_ID = "TurtleStates";
 
     private VBox myView;
     private Label turtleID;
@@ -21,7 +22,9 @@ public class TurtleStatesWindow extends Window{
     public TurtleStatesWindow(ViewTurtle view)
     {
         myView = new VBox();
-        myView.setMaxWidth(50);
+        myView.setId(CSS_ID);
+        myView.setMinWidth(110);
+        myView.setMaxWidth(110);
         myViewTurtle = view;
         update();
         myView.getChildren().addAll(turtleID,turtlePosition,turtleHeading);
@@ -34,6 +37,7 @@ public class TurtleStatesWindow extends Window{
     public void update() {
         turtleID = makeLabel(visualText.getString("turtleid"),myViewTurtle.getID()+"");
         turtlePosition = makeLabel(visualText.getString("turtleposition"),myViewTurtle.getCoordinates().toString());
+        turtlePosition.setStyle("-fx-font-size: 11");
         turtleHeading = makeLabel(visualText.getString("turtleheading"),myViewTurtle.getHeading() + "");
     }
 
