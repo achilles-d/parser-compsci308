@@ -1,5 +1,6 @@
 package slogo.view;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
 public class TurtleCompleteInfoWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
+    private static final int SIZE_COMPONENT = 400;
 
     private TitledPane myView;
     private VBox turtleStates;
@@ -32,6 +34,8 @@ public class TurtleCompleteInfoWindow extends Window {
         myView.setText(visualText.getString("turtleinfo"));
         update();
         myView.setContent(turtleStates);
+        myView.setMaxWidth(SIZE_COMPONENT);
+
     }
 
 
@@ -40,6 +44,7 @@ public class TurtleCompleteInfoWindow extends Window {
         HBox info = new HBox();
         info.getChildren().add(new TurtleStatesWindow(viewTurt).getView());
         info.getChildren().add(new PenStateWindow(viewTurt,myColorPalette).getView());
+        info.setSpacing(15);
         return info;
     }
 
