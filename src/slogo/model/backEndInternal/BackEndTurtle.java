@@ -30,6 +30,7 @@ public class BackEndTurtle implements Turtle {
     private SimpleDoubleProperty penColor = new SimpleDoubleProperty();
     private SimpleDoubleProperty backgroundColor = new SimpleDoubleProperty();
     private SimpleDoubleProperty shapeIndex = new SimpleDoubleProperty();
+    private SimpleDoubleProperty penSize = new SimpleDoubleProperty();
 
     //private double xLoc;
     //private double yLoc;
@@ -53,12 +54,7 @@ public class BackEndTurtle implements Turtle {
         penDown.set(true);
         turtleVisible.set(true);
         activeTurtle.set(true);
-        penColor.addListener(e->{
-            System.out.println("CHANGED PEN COLOR");
-        });
-        shapeIndex.addListener(e->{
-            System.out.println("CHANGED IMAGE");
-        });
+
     }
 
 
@@ -241,6 +237,10 @@ public class BackEndTurtle implements Turtle {
 
     public void setShapeIndex(Double shape) { this.shapeIndex.set(shape); }
 
+    public void setPenSize(Double thickness){
+        this.penSize.set(thickness);
+    }
+
     @Override
     public List<Line> getLines() {
         return lines;
@@ -277,6 +277,11 @@ public class BackEndTurtle implements Turtle {
     public BooleanProperty getActiveProperty()
     {
         return activeTurtle;
+    }
+
+    public DoubleProperty getPenSizeProperty()
+    {
+        return penSize;
     }
 
 

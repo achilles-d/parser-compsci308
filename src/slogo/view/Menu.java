@@ -27,8 +27,8 @@ public class Menu {
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
     private static final String UI_TEXT = "resources.UIText";
-    private static final Double DEFAULT_BACKGROUND_COLOR = 0.0;
-    private static final Double DEFAULT_PEN_COLOR = 0.0;
+    private static final Double DEFAULT_BACKGROUND_COLOR = 6.0;
+    private static final Double DEFAULT_PEN_COLOR = 7.0;
     private static final String BGCOLORS = "bgcolors";
     private static final String PENCOLORS = "pencolors";
     private static final String IMAGES = "images";

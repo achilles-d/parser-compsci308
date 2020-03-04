@@ -41,6 +41,7 @@ public class ViewTurtle {
 
     private SimpleDoubleProperty penColorIndex;
     private SimpleDoubleProperty shapeIndex;
+    private SimpleDoubleProperty penSize;
 
     private int size;
     private int myID;
@@ -51,8 +52,10 @@ public class ViewTurtle {
         size = 50;
         activeTurtle = new SimpleBooleanProperty(true);
         penColorIndex = new SimpleDoubleProperty(0);
+        penSize = new SimpleDoubleProperty(5);
         shapeIndex = new SimpleDoubleProperty(0);
-        shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)newValue);});
+
+        shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)shapeIndex.get());});
 
         setImageProperty(new SimpleStringProperty("turtle.jpg"));
 
@@ -64,6 +67,16 @@ public class ViewTurtle {
         updatePosition(myCoordinates);
         myHeading = 0;
 
+    }
+
+    public SimpleDoubleProperty getPenSizeProperty()
+    {
+        return penSize;
+    }
+
+    public int getPenSize()
+    {
+        return (int) penSize.get();
     }
 
     public double getPenColorIndex()
@@ -84,6 +97,17 @@ public class ViewTurtle {
     public int getSize()
     {
         return size;
+    }
+
+    private int getIndexOfImage(String imageName)
+    {
+        for(String index: turtleImages.keySet())
+        {
+            if(turtleImages.getString(index).equals(imageName))
+                return Integer.parseInt(index);
+        }
+
+        return 1;
     }
 
     private void setXY()
@@ -135,7 +159,8 @@ public class ViewTurtle {
     {
         imageName = name;
         imageName.addListener((observable, oldValue, newValue) -> { if(activeTurtle.get())
-        {updateImage(imageName.getValue());}});
+        {updateImage(imageName.getValue());
+        shapeIndex.setValue(getIndexOfImage(imageName.getValue()));}});
     }
 
     public void updatePosition(Coordinate a) {

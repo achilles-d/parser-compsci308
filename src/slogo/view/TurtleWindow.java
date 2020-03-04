@@ -120,6 +120,7 @@ public class TurtleWindow extends Window {
     private void drawLines(int turtleID)
     {
 
+        ViewTurtle active = myTurtleController.getViewTurtle(turtleID);
         if(myTurtleController.getLines(turtleID).size() ==0)
         {
 
@@ -127,7 +128,8 @@ public class TurtleWindow extends Window {
         }
         else
         {
-            drawer.setStroke(myColorPalette.getColor((int)myTurtleController.getViewTurtle(turtleID).getPenColorIndex()));
+            drawer.setStroke(myColorPalette.getColor((int)active.getPenColorIndex()));
+            drawer.setLineWidth(active.getPenSize());
             for(Line l: myTurtleController.getLines(turtleID))
             {
                 if(!l.isDrawn())
