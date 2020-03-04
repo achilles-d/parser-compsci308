@@ -1,8 +1,10 @@
 package slogo.controller;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +34,15 @@ public class CommandFileIO {
                 commandWriter.newLine();
             }
             commandWriter.close();
+        }
+        catch(IOException ex){
+            throw ex;
+        }
+    }
+
+    public String readCommandFile(File commandFile) throws IOException{
+        try{
+            return Files.readString(commandFile.toPath());
         }
         catch(IOException ex){
             throw ex;
