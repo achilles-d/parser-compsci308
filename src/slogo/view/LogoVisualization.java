@@ -2,10 +2,7 @@ package slogo.view;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -24,7 +21,7 @@ public class LogoVisualization extends BorderPane{
     private CodeStage myCode;
     private TurtleWindow graphics;
     private ParserController myController;
-    private Palette myPalette;
+    private PaletteWindow myPalette;
     private MoveTurtleComponent turtleMover;
     private Property activePenColor;
     private Property activeTurtleImage;
@@ -61,7 +58,7 @@ public class LogoVisualization extends BorderPane{
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor(),myController.getColorPalette());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
-        myPalette = new Palette(myController,updateNeeded);
+        myPalette = new PaletteWindow(myController,updateNeeded);
 
 
         VBox leftComps = new VBox();

@@ -9,7 +9,7 @@ import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
-public class Palette {
+public class PaletteWindow {
 
     private static final String DEFAULT_PEN_COLOR = "Black";
     private static final String PEN_COLOR = "resources.colors.PenColor";
@@ -36,7 +36,7 @@ public class Palette {
     private SimpleBooleanProperty tellUpdate;
     private HBox paletteContainer;
 
-    public Palette(ParserController control, SimpleBooleanProperty update)
+    public PaletteWindow(ParserController control, SimpleBooleanProperty update)
     {
         tellUpdate = update;
         myController = control;

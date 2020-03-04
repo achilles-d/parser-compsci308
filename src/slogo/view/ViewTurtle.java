@@ -42,6 +42,7 @@ public class ViewTurtle {
     private SimpleDoubleProperty penColorIndex;
     private SimpleDoubleProperty shapeIndex;
     private SimpleDoubleProperty penSize;
+    private SimpleBooleanProperty penStatus;
 
     private int size;
     private int myID;
@@ -69,9 +70,21 @@ public class ViewTurtle {
 
     }
 
+    public void changePenSize(int change)
+    {
+        if(penSize.get()+change >=0)
+            penSize.setValue(penSize.get()+change);
+    }
+
+
     public SimpleDoubleProperty getPenSizeProperty()
     {
         return penSize;
+    }
+
+    public SimpleBooleanProperty getPenStatusProperty()
+    {
+        return penStatus;
     }
 
     public int getPenSize()
@@ -134,6 +147,11 @@ public class ViewTurtle {
         myView.setRotate(myHeading);
     }
 
+    public double getHeading()
+    {
+        return myHeading;
+    }
+
     public void setVisibility(boolean visible)
     {
         turtleVisibility = visible;
@@ -162,7 +180,10 @@ public class ViewTurtle {
         {updateImage(imageName.getValue());
         shapeIndex.setValue(getIndexOfImage(imageName.getValue()));}});
     }
-
+    public Coordinate getCoordinates()
+    {
+        return myCoordinates;
+    }
     public void updatePosition(Coordinate a) {
         myCoordinates = a;
         setXY();
