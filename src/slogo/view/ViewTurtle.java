@@ -66,9 +66,19 @@ public class ViewTurtle {
 
     }
 
+    public double getPenColorIndex()
+    {
+        return penColorIndex.get();
+    }
+
+    public void setPenColorIndex(int i)
+    {
+        penColorIndex.setValue(i);
+    }
+
     private void setImageWithIndex(int i)
     {
-        updateImage(turtleImages.getString(i+""));
+        imageName.setValue(turtleImages.getString(i+""));
     }
 
     public int getSize()
@@ -104,6 +114,16 @@ public class ViewTurtle {
     {
         turtleVisibility = visible;
         myView.setVisible(turtleVisibility);
+    }
+
+    public SimpleDoubleProperty getPenColorProperty()
+    {
+        return penColorIndex;
+    }
+
+    public SimpleDoubleProperty getShapeProperty()
+    {
+        return shapeIndex;
     }
 
     public SimpleBooleanProperty getActiveProperty()

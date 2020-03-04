@@ -2,6 +2,7 @@ package slogo.view;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -22,21 +23,23 @@ public class TurtleWindow extends Window {
     private Pane canvasWrap;
     private Canvas background;
     private TurtleController myTurtleController;
-    private SimpleStringProperty backgroundColor;
-    private SimpleStringProperty penColor;
+    private SimpleDoubleProperty backgroundColor;
+    private SimpleDoubleProperty penColor;
     private GraphicsContext drawer;
     private ParserController myController;
     private SimpleBooleanProperty tellUpdate;
     private SimpleStringProperty turtleImage;
     private CodeStage myCode;
+    private ColorPalette myColorPalette;
 
     private static final int X_LAYOUT_SCALING = 375;
     private static final double Y_LAYOUT_SCALING = 286.5;
 
 
-    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor)
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor, ColorPalette colors)
     {
         myController = control;
+        myColorPalette = colors;
         myView = new Pane();
         myView.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
         //myView.setMinSize(0,0);
@@ -56,16 +59,15 @@ public class TurtleWindow extends Window {
        // background.heightProperty().bind(myView.heightProperty());
         myView.getChildren().addAll(canvasWrap);
 
-        backgroundColor = new SimpleStringProperty();
         //backgroundColor.bind(menuBackgroundColor);
-        backgroundColor = (SimpleStringProperty)menuBackgroundColor;
-        backgroundColor.addListener((observable, oldValue, newValue) -> {setBackgroundColor(backgroundColor.getValue());});
+        backgroundColor = (SimpleDoubleProperty)menuBackgroundColor;
+        backgroundColor.addListener((observable, oldValue, newValue) -> {setBackgroundColor((int)backgroundColor.get());});
 
-        penColor = (SimpleStringProperty)menuPenColor;
-        penColor.addListener((observable, oldValue, newValue) -> setPenColor(newValue));
+        penColor = (SimpleDoubleProperty)menuPenColor;
+        penColor.addListener((observable, oldValue, newValue) -> setPenColor((int)penColor.get()));
 
 
-        setBackgroundColor(backgroundColor.getValue());
+        setBackgroundColor((int)(backgroundColor.get()));
         //testDrawLine();
        // myView.setStyle("-fx-background-color: red");
        // System.out.println(myTurtle.getView().getLayoutX());
@@ -87,14 +89,17 @@ public class TurtleWindow extends Window {
 
     }
 
-    private void setPenColor(String color)
+    private void setPenColor(int color)
     {
-        penColor.setValue(color);
+        for(ViewTurtle view:myTurtleController.getAllActiveViewTurtles())
+        {
+            view.setPenColorIndex(color);
+        }
     }
 
 
-    public void setBackgroundColor(String color) {
-        myView.setBackground(new Background(new BackgroundFill(Color.valueOf(color), CornerRadii.EMPTY, Insets.EMPTY)));
+    public void setBackgroundColor(int color) {
+        myView.setBackground(new Background(new BackgroundFill(myColorPalette.getColor(color), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     private double adjustX(double x)
@@ -122,7 +127,7 @@ public class TurtleWindow extends Window {
         }
         else
         {
-            drawer.setStroke(Color.valueOf(penColor.getValue()));
+            drawer.setStroke(myColorPalette.getColor((int)myTurtleController.getViewTurtle(turtleID).getPenColorIndex()));
             for(Line l: myTurtleController.getLines(turtleID))
             {
                 if(!l.isDrawn())

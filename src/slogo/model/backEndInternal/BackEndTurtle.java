@@ -4,7 +4,6 @@ import javafx.beans.property.*;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
-import slogo.view.ViewController;
 import slogo.view.ViewTurtle;
 import slogo.view.ViewTurtlePlan;
 
@@ -54,7 +53,14 @@ public class BackEndTurtle implements Turtle {
         penDown.set(true);
         turtleVisible.set(true);
         activeTurtle.set(true);
+        penColor.addListener(e->{
+            System.out.println("CHANGED PEN COLOR");
+        });
+        shapeIndex.addListener(e->{
+            System.out.println("CHANGED IMAGE");
+        });
     }
+
 
     /**
      *  position of the turtle based on a coordinate it is given

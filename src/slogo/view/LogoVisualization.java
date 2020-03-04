@@ -43,10 +43,7 @@ public class LogoVisualization extends BorderPane{
         init();
     }
 
-    public void setBackgroundColor(String color)
-    {
-        graphics.setBackgroundColor(color);
-    }
+
 
     public void init()
     {
@@ -57,12 +54,12 @@ public class LogoVisualization extends BorderPane{
         updateNeeded.setValue(false);
         updateNeeded.addListener(((observable, oldValue, newValue) -> checkUpdate(newValue)));
 
-        toolbar = new Menu(myController,updateNeeded);
+        toolbar = new Menu(myController,updateNeeded,myController.getColorPalette());
         myConsole = new ConsoleWindow(myController,updateNeeded,myCode);
         myVariables = new VariableWindow(myController,updateNeeded,myCode);
         myHistory = new HistoryWindow(myController,updateNeeded,myCode);
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
-        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
+        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor(),myController.getColorPalette());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
         myPalette = new Palette(myController,updateNeeded);
 
