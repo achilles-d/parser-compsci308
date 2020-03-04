@@ -13,10 +13,10 @@ import java.util.List;
 import javafx.beans.property.Property;
 import slogo.model.Coordinate;
 import slogo.model.exceptions.InvalidCommandException;
+import slogo.model.exceptions.ExecutionException;
 import slogo.model.Line;
 import slogo.model.Variable;
 import slogo.model.backEndInternal.*;
-import slogo.model.backEndInternal.commands.Command;
 import slogo.view.ColorPalette;
 
 public class ParserController {
@@ -29,6 +29,7 @@ public class ParserController {
     private Language myLanguage;
     private ColorPalette myColorPalette;
     private TurtleController myTurtleController;
+    private CommandFileIO myCommandFileIO;
 
     public ParserController(){
         myTurtleController = new TurtleController();

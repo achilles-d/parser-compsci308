@@ -1,5 +1,6 @@
 package slogo.model.backEndInternal;
 
+import slogo.model.exceptions.ExceptionFactory;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
 import slogo.model.exceptions.InvalidCommandException;
@@ -97,8 +98,13 @@ public class CommandParser implements Parser {
 
     }
 
-    private void parseListStart(){
-        throw  new InvalidCommandException();
+    private void parseListStart() throws Exception{
+        try {
+            throw ExceptionFactory.makeException("InvalidCommand", "Default");
+        }
+        catch(Exception ex){
+            throw ex;
+        }
     }
 
     private void parseGroupStart(){
@@ -123,8 +129,13 @@ public class CommandParser implements Parser {
         }
 
     }
-    private  void parseGroupEnd(){
-        throw  new InvalidCommandException();
+    private  void parseGroupEnd() throws Exception {
+        try{
+            throw  ExceptionFactory.makeException("InvalidCommand","Default");
+        }
+        catch(Exception ex){
+            throw ex;
+        }
     }
 
     private void parseNewLine(){
@@ -162,8 +173,7 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
-    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void buildExecutableCommand() throws Exception {
 
         String currentCommand = getSymbol(commandStack.pop());
 
@@ -173,7 +183,12 @@ public class CommandParser implements Parser {
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException();
+              try{
+                  throw ExceptionFactory.makeException("InvalidCommand", "Default");
+              }
+              catch(Exception ex){
+                  throw ex;
+              }
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
 
