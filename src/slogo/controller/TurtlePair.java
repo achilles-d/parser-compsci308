@@ -21,6 +21,7 @@ public class TurtlePair {
         myBackEndTurtle.getTurtleColor().bindBidirectional(myViewTurtle.getPenColorProperty());
         myBackEndTurtle.getShapeIndex().bindBidirectional(myViewTurtle.getShapeProperty());
         myBackEndTurtle.getPenSizeProperty().bindBidirectional(myViewTurtle.getPenSizeProperty());
+        myBackEndTurtle.getPenVisibilityProperty().bindBidirectional(myViewTurtle.getPenStatusProperty());
     }
 
     public ViewTurtle getViewTurtle()
