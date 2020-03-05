@@ -19,7 +19,7 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     private Stack<Command> argumentStack = new Stack<>();
-    public  Stack<String> commandStack = new Stack<>();
+    private  Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
@@ -283,6 +283,11 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         return consoleInput;
     }
 
+    //DELETE THIS
+    public void clear()
+    {
+        mySymbols.clear();
+    }
 
     /**
      * @param syntax the name of the syntax source language name

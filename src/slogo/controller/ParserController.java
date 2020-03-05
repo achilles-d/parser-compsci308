@@ -43,6 +43,8 @@ public class ParserController {
         setLanguage("ENGLISH");
     }
 
+
+
     //To be called by Visualization
     public String displayError(Exception ex){
         return ex.getMessage();
@@ -122,6 +124,7 @@ public class ParserController {
     }
 
     public void setLanguage(String language){
+        System.out.println("called langauge button");
         myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile());
         myCommandParser.addPatterns(SYNTAX);
