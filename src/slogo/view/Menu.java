@@ -18,6 +18,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Menu {
@@ -81,8 +86,16 @@ public class Menu {
        makeLanguagesMenu();
 
        Button help = new Button(visualText.getString(HELP));
-       help.setOnAction(event -> { makeHelpScreen();
-          });
+
+       help.setOnAction(event -> {
+           try {
+               makeHelpScreen();
+           } catch (IOException e) {
+               e.printStackTrace();     //FIXME change error handling scheme
+           }
+       });
+
+
 
        myView.getChildren().addAll(bgColors,penColors,languages,images,help);
    }
@@ -153,9 +166,16 @@ public class Menu {
 
    public Property getActivePenColor() { return activePenColor;}
 
-   private void makeHelpScreen()
+   private void makeHelpScreen()  throws IOException
    {
        Stage stage1 = new Stage();
+       File helpWindowTextFile = new File("resources.windowtext.HelpWindowText.txt");
+       try{
+           List<String> allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
+       }
+       catch(IOException ex){
+           throw ex;
+       }
        Label helpText = new Label("This is a help screen");
        Group helpGroup = new Group();
        helpGroup.getChildren().addAll(helpText);
