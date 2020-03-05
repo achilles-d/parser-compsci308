@@ -188,7 +188,7 @@ public class Menu {
        ScrollPane helpScreenText = new ScrollPane();
        helpScreenText.setContent(helpLabels);
 
-       Scene helpScreen = new Scene(helpScreenText,400,400);
+       Scene helpScreen = new Scene(helpScreenText ,400,400);
        stage1.setScene(helpScreen);
        stage1.show();
    }
