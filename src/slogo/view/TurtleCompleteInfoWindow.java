@@ -3,6 +3,7 @@ package slogo.view;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,15 +15,17 @@ import java.util.ResourceBundle;
 public class TurtleCompleteInfoWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
-    private static final int SIZE_COMPONENT = 400;
+    private static final int SIZE_COMPONENT = HEIGHT;
     private static final String TURTLEINFO = "turtleinfo";
     private static final int SPACING = 15;
+    private static final int HEIGHT = 400;
 
     private TitledPane myView;
     private VBox turtleStates;
     private ParserController myController;
     private TurtleController myTurtleController;
     private ColorPalette myColorPalette;
+    private ScrollPane myContainer;
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
@@ -33,10 +36,15 @@ public class TurtleCompleteInfoWindow extends Window {
         myTurtleController = control.getTurtleController();
         myColorPalette = control.getColorPalette();
         turtleStates = new VBox();
+        myContainer = new ScrollPane();
+
         myView = new TitledPane();
         myView.setText(visualText.getString(TURTLEINFO));
         update();
-        myView.setContent(turtleStates);
+        myContainer.setContent(turtleStates);
+        turtleStates.setPrefHeight(HEIGHT);
+        turtleStates.setMinHeight(HEIGHT);
+        myView.setContent(myContainer);
         myView.setMaxWidth(SIZE_COMPONENT);
 
     }
