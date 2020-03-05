@@ -1,13 +1,9 @@
 package slogo.controller;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import slogo.model.Line;
-import slogo.model.Turtle;
 import slogo.model.backEndInternal.BackEndTurtle;
+import slogo.model.backEndInternal.Line;
 import slogo.view.ViewTurtle;
 
-import javax.swing.text.View;
 import java.util.*;
 
 public class TurtleController {

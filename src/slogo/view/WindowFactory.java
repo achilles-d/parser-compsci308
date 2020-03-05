@@ -14,7 +14,7 @@ public class WindowFactory {
     private static final String INDEX_TO_PARAMNAME = "resources.parameternames";
     private static final String CLASSPATH = "slogo.view.";
     private static final String WINDOW = "Window";
-    private static final String ERRORS = "resources.errors.ErrorMessages";
+    private static final String ERRORS = "resources.errors.InvalidCommandExceptionText";
     private static final String WINDOW_ERROR = "WindowError";
     private static final int MAXLENGTH = 4;
     private static final int FIRST_PARAM = 0;
