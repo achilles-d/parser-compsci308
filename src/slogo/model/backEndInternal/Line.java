@@ -1,29 +1,25 @@
 package slogo.model.backEndInternal;
 
 import slogo.model.Coordinate;
-import slogo.model.Line;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class LineAPI implements Line {
+public class Line{
 
     private Coordinate start;
     private Coordinate end;
     private boolean drawn;
 
-    public LineAPI(Coordinate start, Coordinate end){
+    public Line(Coordinate start, Coordinate end){
         this.start=start;
         this.end=end;
         drawn = false;
     }
 
-    @Override
+
     public Coordinate getStart() {
         return start;
     }
 
-    @Override
+
     public Coordinate getEnd() {
         return end;
     }
@@ -37,7 +33,7 @@ public class LineAPI implements Line {
         drawn = true;
     }
 
-    @Override
+
     public void createLine(Coordinate start, Coordinate end) {
         this.start=start;
         this.end=end;

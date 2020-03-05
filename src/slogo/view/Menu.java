@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import slogo.model.exceptions.ExecutionException;
 
 public class Menu {
 
@@ -38,8 +39,10 @@ public class Menu {
     private static final String LANGUAGE = "language";
     private static final String HELP = "help";
     private static final int ICON_SIZE = 20;
-    private static final String DEFAULT_TURTLE = "turtle.jpg";
-    private static final String DEFAULT_LANGUAGE = "English";
+    private static final String DEFAULT_IMAGE = "turtle.jpg";
+    private static final String ENGLISH = "English";
+    private static final String HELPWINDOW = "resources.windowtext.HelpWindowText.txt";
+    private static final int HELP_SIZE = 400;
 
     private HBox myView;
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
@@ -60,7 +63,7 @@ public class Menu {
     private ColorPalette myColorPalette;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update)
+    public Menu(ParserController control,SimpleBooleanProperty update) throws ExecutionException
    {
        myController = control;
        myView = new HBox();
@@ -77,11 +80,11 @@ public class Menu {
        makeColorsMenu(activePenColor,penColors);
 
 
-       turtleImage = new SimpleStringProperty(DEFAULT_TURTLE);
+       turtleImage = new SimpleStringProperty(DEFAULT_IMAGE);
        images = new MenuButton(visualText.getString(IMAGES));
        makeImagesMenu();
 
-       activeLanguage = new SimpleStringProperty(DEFAULT_LANGUAGE);
+       activeLanguage = new SimpleStringProperty(ENGLISH);
        languages = new MenuButton(visualText.getString(LANGUAGE));
        makeLanguagesMenu();
 
@@ -91,11 +94,9 @@ public class Menu {
            try {
                makeHelpScreen();
            } catch (IOException e) {
-               e.printStackTrace();     //FIXME change error handling scheme
+             throw new ExecutionException("Temp", e);
            }
        });
-
-
 
        myView.getChildren().addAll(bgColors,penColors,languages,images,help);
    }
@@ -169,9 +170,7 @@ public class Menu {
    private void makeHelpScreen()  throws IOException
    {
        Stage stage1 = new Stage();
-       List<String> allHelpText;
-       File helpWindowTextFile = new File("src/resources/windowtext/HelpWindowText.txt");
-       System.out.println(helpWindowTextFile.exists());
+       File helpWindowTextFile = new File(HELPWINDOW);
        try{
           allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
        }

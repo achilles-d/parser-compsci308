@@ -16,6 +16,11 @@ public class WindowFactory {
     private static final String WINDOW = "Window";
     private static final String ERRORS = "resources.errors.InvalidCommandExceptionText";
     private static final String WINDOW_ERROR = "WindowError";
+    private static final int MAXLENGTH = 4;
+    private static final int FIRST_PARAM = 0;
+    private static final int SECOND_PARAM = 1;
+    private static final int THIRD_PARAM = 2;
+    private static final int FOURTH_PARAM = 3;
 
 
     private Map<String,Object> possibleParameters;
@@ -28,7 +33,7 @@ public class WindowFactory {
     public WindowFactory(List<Object> params)
     {
         possibleParameters = new HashMap<>();
-        for(int i = 0;i<params.size();i++)
+        for(int i = FIRST_PARAM; i<params.size(); i++)
         {
             possibleParameters.put(parameterNames.getString(i+""),params.get(i));
         }
@@ -37,7 +42,7 @@ public class WindowFactory {
 
     public Window makeWindow(String windowName)
     {
-        Constructor[] constructors;
+        Constructor[] constructors = new Constructor[FIRST_PARAM];
         try {
             constructors = Class.forName(CLASSPATH+windowName+ WINDOW).getConstructors();
         } catch (ClassNotFoundException e) {
@@ -48,12 +53,12 @@ public class WindowFactory {
         try {
 
 
-            if (constructors[0].getParameterCount() == 4) {
-                return (Window) constructors[0].newInstance(possibleParameters.get(parameters[0]), possibleParameters.get(parameters[1]),
-                        possibleParameters.get(parameters[2]), possibleParameters.get(parameters[3]));
+            if (constructors[FIRST_PARAM].getParameterCount() == MAXLENGTH) {
+                return (Window) constructors[FIRST_PARAM].newInstance(possibleParameters.get(parameters[FIRST_PARAM]), possibleParameters.get(parameters[SECOND_PARAM]),
+                        possibleParameters.get(parameters[THIRD_PARAM]), possibleParameters.get(parameters[FOURTH_PARAM]));
             } else {
-                return (Window) constructors[0].newInstance(possibleParameters.get(parameters[0]), possibleParameters.get(parameters[1]),
-                        possibleParameters.get(parameters[2]));
+                return (Window) constructors[FIRST_PARAM].newInstance(possibleParameters.get(parameters[FIRST_PARAM]), possibleParameters.get(parameters[SECOND_PARAM]),
+                        possibleParameters.get(parameters[THIRD_PARAM]));
 
             }
         }

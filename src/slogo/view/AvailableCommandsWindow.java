@@ -20,7 +20,6 @@ public class AvailableCommandsWindow extends Window {
     private ResourceBundle commandNames;
 
     private TitledPane myView;
-    private ListView<String> commands;
     private ParserController myController;
     private SimpleStringProperty languageChanged;
     private ListView<String> availableCommands;
