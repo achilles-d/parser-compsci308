@@ -29,6 +29,9 @@ public class CommandParser implements Parser {
     private CommandHandlerAPI commandHandler;
     private UserVariableHandler userVariableHandler;
     private int numOfCommandsToExecute=0;
+
+    private Map<String, List<Command>> userDefinedFunction;
+
     private BackEndTurtle turtle;
 
     private String LEFT_BRACKET = "[";
@@ -50,14 +53,16 @@ public class CommandParser implements Parser {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
+        userDefinedFunction=new HashMap<>();
+
         mySymbols = new ArrayList<>();
         Integer commandCounter = 0;
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList,userDefinedFunction);
         matchMethodsToRun = new HashMap<>();
         executor = new CommandExecutor();
 
         matchMethodsToRun.put("Constant", this::parseConstant);
-        matchMethodsToRun.put("Command", this::parseName);
+        matchMethodsToRun.put("Command", this::userDefined);
         matchMethodsToRun.put("Variable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseListStart);
         matchMethodsToRun.put("ListEnd", this::parseListEnd);
@@ -71,24 +76,26 @@ public class CommandParser implements Parser {
         leftBracketCounter=0;
         rightBracketCounter=0;
         List<Object> argumentsToBuildCommand= new ArrayList<>();
+        List<String> codeElements=new ArrayList<>();
         String currentCommand=getSymbol(commandStack.peek());
         System.out.println("Current comamnd is "+currentCommand);
         Command com = null;
 
         rightBracketCounter++;
         while(leftBracketCounter<rightBracketCounter){
-            argumentsToBuildCommand.add(0,commandStack.pop());
+            codeElements.add(0,commandStack.pop());
             if(commandStack.peek().equals(RIGHT_BRACKET)){
                 rightBracketCounter++;
             } else if(commandStack.peek().equals(LEFT_BRACKET)){
                 leftBracketCounter++;
             }
             if(leftBracketCounter==rightBracketCounter){
-                argumentsToBuildCommand.add(0,commandStack.pop());
+                codeElements.add(0,commandStack.pop());
                 break;
             }
 
         }
+        argumentsToBuildCommand.addAll(codeElements);
         //argumentsToBuildCommand
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
@@ -162,8 +169,38 @@ public class CommandParser implements Parser {
         }
     }
 
-    private void parseName() {
+    private void userDefined() {
+        List<Object> argumentsToBuildCommand= new ArrayList<>();
+
+        if(userDefinedFunction.containsKey(commandStack.peek())){
+            List<Command> values= new ArrayList<>();
+            int sizeOfArgument=((List<String>)userDefinedFunction.get(commandStack.peek()).get(0).execute()).size()-2;
+
+            for(int i=0; i<sizeOfArgument; i++){
+                if(argumentStack.size()==0){
+                    throw new InvalidCommandException("User Defined Function does not have enough arguments.");
+                }
+                values.add(argumentStack.pop());
+            }
+        argumentsToBuildCommand.add(values);
+            argumentsToBuildCommand.add(userDefinedFunction.get(0));//, userDefinedFunction.get(1));
+            argumentsToBuildCommand.add(userDefinedFunction.get(1));
+
+            //String currentCommand=getSymbol(commandStack.pop());
+
+        }
+        //argumentsToBuildCommand.add("UserDefined");
+
+        Command com = null;
+        try {
+            com = (Command) commandFactor.getCommand("UserDefined",argumentsToBuildCommand);
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
+                ClassNotFoundException | NoSuchMethodException e) {
+            throw new InvalidCommandException("");
+        }
+        argumentStack.add(com);
         commandStack.pop();
+
     }
 
     private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {

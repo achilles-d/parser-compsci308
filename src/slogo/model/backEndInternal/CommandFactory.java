@@ -1,9 +1,12 @@
 package slogo.model.backEndInternal;
 
+import slogo.model.backEndInternal.commands.Command;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CommandFactory {
     private BackEndTurtle turtle;
@@ -11,17 +14,19 @@ public class CommandFactory {
     private int inputCounter;
     private int stringCounter;
     private List<String> unExecutedCommands;
-    private int commandCounter;
+    private Map<String, List<Command>>  userCommandHandler;
+   // private int commandCounter;
 
     private List<BackEndTurtle> listOfTurtles = new ArrayList<>();
     private Integer index;
 
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
-                          List<String> unExecutedCommands, int counter) {
-        this.commandCounter=counter;
+                          List<String> unExecutedCommands,Map<String, List<Command>>  userCommandHandler ) {
+        //this.commandCounter=counter;
         this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtle;
         this.userVariableHandler=userVariableHandler;
+        this.userCommandHandler=userCommandHandler;
     }
 
     public Object getCommand(String commandName, List<Object> arguments) throws InvocationTargetException,
@@ -61,17 +66,19 @@ public class CommandFactory {
                     ar[j] = turtle.getPosition();
                 }  else if(className.equals("UserVariableHandler")) {
                     ar[j] = userVariableHandler;
-
-                } else if(className.equals("List")){
-                    ar[j]=arguments;
-                    System.out.println("here is the data for the group "+arguments.toString());
-                    System.out.println("size of the arguments "+j);
                 } else {
+                    System.out.println("here is the data "+arguments.get(inputCounter).toString());
                     ar[j]=arguments.get(inputCounter);
                     System.out.println("here is the data "+arguments.get(inputCounter).toString());
                     inputCounter++;
                 }
             }
+
+        //                else if(className.equals("List")){
+//                    ar[j]=arguments;
+//                    System.out.println("here is the data for the group "+arguments.toString());
+//                    System.out.println("size of the arguments "+j);
+//                }
 
             Constructor<?> cons = c.getDeclaredConstructor(pType);
            System.out.println("Inputs size to constructor "+ar.length);
@@ -79,9 +86,9 @@ public class CommandFactory {
             currentCommand = cons.newInstance(ar);
         return currentCommand;
     }
-
-    public void updateCounter(Integer v) {
-        commandCounter = v;
-    }
+//
+//    public void updateCounter(Integer v) {
+//        commandCounter = v;
+//    }
 
 }
