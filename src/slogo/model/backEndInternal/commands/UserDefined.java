@@ -10,7 +10,6 @@ public class UserDefined implements Command {
 
    private Command command;
    private Command inputs;
-   private String name;
    private Map<String, List<Command>> commandSaver;
    private boolean executable;
    private List<Command> values;
@@ -18,21 +17,34 @@ public class UserDefined implements Command {
    private List<String> listOfCommands;
 
 
-   public UserDefined(String name){
-       this.name=name;
-       executable=false;
-       state=0;
-   }
 
+//    public UserDefined(List<Command> values, Command inputs,Command command ){
+//       this.values=values;
+//       this.inputs=inputs;
+//       this.command=command;
+//       state=1;
+//        buildExecutable();
+//       executable=listOfCommands.size()==0;
+//    }
 
-    public UserDefined(List<Command> values, Command inputs,Command command ){
-       this.values=values;
-       this.inputs=inputs;
-       this.command=command;
+    public UserDefined(List<Object> param){
+       System.out.println(" UserDefined constructor reached 2 " +param.size());
+        //List<Command> values, Command inputs,Command command
+        this.values=(List<slogo.model.backEndInternal.commands.Command>) param.get(0);
+       this.inputs= (slogo.model.backEndInternal.commands.Command) param.get(1);
+       this.command= (slogo.model.backEndInternal.commands.Command) param.get(2);
        state=1;
+
+        System.out.println(" values " +values.size());
+        System.out.println(" inputs " +inputs.execute().toString());
+        System.out.println(" listOfCommands " +command.execute().toString());
+
         buildExecutable();
        executable=listOfCommands.size()==0;
     }
+
+
+
 
 
     @Override
@@ -40,10 +52,6 @@ public class UserDefined implements Command {
        if(executable){
            return 0.0;
        }
-       if(state==0){
-           return name;
-       }
-
       return listOfCommands;
     }
 

@@ -1,44 +1,52 @@
 package slogo.model.backEndInternal.commands;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-public class MakeUserInstruction implements Command<Double> {
-//    test [" :x :y"] [ " fd x rt y"]
-//    UserVariable newVar = new UserVariable();
-//        newVar.setValue(0.0);
-//
-//    test 50 60
-//
-//    fd 50 rt 60
+public class MakeUserInstruction implements  Command<Object> {
 
-    private List<String> commandList;
-    private Integer userVal;
-    private Integer commandCounter;
-    private Integer unexecutedCounter;
-    private StringBuilder str=new StringBuilder();;
-    private String LEFT_BRACKET = "[";
-    private String RIGHT_BRACKET = "]";
-    private int leftBracketCounter=0;
-    private int rightBracketCounter=0;
-    private List<String> leftCommand = new ArrayList<>();
-    private List<String> rightCommand = new ArrayList<>();
-    private String commandName;
 
-    public MakeUserInstruction(List<String> sCom, String name, Integer counter) {
-        this.commandList = sCom;
-        this.commandName = name;
-        this.commandCounter = counter;
-        System.out.println("counter: " + commandCounter);
+    private Command command;
+    private Command inputs;
+    private String name;
+    private Map<String, List<Command>> commandSaver;
+    private boolean executable;
+    private List<Command> values;
+    private int state;
+    private List<String> listOfCommands;
+
+
+    public MakeUserInstruction (Command nameOfCommand, Command inputs, Command command,
+                                Map<String, List<Command>> commandSaver){
+
+        this.name= (String) nameOfCommand.execute();
+        this.inputs=inputs;
+        this.command=command;
+        this.commandSaver=commandSaver;
+        List<Command> cmd=new ArrayList<>();
+        cmd.add(inputs);
+        cmd.add(command);
+        commandSaver.put(name,cmd);
+        executable=true;
     }
 
+
+
+
+
+
     @Override
-    public Double execute() {
+    public Object execute() {
 
         return 0.0;
     }
+
     @Override
     public boolean isItExecutable() {
-        return true;
+        return executable;
     }
+
+
 }

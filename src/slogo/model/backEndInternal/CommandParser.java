@@ -76,26 +76,27 @@ public class CommandParser implements Parser {
         leftBracketCounter=0;
         rightBracketCounter=0;
         List<Object> argumentsToBuildCommand= new ArrayList<>();
-        List<String> codeElements=new ArrayList<>();
+       //List<String> codeElements=new ArrayList<>();
         String currentCommand=getSymbol(commandStack.peek());
         System.out.println("Current comamnd is "+currentCommand);
         Command com = null;
 
         rightBracketCounter++;
         while(leftBracketCounter<rightBracketCounter){
-            codeElements.add(0,commandStack.pop());
+            argumentsToBuildCommand.add(0,commandStack.pop());
             if(commandStack.peek().equals(RIGHT_BRACKET)){
                 rightBracketCounter++;
             } else if(commandStack.peek().equals(LEFT_BRACKET)){
                 leftBracketCounter++;
             }
             if(leftBracketCounter==rightBracketCounter){
-                codeElements.add(0,commandStack.pop());
+                argumentsToBuildCommand.add(0,commandStack.pop());
                 break;
             }
 
         }
-        argumentsToBuildCommand.addAll(codeElements);
+        //System.out.println(" Added list is "+codeElements.toString());
+       // argumentsToBuildCommand.add(codeElements);
         //argumentsToBuildCommand
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
@@ -171,32 +172,45 @@ public class CommandParser implements Parser {
 
     private void userDefined() {
         List<Object> argumentsToBuildCommand= new ArrayList<>();
-
+        String commandName;
+System.out.println("UserrDefined function "+commandStack.peek());
         if(userDefinedFunction.containsKey(commandStack.peek())){
+
             List<Command> values= new ArrayList<>();
             int sizeOfArgument=((List<String>)userDefinedFunction.get(commandStack.peek()).get(0).execute()).size()-2;
-
-            for(int i=0; i<sizeOfArgument; i++){
-                if(argumentStack.size()==0){
-                    throw new InvalidCommandException("User Defined Function does not have enough arguments.");
-                }
-                values.add(argumentStack.pop());
-            }
-        argumentsToBuildCommand.add(values);
+System.out.println("size of values "+sizeOfArgument);
+    while(sizeOfArgument!=0){
+        if(argumentStack.size()==0){
+            throw new InvalidCommandException("User Defined Function does not have enough arguments.");
+        }
+        values.add(argumentStack.pop());
+        sizeOfArgument--;
+    }
+//            for(int i=0; i<sizeOfArgument; i++){
+//
+//            }
+            commandName="UserDefined";
+            argumentsToBuildCommand.add(values);
+            System.out.println("variables "+userDefinedFunction.get(0).toString());
+            System.out.println("Commands "+userDefinedFunction.get(1).toString());
             argumentsToBuildCommand.add(userDefinedFunction.get(0));//, userDefinedFunction.get(1));
             argumentsToBuildCommand.add(userDefinedFunction.get(1));
 
             //String currentCommand=getSymbol(commandStack.pop());
 
+        } else{
+            commandName="StringName";
+            System.out.println("should put this mame to the types "+commandStack.peek());
+            argumentsToBuildCommand.add(commandStack.peek());
         }
         //argumentsToBuildCommand.add("UserDefined");
 
         Command com = null;
         try {
-            com = (Command) commandFactor.getCommand("UserDefined",argumentsToBuildCommand);
+            com = (Command) commandFactor.getCommand(commandName,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            throw new InvalidCommandException("");
+            throw new InvalidCommandException(""+commandName);
         }
         argumentStack.add(com);
         commandStack.pop();
@@ -207,13 +221,15 @@ public class CommandParser implements Parser {
 
         String currentCommand = getSymbol(commandStack.pop());
 
-        int numOfArguments=readArgumentSize(currentCommand);
+        System.out.println("Command to create in parser "+currentCommand);
 
+        int numOfArguments=readArgumentSize(currentCommand);
+System.out.println("Size is "+numOfArguments);
         List<Object> argumentsToBuildCommand=new ArrayList<>();
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException("");
+              throw new InvalidCommandException("Enough arguments is not given for "+currentCommand);
 
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
@@ -253,7 +269,9 @@ public class CommandParser implements Parser {
     @Override
     public Double parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
             ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
         clearAll();
+
         commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
         System.out.println(" string  |"+consoleInput+"| then this");
@@ -281,7 +299,17 @@ public class CommandParser implements Parser {
                 output = (Double) argumentStack.pop().execute();
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
-                commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                System.out.println("This is what it returns "+argumentStack.peek().execute());
+                //List<String> codes=new ArrayList<>();
+                //codes.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                //commandStack.addAll(codes);
+                //commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                //commandStack.add((String) argumentStack.pop().execute());
+                for(int i=0; i<Arrays.asList(argumentStack.peek().execute()).size();i++){
+                    System.out.println(" Commands are "+Arrays.asList(argumentStack.peek().execute()).get(i));
+                    commandStack.add((String)Arrays.asList(argumentStack.peek().execute()).get(i)) ;
+                }
+                argumentStack.pop();
                buildAndExecuteCommand();
             }
 
@@ -377,7 +405,7 @@ public class CommandParser implements Parser {
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
-        //userVariableHandler.getKeys().clear();
+        //userVariableHandler.getVariableMap().clear();
     }
 
 

@@ -99,9 +99,28 @@ public class MainTester {
 
       // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
 
-       String userInput="atan sum sum sum 10 50 30 40";
+       //String userInput="atan sum sum sum 10 50 30 40";
+//      // String userInput="set :length sum 50 random 250\n" +
+//               "set :numspikes 18\n" +
+//               "\n" +
+//               "repeat :numspikes\n" +
+//               "[\n" +
+//               "  fd :length \n" +
+//               "  rt / 360 :numspikes\n" +
+//               "]\n";
 
-     //String userInput="cos less? sum difference 10 50 30 40";
+
+
+       String userInput="\n" +
+               "to dash [ ]\n" +
+               "[\n" +
+               "fd 100\n" +
+               " \n" +
+               "]\n" +
+               "\n" +
+               "dash";
+
+        //String userInput="cos less? sum difference 10 50 30 40";
 
         //String userInput="make :x 50 fd :x";
 

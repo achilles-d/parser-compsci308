@@ -19,6 +19,7 @@ public class To implements  Command<Object> {
 
 
     public To (String name, Command inputs, Command command, Map<String, List<Command>> commandSaver){
+
         this.name=name;
         this.inputs=inputs;
         this.command=command;
@@ -29,6 +30,10 @@ public class To implements  Command<Object> {
         commandSaver.put(name,cmd);
         executable=true;
     }
+
+
+
+
 
 
     @Override
