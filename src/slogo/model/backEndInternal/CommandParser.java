@@ -260,7 +260,7 @@ System.out.println("size of values "+sizeOfArgument);
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            throw new InvalidCommandException("");
+            throw new InvalidCommandException("Default");
         }
         argumentStack.add(com);
     }

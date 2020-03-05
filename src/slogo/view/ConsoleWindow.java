@@ -24,6 +24,7 @@ public class ConsoleWindow extends Window {
     private HBox myView;
     private TitledPane consoleItems;
     private TextArea console;
+    private TextArea returnConsole;
     private VBox buttonPane;
     private Button execute;
     private Button reset;
@@ -43,7 +44,10 @@ public class ConsoleWindow extends Window {
         myController = control;
         HBox myContainer = new HBox();
         console = new TextArea();
-        console.setPrefWidth(650);
+        returnConsole = new TextArea();
+        returnConsole.setPrefWidth(150);
+        returnConsole.setText(visualText.getString("returnconsole"));
+        console.setPrefWidth(500);
         console.setMaxWidth(Double.MAX_VALUE);
         //execute = execution;
 
@@ -58,7 +62,7 @@ public class ConsoleWindow extends Window {
         buttonPane.getChildren().addAll(execute,reset);
         buttonPane.setAlignment(Pos.CENTER);
 
-        myContainer.getChildren().addAll(console,buttonPane);
+        myContainer.getChildren().addAll(returnConsole,console,buttonPane);
         myContainer.setMaxHeight(150);
         consoleItems.setContent(myContainer);
        // consoleItems.setMaxHeight(150);
@@ -73,7 +77,10 @@ public class ConsoleWindow extends Window {
         tellUpdate.setValue(true);
     }
 
-
+    public void addReturn(Double returned)
+    {
+        returnConsole.setText("returns:" + returned);
+    }
 
     public void update() {
 

@@ -36,10 +36,10 @@ public class TurtleWindow extends Window {
     private static final double Y_LAYOUT_SCALING = 286.5;
 
 
-    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor, ColorPalette colors)
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor)
     {
         myController = control;
-        myColorPalette = colors;
+        myColorPalette = control.getColorPalette();
         myView = new Pane();
         myView.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
         //myView.setMinSize(0,0);
