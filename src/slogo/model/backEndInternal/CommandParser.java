@@ -173,36 +173,37 @@ public class CommandParser implements Parser {
     private void userDefined() {
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         String commandName;
-System.out.println("UserrDefined function "+commandStack.peek());
+        System.out.println("UserrDefined function "+commandStack.peek());
         if(userDefinedFunction.containsKey(commandStack.peek())){
 
             List<Command> values= new ArrayList<>();
+
             int sizeOfArgument=((List<String>)userDefinedFunction.get(commandStack.peek()).get(0).execute()).size()-2;
-System.out.println("size of values "+sizeOfArgument);
-    while(sizeOfArgument!=0){
+
+            System.out.println("need size of values "+sizeOfArgument);
+            System.out.println("name of commmand "+ commandStack.peek());
+
+       while(sizeOfArgument>0){
         if(argumentStack.size()==0){
             throw new InvalidCommandException("User Defined Function does not have enough arguments.");
         }
         values.add(argumentStack.pop());
         sizeOfArgument--;
     }
-//            for(int i=0; i<sizeOfArgument; i++){
-//
-//            }
-            commandName="UserDefined";
-            System.out.println("values given from the user "+values.toString());
-             System.out.println("variables "+userDefinedFunction.get(commandStack.peek()).get(0).execute().toString());
-            System.out.println("Commands "+userDefinedFunction.get(commandStack.peek()).get(1).execute().toString());
-            System.out.println("Size of user defined function map "+userDefinedFunction.size());
-            argumentsToBuildCommand.add(values);
-            argumentsToBuildCommand.add(userDefinedFunction.get(commandStack.peek()).get(0));//, userDefinedFunction.get(1));
-            argumentsToBuildCommand.add(userDefinedFunction.get(commandStack.peek()).get(1));
+    commandName="UserDefined";
+    //System.out.println("values given from the user "+values.toString());
+    //System.out.println("variables "+userDefinedFunction.get(commandStack.peek()).get(0).execute().toString());
+    //System.out.println("Commands "+userDefinedFunction.get(commandStack.peek()).get(1).execute().toString());
+    //System.out.println("Size of user defined function map "+userDefinedFunction.size());
+    argumentsToBuildCommand.add(values);
+    argumentsToBuildCommand.add(userDefinedFunction.get(commandStack.peek()).get(0));//, userDefinedFunction.get(1));
+     argumentsToBuildCommand.add(userDefinedFunction.get(commandStack.peek()).get(1));
 
             //String currentCommand=getSymbol(commandStack.pop());
 
         } else{
             commandName="StringName";
-            System.out.println("should put this mame to the types "+commandStack.peek());
+            //System.out.println("should put this mame to the types "+commandStack.peek());
             argumentsToBuildCommand.add(commandStack.peek());
         }
         //argumentsToBuildCommand.add("UserDefined");
@@ -223,12 +224,12 @@ System.out.println("size of values "+sizeOfArgument);
 
         String currentCommand = getSymbol(commandStack.pop());
 
-        System.out.println("Command to create in parser "+currentCommand);
+       // System.out.println("Command to create in parser "+currentCommand);
 
         int numOfArguments=readArgumentSize(currentCommand);
-        System.out.println("Command type "+currentCommand);
-        System.out.println("Required argument size "+numOfArguments);
-        System.out.println("Argument stack size "+argumentStack.size());
+//        System.out.println("Command type "+currentCommand);
+//        System.out.println("Required argument size "+numOfArguments);
+//        System.out.println("Argument stack size "+argumentStack.size());
         List<Object> argumentsToBuildCommand=new ArrayList<>();
 
         for(int i=0; i<numOfArguments; i++){
@@ -273,7 +274,7 @@ System.out.println("size of values "+sizeOfArgument);
 
         clearAll();
 
-        commandHandler.updateCommandHistory(consoleInput);
+        //commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
         System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);
@@ -297,6 +298,7 @@ System.out.println("size of values "+sizeOfArgument);
 
         while(argumentStack.size()!=0){
             if(argumentStack.peek().isItExecutable()){
+                //commandHandler.updateCommandHistory();
                 output = (Double) argumentStack.pop().execute();
             } else{
                 System.out.println("Shoudl reiterate back to the stack");

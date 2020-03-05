@@ -119,21 +119,40 @@ public class MainTester {
 //               "]\n" +
 //               "\n" +
 //               "dash";
-String userInput="set :count 12\n" +
-        "\n" +
-        "to dash [ ]\n" +
-        "[\n" +
-        "  repeat :count \n" +
-        "  [\n" +
-        "    pu fd 10 pd fd 10\n" +
-        "  ]\n" +
-        "]\n" +
-        "\n" +
-        "\n" +
-        "dash";
+//String userInput="set :count 12\n" +
+//        "\n" +
+//        "to dash [ ]\n" +
+//        "[\n" +
+//        "  repeat :count \n" +
+//        "  [\n" +
+//        "    pu fd 10 pd fd 10\n" +
+//        "  ]\n" +
+//        "]\n" +
+//        "\n" +
+//        "\n" +
+//        "dash";
+
+
         //String userInput="cos less? sum difference 10 50 30 40";
 
-       // String userInput="pu fd 10 pd fd 10";
+       String userInput="to squiggle [ ]\n" +
+               "[\n" +
+               "  forward 50\n" +
+               "  right 150\n" +
+               "  forward 60                       \n" +
+               "  right 100\n" +
+               "  forward 30\n" +
+               "  right 90\n" +
+               "]\n" +
+               "\n" +
+               "\n" +
+               "to pinwheel [ ]\n" +
+               "[\n" +
+               "  repeat 18 [ squiggle ]\n" +
+               "]\n" +
+               "\n" +
+               "\n" +
+               "pinwheel\n";
 
 
         // note, this simple "algorithm" will not handle SLogo comments
