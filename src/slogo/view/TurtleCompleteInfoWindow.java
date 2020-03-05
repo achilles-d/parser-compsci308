@@ -15,10 +15,9 @@ import java.util.ResourceBundle;
 public class TurtleCompleteInfoWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
-    private static final int SIZE_COMPONENT = HEIGHT;
+    private static final int SIZE_COMPONENT = 400;
     private static final String TURTLEINFO = "turtleinfo";
     private static final int SPACING = 15;
-    private static final int HEIGHT = 400;
 
     private TitledPane myView;
     private VBox turtleStates;
@@ -42,8 +41,8 @@ public class TurtleCompleteInfoWindow extends Window {
         myView.setText(visualText.getString(TURTLEINFO));
         update();
         myContainer.setContent(turtleStates);
-        turtleStates.setPrefHeight(HEIGHT);
-        turtleStates.setMinHeight(HEIGHT);
+        turtleStates.setPrefHeight(SIZE_COMPONENT);
+        turtleStates.setMinHeight(SIZE_COMPONENT);
         myView.setContent(myContainer);
         myView.setMaxWidth(SIZE_COMPONENT);
 
