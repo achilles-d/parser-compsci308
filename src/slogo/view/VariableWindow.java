@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 public class VariableWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
+    private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String VARWINDOW = "varwindow";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
@@ -44,8 +45,12 @@ public class VariableWindow extends Window {
         myView.setContent(variables);
 
         variableValueInput = new TextInputDialog();
+        variableValueInput.getDialogPane().getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
+        variableValueInput.setContentText(visualText.getString("varval"));
+        variableValueInput.setHeaderText(visualText.getString("varvalwindow"));
+
         variables.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            updateVariable((int) newValue);
+            if(!((int)newValue ==-1))updateVariable((int) newValue);
                 });
 
 
@@ -98,11 +103,18 @@ public class VariableWindow extends Window {
 
     public void update()
     {
-        variables.getItems().clear();
-        for(String s : myController.getAllVariables())
+
+        for(int i = 0; i<variables.getItems().size();i++)
         {
-            variables.getItems().add(s);
+            variables.getItems().set(i,myController.getAllVariables().get(i));
         }
+
+        for(int i=variables.getItems().size();i<myController.getAllVariables().size();i++)
+        {
+            variables.getItems().add(myController.getAllVariables().get(i));
+        }
+
+
 
 
     }
