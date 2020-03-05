@@ -2,10 +2,7 @@ package slogo.model.backEndInternal;
 
 import javafx.beans.property.*;
 import slogo.model.Coordinate;
-import slogo.model.Line;
 import slogo.model.Turtle;
-import slogo.view.ViewTurtle;
-import slogo.view.ViewTurtlePlan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -216,7 +213,7 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
-        LineAPI line=new LineAPI(start,end);
+        Line line=new Line(start,end);
         lines.add(line);
     }
 
