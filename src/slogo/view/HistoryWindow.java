@@ -32,16 +32,25 @@ public class HistoryWindow extends Window {
         myView = new TitledPane();
         myView.setText(visualText.getString(HISTORYWINDOW));
         commandHistory =  new ListView<>();
+        setSelection();
         myView.setContent(commandHistory);
+    }
+
+    private void setSelection()
+    {
+        commandHistory.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+        myCode.addCodeToBeParsed(commandHistory.getItems().get((int) newValue));
+             tellUpdate.setValue(true);});
     }
 
     public void update() {
 
-        commandHistory.getItems().clear();
-       for(String s:myController.getCommandHistory())
+       for(int i=commandHistory.getItems().size(); i<myController.getCommandHistory().size();i++)
        {
-           commandHistory.getItems().add(s);
+           commandHistory.getItems().add(myController.getCommandHistory().get(i));
        }
+
+
     }
 
     public Node getView() {

@@ -65,6 +65,8 @@ public class ViewTurtle {
         myView = new ImageView(myImage);
         myView.setFitWidth(size);
         myView.setFitHeight(size);
+        myView.setOnMouseClicked(e ->{clickedTurtle();
+            System.out.println("clicked");});
         myCoordinates = new Coordinate(0,0);
         updatePosition(myCoordinates);
         myHeading = 0;
@@ -77,6 +79,21 @@ public class ViewTurtle {
             penSize.setValue(penSize.get()+change);
     }
 
+
+    public void clickedTurtle()
+    {
+        activeTurtle.setValue(!activeTurtle.get());
+
+        if(activeTurtle.get())
+        {
+            myView.setOpacity(1);
+        }
+        else
+        {
+            myView.setOpacity(0.5);
+        }
+
+    }
 
     public SimpleDoubleProperty getPenSizeProperty()
     {

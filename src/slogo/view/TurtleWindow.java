@@ -75,14 +75,16 @@ public class TurtleWindow extends Window {
 
        // myTurtle.updatePosition(new Coordinate(-391,260.5));
 
+
     }
+
 
 
     private void fillCanvas()
     {
         canvasWrap.getChildren().clear();
         canvasWrap.getChildren().add(background);
-        for(ViewTurtle turtle:myTurtleController.getAllActiveViewTurtles()) {
+        for(ViewTurtle turtle:myTurtleController.getAllViewTurtles()) {
             canvasWrap.getChildren().add(turtle.getView());
             turtle.setImageProperty(turtleImage);
         }
