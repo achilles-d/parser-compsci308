@@ -25,16 +25,20 @@ public class MakeUserInstruction implements  Command<Object> {
         this.inputs=inputs;
         this.command=command;
         this.commandSaver=commandSaver;
-        List<Command> cmd=new ArrayList<>();
-        cmd.add(inputs);
-        cmd.add(command);
-        commandSaver.put(name,cmd);
+
+        putCommandToTheMap();
+
+        //System.out.println("Added command to commandSaver "+name);
         executable=true;
     }
 
+    private void putCommandToTheMap() {
+        List<Command> cmd=new ArrayList<>();
 
-
-
+        cmd.add(inputs);
+        cmd.add(command);
+        commandSaver.put(name,cmd);
+    }
 
 
     @Override

@@ -35,9 +35,9 @@ public class UserDefined implements Command {
        this.command= (Command) param.get(2);
        state=1;
 
-        System.out.println(" values " +values.toString());
-        System.out.println(" inputs " +inputs.execute().toString());
-        System.out.println(" listOfCommands " +command.execute().toString());
+//        System.out.println(" values " +values.toString());
+//        System.out.println(" inputs " +inputs.execute().toString());
+//        System.out.println(" listOfCommands " +command.execute().toString());
 
         buildExecutable();
        executable=listOfCommands.size()==0;
@@ -63,8 +63,8 @@ public class UserDefined implements Command {
        listOfCommands= (List<String>) command.execute();
         removeBracket((listOfCommands));
 
-        System.out.println("Size of inputs in userDefined"+inputsList.size());
-        System.out.println("Size of values in userDefined"+values.size());
+//        System.out.println("Size of inputs in userDefined"+inputsList.size());
+//        System.out.println("Size of values in userDefined"+values.size());
 
 
         for(int i=0; i<inputsList.size(); i++){
@@ -72,6 +72,8 @@ public class UserDefined implements Command {
            Collections.replaceAll(listOfCommands, inputsList.get(i),(String)values.get(i).execute());
 
        }
+
+        //System.out.println(" List of commands in user defined fucntion "+listOfCommands.toString());
        //listOfCommands.remove(0);// remove bracket
         //listOfCommands.remove(listOfCommands.size()-1);
 
