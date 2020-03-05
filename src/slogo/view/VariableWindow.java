@@ -50,7 +50,7 @@ public class VariableWindow extends Window {
         variableValueInput.setHeaderText(visualText.getString("varvalwindow"));
 
         variables.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if(!(variables.getItems().size() ==0))updateVariable((int) newValue);
+            if(!((int)newValue ==-1))updateVariable((int) newValue);
                 });
 
 
@@ -108,7 +108,7 @@ public class VariableWindow extends Window {
         {
             variables.getItems().set(i,myController.getAllVariables().get(i));
         }
-        
+
         for(int i=variables.getItems().size();i<myController.getAllVariables().size();i++)
         {
             variables.getItems().add(myController.getAllVariables().get(i));
