@@ -1,40 +1,79 @@
 package slogo.controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.Property;
+import slogo.model.Line;
+import slogo.model.Turtle;
 import slogo.model.backEndInternal.BackEndTurtle;
 import slogo.view.ViewTurtle;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.text.View;
+import java.util.*;
 
 public class TurtleController {
 
 
-    private Map<Integer, Map<BackEndTurtle, ViewTurtle>> turtlesMap = new HashMap<>();
-    private Integer turtleIndexTracker = 0;
+    private Map<Integer, TurtlePair> turtlesMap;
+    private Integer turtleIndexTracker;
 
-    public void createNewTurtle(Property turtleImage) {
-        Map<BackEndTurtle, ViewTurtle> newTurtleLink = new HashMap<>();
-        BackEndTurtle newBackEndTurtle = new BackEndTurtle();
-        ViewTurtle newViewTurtle = new ViewTurtle(turtleImage);
-        newTurtleLink.put(newBackEndTurtle, newViewTurtle);
-        turtlesMap.put(turtleIndexTracker, newTurtleLink);
-        turtleIndexTracker++;
+    public TurtleController()
+    {
+        turtlesMap = new HashMap<>();
+        createNewTurtle(0);
+
     }
 
-    public Map<BackEndTurtle, ViewTurtle> getTurtle(Integer index) {
-        return turtlesMap.get(index);
+    public void createNewTurtle(int index) {
+        ViewTurtle viewTurt = new ViewTurtle(index);
+        BackEndTurtle backTurt = new BackEndTurtle(index);
+        TurtlePair turtleLink = new TurtlePair(viewTurt,backTurt);
+        turtlesMap.put(index, turtleLink);
     }
 
-    public List<Map<BackEndTurtle, ViewTurtle>> getAllTurtles() {
-        List<Map<BackEndTurtle, ViewTurtle>> allTurtles = new ArrayList<>();
+    public Collection<Line> getLines(int index) {
+        return Collections.unmodifiableList(turtlesMap.get(index).getBackEndTurtle().getLines());
+    }
 
-        for (int i = 0; i < turtleIndexTracker; i++) {
-            allTurtles.add(turtlesMap.get(i));
+    public BackEndTurtle getBackEndTurtle(int index) {
+        return turtlesMap.get(index).getBackEndTurtle();
+    }
+
+    public ViewTurtle getViewTurtle(int index)
+    {
+        return turtlesMap.get(index).getViewTurtle();
+    }
+
+    public Collection<ViewTurtle> getAllViewTurtles() {
+
+        List<ViewTurtle> viewList = new ArrayList<>();
+        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+            viewList.add(turtlesMap.get(i).getViewTurtle());
         }
-        return allTurtles;
+        return viewList;
+    }
+
+    public Collection<ViewTurtle> getAllActiveViewTurtles()
+    {
+        List<ViewTurtle> viewList = new ArrayList<>();
+        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+            if(turtlesMap.get(i).getViewTurtle().getActiveProperty().getValue())
+                viewList.add(turtlesMap.get(i).getViewTurtle());
+        }
+        return viewList;
+    }
+
+    public Collection<BackEndTurtle> getAllBackEndTurtles() {
+
+        List<BackEndTurtle> backList = new ArrayList<>();
+        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+            backList.add(turtlesMap.get(i).getBackEndTurtle());
+        }
+        return backList;
+    }
+
+    public int getNumberOfTurtles()
+    {
+        return turtlesMap.keySet().size();
     }
 
 }

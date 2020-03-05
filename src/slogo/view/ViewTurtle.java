@@ -1,34 +1,65 @@
 package slogo.view;
 
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.HLineTo;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 import slogo.model.Coordinate;
+
+import java.util.ResourceBundle;
 
 public class ViewTurtle {
 
+    private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final int X_LAYOUT_SCALING = 375;
     private static final double Y_LAYOUT_SCALING = 286.5;
     private Image myImage;
     private SimpleStringProperty imageName;
+    private SimpleBooleanProperty activeTurtle;
     private ImageView myView;
     private Coordinate myCoordinates;
     private double myX;
     private double myY;
     private double myHeading;
     private boolean turtleVisibility;
-    private int size;
+    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
 
-    public ViewTurtle(Property turtleImage)
+
+
+    private SimpleDoubleProperty penColorIndex;
+    private SimpleDoubleProperty shapeIndex;
+    private SimpleDoubleProperty penSize;
+    private SimpleBooleanProperty penStatus;
+
+    private int size;
+    private int myID;
+
+    public ViewTurtle(int id)
     {
+        myID = id;
         size = 50;
-        imageName = new SimpleStringProperty();
-        //imageName.bind(turtleImage);
-        imageName = (SimpleStringProperty)turtleImage;
-        imageName.addListener((observable, oldValue, newValue) -> { updateImage(imageName.getValue());
-            System.out.println(imageName.getValue());});
+        activeTurtle = new SimpleBooleanProperty(true);
+        penColorIndex = new SimpleDoubleProperty(7);
+        penSize = new SimpleDoubleProperty(5);
+        shapeIndex = new SimpleDoubleProperty(0);
+        penStatus = new SimpleBooleanProperty(true);
+
+        shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)shapeIndex.get());});
+
+        setImageProperty(new SimpleStringProperty("turtle.jpg"));
 
         myImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName.getValue()));
         myView = new ImageView(myImage);
@@ -40,9 +71,57 @@ public class ViewTurtle {
 
     }
 
+    public void changePenSize(int change)
+    {
+        if(penSize.get()+change >=0)
+            penSize.setValue(penSize.get()+change);
+    }
+
+
+    public SimpleDoubleProperty getPenSizeProperty()
+    {
+        return penSize;
+    }
+
+    public SimpleBooleanProperty getPenStatusProperty()
+    {
+        return penStatus;
+    }
+
+    public int getPenSize()
+    {
+        return (int) penSize.get();
+    }
+
+    public double getPenColorIndex()
+    {
+        return penColorIndex.get();
+    }
+
+    public void setPenColorIndex(int i)
+    {
+        penColorIndex.setValue(i);
+    }
+
+    private void setImageWithIndex(int i)
+    {
+        imageName.setValue(turtleImages.getString(i+""));
+    }
+
     public int getSize()
     {
         return size;
+    }
+
+    private int getIndexOfImage(String imageName)
+    {
+        for(String index: turtleImages.keySet())
+        {
+            if(turtleImages.getString(index).equals(imageName))
+                return Integer.parseInt(index);
+        }
+
+        return 1;
     }
 
     private void setXY()
@@ -69,32 +148,64 @@ public class ViewTurtle {
         myView.setRotate(myHeading);
     }
 
+    public double getHeading()
+    {
+        return myHeading;
+    }
+
     public void setVisibility(boolean visible)
     {
         turtleVisibility = visible;
         myView.setVisible(turtleVisibility);
     }
 
-    public void updatePosition(Coordinate a)
+    public SimpleDoubleProperty getPenColorProperty()
     {
-        myCoordinates =a;
+        return penColorIndex;
+    }
+
+    public SimpleDoubleProperty getShapeProperty()
+    {
+        return shapeIndex;
+    }
+
+    public SimpleBooleanProperty getActiveProperty()
+    {
+        return activeTurtle;
+    }
+
+    public void setImageProperty(SimpleStringProperty name)
+    {
+        imageName = name;
+        imageName.addListener((observable, oldValue, newValue) -> { if(activeTurtle.get())
+        {updateImage(imageName.getValue());
+        shapeIndex.setValue(getIndexOfImage(imageName.getValue()));}});
+    }
+    public Coordinate getCoordinates()
+    {
+        return myCoordinates;
+    }
+    public void updatePosition(Coordinate a) {
+        myCoordinates = a;
         setXY();
-        while(myX>750-myView.getFitWidth()/2)
+        while (myX > 750 - myView.getFitWidth() / 2)
             myX--;
-        while(myY>573-myView.getFitHeight())
+        while (myY > 573 - myView.getFitHeight())
             myY--;
 
-        while(myX<0)
+        while (myX < 0)
             myX++;
-        while(myY<0)
+        while (myY < 0)
             myY++;
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
         System.out.println("Xcord " + myX);
         System.out.println("Ycord " + myY);
+    }
 
-
-
+    public int getID()
+    {
+        return myID;
     }
 
 

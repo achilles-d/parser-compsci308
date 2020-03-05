@@ -1,11 +1,10 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.CommandHandler;
-import slogo.model.ExecutionException;
+import slogo.model.exceptions.ExceptionFactory;
+import slogo.model.exceptions.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.Parser;
-import slogo.model.backEndInternal.commands.Repeat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -100,7 +99,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseListStart(){
-        throw  new InvalidCommandException();
+        throw new InvalidCommandException("");
     }
 
     private void parseGroupStart(){
@@ -125,8 +124,9 @@ public class CommandParser implements Parser {
         }
 
     }
-    private  void parseGroupEnd(){
-        throw  new InvalidCommandException();
+    private  void parseGroupEnd() {
+        throw new InvalidCommandException("");
+
     }
 
     private void parseNewLine(){
@@ -164,8 +164,7 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
-    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         String currentCommand = getSymbol(commandStack.pop());
 
@@ -175,7 +174,8 @@ public class CommandParser implements Parser {
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException();
+              throw new InvalidCommandException("");
+
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
 
@@ -204,7 +204,7 @@ public class CommandParser implements Parser {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new InvalidCommandException("");
         }
         argumentStack.add(com);
     }
@@ -215,6 +215,7 @@ public class CommandParser implements Parser {
     public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
             ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         clearAll();
+        commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
         System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);

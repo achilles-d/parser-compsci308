@@ -1,6 +1,7 @@
 package slogo.model;
 
 import slogo.model.backEndInternal.commands.Command;
+import slogo.model.exceptions.ExecutionException;
 
 public interface Executor {
 
@@ -12,7 +13,7 @@ public interface Executor {
      * executionError could be extended to create more specific types of errors. For example, there could be math errors like divide by 0
      * @return
      */
-    public Object executeCommand(Command currentCommand) throws ExecutionException;
+    public Object executeCommand(Command currentCommand) throws ExecutionException, Exception;
 
 }
 

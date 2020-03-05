@@ -2,6 +2,8 @@ package slogo.model;
 
 //Will implement this class later, just created so that interfaces for API design will compile
 
+import java.text.DecimalFormat;
+
 //TODO change to extend Point class
 public class Coordinate {
 
@@ -42,6 +44,6 @@ public class Coordinate {
     @Override
     public String toString()
     {
-        return myX + "," + myY;
+        return new DecimalFormat("#.#").format(myX) + "," + new DecimalFormat("#.#").format(myY);
     }
 }
