@@ -6,7 +6,7 @@ import java.util.List;
 import slogo.model.backEndInternal.Line;
 import slogo.model.backEndInternal.UserVariable;
 
-public interface Controller {
+public interface ControllerAPI {
 
   public String displayError(Exception ex);
 
