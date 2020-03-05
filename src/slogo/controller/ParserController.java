@@ -130,8 +130,8 @@ public class ParserController {
     public void setLanguage(String language){
         System.out.println("called langauge button");
         myLanguage = Language.valueOf(language.toUpperCase());
-        myCommandParser.addPatterns(myLanguage.getLanguageFile());
-        myCommandParser.addPatterns(SYNTAX);
+        myCommandParser.addPatterns(myLanguage.getLanguageFile(), SYNTAX);
+        //myCommandParser.addPatterns(SYNTAX);
     }
 
     public void setVariable(String varName, double value)

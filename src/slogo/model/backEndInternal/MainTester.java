@@ -63,9 +63,9 @@ public class MainTester {
 
 
         // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("resources.languages.English");
+        lang.addPatterns("resources.languages.English", "resources.languages.Syntax");
         // general checks, added last
-        lang.addPatterns("resources.languages.Syntax");
+       // lang.addPatterns("resources.languages.Syntax");
 
         // try against different kinds of inputs
         //m.parseText(lang, m.examples);
@@ -94,12 +94,12 @@ public class MainTester {
 
      //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
-       // String userInput="to test [ :x ] [ fd :x ]";
+        //String userInput="to test [ :x ] [ fd :x ]";
 
 
-       String userInput="IfElse 0 [ fd 50 ] [ back 100 ]";
+      // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
 
-       //String userInput="atan sum sum sum 10 50 30 40";
+       String userInput="atan sum sum sum 10 50 30 40";
 
      //String userInput="cos less? sum difference 10 50 30 40";
 

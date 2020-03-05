@@ -1,6 +1,7 @@
 package slogo.model.backEndInternal;
 
-import java.util.Map;
+import java.util.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
@@ -8,25 +9,9 @@ import javafx.collections.ObservableMap;
 
 public class UserVariableHandler<T>  {
 
-    private ObservableMap<String, UserVariable> allVariables = FXCollections.observableHashMap();
-
-    private ObservableList<String> keys =  FXCollections.observableArrayList();
-
-    private ObservableList<String> values = FXCollections.observableArrayList();
-
-    public UserVariableHandler() {
-        allVariables.addListener((MapChangeListener.Change<? extends String, ? extends UserVariable> change) -> {
-            boolean removed = change.wasRemoved();
-            if (removed != change.wasAdded()) {
-                // no put for existing key
-                if (removed) {
-                    keys.remove(change.getKey());
-                } else {
-                   //keys.add(change.getKey());
-                }
-            }
-        });
-    }
+    private Map<String, UserVariable> allVariables = new HashMap<>();
+    private List<String> keys =  new ArrayList<>();
+    private List<String> values = new ArrayList<>();
 
     public void setVariable(String variableName, double value)
     {
@@ -49,18 +34,18 @@ public class UserVariableHandler<T>  {
         keys.remove(variableName);
     }
 
-    public ObservableList<String> getKeys() {
-        return keys;
+    public List<String> getKeys() {
+        return Collections.unmodifiableList(keys);
     }
 
-    public ObservableMap<String, UserVariable> getVariableMap() {
-        return allVariables;
+    public Map<String, UserVariable> getVariableMap() {
+        return Collections.unmodifiableMap(allVariables);
     }
 
-    public ObservableList<String> getValues() {
+    public List<String> getValues() {
         for (Object v : allVariables.entrySet()) {
             values.add(v.toString());
         }
-        return values;
+        return Collections.unmodifiableList(values);
     }
 }
