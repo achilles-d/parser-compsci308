@@ -98,13 +98,8 @@ public class CommandParser implements Parser {
 
     }
 
-    private void parseListStart() throws Exception{
-        try {
-            throw ExceptionFactory.makeException("InvalidCommand", "Default");
-        }
-        catch(Exception ex){
-            throw ex;
-        }
+    private void parseListStart(){
+        throw new InvalidCommandException("");
     }
 
     private void parseGroupStart(){
@@ -129,13 +124,9 @@ public class CommandParser implements Parser {
         }
 
     }
-    private  void parseGroupEnd() throws Exception {
-        try{
-            throw  ExceptionFactory.makeException("InvalidCommand","Default");
-        }
-        catch(Exception ex){
-            throw ex;
-        }
+    private  void parseGroupEnd() {
+        throw new InvalidCommandException("");
+
     }
 
     private void parseNewLine(){
@@ -173,7 +164,7 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
-    private void buildExecutableCommand() throws Exception {
+    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         String currentCommand = getSymbol(commandStack.pop());
 
@@ -183,12 +174,8 @@ public class CommandParser implements Parser {
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              try{
-                  throw ExceptionFactory.makeException("InvalidCommand", "Default");
-              }
-              catch(Exception ex){
-                  throw ex;
-              }
+              throw new InvalidCommandException("");
+
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
 
@@ -217,7 +204,7 @@ public class CommandParser implements Parser {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new InvalidCommandException("");
         }
         argumentStack.add(com);
     }

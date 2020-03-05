@@ -17,20 +17,16 @@ public class MakeVariable<T> implements Command<Double> {
   }
 
   @Override
-  public Double execute() throws Exception {
+  public Double execute() {
 
     Class<?> result=nameCmd.execute().getClass();
     String className = (((Class) result).getName().split("[.]"))[result.getName().split("[.]").length - 1];
 
     if(className.equals("Double")){
      System.out.println("Answer should stop here");
-        try{
-          throw ExceptionFactory.makeException("InvalidCommand", "Default"); // cannot create two variables with the same name
-        }
-        catch(Exception ex){
-          throw ex;
-        }
-   } else{
+      throw new InvalidCommandException("");
+
+    } else{
      System.out.println("Type is "+className);
      String variableName = (String) nameCmd.execute();
      Double value = (Double) valueCmd.execute();
