@@ -68,10 +68,8 @@ public class CommandFactory {
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
                 System.out.println("Constructor type needs is " + className);
 
-
                     if (className.equals("BackEndTurtle")) {
                         ar[j] = turtle;
-
                     } else if (className.equals("TurtleController")) {
                         ar[j]=listOfTurtles;
                     }else if (className.equals("Coordinate")) {
@@ -98,7 +96,7 @@ public class CommandFactory {
                     }
 
             }
-            
+
             Constructor<?> cons = c.getDeclaredConstructor(pType);
            //System.out.println("Inputs to constructor "+ar[0]);
 
