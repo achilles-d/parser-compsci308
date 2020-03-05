@@ -7,13 +7,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
@@ -174,15 +172,22 @@ public class Menu {
        Stage stage1 = new Stage();
        File helpWindowTextFile = new File(HELPWINDOW);
        try{
-           List<String> allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
+          allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
        }
        catch(IOException ex){
            throw ex;
        }
-       Label helpText = new Label("This is a help screen");
-       Group helpGroup = new Group();
-       helpGroup.getChildren().addAll(helpText);
-       Scene helpScreen = new Scene(helpGroup, HELP_SIZE,HELP_SIZE);
+
+       VBox helpLabels =new VBox();
+       for(String s:allHelpText)
+       {
+           helpLabels.getChildren().add(new Label(s));
+       }
+
+       ScrollPane helpScreenText = new ScrollPane();
+       helpScreenText.setContent(helpLabels);
+
+       Scene helpScreen = new Scene(helpScreenText,400,400);
        stage1.setScene(helpScreen);
        stage1.show();
    }
