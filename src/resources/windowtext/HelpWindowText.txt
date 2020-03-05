@@ -1,0 +1,66 @@
+Below is a list of available commands and what they do. Arguments appear in brackets.
+Turtle Commands:
+forward [pixels] | fd [pixels] : moves turtle forward in its current heading by [pixels] distance; returns the value of [pixels]
+back [pixels] | bk [pixels] : moves turtle backward in its current heading by [pixels] distance; returns the value of [pixels]
+left [degrees] | lt [degrees] : turns turtle counterclockwise by [degrees] angle; returns the value of [degrees]
+right [degrees] | rt [degrees] : turns turtle clockwise by [degrees] angle; returns the value of [degrees]
+setheading [degrees] | seth [degrees] : turns turtle to an absolute heading; returns number of [degrees] moved
+towards [x y] : turns turtle to face the point [x, y], where [0, 0] is the center of the screen; returns the number of degrees turtle turned
+setxy [x y] | goto[x y] : moves turtle to an absolute screen position, where [0, 0] is the center of the screen; returns the distance turtle moved
+pendown | pd : puts pen down such that when the turtle moves, it leaves a trail; returns 1
+penup | pu : puts pen up such that when the turtle moves, it does not leave a trail; returns 0
+showturtle | st : makes turtle visible; returns 1
+hideturtle | ht : makes turtle invisible; returns 0
+home : moves turtle to the center of the screen (0 0); returns the distance turtle moved
+clearscreen | cs : erases turtle's trails and sends it to the home position; returns the distance turtle moved
+Turtle Queries:
+xcor : returns the turtle's X coordinate from the center of the screen
+ycor : returns the turtle's Y coordinate from the center of the screen
+heading : returns the turtle's heading in degrees
+pendown? | pendownp : returns 1 if the turtle's pen is down, 0 if it is up
+showing? | showingp : returns 1 if turtle is showing, 0 if it is hiding
+Math Operations:
+sum [expr1 expr2] | + [expr1 expr2] : returns sum of the values of [expr1] and [expr2]
+difference [expr1] [expr2] | - [expr1] [expr2] : returns difference of the values of [expr1] and [expr2]
+product [expr1] [expr2] | * [expr1] [expr1] : returns product of the values of [expr1] and [expr2]
+quotient [expr1] [expr2] | / [expr1] [expr2] : returns quotient of the values of [expr1] and [expr2]
+remainder [expr1] [expr2] | % [expr1] [expr2] : returns remainder on dividing the values of [expr1] by [expr2]
+minus [expr] | ~ [expr] : returns negative of the values of [expr]
+random [max] : returns random non-negative number strictly less than [max]
+sin [degrees] : returns sine of [degrees]
+cos [degrees] : return cosine of [degrees]
+tan [degrees] : returns tangent of [degrees]
+atan [degrees] : returns inverse tangent of [degrees]
+log [expr] : returns natural log of [expr]
+pow [base] [exponent] : returns [base] raised to the power of the [exponent]
+pi : reports the number pi
+Boolean Operations
+less? [expr1] [expr2] | lessp [expr1] [expr2] : returns 1 if the value of [expr1] is strictly less than the value of [expr2], otherwise 0
+greater? [expr1] [expr2] | greater [exp1] [expr2] : returns 1 if the value of [expr1] is strictly greater than the value of [expr2], otherwise 0
+equal? [expr1] [expr2] | equalp [expr1] [exp2] : returns 1 if the value of [expr1] and the value of [expr2] are equal, otherwise 0
+notequal? [expr1] [expr2] | notequalp [expr1] [expr2] : returns 1 if the value of [expr1] and the value of [expr2] are not equal, otherwise 0
+and [test1] [test2] : returns 1 if [test1] and [test2] are non-zero, otherwise 0
+or [test1] [test2] : returns 1 if [test1] or [test2] are non-zero, otherwise 0
+not [test] : returns 1 if [test] is 0 and 0 if [test] is non-zero
+User-Defined Commands
+make [variable] [expr] | set [variable] [expr] : assigns the value of [expr] to variable, creating the variable if necessary returns [expr]
+repeat [expr] [command(s)] : runs [command(s)] given in the list the value of expr number of times; returns the value of the final command executed (or 0 if no commands are executed); note: the value of the current iteration, starting at 1, is automatically assigned to the variable :repcount so that it can be accessed by the [command(s)]
+dotimes [[variable] [limit]] [command(s)] : runs [command(s)] for each value specified in the range, i.e., from (1 - [limit]) inclusive; returns the value of the final command executed (or 0 if no commands are executed); note: [variable] is assigned to each succeeding value so that it can be accessed by the command(s)
+for [[variable] [start] [end] [increment]] [[commands]] : runs [command(s)] for each value specified in the range, i.e., from ([start] - [end]), going by increment; returns the value of the final command executed (or 0 if no commands are executed); note: [variable] is assigned to each succeeding value so that it can be accessed by the command(s)
+if [expr] [[command(s)]] : if [expr] is not 0, runs the command(s) given in the list; returns the value of the final command executed (or 0 if no commands are executed)
+ifelse [expr] [[trueCommand(s)]] [[falseCommand(s)]] : if [expr] is not 0, runs the [trueCommands] given in the first list, otherwise runs the [falseCommands] given in the second list; returns the value of the final command executed (or 0 if no commands are executed)
+to [commandName] [[variable(s)]] [[command(s)]] : assigns [command(s)] given in the second list to [commandName] using parameters given in first list as variables; when [commandName] is used later in a program, any given values are assigned to variables that can be accessed when the command list is run and the value of the final command executed is returned (or 0 if no commands are executed); returns 1 if command is successfully defined, otherwise 0
+Display Commands
+setbackground [index] | setbg [index] : sets background color of screen to that represented by [index] returns given [index]
+setpencolor [index] | setpc [index] : sets color of the pen to that represented by [index]; returns given [index]
+setshape [index] | setsh [index] : sets shape of turtle to that represented by [index]; returns given [index]
+setpalette [index] [r] [g] [b] : sets color corresponding at given [index] to given [r] [g] [b] color values; returns given [index]; note: color component values are nonnegative integers less than 256 specifying an amount of red, green, and blue
+setpensize [pixels] | setps [pixels] : sets size of the pen to be [pixels] thickness | returns given [pixels]
+pencolor | pc : returns turtle's current color index
+shape | sh : returns turtle's current shape index
+Multiple Turtle Commands
+tell [[turtle(s)]] : sets [turtles] that will follow commands hereafter; returns last value in [turtles] list; note: if turtle has not previously existed, it is created and placed at the home location; note, if more than one turtle is active, commands run return value associated with the last active turtle
+ask [[turtles(s)]] [[command(s)]] : only the [turtles] given in first list all run [commands] given in the second list; returns result of last command run by the last turtle; note, after commands are run, currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given); note, if more than one turtle is active, commands run return value associated with the last active turtle
+askwith [[condition]] [[command(s)]] : tell [turtles] matching given [condition] to run [commands] given in the second list; returns result of last command run; note, after commands are run, currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given); note: if more than one turtle is active, commands run return value associated with the last active turtle
+id: returns current active turtle's ID number; ID values typically start at 1 and increase by 1 with each new turtle created; note, there is only one turtle active at any given time since each command is run once for each active turtle, so this value can always be used to identify the current turtle running a command
+turtles: returns number of turtles created so far
