@@ -22,10 +22,15 @@ public class UserVariableHandler<T>  {
                 if (removed) {
                     keys.remove(change.getKey());
                 } else {
-                   // keys.add(change.getKey());
+                   //keys.add(change.getKey());
                 }
             }
         });
+    }
+
+    public void setVariable(String variableName, double value)
+    {
+        allVariables.get(variableName).setValue(value);
     }
 
     public UserVariable getVariable(String variableName) {
