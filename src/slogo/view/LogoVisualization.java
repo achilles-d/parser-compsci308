@@ -8,6 +8,8 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LogoVisualization extends BorderPane{
@@ -22,7 +24,7 @@ public class LogoVisualization extends BorderPane{
     private TurtleWindow graphics;
     private ParserController myController;
     private PaletteWindow myPalette;
-    private MoveTurtleComponent turtleMover;
+    private MoveTurtleWindow turtleMover;
     private Property activePenColor;
     private Property activeTurtleImage;
     private SimpleBooleanProperty updateNeeded;
@@ -31,13 +33,16 @@ public class LogoVisualization extends BorderPane{
     private HistoryWindow myHistory;
     private Menu toolbar;
     private TurtleCompleteInfoWindow myTurtleInfo;
-    AvailableCommandsWindow available;
-    private Button executeButton;
+    private AvailableCommandsWindow available;
+    private OutputWindow myOutput;
+    private Double output;
+    private List<Object> parameters;
 
     public LogoVisualization(ParserController control)
     {
         //myStage = stage;
         myController = control;
+        parameters = new ArrayList<>();
         init();
     }
 
@@ -53,18 +58,23 @@ public class LogoVisualization extends BorderPane{
         updateNeeded.addListener(((observable, oldValue, newValue) -> checkUpdate(newValue)));
 
         toolbar = new Menu(myController,updateNeeded);
+
+        fillParameters();
+
         myConsole = new ConsoleWindow(myController,updateNeeded,myCode);
         myVariables = new VariableWindow(myController,updateNeeded,myCode);
         myHistory = new HistoryWindow(myController,updateNeeded,myCode);
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
-        turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
+        turtleMover = new MoveTurtleWindow(myController,updateNeeded,myCode);
         myPalette = new PaletteWindow(myController,updateNeeded);
         myTurtleInfo = new TurtleCompleteInfoWindow(myController);
+        myOutput = new OutputWindow();
+
 
 
         VBox leftComps = new VBox();
-        leftComps.getChildren().addAll(myHistory.getView(),available.getView(),myVariables.getView());
+        leftComps.getChildren().addAll(myHistory.getView(),available.getView(),myVariables.getView(),myOutput.getView());
 
         HBox bottom  = new HBox();
         bottom.getChildren().addAll(myConsole.getView());
@@ -96,6 +106,14 @@ public class LogoVisualization extends BorderPane{
 
     }
 
+    private void fillParameters()
+    {
+        parameters.add(myController);
+        parameters.add(updateNeeded);
+        parameters.add(myCode);
+        parameters.add(toolbar.getActiveLanguage());
+    }
+
     private void checkUpdate(boolean check)
     {
         if(check)
@@ -107,12 +125,14 @@ public class LogoVisualization extends BorderPane{
     private void updateAllPanes()
     {
         try {
-            myController.parseCode(myCode.getCodeToBeParsed());
+             output = myController.parseCode(myCode.getCodeToBeParsed());
         }
         catch (Exception e)
         {
             showError(e.getMessage());
         }
+
+        myOutput.setOutput(output);
 
         graphics.update();
         myHistory.update();
@@ -120,6 +140,8 @@ public class LogoVisualization extends BorderPane{
         myPalette.update();
         myTurtleInfo.update();
         toolbar.update();
+        myOutput.update();
+
 
         myCode.clearStagedCode();
         updateNeeded.setValue(false);
