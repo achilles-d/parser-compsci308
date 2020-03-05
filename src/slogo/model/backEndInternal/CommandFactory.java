@@ -26,10 +26,7 @@ public class CommandFactory {
         this.userVariableHandler=userVariableHandler;
     }
 
-    public Object getCommand(String commandName, List<Object> arguments) throws InvocationTargetException,
-            NoSuchMethodException, ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException {
+    public Object getCommand(String commandName, List<Object> arguments) throws InvalidCommandException{
 
         return makeCommand(commandName, arguments);
 
