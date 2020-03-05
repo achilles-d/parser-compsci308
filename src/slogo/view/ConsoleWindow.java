@@ -18,6 +18,12 @@ public class ConsoleWindow extends Window {
     private static final String UI_TEXT = "resources.UIText";
     private static final String RESET = "reset";
     private static final String EXECUTE = "execute";
+    private static final int RETURN_CONSOLE_WIDTH = 150;
+    private static final int CONSOLE_WIDTH = 500;
+    private static final String RETURNCONSOLE = "returnconsole";
+    private static final int PADDING = 10;
+    private static final int MAX_HEIGHT = 150;
+    private static final String RETURNS = "returns:";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
@@ -45,11 +51,10 @@ public class ConsoleWindow extends Window {
         HBox myContainer = new HBox();
         console = new TextArea();
         returnConsole = new TextArea();
-        returnConsole.setPrefWidth(150);
-        returnConsole.setText(visualText.getString("returnconsole"));
-        console.setPrefWidth(500);
+        returnConsole.setPrefWidth(RETURN_CONSOLE_WIDTH);
+        returnConsole.setText(visualText.getString(RETURNCONSOLE));
+        console.setPrefWidth(CONSOLE_WIDTH);
         console.setMaxWidth(Double.MAX_VALUE);
-        //execute = execution;
 
         execute = new Button(visualText.getString(EXECUTE));
         execute.setOnAction(event -> {codeEntered();});
@@ -58,17 +63,17 @@ public class ConsoleWindow extends Window {
         reset.setOnAction((event -> {console.clear();}));
 
         buttonPane = new VBox();
-        buttonPane.setPadding(new Insets(10));
+        buttonPane.setPadding(new Insets(PADDING));
         buttonPane.getChildren().addAll(execute,reset);
         buttonPane.setAlignment(Pos.CENTER);
 
         myContainer.getChildren().addAll(returnConsole,console,buttonPane);
-        myContainer.setMaxHeight(150);
+        myContainer.setMaxHeight(MAX_HEIGHT);
         consoleItems.setContent(myContainer);
        // consoleItems.setMaxHeight(150);
 
         myView.getChildren().add(myContainer);
-        myView.setMaxHeight(150);
+        myView.setMaxHeight(MAX_HEIGHT);
     }
 
     private void codeEntered()
@@ -79,11 +84,11 @@ public class ConsoleWindow extends Window {
 
     public void addReturn(Double returned)
     {
-        returnConsole.setText("returns:" + returned);
+        returnConsole.setText(RETURNS + returned);
     }
 
     public void update() {
-
+        //Supposed to do nothing
     }
 
 //    public String getConsoleText()

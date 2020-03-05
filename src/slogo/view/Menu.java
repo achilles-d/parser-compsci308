@@ -41,6 +41,10 @@ public class Menu {
     private static final String LANGUAGE = "language";
     private static final String HELP = "help";
     private static final int ICON_SIZE = 20;
+    private static final String DEFAULT_IMAGE = "turtle.jpg";
+    private static final String ENGLISH = "English";
+    private static final String HELPWINDOW = "resources.windowtext.HelpWindowText.txt";
+    private static final int HELP_SIZE = 400;
 
     private HBox myView;
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
@@ -78,11 +82,11 @@ public class Menu {
        makeColorsMenu(activePenColor,penColors);
 
 
-       turtleImage = new SimpleStringProperty("turtle.jpg");
+       turtleImage = new SimpleStringProperty(DEFAULT_IMAGE);
        images = new MenuButton(visualText.getString(IMAGES));
        makeImagesMenu();
 
-       activeLanguage = new SimpleStringProperty("English");
+       activeLanguage = new SimpleStringProperty(ENGLISH);
        languages = new MenuButton(visualText.getString(LANGUAGE));
        makeLanguagesMenu();
 
@@ -168,7 +172,7 @@ public class Menu {
    private void makeHelpScreen()  throws IOException
    {
        Stage stage1 = new Stage();
-       File helpWindowTextFile = new File("resources.windowtext.HelpWindowText.txt");
+       File helpWindowTextFile = new File(HELPWINDOW);
        try{
            List<String> allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
        }
@@ -178,7 +182,7 @@ public class Menu {
        Label helpText = new Label("This is a help screen");
        Group helpGroup = new Group();
        helpGroup.getChildren().addAll(helpText);
-       Scene helpScreen = new Scene(helpGroup,400,400);
+       Scene helpScreen = new Scene(helpGroup, HELP_SIZE,HELP_SIZE);
        stage1.setScene(helpScreen);
        stage1.show();
    }

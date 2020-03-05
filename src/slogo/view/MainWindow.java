@@ -12,11 +12,20 @@ import slogo.controller.ParserController;
 
 import java.awt.*;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class MainWindow {
 
     private static final String CSS_FILE = "/resources/uistyle.css";
+    private static final String UI_TEXT = "resources.UIText";
+    private static final String WORKSPACEHEADER = "workspaceheader";
+    private static final String WORKSPACEDIALOG = "workspacedialog";
+    private static final String WORKSPACEBUTTON = "workspacebutton";
+    private static final int WIDTH = 1500;
+    private static final int HEIGHT = 1000;
 
+
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     private TabPane myTabs;
     private Button makeWorkspace;
@@ -27,12 +36,12 @@ public class MainWindow {
     public MainWindow(Stage stage)
     {
         tabNameInput = new TextInputDialog();
-        tabNameInput.setContentText("Workspace Name: ");
-        tabNameInput.setHeaderText("Please Enter a Name For Your New Workspace");
+        tabNameInput.setContentText(visualText.getString(WORKSPACEHEADER));
+        tabNameInput.setHeaderText(visualText.getString(WORKSPACEDIALOG));
         myStage = stage;
         myTabs = new TabPane();
         myBorder = new BorderPane();
-        makeWorkspace = new Button("New Workspace");
+        makeWorkspace = new Button(WORKSPACEBUTTON);
         makeWorkspace.setOnAction(event -> addWorkspace(new LogoVisualization(new ParserController())));
         init();
     }
@@ -41,7 +50,7 @@ public class MainWindow {
         myBorder.setCenter(myTabs);
         myBorder.setTop(makeWorkspace);
 
-        Scene scene = new Scene(myBorder,1500,1000);
+        Scene scene = new Scene(myBorder, WIDTH, HEIGHT);
 
         scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
         tabNameInput.getDialogPane().getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
