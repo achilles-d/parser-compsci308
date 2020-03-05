@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.InvalidationListener;
+import slogo.model.exceptions.InvalidCommandException;
 
 public class CommandFactory {
     private BackEndTurtle turtle;
@@ -24,26 +26,24 @@ public class CommandFactory {
         this.userVariableHandler=userVariableHandler;
     }
 
-    public Object getCommand(String commandName, List<Object> arguments) throws InvocationTargetException,
-            NoSuchMethodException, ClassNotFoundException,
-            InstantiationException,
-            IllegalAccessException {
+    public Object getCommand(String commandName, List<Object> arguments) throws InvalidCommandException{
 
         return makeCommand(commandName, arguments);
 
         //return
     }
 
-    private Object makeCommand(String commandName, List<Object> arguments) throws NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
-            InstantiationException,
-            ClassNotFoundException {
+    private Object makeCommand(String commandName, List<Object> arguments) throws InvalidCommandException {
 
             Object currentCommand = null;
 
-            Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandName);
-            Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
+      Class<?> c = null;
+      try {
+        c = Class.forName("slogo.model.backEndInternal.commands." + commandName);
+      } catch (ClassNotFoundException e) {
+        throw new InvalidCommandException("Temp", e);    //FIXME improve error msg
+      }
+      Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
             Object[] ar = new Object[pType.length];
             inputCounter = 0;
 
@@ -72,12 +72,20 @@ public class CommandFactory {
                     inputCounter++;
                 }
             }
+      Constructor<?> cons = null;
+      try {
+        cons = c.getDeclaredConstructor(pType);
+      } catch (NoSuchMethodException e) {
+        throw new InvalidCommandException("temp", e); //FIXME improve error message
+      }
+      System.out.println("Inputs size to constructor "+ar.length);
 
-            Constructor<?> cons = c.getDeclaredConstructor(pType);
-           System.out.println("Inputs size to constructor "+ar.length);
-
-            currentCommand = cons.newInstance(ar);
-        return currentCommand;
+      try {
+        currentCommand = cons.newInstance(ar);
+      } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
+        throw new InvalidCommandException("temp", e); //FIXME improve error message
+      }
+      return currentCommand;
     }
 
     public void updateCounter(Integer v) {
