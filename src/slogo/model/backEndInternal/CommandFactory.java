@@ -60,7 +60,7 @@ public class CommandFactory {
 
            System.out.println(" command name to create is  " + commandName);
            System.out.println("Totall number of inputs " + pType.length);
-        System.out.println("For command " + commandName);
+           System.out.println("For command " + commandName);
 
 
             for (int j = 0; j < pType.length; j++) {
