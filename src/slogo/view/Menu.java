@@ -7,17 +7,20 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Menu {
@@ -35,6 +38,8 @@ public class Menu {
     private static final String LANGUAGE = "language";
     private static final String HELP = "help";
     private static final int ICON_SIZE = 20;
+    private static final String DEFAULT_TURTLE = "turtle.jpg";
+    private static final String DEFAULT_LANGUAGE = "English";
 
     private HBox myView;
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
@@ -55,13 +60,13 @@ public class Menu {
     private ColorPalette myColorPalette;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update,ColorPalette colors)
+    public Menu(ParserController control,SimpleBooleanProperty update)
    {
        myController = control;
        myView = new HBox();
 
        tellUpdate = update;
-       myColorPalette = colors;
+       myColorPalette = control.getColorPalette();
 
        activeBackgroundColor = new SimpleDoubleProperty(DEFAULT_BACKGROUND_COLOR);
        bgColors = new MenuButton(visualText.getString(BGCOLORS));
@@ -72,17 +77,25 @@ public class Menu {
        makeColorsMenu(activePenColor,penColors);
 
 
-       turtleImage = new SimpleStringProperty("turtle.jpg");
+       turtleImage = new SimpleStringProperty(DEFAULT_TURTLE);
        images = new MenuButton(visualText.getString(IMAGES));
        makeImagesMenu();
 
-       activeLanguage = new SimpleStringProperty("English");
+       activeLanguage = new SimpleStringProperty(DEFAULT_LANGUAGE);
        languages = new MenuButton(visualText.getString(LANGUAGE));
        makeLanguagesMenu();
 
        Button help = new Button(visualText.getString(HELP));
-       help.setOnAction(event -> { makeHelpScreen();
-          });
+
+       help.setOnAction(event -> {
+           try {
+               makeHelpScreen();
+           } catch (IOException e) {
+               e.printStackTrace();     //FIXME change error handling scheme
+           }
+       });
+
+
 
        myView.getChildren().addAll(bgColors,penColors,languages,images,help);
    }
@@ -153,13 +166,29 @@ public class Menu {
 
    public Property getActivePenColor() { return activePenColor;}
 
-   private void makeHelpScreen()
+   private void makeHelpScreen()  throws IOException
    {
        Stage stage1 = new Stage();
-       Label helpText = new Label("This is a help screen");
-       Group helpGroup = new Group();
-       helpGroup.getChildren().addAll(helpText);
-       Scene helpScreen = new Scene(helpGroup,400,400);
+       List<String> allHelpText;
+       File helpWindowTextFile = new File("src/resources/windowtext/HelpWindowText.txt");
+       System.out.println(helpWindowTextFile.exists());
+       try{
+          allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
+       }
+       catch(IOException ex){
+           throw ex;
+       }
+
+       VBox helpLabels =new VBox();
+       for(String s:allHelpText)
+       {
+           helpLabels.getChildren().add(new Label(s));
+       }
+
+       ScrollPane helpScreenText = new ScrollPane();
+       helpScreenText.setContent(helpLabels);
+
+       Scene helpScreen = new Scene(helpScreenText,400,400);
        stage1.setScene(helpScreen);
        stage1.show();
    }
