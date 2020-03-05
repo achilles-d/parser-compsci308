@@ -12,7 +12,7 @@ import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
-public class MoveTurtleComponent {
+public class MoveTurtleWindow extends Window {
 
     private static final int MOVE_AMOUNT = 50;
     private static final String FORWARD = "Forward";
@@ -31,8 +31,7 @@ public class MoveTurtleComponent {
     private Button right;
     private Button left;
 
-    public MoveTurtleComponent(ParserController control,SimpleBooleanProperty update, CodeStage code)
-    {
+    public MoveTurtleWindow(ParserController control, SimpleBooleanProperty update, CodeStage code) {
         myController = control;
         tellUpdate = update;
         myCode = code;
@@ -44,60 +43,69 @@ public class MoveTurtleComponent {
 
         VBox buttonPane = new VBox();
 
-        forward = makeButton(FORWARD,event ->{setLanguage(); moveForward();});
-        back = makeButton(BACK, event->{setLanguage(); moveBackward();});
-        right = makeButton(RIGHT, event ->{setLanguage(); turnRight();});
-        left = makeButton(LEFT, event->{setLanguage(); turnLeft();});
+        forward = makeButton(FORWARD, event -> {
+            setLanguage();
+            moveForward();
+        });
+        back = makeButton(BACK, event -> {
+            setLanguage();
+            moveBackward();
+        });
+        right = makeButton(RIGHT, event -> {
+            setLanguage();
+            turnRight();
+        });
+        left = makeButton(LEFT, event -> {
+            setLanguage();
+            turnLeft();
+        });
 
-        buttonPane.getChildren().addAll(forward,back,right,left);
+        buttonPane.getChildren().addAll(forward, back, right, left);
         buttonPane.setAlignment(Pos.CENTER);
 
         myView.setContent(buttonPane);
 
     }
 
-    private void setLanguage()
-    {
+    private void setLanguage() {
         commandsList = ResourceBundle.getBundle(myController.getLanguage());
     }
 
-    private String getCommandName(String key)
-    {
+    private String getCommandName(String key) {
         String[] commands = commandsList.getString(key).split("\\|");
         return commands[1];
     }
 
-    private void moveForward()
-    {
+    private void moveForward() {
         myCode.addCodeToBeParsed(getCommandName(FORWARD) + " " + MOVE_AMOUNT);
         tellUpdate.setValue(true);
     }
 
-    private void moveBackward()
-    {
+    private void moveBackward() {
         myCode.addCodeToBeParsed(getCommandName(BACK) + " " + MOVE_AMOUNT);
         tellUpdate.setValue(true);
     }
 
-    private void turnRight()
-    {
+    private void turnRight() {
         myCode.addCodeToBeParsed(getCommandName(RIGHT) + " " + ROTATE_AMOUNT);
         tellUpdate.setValue(true);
     }
 
-    private void turnLeft()
-    {
+    private void turnLeft() {
         myCode.addCodeToBeParsed(getCommandName(LEFT) + " " + ROTATE_AMOUNT);
         tellUpdate.setValue(true);
     }
 
-    private Button makeButton(String buttonText, EventHandler<ActionEvent> e)
-    {
-          Button button = new Button(buttonText);
-          button.setOnAction(e);
-          return button;
+    private Button makeButton(String buttonText, EventHandler<ActionEvent> e) {
+        Button button = new Button(buttonText);
+        button.setOnAction(e);
+        return button;
     }
 
+    public void update()
+    {
+
+    }
     public Node getView()
     {
         return myView;

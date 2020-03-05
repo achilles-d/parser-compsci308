@@ -1,5 +1,6 @@
 package slogo.view;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.TitledPane;
@@ -24,7 +25,7 @@ public class TurtleCompleteInfoWindow extends Window {
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
 
-    public TurtleCompleteInfoWindow(ParserController control)
+    public TurtleCompleteInfoWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
         myTurtleController = control.getTurtleController();

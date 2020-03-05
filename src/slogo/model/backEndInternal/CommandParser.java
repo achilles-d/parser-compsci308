@@ -261,7 +261,7 @@ public class CommandParser implements Parser {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            throw new InvalidCommandException("");
+            throw new InvalidCommandException("Default");
         }
         argumentStack.add(com);
     }

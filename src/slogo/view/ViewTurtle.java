@@ -80,7 +80,7 @@ public class ViewTurtle {
     }
 
 
-    public void clickedTurtle()
+    private void clickedTurtle()
     {
         activeTurtle.setValue(!activeTurtle.get());
 

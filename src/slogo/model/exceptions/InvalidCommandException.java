@@ -1,11 +1,13 @@
 package slogo.model.exceptions;
 
-//This exception will let the user know if a command they entered is invalid
+import java.util.ResourceBundle;
+
 public class InvalidCommandException extends RuntimeException{
 
-    //Default
-    public InvalidCommandException(String message){
-        super(message);
+    public static final String ERROR_MESSAGE_PROP_DIR = "resources.errors.window.InvalidCommandException";
+
+    public InvalidCommandException(String messageType){
+        super(ResourceBundle.getBundle(ERROR_MESSAGE_PROP_DIR).getString(messageType));
     }
 
 }
