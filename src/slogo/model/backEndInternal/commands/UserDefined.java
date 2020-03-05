@@ -63,7 +63,11 @@ public class UserDefined implements Command {
        listOfCommands= (List<String>) command.execute();
         removeBracket((listOfCommands));
 
-       for(int i=0; i<inputsList.size(); i++){
+        System.out.println("Size of inputs in userDefined"+inputsList.size());
+        System.out.println("Size of values in userDefined"+values.size());
+
+
+        for(int i=0; i<inputsList.size(); i++){
 
            Collections.replaceAll(listOfCommands, inputsList.get(i),(String)values.get(i).execute());
 

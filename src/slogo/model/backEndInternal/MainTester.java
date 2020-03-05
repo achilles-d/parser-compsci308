@@ -133,7 +133,7 @@ String userInput="set :count 12\n" +
         "dash";
         //String userInput="cos less? sum difference 10 50 30 40";
 
-        //String userInput="make :x 50 fd :x";
+       // String userInput="pu fd 10 pd fd 10";
 
 
         // note, this simple "algorithm" will not handle SLogo comments

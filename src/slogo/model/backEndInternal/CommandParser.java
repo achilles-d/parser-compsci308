@@ -226,7 +226,9 @@ System.out.println("size of values "+sizeOfArgument);
         System.out.println("Command to create in parser "+currentCommand);
 
         int numOfArguments=readArgumentSize(currentCommand);
-System.out.println("Size is "+numOfArguments);
+        System.out.println("Command type "+currentCommand);
+        System.out.println("Required argument size "+numOfArguments);
+        System.out.println("Argument stack size "+argumentStack.size());
         List<Object> argumentsToBuildCommand=new ArrayList<>();
 
         for(int i=0; i<numOfArguments; i++){
@@ -242,9 +244,6 @@ System.out.println("Size is "+numOfArguments);
         Command com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
 
         argumentStack.add(com);
-
-
-
 
 
     }
@@ -301,16 +300,19 @@ System.out.println("Size is "+numOfArguments);
                 output = (Double) argumentStack.pop().execute();
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
-                System.out.println("This is what it returns "+argumentStack.peek().execute());
+                //System.out.println("This is what it returns "+argumentStack.peek().execute());
                 //List<String> codes=new ArrayList<>();
                 //codes.addAll((Collection<? extends String>) argumentStack.pop().execute());
                 //commandStack.addAll(codes);
                 //commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
                 //commandStack.add((String) argumentStack.pop().execute());
                 Object com=argumentStack.pop().execute();
+                System.out.println("Added to commad stack");
                 if(com instanceof String){
+                    System.out.println("Name will be added "+com.toString());
                     commandStack.add((String)com);
                 } else{
+                    System.out.println("List will be added "+com.toString());
                     commandStack.addAll((Collection<? extends String>) com);
                 }
 //                for(int i=0; i<Arrays.asList(argumentStack.peek().execute()).size();i++){
