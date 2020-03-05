@@ -39,6 +39,8 @@ public class CommandParser implements Parser {
     private int leftBracketCounter=0;
     private int rightBracketCounter=0;
 
+    private Double output;
+
     /**
      * Create an empty parser
      */
@@ -212,7 +214,7 @@ public class CommandParser implements Parser {
 
 
     @Override
-    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
+    public Double parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
             ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         clearAll();
         commandHandler.updateCommandHistory(consoleInput);
@@ -221,7 +223,7 @@ public class CommandParser implements Parser {
         fillStackWithValidCommand(consoleInput);
 
         buildAndExecuteCommand();
-
+        return output;
     }
 
     private void buildAndExecuteCommand() throws ClassNotFoundException, NoSuchMethodException,
@@ -239,7 +241,7 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
 
         while(argumentStack.size()!=0){
             if(argumentStack.peek().isItExecutable()){
-                System.out.println("Answer is "+argumentStack.pop().execute());
+                output = (Double) argumentStack.pop().execute();
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());

@@ -15,7 +15,7 @@ public interface Parser {
      * @param consoleInput this is the input by the user
      * @throws InvalidCommandException if some command that is being parsed is invalid
      */
-    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
+    public Double parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
             ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 
 //    /**
