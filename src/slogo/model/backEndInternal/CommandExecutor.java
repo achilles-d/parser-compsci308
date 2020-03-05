@@ -14,7 +14,7 @@ public class CommandExecutor implements Executor {
     /**
      *
      */
-    public Object executeCommand(Command currentCommand) throws ExecutionException {
+    public Object executeCommand(Command currentCommand) throws Exception {
         return currentCommand.execute();
     }
 

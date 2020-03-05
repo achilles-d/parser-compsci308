@@ -31,7 +31,7 @@ public class ParserController {
     private TurtleController myTurtleController;
     private CommandFileIO myCommandFileIO;
 
-    public ParserController(){
+    public ParserController() {
         myTurtleController = new TurtleController();
         //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);

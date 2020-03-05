@@ -17,7 +17,7 @@ public class Repeat implements Command<Object> {
 
   private List<String> commandsToAddToStack;
 
-  public Repeat(UserVariableHandler handler, Command num, Command group) {
+  public Repeat(UserVariableHandler handler, Command num, Command group) throws Exception {
     this.handler=handler;
     this.groupedCodes= (List<String>) group.execute();
     variableCommand=num;
