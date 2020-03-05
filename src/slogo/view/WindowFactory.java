@@ -14,7 +14,7 @@ public class WindowFactory {
     private static final String INDEX_TO_PARAMNAME = "resources.parameternames";
     private static final String CLASSPATH = "slogo.view.";
     private static final String WINDOW = "Window";
-    private static final String ERRORS = "resources.errors.ErrorMessages";
+    private static final String ERRORS = "resources.errors.InvalidCommandExceptionText";
     private static final String WINDOW_ERROR = "WindowError";
 
 
@@ -37,7 +37,7 @@ public class WindowFactory {
 
     public Window makeWindow(String windowName)
     {
-        Constructor[] constructors = new Constructor[0];
+        Constructor[] constructors;
         try {
             constructors = Class.forName(CLASSPATH+windowName+ WINDOW).getConstructors();
         } catch (ClassNotFoundException e) {
