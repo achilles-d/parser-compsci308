@@ -63,9 +63,9 @@ public class MainTester {
 
 
         // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("resources.languages.English");
+        lang.addPatterns("resources.languages.English", "resources.languages.Syntax");
         // general checks, added last
-        lang.addPatterns("resources.languages.Syntax");
+       // lang.addPatterns("resources.languages.Syntax");
 
         // try against different kinds of inputs
         //m.parseText(lang, m.examples);
