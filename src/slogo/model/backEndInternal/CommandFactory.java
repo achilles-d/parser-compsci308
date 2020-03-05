@@ -15,6 +15,7 @@ public class CommandFactory {
     private int stringCounter;
     private List<String> unExecutedCommands;
     private Map<String, List<Command>>  userCommandHandler;
+    private List<Object > listOfCommands;
    // private int commandCounter;
 
     private List<BackEndTurtle> listOfTurtles = new ArrayList<>();
@@ -33,8 +34,13 @@ public class CommandFactory {
             NoSuchMethodException, ClassNotFoundException,
             InstantiationException,
             IllegalAccessException {
+        listOfCommands=new ArrayList<>();
 
-        return makeCommand(commandName, arguments);
+        for(BackEndTurtle bt: listOfTurtles){
+            turtle=bt;
+            listOfCommands.add(makeCommand(commandName, arguments));
+        }
+        return listOfCommands;
 
         //return
     }
@@ -62,34 +68,37 @@ public class CommandFactory {
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
                 System.out.println("Constructor type needs is " + className);
 
-                if (className.equals("BackEndTurtle")) {
-                    ar[j] = turtle;
-                } else if (className.equals("Coordinate")) {
-                    ar[j] = turtle.getPosition();
-                }  else if(className.equals("UserVariableHandler")) {
-                    ar[j] = userVariableHandler;
-                } else if(className.equals("List")){
-                    ar[j]=arguments;
-                    System.out.println("here is the data for the group "+arguments.toString());
-                    System.out.println("size of the arguments "+j);
-                } else if(className.equals("Map")){
-                    ar[j]=userCommandHandler;
-                    System.out.println("here is the data for the group "+arguments.toString());
-                    System.out.println("size of the arguments "+j);
-                }
-                else {
-                    System.out.println(" current counter is "+inputCounter);
-                    System.out.println("Size of the ptype is "+pType.length);
-                    System.out.println("here is the data "+className);
-                    System.out.println("size of argument "+arguments.size());
-                    ar[j]=arguments.get(inputCounter);
-                    System.out.println("Name of the userDefined command "+arguments.get(0).toString());
-                    inputCounter++;
-                }
+
+                    if (className.equals("BackEndTurtle")) {
+                        ar[j] = turtle;
+
+                    } else if (className.equals("TurtleController")) {
+                        ar[j]=listOfTurtles;
+                    }else if (className.equals("Coordinate")) {
+                        ar[j] = turtle.getPosition();
+                    }  else if(className.equals("UserVariableHandler")) {
+                        ar[j] = userVariableHandler;
+                    } else if(className.equals("List")){
+                        ar[j]=arguments;
+                        System.out.println("here is the data for the group "+arguments.toString());
+                        System.out.println("size of the arguments "+j);
+                    } else if(className.equals("Map")){
+                        ar[j]=userCommandHandler;
+                        System.out.println("here is the data for the group "+arguments.toString());
+                        System.out.println("size of the arguments "+j);
+                    }
+                    else {
+                        System.out.println(" current counter is "+inputCounter);
+                        System.out.println("Size of the ptype is "+pType.length);
+                        System.out.println("here is the data "+className);
+                        System.out.println("size of argument "+arguments.size());
+                        ar[j]=arguments.get(inputCounter);
+                        System.out.println("Name of the userDefined command "+arguments.get(0).toString());
+                        inputCounter++;
+                    }
+
             }
-
-
-
+            
             Constructor<?> cons = c.getDeclaredConstructor(pType);
            //System.out.println("Inputs to constructor "+ar[0]);
 
