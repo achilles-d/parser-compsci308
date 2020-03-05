@@ -13,6 +13,11 @@ public class UserVariableHandler<T>  {
     private List<String> keys =  new ArrayList<>();
     private List<String> values = new ArrayList<>();
 
+    public void setVariable(String variableName, double value)
+    {
+        allVariables.get(variableName).setValue(value);
+    }
+
     public UserVariable getVariable(String variableName) {
         return allVariables.get(variableName);
     }
