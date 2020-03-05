@@ -14,11 +14,14 @@ import javafx.beans.property.Property;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import slogo.model.Coordinate;
+import slogo.model.backEndInternal.*;
 import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.Line;
 import slogo.model.Variable;
-import slogo.model.backEndInternal.*;
+
+
+
 import slogo.view.ColorPalette;
 
 public class ParserController {
