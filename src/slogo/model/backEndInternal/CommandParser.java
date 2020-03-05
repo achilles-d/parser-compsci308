@@ -228,7 +228,7 @@ public class CommandParser implements Parser {
     private void buildAndExecuteCommand() throws ClassNotFoundException, NoSuchMethodException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
         numOfCommandsToExecute++;
-System.out.println("step 1 in the loop " +numOfCommandsToExecute);
+        System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         while(commandStack.size()!=0){
 
             if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
@@ -244,10 +244,6 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
-                //System.out.println("size of command stack "+commandStack.);
-//                for(int i=0; i<=commandStack.size()+1;i++){
-//                    System.out.println("What is added to the stack is "+commandStack.pop());
-//                }
                buildAndExecuteCommand();
             }
 
