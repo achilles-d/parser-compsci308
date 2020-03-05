@@ -11,6 +11,8 @@ import java.util.*;
 import java.util.List;
 
 import javafx.beans.property.Property;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import slogo.model.Coordinate;
 import slogo.model.backEndInternal.*;
 import slogo.model.exceptions.InvalidCommandException;
@@ -114,7 +116,7 @@ public class ParserController {
         List<String> varNamesAndValues = new ArrayList<>();
         for(String var : variables){
             String varValue = myUserVarHandler.getVariable(var).toString();
-            varNamesAndValues.add(var + ":" + varValue);
+            varNamesAndValues.add(var + "=" + varValue);
         }
         return Collections.unmodifiableList(varNamesAndValues);
     }
@@ -131,8 +133,13 @@ public class ParserController {
     public void setLanguage(String language){
         System.out.println("called langauge button");
         myLanguage = Language.valueOf(language.toUpperCase());
-        myCommandParser.addPatterns(myLanguage.getLanguageFile());
-        myCommandParser.addPatterns(SYNTAX);
+        myCommandParser.addPatterns(myLanguage.getLanguageFile(), SYNTAX);
+        //myCommandParser.addPatterns(SYNTAX);
+    }
+
+    public void setVariable(String varName, double value)
+    {
+        myUserVarHandler.setVariable(varName,value);
     }
 
     public void saveCommandHistory() throws IOException {
@@ -152,5 +159,15 @@ public class ParserController {
         catch(Exception ex){
             throw ex;
         }
+    }
+
+    public ObservableList<String> getVariableKeysProperties()
+    {
+        return myUserVarHandler.getKeys();
+    }
+
+    public ObservableMap<String, UserVariable> getVariableMap()
+    {
+        return myUserVarHandler.getVariableMap();
     }
 }

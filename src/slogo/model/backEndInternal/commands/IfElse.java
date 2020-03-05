@@ -29,11 +29,11 @@ public class IfElse implements Command<Object> {
     public Object execute() {
         if (userVal>0) {
             commandListLeft.remove(LEFT_BRACKET);
-            commandListLeft.remove(RIGHT_BRACKET);
+            commandListLeft.remove(commandListLeft.lastIndexOf(RIGHT_BRACKET));
             return commandListLeft;
         } else {
             commandListRight.remove(LEFT_BRACKET);
-            commandListRight.remove(RIGHT_BRACKET);
+            commandListRight.remove(commandListRight.lastIndexOf(RIGHT_BRACKET));
             return commandListRight;
         }
     }

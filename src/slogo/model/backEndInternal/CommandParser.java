@@ -292,11 +292,18 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
     }
 
     /**
-     * @param syntax the name of the syntax source language name
+     * @param lang the name of the syntax source language name
      *               Adds the keys to mySymbols, thus comparison can be done
      */
-    public void addPatterns(String syntax) {
-        ResourceBundle resources = ResourceBundle.getBundle(syntax);
+    public void addPatterns(String lang, String s) {
+        mySymbols.clear();
+
+        addToResourceMap(lang);
+        addToResourceMap(s);
+    }
+
+    private void addToResourceMap(String lang) {
+        ResourceBundle resources = ResourceBundle.getBundle(lang);
         for (String key : Collections.list(resources.getKeys())) {
             String regex = resources.getString(key);
             mySymbols.add(new AbstractMap.SimpleEntry<>(key,
@@ -337,8 +344,7 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
-        userVariableHandler.getKeys().clear();
-
+        //userVariableHandler.getKeys().clear();
     }
 
 

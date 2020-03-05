@@ -25,7 +25,7 @@ private boolean isExecutable = true;
 
         if (userVal!=0) {
             commandList.remove(LEFT_BRACKET);
-            commandList.remove(RIGHT_BRACKET);
+            commandList.remove(commandList.lastIndexOf(RIGHT_BRACKET));
             return commandList;
         }
         return 0.0;
