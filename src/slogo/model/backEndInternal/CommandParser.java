@@ -46,7 +46,7 @@ public class CommandParser implements Parser {
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
-                         BackEndTurtle turtle) {
+                         BackEndTurtle turtle) throws ExecutionException {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
@@ -94,14 +94,14 @@ public class CommandParser implements Parser {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException
                 | ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new ExecutionException("Temp", e);
         }
     argumentStack.add(com);
 
     }
 
     private void parseListStart(){
-        throw new InvalidCommandException("");
+        throw new InvalidCommandException(""); //FIXME define a more specific message
     }
 
     private void parseGroupStart(){
@@ -127,7 +127,7 @@ public class CommandParser implements Parser {
 
     }
     private  void parseGroupEnd() {
-        throw new InvalidCommandException("");
+        throw new InvalidCommandException("Temp"); //FIXME define a more specific message
 
     }
 
@@ -176,7 +176,7 @@ public class CommandParser implements Parser {
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException("");
+              throw new InvalidCommandException("", null);  //FIXME define a Throwable cause
 
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
@@ -206,7 +206,7 @@ public class CommandParser implements Parser {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            throw new InvalidCommandException("Default");
+            throw new InvalidCommandException("Default", e);
         }
         argumentStack.add(com);
     }
