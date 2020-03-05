@@ -158,13 +158,5 @@ public class ParserController {
         }
     }
 
-    public ObservableList<String> getVariableKeysProperties()
-    {
-        return myUserVarHandler.getKeys();
-    }
 
-    public ObservableMap<String, UserVariable> getVariableMap()
-    {
-        return myUserVarHandler.getVariableMap();
-    }
 }
