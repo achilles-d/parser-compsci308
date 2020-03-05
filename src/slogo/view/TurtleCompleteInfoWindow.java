@@ -15,6 +15,8 @@ public class TurtleCompleteInfoWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
     private static final int SIZE_COMPONENT = 400;
+    private static final String TURTLEINFO = "turtleinfo";
+    private static final int SPACING = 15;
 
     private TitledPane myView;
     private VBox turtleStates;
@@ -32,7 +34,7 @@ public class TurtleCompleteInfoWindow extends Window {
         myColorPalette = control.getColorPalette();
         turtleStates = new VBox();
         myView = new TitledPane();
-        myView.setText(visualText.getString("turtleinfo"));
+        myView.setText(visualText.getString(TURTLEINFO));
         update();
         myView.setContent(turtleStates);
         myView.setMaxWidth(SIZE_COMPONENT);
@@ -45,7 +47,7 @@ public class TurtleCompleteInfoWindow extends Window {
         HBox info = new HBox();
         info.getChildren().add(new TurtleStatesWindow(viewTurt).getView());
         info.getChildren().add(new PenStateWindow(viewTurt,myColorPalette).getView());
-        info.setSpacing(15);
+        info.setSpacing(SPACING);
         return info;
     }
 

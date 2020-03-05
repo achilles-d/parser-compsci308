@@ -71,9 +71,7 @@ public class BackEndTurtle implements Turtle {
         {
             drawLine(turtleCoordinate,newCord);
         }
-        System.out.println(" before " + turtleCoordinate);
         turtleCoordinate = newCord;
-        System.out.println( " after " + turtleCoordinate);
         xLoc.set(newCord.getXVal());
         yLoc.set(newCord.getYVal());
     }
@@ -117,9 +115,7 @@ public class BackEndTurtle implements Turtle {
     private Coordinate ensureInBounds(Coordinate a) {
 
         double x = a.getXVal();
-        double xPrev = x;
         double y = a.getYVal();
-        double yPrev = y;
 
         boolean hitXWall = false;
         boolean hitYWall = false;
@@ -146,10 +142,7 @@ public class BackEndTurtle implements Turtle {
 
         }
 
-        double adjustX = x;
-        double adjustY = y;
 
-        System.out.println("YAY " );
 
         /*
         if(!hitXWall && hitYWall)
