@@ -344,8 +344,7 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
-        userVariableHandler.getKeys().clear();
-
+        //userVariableHandler.getKeys().clear();
     }
 
 
