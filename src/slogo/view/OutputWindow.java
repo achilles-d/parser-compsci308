@@ -1,9 +1,11 @@
 package slogo.view;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
+import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
@@ -18,7 +20,7 @@ public class OutputWindow extends Window {
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
 
-    public OutputWindow()
+    public OutputWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
     {
         myView = new TitledPane();
         myView.setMaxWidth(250);

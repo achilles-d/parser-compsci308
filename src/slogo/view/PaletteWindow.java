@@ -36,7 +36,7 @@ public class PaletteWindow extends Window{
     private SimpleBooleanProperty tellUpdate;
     private HBox paletteContainer;
 
-    public PaletteWindow(ParserController control, SimpleBooleanProperty update)
+    public PaletteWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
     {
         tellUpdate = update;
         myController = control;
