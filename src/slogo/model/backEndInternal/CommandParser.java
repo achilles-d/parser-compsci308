@@ -190,11 +190,13 @@ System.out.println("size of values "+sizeOfArgument);
 //
 //            }
             commandName="UserDefined";
+            System.out.println("values given from the user "+values.toString());
+             System.out.println("variables "+userDefinedFunction.get(commandStack.peek()).get(0).execute().toString());
+            System.out.println("Commands "+userDefinedFunction.get(commandStack.peek()).get(1).execute().toString());
+            System.out.println("Size of user defined function map "+userDefinedFunction.size());
             argumentsToBuildCommand.add(values);
-            System.out.println("variables "+userDefinedFunction.get(0).toString());
-            System.out.println("Commands "+userDefinedFunction.get(1).toString());
-            argumentsToBuildCommand.add(userDefinedFunction.get(0));//, userDefinedFunction.get(1));
-            argumentsToBuildCommand.add(userDefinedFunction.get(1));
+            argumentsToBuildCommand.add(userDefinedFunction.get(commandStack.peek()).get(0));//, userDefinedFunction.get(1));
+            argumentsToBuildCommand.add(userDefinedFunction.get(commandStack.peek()).get(1));
 
             //String currentCommand=getSymbol(commandStack.pop());
 
@@ -305,11 +307,17 @@ System.out.println("Size is "+numOfArguments);
                 //commandStack.addAll(codes);
                 //commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
                 //commandStack.add((String) argumentStack.pop().execute());
-                for(int i=0; i<Arrays.asList(argumentStack.peek().execute()).size();i++){
-                    System.out.println(" Commands are "+Arrays.asList(argumentStack.peek().execute()).get(i));
-                    commandStack.add((String)Arrays.asList(argumentStack.peek().execute()).get(i)) ;
+                Object com=argumentStack.pop().execute();
+                if(com instanceof String){
+                    commandStack.add((String)com);
+                } else{
+                    commandStack.addAll((Collection<? extends String>) com);
                 }
-                argumentStack.pop();
+//                for(int i=0; i<Arrays.asList(argumentStack.peek().execute()).size();i++){
+//                    System.out.println(" Commands are "+Arrays.asList(argumentStack.peek().execute()).get(i));
+//                    commandStack.add((String)Arrays.asList(argumentStack.peek().execute()).get(i)) ;
+//                }
+//                argumentStack.pop();
                buildAndExecuteCommand();
             }
 

@@ -1,5 +1,6 @@
 package slogo.model.backEndInternal.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,9 @@ public class StringName implements Command {
         state=0;
     }
     @Override
-    public Object execute() {
-
+    public String execute() {
+        List<String> nameList=new ArrayList<>();
+        nameList.add(name);
         return name;
     }
 

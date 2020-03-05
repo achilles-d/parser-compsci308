@@ -111,15 +111,26 @@ public class MainTester {
 
 
 
-       String userInput="\n" +
-               "to dash [ ]\n" +
-               "[\n" +
-               "fd 100\n" +
-               " \n" +
-               "]\n" +
-               "\n" +
-               "dash";
-
+//       String userInput="\n" +
+//               "to dash [ ]\n" +
+//               "[\n" +
+//               "fd 100\n" +
+//               " \n" +
+//               "]\n" +
+//               "\n" +
+//               "dash";
+String userInput="set :count 12\n" +
+        "\n" +
+        "to dash [ ]\n" +
+        "[\n" +
+        "  repeat :count \n" +
+        "  [\n" +
+        "    pu fd 10 pd fd 10\n" +
+        "  ]\n" +
+        "]\n" +
+        "\n" +
+        "\n" +
+        "dash";
         //String userInput="cos less? sum difference 10 50 30 40";
 
         //String userInput="make :x 50 fd :x";

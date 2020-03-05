@@ -30,12 +30,12 @@ public class UserDefined implements Command {
     public UserDefined(List<Object> param){
        System.out.println(" UserDefined constructor reached 2 " +param.size());
         //List<Command> values, Command inputs,Command command
-        this.values=(List<slogo.model.backEndInternal.commands.Command>) param.get(0);
-       this.inputs= (slogo.model.backEndInternal.commands.Command) param.get(1);
-       this.command= (slogo.model.backEndInternal.commands.Command) param.get(2);
+        this.values=(List<Command>) param.get(0);
+       this.inputs= (Command) param.get(1);
+       this.command= (Command) param.get(2);
        state=1;
 
-        System.out.println(" values " +values.size());
+        System.out.println(" values " +values.toString());
         System.out.println(" inputs " +inputs.execute().toString());
         System.out.println(" listOfCommands " +command.execute().toString());
 
@@ -59,18 +59,23 @@ public class UserDefined implements Command {
     private void buildExecutable(){
 
        List<String> inputsList= (List<String>) inputs.execute();
-
-
+       removeBracket(inputsList);
        listOfCommands= (List<String>) command.execute();
+        removeBracket((listOfCommands));
 
        for(int i=0; i<inputsList.size(); i++){
 
            Collections.replaceAll(listOfCommands, inputsList.get(i),(String)values.get(i).execute());
 
        }
-       listOfCommands.remove(0);// remove bracket
-        listOfCommands.remove(listOfCommands.size()-1);
+       //listOfCommands.remove(0);// remove bracket
+        //listOfCommands.remove(listOfCommands.size()-1);
 
+    }
+
+    private void removeBracket(List<String> inputsList) {
+        inputsList.remove(0);
+        inputsList.remove(inputsList.size()-1);
     }
 
     @Override
