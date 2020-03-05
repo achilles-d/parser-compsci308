@@ -4,77 +4,49 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class IfElse implements Command<Double> {
+public class IfElse implements Command<Object> {
 
-    private List<String> commandList;
+    private List<String> commandListLeft;
+    private List<String> commandListRight;
     private String LEFT_BRACKET = "[";
     private String RIGHT_BRACKET = "]";
-    private StringBuilder commands = new StringBuilder();
-    Integer check;
-    Integer newCounter;
-    private int size;
+    private Double userVal;
+    private boolean isExecutable = true;
 
-    public IfElse(List<String> sCom, Integer counter) {
-        this.commandList = sCom;
-        this.size = commandList.size();
-        this.newCounter = counter;
+    public IfElse(Command con, Command commandLeft, Command commandRight) {
+        this.userVal = (Double) con.execute();
+        this.commandListLeft = (List<String>) commandLeft.execute();
+        this.commandListRight = (List<String>) commandRight.execute();
+
+        System.out.println(" COMMAND LEFT : " + commandLeft);
+
+        System.out.println(" COMMAND RIGHT : " + commandRight);
+        //isExecutable(userVal);
     }
 
 
     @Override
-    public Double execute() {
-        ArrayList<String> commandToRepeat = new ArrayList<>();
-        newCounter = commandList.indexOf("IfElse");
-        check = Integer.parseInt(commandList.get(newCounter + 1));
-        System.out.println(commandList);
-        List<String> intList = commandList.subList(commandList.lastIndexOf(LEFT_BRACKET), commandList.size());
-        List<String> rightSide = intList.subList(intList.indexOf(RIGHT_BRACKET), intList.size());
-        rightSide = rightSide.subList(1, rightSide.size());
-
-        if (check != 0) {
-
-
-            if (commandList.get(newCounter + 2).equals(LEFT_BRACKET)) {
-                newCounter += 3;
-                updateCommands();
-                String[] com = commands.toString().split(" ");
-                commandToRepeat.addAll(Arrays.asList(com));
-                commandToRepeat.addAll(rightSide);
-                commandList = commandToRepeat;
-                System.out.println(commandList);
-            }
-            // True statements
+    public Object execute() {
+        if (userVal>0) {
+            commandListLeft.remove(LEFT_BRACKET);
+            commandListLeft.remove(RIGHT_BRACKET);
+            return commandListLeft;
         } else {
-            newCounter = commandList.indexOf(RIGHT_BRACKET) + 1;
-            if (commandList.get(newCounter).equals(LEFT_BRACKET)) {
-                newCounter++;
-                updateCommands();
-                String[] com = commands.toString().split(" ");
-                commandToRepeat.addAll(Arrays.asList(com));
-                commandToRepeat.addAll(rightSide);
-                commandList = commandToRepeat;
-                System.out.println(commandList);
-            }
-            // False statements
+            commandListRight.remove(LEFT_BRACKET);
+            commandListRight.remove(RIGHT_BRACKET);
+            return commandListRight;
         }
-        return Double.MAX_VALUE;
     }
+//
+//    private void isExecutable(Double userVal) {
+//        if (userVal != 0 && commandListRight.size() != 0) {
+//            isExecutable = false;
+//        }
+//    }
 
     @Override
     public boolean isItExecutable() {
-        return true;
+        return false;
     }
 
-    private void updateCommands() {
-
-        while(newCounter < commandList.size()){
-            if (commandList.get(newCounter).equals(RIGHT_BRACKET)) {
-                newCounter++;
-                break;
-            }
-            commands.append(commandList.get(newCounter));
-            commands.append(" ");
-            newCounter++;
-        }
-    }
 }

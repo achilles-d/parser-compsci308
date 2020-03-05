@@ -13,7 +13,7 @@ public class DoTimes implements Command<Object> {
     private boolean isItExecutable;
 
     private List<String> index;
-    private   String RIGHT_BRACKET = "]";
+    private String RIGHT_BRACKET = "]";
     private String LEFT_BRACKET = "[";
     List<String> repeatCommand;//new ArrayList<>();
 

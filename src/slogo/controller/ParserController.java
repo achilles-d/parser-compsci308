@@ -30,6 +30,7 @@ public class ParserController {
     private ColorPalette myColorPalette;
     private TurtleController myTurtleController;
     private CommandFileIO myCommandFileIO;
+    private Double output;
 
     public ParserController() {
         myTurtleController = new TurtleController();
@@ -62,10 +63,11 @@ public class ParserController {
         return myColorPalette;
     }
 
-    public void parseCode(String code) throws Exception {
+    public Double parseCode(String code) throws Exception {
        // code = code.replaceAll("[\r\n]+", " ");
         try{
-            myCommandParser.parseCode(code);
+            output = myCommandParser.parseCode(code);
+            return output;
         }
         catch(Exception exception){
             throw exception;

@@ -266,6 +266,8 @@ public class BackEndTurtle implements Turtle {
 
     public DoubleProperty getShapeIndex() { return shapeIndex; }
 
+    public DoubleProperty getPenSize() { return penSize; }
+
     public boolean getPenStatus() {
         return penDown.get();
     }
