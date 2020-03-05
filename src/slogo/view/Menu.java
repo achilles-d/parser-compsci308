@@ -60,13 +60,13 @@ public class Menu {
     private ColorPalette myColorPalette;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update,ColorPalette colors)
+    public Menu(ParserController control,SimpleBooleanProperty update)
    {
        myController = control;
        myView = new HBox();
 
        tellUpdate = update;
-       myColorPalette = colors;
+       myColorPalette = control.getColorPalette();
 
        activeBackgroundColor = new SimpleDoubleProperty(DEFAULT_BACKGROUND_COLOR);
        bgColors = new MenuButton(visualText.getString(BGCOLORS));
