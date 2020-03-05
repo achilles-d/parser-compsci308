@@ -1,7 +1,9 @@
 package slogo.model.backEndInternal;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
@@ -35,17 +37,17 @@ public class UserVariableHandler<T>  {
     }
 
     public List<String> getKeys() {
-        return Collections.unmodifiableList(keys);
+        return keys;
     }
 
     public Map<String, UserVariable> getVariableMap() {
-        return Collections.unmodifiableMap(allVariables);
+        return allVariables;
     }
 
     public List<String> getValues() {
         for (Object v : allVariables.entrySet()) {
             values.add(v.toString());
         }
-        return Collections.unmodifiableList(values);
+        return values;
     }
 }
