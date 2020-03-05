@@ -43,7 +43,7 @@ public class LogoVisualization extends BorderPane{
 
 
 
-    public void init()
+    private void init()
     {
         myCode = new CodeStage();
 
@@ -52,12 +52,12 @@ public class LogoVisualization extends BorderPane{
         updateNeeded.setValue(false);
         updateNeeded.addListener(((observable, oldValue, newValue) -> checkUpdate(newValue)));
 
-        toolbar = new Menu(myController,updateNeeded,myController.getColorPalette());
+        toolbar = new Menu(myController,updateNeeded);
         myConsole = new ConsoleWindow(myController,updateNeeded,myCode);
         myVariables = new VariableWindow(myController,updateNeeded,myCode);
         myHistory = new HistoryWindow(myController,updateNeeded,myCode);
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
-        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor(),myController.getColorPalette());
+        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
         myPalette = new PaletteWindow(myController,updateNeeded);
         myTurtleInfo = new TurtleCompleteInfoWindow(myController);
@@ -119,6 +119,7 @@ public class LogoVisualization extends BorderPane{
         myVariables.update();
         myPalette.update();
         myTurtleInfo.update();
+        toolbar.update();
 
         myCode.clearStagedCode();
         updateNeeded.setValue(false);

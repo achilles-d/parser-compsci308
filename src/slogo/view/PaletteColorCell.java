@@ -22,7 +22,7 @@ public class PaletteColorCell extends ListCell<String> {
         myPalette = palette;
     }
     @Override
-    public void updateItem(String colorIndex,boolean empty)
+    protected void updateItem(String colorIndex,boolean empty)
     {
         super.updateItem(colorIndex,empty);
         if(empty)

@@ -19,7 +19,7 @@ public class PaletteImagecell extends ListCell<String> {
     private ImageView imageIcon = new ImageView();
 
     @Override
-    public void updateItem(String imageIndex,boolean empty)
+    protected void updateItem(String imageIndex,boolean empty)
     {
         super.updateItem(imageIndex,empty);
         if(empty)

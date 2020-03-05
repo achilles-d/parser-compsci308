@@ -9,7 +9,7 @@ import slogo.controller.ParserController;
 
 import java.util.ResourceBundle;
 
-public class PaletteWindow {
+public class PaletteWindow extends Window{
 
     private static final String DEFAULT_PEN_COLOR = "Black";
     private static final String PEN_COLOR = "resources.colors.PenColor";

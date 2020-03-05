@@ -22,7 +22,6 @@ public class VariableWindow extends Window {
 
     private TitledPane myView;
     private ListView<String> variables;
-    UserVariableHandler handler = new UserVariableHandler();
     private ParserController myController;
     private SimpleBooleanProperty tellUpdate;
     private CodeStage myCode;
@@ -40,7 +39,7 @@ public class VariableWindow extends Window {
         myView = new TitledPane();
         myView.setText(visualText.getString(VARWINDOW));
         myView.setPrefHeight(200);
-//
+
         variables = new ListView<>();
         myView.setContent(variables);
 
@@ -52,36 +51,6 @@ public class VariableWindow extends Window {
         variables.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if(!((int)newValue ==-1))updateVariable((int) newValue);
                 });
-
-
-
-
-
-//        variables = new TableView<>(myController.getVariableKeysProperties());
-//        //variables.getItems().addAll("varXSSSSSSSSSSJFL:DKJF","varY","varY","varY","varY","varY","varY","varY","varY");
-//        myView.setContent(variables);
-//        handler.makeVariable("yay",232.0);
-//        handler.makeVariable("3123",12321.0);
-//        System.out.println(myController.getVariableMap().keySet().size());
-//        //handler.removeVariable("3123");
-//        System.out.println(myController.getVariableMap().keySet().size());
-//
-//        TableColumn<String,String> col1 = new TableColumn<>("Key");
-//        col1.setCellValueFactory(cd-> Bindings.createStringBinding(()-> cd.getValue()));
-//
-//        TableColumn<String,String> col2 = new TableColumn<>("Value");
-//        col2.setCellValueFactory(cd -> Bindings.valueAt(myController.getVariableMap(),cd.getValue()));
-////        col2.setCellValueFactory(TextFieldTableCell.forTableColumn());
-////        col2.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<String, String>>() {
-////            @Override
-////            public void handle(TableColumn.CellEditEvent<String, String> event) {
-////
-////            }
-////        });
-//        variables.getColumns().setAll(col1,col2);
-//
-//        variables.setEditable(true);
-
 
 
 
