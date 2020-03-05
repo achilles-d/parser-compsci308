@@ -10,7 +10,7 @@ public enum Language {
 
   //TODO reconsider adding static modifier
   private final String LANGUAGES_DIR = "resources.languages.";
-  public String myPropertyDir;
+  private String myPropertyDir;
 
   Language(String languageFileName){
     myPropertyDir = LANGUAGES_DIR + languageFileName;

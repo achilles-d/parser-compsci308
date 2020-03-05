@@ -22,6 +22,7 @@ public class Left implements Command<Double> {
     backEndTurtle.setHeading(backEndTurtle.getHeading() - degrees);
     return degrees;
   }
+
     @Override
     public boolean isItExecutable() {
         return true;

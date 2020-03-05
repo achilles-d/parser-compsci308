@@ -1,7 +1,6 @@
 package slogo.model.backEndInternal;
 import slogo.model.CommandHandler;
-import slogo.model.ExecutionException;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.ExecutionException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -51,7 +50,7 @@ public class MainTester {
     /**
      * Start of the program --- just run some test examples.
      */
-    public static void main (String[] args) throws InvalidCommandException, NoSuchMethodException, ExecutionException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException {
+    public static void main (String[] args) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, ExecutionException {
         // NO static methods needed!
         MainTester m = new MainTester();
 
@@ -59,14 +58,14 @@ public class MainTester {
         CommandHandlerAPI ch=new CommandHandlerAPI();
         UserVariableHandler uh=new UserVariableHandler();
 
-        BackEndTurtle turtle= new BackEndTurtle();
+        BackEndTurtle turtle= new BackEndTurtle(0);
         CommandParser lang = new CommandParser(ch, uh, turtle);
 
 
         // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("resources.languages.English");
+        lang.addPatterns("resources.languages.English", "resources.languages.Syntax");
         // general checks, added last
-        lang.addPatterns("resources.languages.Syntax");
+       // lang.addPatterns("resources.languages.Syntax");
 
         // try against different kinds of inputs
         //m.parseText(lang, m.examples);
@@ -80,7 +79,7 @@ public class MainTester {
 
        // String userInput="make :x 20 make :y 40 repeat :x [ fd :x ]";
         //String userInput="make :x 4 repeat :x [ fd 100 rt 90 ]";
-        String userInput="for [ :dist 1 5 1 ] [ product :dist 3 ]";
+        //String userInput="for [ :dist 1 5 1 ] [ product :dist 3 ]";
 
         //String userInput ="[ :dist 10 40 10 ]";
 
@@ -90,23 +89,29 @@ public class MainTester {
 
        // String userInput= "fd 50 IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
+        //String userInput="repeat 36 [ fd 50 rt 10 ]";
         //String userInput="fd 50 for hi jdlls - ls 3 [ fd 50 ] fd 50 - - ";
 
-       // String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
+     //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
-       // String userInput="to test [ :x ] [ fd :x ]";
+        //String userInput="to test [ :x ] [ fd :x ]";
 
-       //String userInput="atan sum sum sum 10 50 30 40";
+
+      // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
+
+       String userInput="atan sum sum sum 10 50 30 40";
 
      //String userInput="cos less? sum difference 10 50 30 40";
-      //String userInput="make pi";
 
-
+        //String userInput="make :x 50 fd :x";
 
 
         // note, this simple "algorithm" will not handle SLogo comments
         //m.parseText(lang, Arrays.asList(userInput.split(WHITESPACE)));// this prints
         lang.parseCode(userInput);
+
+        //userInput = "fd :x";
+        //lang.parseCode(userInput);
 
         //System.out.println(ch.getCommandHistory().get(0));
 

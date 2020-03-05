@@ -1,11 +1,10 @@
 package slogo.model.backEndInternal;
 
-import slogo.model.CommandHandler;
-import slogo.model.ExecutionException;
+import slogo.model.exceptions.ExceptionFactory;
+import slogo.model.exceptions.ExecutionException;
 import slogo.model.backEndInternal.commands.Command;
-import slogo.model.InvalidCommandException;
+import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.Parser;
-import slogo.model.backEndInternal.commands.Repeat;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -20,7 +19,7 @@ public class CommandParser implements Parser {
     private List<Map.Entry<String, Pattern>> mySymbols;
 
     private Stack<Command> argumentStack = new Stack<>();
-    public  Stack<String> commandStack = new Stack<>();
+    private  Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
     private Map<String, Runnable> matchMethodsToRun;
@@ -39,6 +38,8 @@ public class CommandParser implements Parser {
 
     private int leftBracketCounter=0;
     private int rightBracketCounter=0;
+
+    private Double output;
 
     /**
      * Create an empty parser
@@ -60,10 +61,10 @@ public class CommandParser implements Parser {
         matchMethodsToRun.put("Variable", this::parseVariable);
         matchMethodsToRun.put("ListStart", this::parseListStart);
         matchMethodsToRun.put("ListEnd", this::parseListEnd);
-       matchMethodsToRun.put("Whitespace", this::parseWhiteSpace);
-       matchMethodsToRun.put("Newline", this::parseNewLine);
-       matchMethodsToRun.put("GroupEnd", this::parseGroupEnd);
-       matchMethodsToRun.put("GroupStart", this::parseGroupStart);
+        matchMethodsToRun.put("Whitespace", this::parseWhiteSpace);
+        matchMethodsToRun.put("Newline", this::parseNewLine);
+        matchMethodsToRun.put("GroupEnd", this::parseGroupEnd);
+        matchMethodsToRun.put("GroupStart", this::parseGroupStart);
     }
 
     private void parseListEnd() {
@@ -100,7 +101,7 @@ public class CommandParser implements Parser {
     }
 
     private void parseListStart(){
-        throw  new InvalidCommandException();
+        throw new InvalidCommandException("");
     }
 
     private void parseGroupStart(){
@@ -125,8 +126,9 @@ public class CommandParser implements Parser {
         }
 
     }
-    private  void parseGroupEnd(){
-        throw  new InvalidCommandException();
+    private  void parseGroupEnd() {
+        throw new InvalidCommandException("");
+
     }
 
     private void parseNewLine(){
@@ -139,7 +141,6 @@ public class CommandParser implements Parser {
 
 
     private void parseVariable(){
-
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         argumentsToBuildCommand.add(commandStack.peek());
         String variableName=commandStack.peek();
@@ -165,8 +166,7 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
-    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         String currentCommand = getSymbol(commandStack.pop());
 
@@ -176,7 +176,8 @@ public class CommandParser implements Parser {
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException();
+              throw new InvalidCommandException("");
+
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
 
@@ -205,7 +206,7 @@ public class CommandParser implements Parser {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
                 ClassNotFoundException | NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new InvalidCommandException("");
         }
         argumentStack.add(com);
     }
@@ -213,7 +214,7 @@ public class CommandParser implements Parser {
 
 
     @Override
-    public void parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
+    public Double parseCode(String consoleInput) throws InvalidCommandException, ExecutionException,
             ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         clearAll();
         commandHandler.updateCommandHistory(consoleInput);
@@ -222,7 +223,7 @@ public class CommandParser implements Parser {
         fillStackWithValidCommand(consoleInput);
 
         buildAndExecuteCommand();
-
+        return output;
     }
 
     private void buildAndExecuteCommand() throws ClassNotFoundException, NoSuchMethodException,
@@ -240,7 +241,7 @@ public class CommandParser implements Parser {
 
         while(argumentStack.size()!=0){
             if(argumentStack.peek().isItExecutable()){
-                System.out.println("Answer is "+argumentStack.pop().execute());
+                output = (Double) argumentStack.pop().execute();
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
@@ -280,13 +281,25 @@ public class CommandParser implements Parser {
         return consoleInput;
     }
 
+    //DELETE THIS
+    public void clear()
+    {
+        mySymbols.clear();
+    }
 
     /**
-     * @param syntax the name of the syntax source language name
+     * @param lang the name of the syntax source language name
      *               Adds the keys to mySymbols, thus comparison can be done
      */
-    public void addPatterns(String syntax) {
-        ResourceBundle resources = ResourceBundle.getBundle(syntax);
+    public void addPatterns(String lang, String s) {
+        mySymbols.clear();
+
+        addToResourceMap(lang);
+        addToResourceMap(s);
+    }
+
+    private void addToResourceMap(String lang) {
+        ResourceBundle resources = ResourceBundle.getBundle(lang);
         for (String key : Collections.list(resources.getKeys())) {
             String regex = resources.getString(key);
             mySymbols.add(new AbstractMap.SimpleEntry<>(key,
@@ -327,8 +340,7 @@ public class CommandParser implements Parser {
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
-        userVariableHandler.getKeys().clear();
-
+        //userVariableHandler.getKeys().clear();
     }
 
 

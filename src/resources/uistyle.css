@@ -48,10 +48,19 @@
 .button {
     -fx-text-fill: white;
     -fx-border-color: white;
-    -fx-border-radius: 20;
+    -fx-border-radius: 18;
     -fx-background-radius: 20;
     -fx-padding: 8;
 }
 .button:hover {
     -fx-background-color: green;
+}
+
+#PenState{
+    -fx-font-size: 10pt;
+
+}
+
+#TurtleStates{
+    -fx-font-size: 10pt;
 }

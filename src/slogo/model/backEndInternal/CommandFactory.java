@@ -1,8 +1,9 @@
 package slogo.model.backEndInternal;
 
-        import java.lang.reflect.Constructor;
-        import java.lang.reflect.InvocationTargetException;
-        import java.util.List;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandFactory {
     private BackEndTurtle turtle;
@@ -11,6 +12,9 @@ public class CommandFactory {
     private int stringCounter;
     private List<String> unExecutedCommands;
     private int commandCounter;
+
+    private List<BackEndTurtle> listOfTurtles = new ArrayList<>();
+    private Integer index;
 
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
                           List<String> unExecutedCommands, int counter) {

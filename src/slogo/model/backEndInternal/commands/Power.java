@@ -19,8 +19,10 @@ public class Power implements Command<Double> {
     double exponent = (double) cmdExponent.execute();
     return Math.pow(base, exponent);
   }
+
   @Override
   public boolean isItExecutable() {
     return true;
   }
+
 }

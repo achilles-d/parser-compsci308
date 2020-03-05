@@ -2,10 +2,7 @@ package slogo.view;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -24,6 +21,7 @@ public class LogoVisualization extends BorderPane{
     private CodeStage myCode;
     private TurtleWindow graphics;
     private ParserController myController;
+    private PaletteWindow myPalette;
     private MoveTurtleComponent turtleMover;
     private Property activePenColor;
     private Property activeTurtleImage;
@@ -32,6 +30,7 @@ public class LogoVisualization extends BorderPane{
     private ConsoleWindow myConsole;
     private HistoryWindow myHistory;
     private Menu toolbar;
+    private TurtleCompleteInfoWindow myTurtleInfo;
     AvailableCommandsWindow available;
     private Button executeButton;
 
@@ -42,10 +41,7 @@ public class LogoVisualization extends BorderPane{
         init();
     }
 
-    public void setBackgroundColor(String color)
-    {
-        graphics.setBackgroundColor(color);
-    }
+
 
     public void init()
     {
@@ -56,13 +52,15 @@ public class LogoVisualization extends BorderPane{
         updateNeeded.setValue(false);
         updateNeeded.addListener(((observable, oldValue, newValue) -> checkUpdate(newValue)));
 
-        toolbar = new Menu(myController,updateNeeded);
+        toolbar = new Menu(myController,updateNeeded,myController.getColorPalette());
         myConsole = new ConsoleWindow(myController,updateNeeded,myCode);
         myVariables = new VariableWindow(myController,updateNeeded,myCode);
         myHistory = new HistoryWindow(myController,updateNeeded,myCode);
         available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
-        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
+        graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor(),myController.getColorPalette());
         turtleMover = new MoveTurtleComponent(myController,updateNeeded,myCode);
+        myPalette = new PaletteWindow(myController,updateNeeded);
+        myTurtleInfo = new TurtleCompleteInfoWindow(myController);
 
 
         VBox leftComps = new VBox();
@@ -73,7 +71,7 @@ public class LogoVisualization extends BorderPane{
         bottom.setMaxHeight(50);
 
         VBox rightComps = new VBox();
-        rightComps.getChildren().addAll(turtleMover.getView());
+        rightComps.getChildren().addAll(turtleMover.getView(),myPalette.getView(),myTurtleInfo.getView());
 
         bottom.setAlignment(Pos.CENTER);
 
@@ -119,6 +117,8 @@ public class LogoVisualization extends BorderPane{
         graphics.update();
         myHistory.update();
         myVariables.update();
+        myPalette.update();
+        myTurtleInfo.update();
 
         myCode.clearStagedCode();
         updateNeeded.setValue(false);

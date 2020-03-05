@@ -16,8 +16,10 @@ public class Not implements Command<Double> {
     Double value = (Double) cmd.execute();
     return (double) (value == 0 ? 1 : 0);
   }
+
   @Override
   public boolean isItExecutable() {
     return true;
   }
+
 }

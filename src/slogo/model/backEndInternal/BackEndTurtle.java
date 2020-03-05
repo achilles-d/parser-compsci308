@@ -1,13 +1,9 @@
 package slogo.model.backEndInternal;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.*;
 import slogo.model.Coordinate;
 import slogo.model.Line;
 import slogo.model.Turtle;
-import slogo.view.ViewController;
 import slogo.view.ViewTurtle;
 import slogo.view.ViewTurtlePlan;
 
@@ -16,6 +12,8 @@ import java.util.List;
 
 public class BackEndTurtle implements Turtle {
 
+    private static final int XBOUNDS = 342;
+    private static final int YBOUNDS = 254;
 
 
     private SimpleDoubleProperty xLoc = new SimpleDoubleProperty();
@@ -27,9 +25,12 @@ public class BackEndTurtle implements Turtle {
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
     private SimpleBooleanProperty turtleVisible = new SimpleBooleanProperty();
+    private SimpleBooleanProperty activeTurtle = new SimpleBooleanProperty();
 
-
-
+    private SimpleDoubleProperty penColor = new SimpleDoubleProperty();
+    private SimpleDoubleProperty backgroundColor = new SimpleDoubleProperty();
+    private SimpleDoubleProperty shapeIndex = new SimpleDoubleProperty();
+    private SimpleDoubleProperty penSize = new SimpleDoubleProperty();
 
     //private double xLoc;
     //private double yLoc;
@@ -38,20 +39,24 @@ public class BackEndTurtle implements Turtle {
 
     private Coordinate turtleCoordinate;
     private List<Line> lines;
+    private int myID;
 
     //private double heading;
     //private boolean penUp;
     //private boolean turtleVisible;
 
-    public BackEndTurtle(){
+    public BackEndTurtle(int id){
+        myID = id;
         lines=new ArrayList<>();
         turtleCoordinate = new Coordinate();
         xLoc.set(turtleCoordinate.getXVal());
         yLoc.set(turtleCoordinate.getYVal());
         penDown.set(true);
         turtleVisible.set(true);
+        activeTurtle.set(true);
 
     }
+
 
     /**
      *  position of the turtle based on a coordinate it is given
@@ -73,38 +78,103 @@ public class BackEndTurtle implements Turtle {
         yLoc.set(newCord.getYVal());
     }
 
+    //https://codereview.stackexchange.com/questions/58063/screen-wraparound
+    private Coordinate wrapAround(Coordinate a){
+        double x = a.getXVal();
+        double y = a.getYVal();
+
+        System.out.println("OLD X " + x);
+        System.out.println("OLD Y " + y);
+
+        if(x/XBOUNDS >1)
+        {
+            x =-XBOUNDS+x%XBOUNDS;
+        }
+        else
+            x = x%(XBOUNDS+1);
+
+        if(y/YBOUNDS >1)
+        {
+            y= -YBOUNDS +y%YBOUNDS;
+        }
+        else
+            y = y%(YBOUNDS+1);
+        y = y%(YBOUNDS+1);
+
+        /*
+        if(x<0)
+        {
+            x+=XBOUNDS;
+        }
+        if(y<0)
+        {
+            y+=YBOUNDS;
+        }
+
+         */
+        return new Coordinate(x,y);
+    }
     private Coordinate ensureInBounds(Coordinate a) {
 
         double x = a.getXVal();
+        double xPrev = x;
         double y = a.getYVal();
+        double yPrev = y;
 
         boolean hitXWall = false;
         boolean hitYWall = false;
 
 
-        while (x > 370) {
+        while (x > XBOUNDS) {
             x--;
             hitXWall = true;
         }
-        while (x < -370) {
+        while (x < -XBOUNDS) {
             x++;
             hitXWall = true;
         }
 
-        while (y > 280){
+        while (y > YBOUNDS){
             y--;
             hitYWall = true;
 
         }
 
-        while (y < -280){
+        while (y < -YBOUNDS){
             y++;
             hitYWall = true;
 
         }
 
+        double adjustX = x;
+        double adjustY = y;
 
-        return new Coordinate((!hitXWall && hitYWall? turtleCoordinate.getXVal():x),(hitXWall && !hitYWall? turtleCoordinate.getYVal():y));
+        System.out.println("YAY " );
+
+        /*
+        if(!hitXWall && hitYWall)
+        {
+            adjustX = (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
+            adjustY = y;
+        }
+
+        else if (hitXWall && !hitYWall)
+        {
+            adjustY = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
+            adjustX = x;
+        }
+
+        else if(hitXWall && hitYWall)
+        {
+            adjustX = (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
+            adjustY = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
+        }
+
+
+
+         */
+        return new Coordinate((!hitXWall && hitYWall? (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal():x),(hitXWall && !hitYWall? (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal():y));
+        //return new Coordinate(adjustX,adjustY);
 
     }
 
@@ -127,7 +197,7 @@ public class BackEndTurtle implements Turtle {
      * @param changeHeading is the new heading of the Turtle
      */
     public void setHeading(double changeHeading) {
-        heading.set(changeHeading);
+        heading.set(changeHeading%360);
     }
 
     /**
@@ -153,9 +223,22 @@ public class BackEndTurtle implements Turtle {
      */
     @Override
     public void drawLine(Coordinate start, Coordinate end) {
-        System.out.println("haha still drewa a line");
         LineAPI line=new LineAPI(start,end);
         lines.add(line);
+    }
+
+    public void setPenColorIndex(Double color) {
+        this.penColor.set(color);
+    }
+
+    public void setBackgroundColorIndex(Double color) {
+        this.backgroundColor.set(color);
+    }
+
+    public void setShapeIndex(Double shape) { this.shapeIndex.set(shape); }
+
+    public void setPenSize(Double thickness){
+        this.penSize.set(thickness);
     }
 
     @Override
@@ -175,7 +258,15 @@ public class BackEndTurtle implements Turtle {
 
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
-    public BooleanProperty getPenVisibility() { return penDown; }
+    public BooleanProperty getPenVisibilityProperty() { return penDown; }
+
+    public DoubleProperty getTurtleColor() { return penColor; }
+
+    public DoubleProperty getBackgroundColor() { return backgroundColor; }
+
+    public DoubleProperty getShapeIndex() { return shapeIndex; }
+
+    public DoubleProperty getPenSize() { return penSize; }
 
     public boolean getPenStatus() {
         return penDown.get();
@@ -184,4 +275,16 @@ public class BackEndTurtle implements Turtle {
     public boolean getVisibility() {
         return turtleVisible.get();
     }
+
+    public BooleanProperty getActiveProperty()
+    {
+        return activeTurtle;
+    }
+
+    public DoubleProperty getPenSizeProperty()
+    {
+        return penSize;
+    }
+
+
 }

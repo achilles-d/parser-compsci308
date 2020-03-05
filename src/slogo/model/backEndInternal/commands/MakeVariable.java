@@ -1,10 +1,8 @@
 package slogo.model.backEndInternal.commands;
 
-import slogo.model.InvalidCommandException;
-import slogo.model.backEndInternal.UserVariable;
+import slogo.model.exceptions.ExceptionFactory;
+import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.backEndInternal.UserVariableHandler;
-
-import java.util.List;
 
 public class MakeVariable<T> implements Command<Double> {
 
@@ -26,8 +24,9 @@ public class MakeVariable<T> implements Command<Double> {
 
     if(className.equals("Double")){
      System.out.println("Answer should stop here");
-        throw new InvalidCommandException();// cannot create two variables with the same name
-   } else{
+      throw new InvalidCommandException("");
+
+    } else{
      System.out.println("Type is "+className);
      String variableName = (String) nameCmd.execute();
      Double value = (Double) valueCmd.execute();
@@ -38,6 +37,7 @@ public class MakeVariable<T> implements Command<Double> {
    }
 
   }
+
   @Override
   public boolean isItExecutable() {
     return true;

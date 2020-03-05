@@ -73,6 +73,8 @@ public class ConsoleWindow extends Window {
         tellUpdate.setValue(true);
     }
 
+
+
     public void update() {
 
     }
