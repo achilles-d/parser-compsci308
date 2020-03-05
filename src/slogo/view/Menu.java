@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
+import slogo.model.exceptions.ExecutionException;
 
 public class Menu {
 
@@ -60,7 +61,7 @@ public class Menu {
     private ColorPalette myColorPalette;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update)
+    public Menu(ParserController control,SimpleBooleanProperty update) throws ExecutionException
    {
        myController = control;
        myView = new HBox();
@@ -91,11 +92,9 @@ public class Menu {
            try {
                makeHelpScreen();
            } catch (IOException e) {
-               e.printStackTrace();     //FIXME change error handling scheme
+             throw new ExecutionException("Temp", e);
            }
        });
-
-
 
        myView.getChildren().addAll(bgColors,penColors,languages,images,help);
    }
