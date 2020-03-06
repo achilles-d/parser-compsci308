@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.components;
 
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;

@@ -1,13 +1,14 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import slogo.view.components.ViewTurtle;
 
 import java.util.ResourceBundle;
 
 
-public class TurtleStatesWindow extends Window{
+public class TurtleStatesWindow extends Window {
     private static final String UI_TEXT = "resources.UIText";
     private static final String CSS_ID = "TurtleStates";
     private static final int WIDTH = 110;

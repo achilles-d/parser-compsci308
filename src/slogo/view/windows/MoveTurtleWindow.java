@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import slogo.controller.ParserController;
+import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
 

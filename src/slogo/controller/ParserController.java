@@ -9,13 +9,14 @@ import javafx.beans.property.Property;
 import slogo.model.turtle.Coordinate;
 
 
+import slogo.view.components.ColorPalette;
 import slogo.model.parsers.CommandHandlerAPI;
 import slogo.model.parsers.CommandParser;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.Line;
 import slogo.model.turtle.UserVariable;
 import slogo.model.turtle.UserVariableHandler;
-import slogo.view.ColorPalette;
+
 
 public class ParserController {
 

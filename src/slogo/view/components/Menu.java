@@ -1,10 +1,9 @@
-package slogo.view;
+package slogo.view.components;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,6 +23,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.model.exceptions.ExecutionException;
+import slogo.view.components.CodeStage;
+import slogo.view.components.ColorPalette;
 
 public class Menu {
     private static final String TURTLE_IMAGES = "resources.TurtleImage";

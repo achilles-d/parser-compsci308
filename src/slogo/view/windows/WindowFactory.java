@@ -1,6 +1,7 @@
-package slogo.view;
+package slogo.view.windows;
 
 import slogo.model.exceptions.WindowCreationError;
+import slogo.view.windows.Window;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -10,9 +11,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class WindowFactory {
-    private static final String CLASS_TO_PARAMETERS = "resources.parameters";
-    private static final String INDEX_TO_PARAMNAME = "resources.parameternames";
-    private static final String CLASSPATH = "slogo.view.";
+    private static final String CLASS_TO_PARAMETERS = "resources.configuration.parameters";
+    private static final String INDEX_TO_PARAMNAME = "resources.configuration.parameternames";
+    private static final String CLASSPATH = "slogo.view.windows.";
     private static final String WINDOW = "Window";
     private static final String ERRORS = "resources.errors.InvalidCommandExceptionText";
     private static final String WINDOW_ERROR = "WindowError";

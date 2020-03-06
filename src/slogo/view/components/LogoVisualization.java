@@ -1,12 +1,14 @@
-package slogo.view;
+package slogo.view.components;
 
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import slogo.controller.ParserController;
+import slogo.view.windows.ConsoleWindow;
+import slogo.view.windows.TurtleWindow;
+import slogo.view.windows.Window;
+import slogo.view.windows.WindowFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ public class LogoVisualization extends BorderPane{
     private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String LEFT_COMPONENTS = "Left";
     private static final String RIGHT_COMPONENTS = "Right";
-    private static final String ORDER_COMPONENTS = "resources.OrderUIElements";
+    private static final String ORDER_COMPONENTS = "resources.configuration.OrderUIElements";
     private static final int MAX_BOTTOM_HEIGHT = 50;
     private static final String ORDERING_SEPARATOR = ",";
 

@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.components;
 
 import java.util.ArrayList;
 import java.util.List;

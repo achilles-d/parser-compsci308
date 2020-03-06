@@ -1,15 +1,15 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import slogo.controller.ParserController;
+import slogo.view.components.ColorPalette;
+import slogo.view.components.ViewTurtle;
 
 import java.util.ResourceBundle;
 
