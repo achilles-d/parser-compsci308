@@ -1,22 +1,11 @@
 package slogo.view;
 
-import javafx.animation.Animation;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.util.Duration;
 import slogo.model.Coordinate;
 
 import java.util.ResourceBundle;
@@ -26,6 +15,11 @@ public class ViewTurtle {
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final int X_LAYOUT_SCALING = 375;
     private static final double Y_LAYOUT_SCALING = 286.5;
+    private static final String DEFAULT_IMAGE = "turtle.jpg";
+    private static final int ACTIVE = 1;
+    private static final double INACTIVE = 0.5;
+    private static final int XBORDER = 750;
+    private static final int YBORDER = 573;
     private Image myImage;
     private SimpleStringProperty imageName;
     private SimpleBooleanProperty activeTurtle;
@@ -59,14 +53,13 @@ public class ViewTurtle {
 
         shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)shapeIndex.get());});
 
-        setImageProperty(new SimpleStringProperty("turtle.jpg"));
+        setImageProperty(new SimpleStringProperty(DEFAULT_IMAGE));
 
         myImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName.getValue()));
         myView = new ImageView(myImage);
         myView.setFitWidth(size);
         myView.setFitHeight(size);
-        myView.setOnMouseClicked(e ->{clickedTurtle();
-            System.out.println("clicked");});
+        myView.setOnMouseClicked(e ->{clickedTurtle();});
         myCoordinates = new Coordinate(0,0);
         updatePosition(myCoordinates);
         myHeading = 0;
@@ -86,11 +79,11 @@ public class ViewTurtle {
 
         if(activeTurtle.get())
         {
-            myView.setOpacity(1);
+            myView.setOpacity(ACTIVE);
         }
         else
         {
-            myView.setOpacity(0.5);
+            myView.setOpacity(INACTIVE);
         }
 
     }
@@ -194,9 +187,14 @@ public class ViewTurtle {
     public void setImageProperty(SimpleStringProperty name)
     {
         imageName = name;
-        imageName.addListener((observable, oldValue, newValue) -> { if(activeTurtle.get())
-        {updateImage(imageName.getValue());
-        shapeIndex.setValue(getIndexOfImage(imageName.getValue()));}});
+        imageName.addListener(e-> changeImage());
+    }
+
+    private void changeImage() {
+        if (activeTurtle.get()) {
+            updateImage(imageName.getValue());
+            shapeIndex.setValue(getIndexOfImage(imageName.getValue()));
+        }
     }
     public Coordinate getCoordinates()
     {
@@ -205,9 +203,9 @@ public class ViewTurtle {
     public void updatePosition(Coordinate a) {
         myCoordinates = a;
         setXY();
-        while (myX > 750 - myView.getFitWidth() / 2)
+        while (myX > XBORDER - myView.getFitWidth() / 2)
             myX--;
-        while (myY > 573 - myView.getFitHeight())
+        while (myY > YBORDER - myView.getFitHeight())
             myY--;
 
         while (myX < 0)
@@ -216,8 +214,6 @@ public class ViewTurtle {
             myY++;
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
-        System.out.println("Xcord " + myX);
-        System.out.println("Ycord " + myY);
     }
 
     public int getID()

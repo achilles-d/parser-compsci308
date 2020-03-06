@@ -17,6 +17,9 @@ public class VariableWindow extends Window {
     private static final String UI_TEXT = "resources.UIText";
     private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String VARWINDOW = "varwindow";
+    private static final int HEIGHT = 200;
+    private static final String VARVAL = "varval";
+    private static final String VARVALWINDOW = "varvalwindow";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
@@ -38,15 +41,15 @@ public class VariableWindow extends Window {
 
         myView = new TitledPane();
         myView.setText(visualText.getString(VARWINDOW));
-        myView.setPrefHeight(200);
+        myView.setPrefHeight(HEIGHT);
 
         variables = new ListView<>();
         myView.setContent(variables);
 
         variableValueInput = new TextInputDialog();
         variableValueInput.getDialogPane().getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
-        variableValueInput.setContentText(visualText.getString("varval"));
-        variableValueInput.setHeaderText(visualText.getString("varvalwindow"));
+        variableValueInput.setContentText(visualText.getString(VARVAL));
+        variableValueInput.setHeaderText(visualText.getString(VARVALWINDOW));
 
         variables.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if(!((int)newValue ==-1))updateVariable((int) newValue);
