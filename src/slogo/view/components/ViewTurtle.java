@@ -98,11 +98,6 @@ public class ViewTurtle {
         return penStatus;
     }
 
-    public int getPenSize()
-    {
-        return (int) penSize.get();
-    }
-
     public double getPenColorIndex()
     {
         return penColorIndex.get();
@@ -116,11 +111,6 @@ public class ViewTurtle {
     private void setImageWithIndex(int i)
     {
         imageName.setValue(turtleImages.getString(i+""));
-    }
-
-    public int getSize()
-    {
-        return size;
     }
 
     private int getIndexOfImage(String imageName)
@@ -200,9 +190,11 @@ public class ViewTurtle {
     {
         return myCoordinates;
     }
+
     public void updatePosition(Coordinate a) {
         myCoordinates = a;
         setXY();
+
         while (myX > XBORDER - myView.getFitWidth() / 2)
             myX--;
         while (myY > YBORDER - myView.getFitHeight())
@@ -212,6 +204,7 @@ public class ViewTurtle {
             myX++;
         while (myY < 0)
             myY++;
+
         myView.setLayoutX(myX);
         myView.setLayoutY(myY);
     }
