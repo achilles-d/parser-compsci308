@@ -93,11 +93,26 @@ public class MainTester {
 
       // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
 
-       String userInput="atan sum sum sum 10 50 30 40";
+       //String userInput="atan sum sum sum 10 50 30 40";
 
      //String userInput="cos less? sum difference 10 50 30 40";
 
-        //String userInput="make :x 50 fd :x";
+        //String userInput="make :x 50 sum :x 30";
+
+        //String userInput="[ fd 100 ]";
+        String userInput="make :distance 100\n" +
+                "make :angle 90\n" +
+                "\n" +
+                "dotimes [ :k quotient 360 :angle ]\n" +
+                "[\n" +
+                "  fd :distance\n" +
+                "  rt :angle\n" +
+                "  ifelse equal? quotient :k 2 0 [\n" +
+                "    pu\n" +
+                "  ] [\n" +
+                "    pd\n" +
+                "  ]\n" +
+                "]\n";
 
 
         // note, this simple "algorithm" will not handle SLogo comments

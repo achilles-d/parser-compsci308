@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
@@ -66,6 +67,7 @@ public class ParserController {
 
     public void parseCode(String code)  {
        // code = code.replaceAll("[\r\n]+", " ");
+
         try{
             output = myCommandParser.parseCode(code);
         }

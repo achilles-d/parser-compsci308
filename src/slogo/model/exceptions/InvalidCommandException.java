@@ -15,4 +15,8 @@ public class InvalidCommandException extends RuntimeException{
         super(ResourceBundle.getBundle(ERROR_MESSAGE_PROP_DIR).getString(messageType));
     }
 
+    public InvalidCommandException(String message, java.lang.NoSuchMethodException e) {
+        super(message,e);
+
+    }
 }

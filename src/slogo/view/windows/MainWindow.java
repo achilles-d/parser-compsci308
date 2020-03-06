@@ -41,7 +41,9 @@ public class MainWindow {
         myTabs = new TabPane();
         myBorder = new BorderPane();
         makeWorkspace = new Button(visualText.getString(WORKSPACEBUTTON));
-        makeWorkspace.setOnAction(event -> addWorkspace(new LogoVisualization(new ParserController())));
+        makeWorkspace.setOnAction(event -> {
+            addWorkspace(new LogoVisualization(new ParserController()));
+        });
         init();
     }
 
