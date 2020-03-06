@@ -1,4 +1,5 @@
 package slogo.model.parsers;
+import slogo.controller.Language;
 import slogo.model.parsers.subparsers.Symbol;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.CommandExecutor;
@@ -58,10 +59,9 @@ public class CommandParser implements Parser {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
-        Integer commandCounter = INITIALIZER;
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList);
+        Language lab=null;
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, lab );
         match=new HashMap<>();
-
         mathMethods();
         executor = new CommandExecutor();
     }

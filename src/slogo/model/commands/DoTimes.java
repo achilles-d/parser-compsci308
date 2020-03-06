@@ -1,9 +1,11 @@
 package slogo.model.commands;
 
+import slogo.controller.Language;
 import slogo.model.turtle.UserVariableHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class DoTimes implements Command<Object> {
 
@@ -18,12 +20,15 @@ public class DoTimes implements Command<Object> {
     private List<String> repeatCommand;
     private Command repeat;
     private Command group;
+    private Language lan;//=new Re
 
-    public DoTimes(UserVariableHandler handler,  Command repeat, Command group) {
+    public DoTimes(UserVariableHandler handler, Language language, Command repeat, Command group) {
         this.handler=handler;
         this.group=group;
         this.repeat=repeat;
         isItExecutable=false;
+        this.lan=language;
+        System.out.println("do times is reached");
     }
 
     @Override
@@ -47,6 +52,7 @@ public class DoTimes implements Command<Object> {
     private void parseAndRepeatTheCommand(){
         cleanTheFirstLayerBrackets();
         repeatCommand.add("repeat");
+
         repeatCommand.addAll(index.subList(1,index.size()));
         for(String str: groupedCodes){
 
@@ -63,6 +69,12 @@ public class DoTimes implements Command<Object> {
         if(this.index.get(0).equals(LEFT_BRACKET)){ this.index.remove(0);}
         if(this.index.get(this.index.size()-1).equals(RIGHT_BRACKET)){
             this.index.remove(this.index.size()-1);}
+    }
+
+    private String findRepeatCommand(){
+        ResourceBundle rs=ResourceBundle.getBundle(lan.getLanguageFile());
+       return rs.getString("Repeat");
+       // return ;
     }
 
     @Override
