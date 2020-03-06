@@ -39,7 +39,7 @@ public class Repeat implements Command<Object> {
     } else if(className.equals("Double")){
       this.repeatSize=  ((Double) number).intValue();
     } else{
-      isItExecutable=true;// return zero
+      isItExecutable=true;
     }
 
     if(isItExecutable){
