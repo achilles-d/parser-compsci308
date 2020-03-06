@@ -7,8 +7,11 @@ public class Symbol {
 
     private List<Map.Entry<String, Pattern>> mySymbols;
 
-     //lang.addPatterns("resources.languages.English", "resources.languages.Syntax");
-
+    /**
+     *
+     * @param language the current language we are using
+     * @param syntax the syntaxes used to parse the commands
+     */
     public Symbol(String language, String syntax){
         mySymbols = new ArrayList<>();
         addPatterns(language, syntax);
@@ -21,11 +24,9 @@ public class Symbol {
 
     public String getSymbol(String command) {
         final String ERROR = "NO MATCH";
-        System.out.println("INVALID:"+command+  "is |" + command+  "this");
 
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
-                System.out.println("The key is "+e.getKey());
                 return e.getKey();
             }
         }
@@ -34,12 +35,8 @@ public class Symbol {
         return ERROR;
     }
 
-    /**
-     * @param lang the name of the syntax source language name
-     *               Adds the keys to mySymbols, thus comparison can be done
-     */
+
     private void addPatterns(String lang, String s) {
-        //mySymbols.clear();
         addToResourceMap(lang);
         addToResourceMap(s);
     }
@@ -52,7 +49,6 @@ public class Symbol {
                     Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
         }
     }
-
 
     private boolean match(String text, Pattern regex) {
         return regex.matcher(text).matches();
