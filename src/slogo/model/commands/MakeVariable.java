@@ -18,22 +18,21 @@ public class MakeVariable<T> implements Command<Double> {
   @Override
   public Double execute() {
 
-    Class<?> result=nameCmd.execute().getClass();
+      Object nam=nameCmd.execute();
+    Class<?> result=nam.getClass();
     String className = (((Class) result).getName().split("[.]"))[result.getName().split("[.]").length - 1];
 
-    if(className.equals("Double")){
-        return (double)nameCmd.execute();
-//     System.out.println("Answer should stop here");
-//      throw new InvalidCommandException(" make variable cannot have double as a name");
+   if (className.equals("String") && myHandler.getKeys().contains(nam)) {
+        Double value = (Double) valueCmd.execute();
+        myHandler.setVariable((String) nameCmd.execute(), value);
+        return value;
 
-    } else{
-     System.out.println("Type is "+className);
-     String variableName = (String) nameCmd.execute();
-     Double value = (Double) valueCmd.execute();
-
-     myHandler.makeVariable(variableName, value);
-
-     return myHandler.getVariable(variableName).getValue();
+   } else if(className.equals("String") && !myHandler.getKeys().contains(nam)){
+          Double value = (Double) valueCmd.execute();
+          myHandler.makeVariable((String) nam, value);
+          return value;
+      } else{
+       return 0.0;
    }
 
   }
