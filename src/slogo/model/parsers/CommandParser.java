@@ -42,6 +42,8 @@ public class CommandParser implements Parser {
     private int INITIALIZER=0;
     private String UNMATHCHED="unmatched";
     private String LOW_INPUTS="inputs";
+    private String NO_METHOD="noMethod";
+    private String IMPOSSIBLE_COMMAND="impossibleCommand";
 
     private int leftBracketCounter=INITIALIZER;
     private int rightBracketCounter=INITIALIZER;
@@ -54,7 +56,7 @@ public class CommandParser implements Parser {
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
-                         BackEndTurtle turtle) throws ExecutionException, java.lang.NoSuchMethodException {
+                         BackEndTurtle turtle) {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
@@ -66,9 +68,13 @@ public class CommandParser implements Parser {
         executor = new CommandExecutor();
     }
 
-    private void mathMethods() throws NoSuchMethodException {
+    private void mathMethods() {
         for(String str:methods.keySet()){
-            match.put(str, this.getClass().getDeclaredMethod(methods.getString(str)));
+            try {
+                match.put(str, this.getClass().getDeclaredMethod(methods.getString(str)));
+            } catch (NoSuchMethodException e) {
+                throw new InvalidCommandException(errors.getString(NO_METHOD),e);
+            }
         }
     }
 
@@ -198,7 +204,7 @@ public class CommandParser implements Parser {
     }
 
     @Override
-    public Double parseCode(String consoleInput) throws InvalidCommandException, InvocationTargetException, IllegalAccessException {
+    public Double parseCode(String consoleInput)  {
         clearAll();
         commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
@@ -207,11 +213,16 @@ public class CommandParser implements Parser {
         return output;
     }
 
-    private void buildAndExecuteCommand() throws InvocationTargetException, IllegalAccessException {
+    private void buildAndExecuteCommand() {
         numOfCommandsToExecute++;
         while(commandStack.size()!=0){
             if(match.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
-                match.get(symbol.getSymbol(commandStack.peek())).invoke(this);
+                try {
+                    match.get(symbol.getSymbol(commandStack.peek())).invoke(this);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw  new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMAND));
+                   // e.printStackTrace();
+                }
             } else {
                 buildExecutableCommand();
             }
