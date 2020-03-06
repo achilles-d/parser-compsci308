@@ -1,23 +1,12 @@
 package slogo.view;
 
-import javafx.animation.Animation;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.util.Duration;
-import slogo.model.Coordinate;
+import slogo.model.turtle.Coordinate;
 
 import java.util.ResourceBundle;
 

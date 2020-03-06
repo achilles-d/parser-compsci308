@@ -2,9 +2,8 @@ package slogo.controller;
 
 import java.awt.Point;
 import java.util.List;
-import slogo.model.Line;
-import slogo.model.Variable;
-import slogo.model.backEndInternal.UserVariable;
+import slogo.model.interfaces.Line;
+import slogo.model.turtle.UserVariable;
 
 public interface Controller {
 

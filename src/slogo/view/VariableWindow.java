@@ -1,13 +1,9 @@
 package slogo.view;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
 import slogo.controller.ParserController;
-import slogo.model.backEndInternal.UserVariableHandler;
 
 import java.util.Optional;
 import java.util.ResourceBundle;

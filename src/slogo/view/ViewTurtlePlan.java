@@ -1,7 +1,7 @@
 package slogo.view;
 
 import javafx.scene.image.Image;
-import slogo.model.Coordinate;
+import slogo.model.turtle.Coordinate;
 
 public interface ViewTurtlePlan {
 

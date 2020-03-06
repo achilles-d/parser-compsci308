@@ -1,13 +1,9 @@
 package slogo.controller;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import slogo.model.Line;
-import slogo.model.Turtle;
-import slogo.model.backEndInternal.BackEndTurtle;
+import slogo.model.interfaces.Line;
+import slogo.model.turtle.BackEndTurtle;
 import slogo.view.ViewTurtle;
 
-import javax.swing.text.View;
 import java.util.*;
 
 public class TurtleController {
@@ -65,6 +61,7 @@ public class TurtleController {
     public Collection<BackEndTurtle> getAllActiveBackEndTurtles() {
         List<BackEndTurtle> backList = new ArrayList<>();
         for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+
             if(turtlesMap.get(i).getBackEndTurtle().getActiveProperty().getValue()) {
                 backList.add(turtlesMap.get(i).getBackEndTurtle());
             }
@@ -88,6 +85,11 @@ public class TurtleController {
 
     public boolean containsKey(Integer i) {
         return turtlesMap.containsKey(i);
+    }
+
+    public Map<Integer,TurtlePair > getMap(){
+
+        return turtlesMap;
     }
 
 }
