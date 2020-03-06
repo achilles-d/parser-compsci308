@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class MakeUserInstruction implements  Command<Object> {
+public class To implements  Command<Object> {
 
 
     private Command command;
@@ -18,27 +18,22 @@ public class MakeUserInstruction implements  Command<Object> {
     private List<String> listOfCommands;
 
 
-    public MakeUserInstruction (Command nameOfCommand, Command inputs, Command command,
-                                Map<String, List<Command>> commandSaver){
+    public To (String name, Command inputs, Command command, Map<String, List<Command>> commandSaver){
 
-        this.name= (String) nameOfCommand.execute();
+        this.name=name;
         this.inputs=inputs;
         this.command=command;
         this.commandSaver=commandSaver;
-
-        putCommandToTheMap();
-
-        //System.out.println("Added command to commandSaver "+name);
-        executable=true;
-    }
-
-    private void putCommandToTheMap() {
         List<Command> cmd=new ArrayList<>();
-
         cmd.add(inputs);
         cmd.add(command);
         commandSaver.put(name,cmd);
+        executable=true;
     }
+
+
+
+
 
 
     @Override

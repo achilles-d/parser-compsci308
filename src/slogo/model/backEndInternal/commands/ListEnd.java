@@ -7,7 +7,7 @@ public class ListEnd implements Command<Object> {
     List<String> group;
 
     public ListEnd(List<String> group){
-        this.group=group;
+        this.group=  group;
     }
 
     @Override

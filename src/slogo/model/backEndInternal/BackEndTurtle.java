@@ -231,6 +231,8 @@ public class BackEndTurtle implements Turtle {
         this.penSize.set(thickness);
     }
 
+    public void setActiveTurtle(Boolean b) { this.activeTurtle.set(b); }
+
     @Override
     public List<Line> getLines() {
         return lines;

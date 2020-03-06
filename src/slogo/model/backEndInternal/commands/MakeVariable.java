@@ -31,8 +31,10 @@ public class MakeVariable<T> implements Command<Double> {
      String variableName = (String) nameCmd.execute();
      Double value = (Double) valueCmd.execute();
 
-     myHandler.makeVariable(variableName, value);
+    if(!myHandler.getKeys().contains(variableName)){
+        myHandler.makeVariable(variableName, value);
 
+    }
      return myHandler.getVariable(variableName).getValue();
    }
 

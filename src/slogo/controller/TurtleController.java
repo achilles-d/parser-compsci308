@@ -58,6 +58,16 @@ public class TurtleController {
         return viewList;
     }
 
+    public Collection<BackEndTurtle> getAllActiveBackEndTurtles() {
+        List<BackEndTurtle> backList = new ArrayList<>();
+        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+            if(turtlesMap.get(i).getBackEndTurtle().getActiveProperty().getValue()) {
+                backList.add(turtlesMap.get(i).getBackEndTurtle());
+            }
+        }
+        return backList;
+    }
+
     public Collection<BackEndTurtle> getAllBackEndTurtles() {
 
         List<BackEndTurtle> backList = new ArrayList<>();
@@ -70,6 +80,10 @@ public class TurtleController {
     public int getNumberOfTurtles()
     {
         return turtlesMap.keySet().size();
+    }
+
+    public boolean containsKey(Integer i) {
+        return turtlesMap.containsKey(i);
     }
 
 }

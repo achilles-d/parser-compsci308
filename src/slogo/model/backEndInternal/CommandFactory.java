@@ -1,11 +1,14 @@
 package slogo.model.backEndInternal;
 
+import slogo.model.backEndInternal.commands.Command;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.InvalidationListener;
 import slogo.model.exceptions.InvalidCommandException;
+import java.util.Map;
 
 public class CommandFactory {
     private BackEndTurtle turtle;
@@ -13,22 +16,37 @@ public class CommandFactory {
     private int inputCounter;
     private int stringCounter;
     private List<String> unExecutedCommands;
-    private int commandCounter;
+    private Map<String, List<Command>>  userCommandHandler;
+    private List<Object > listOfCommands;
+   // private int commandCounter;
 
     private List<BackEndTurtle> listOfTurtles = new ArrayList<>();
     private Integer index;
 
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
-                          List<String> unExecutedCommands, int counter) {
-        this.commandCounter=counter;
+                          List<String> unExecutedCommands,Map<String, List<Command>>  userCommandHandler ) {
+        //this.commandCounter=counter;
         this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtle;
         this.userVariableHandler=userVariableHandler;
+        this.userCommandHandler=userCommandHandler;
     }
 
+<<<<<<< src/slogo/model/backEndInternal/CommandFactory.java
     public Object getCommand(String commandName, List<Object> arguments) throws InvalidCommandException{
+=======
+    public Object getCommand(String commandName, List<Object> arguments) throws InvocationTargetException,
+            NoSuchMethodException, ClassNotFoundException,
+            InstantiationException,
+            IllegalAccessException {
+        listOfCommands=new ArrayList<>();
+>>>>>>> src/slogo/model/backEndInternal/CommandFactory.java
 
-        return makeCommand(commandName, arguments);
+        for(BackEndTurtle bt: listOfTurtles){
+            turtle=bt;
+            listOfCommands.add(makeCommand(commandName, arguments));
+        }
+        return listOfCommands;
 
         //return
     }
@@ -47,12 +65,15 @@ public class CommandFactory {
             Object[] ar = new Object[pType.length];
             inputCounter = 0;
 
-           System.out.println("Constructor command name " + commandName);
+           System.out.println(" command name to create is  " + commandName);
+           System.out.println("Totall number of inputs " + pType.length);
+           System.out.println("For command " + commandName);
 
 
             for (int j = 0; j < pType.length; j++) {
 
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+<<<<<<< src/slogo/model/backEndInternal/CommandFactory.java
                 System.out.println("Constructor name is " + className);
 
                 if (className.equals("BackEndTurtle")) {
@@ -86,10 +107,55 @@ public class CommandFactory {
         throw new InvalidCommandException("temp", e); //FIXME improve error message
       }
       return currentCommand;
-    }
+=======
+                System.out.println("Constructor type needs is " + className);
 
-    public void updateCounter(Integer v) {
-        commandCounter = v;
+
+                    if (className.equals("BackEndTurtle")) {
+                        ar[j] = turtle;
+
+                    } else if (className.equals("TurtleController")) {
+                        ar[j]=listOfTurtles;
+                    }else if (className.equals("Coordinate")) {
+                        ar[j] = turtle.getPosition();
+                    }  else if(className.equals("UserVariableHandler")) {
+                        ar[j] = userVariableHandler;
+                    } else if(className.equals("List")){
+                        ar[j]=arguments;
+                        System.out.println("here is the data for the group "+arguments.toString());
+                        System.out.println("size of the arguments "+j);
+                    } else if(className.equals("Map")){
+                        ar[j]=userCommandHandler;
+                        System.out.println("here is the data for the group "+arguments.toString());
+                        System.out.println("size of the arguments "+j);
+                    }
+                    else {
+                        System.out.println(" current counter is "+inputCounter);
+                        System.out.println("Size of the ptype is "+pType.length);
+                        System.out.println("here is the data "+className);
+                        System.out.println("size of argument "+arguments.size());
+                        ar[j]=arguments.get(inputCounter);
+                        System.out.println("Name of the userDefined command "+arguments.get(0).toString());
+                        inputCounter++;
+                    }
+
+            }
+            
+            Constructor<?> cons = c.getDeclaredConstructor(pType);
+           //System.out.println("Inputs to constructor "+ar[0]);
+
+           for (Object obj: ar){
+               System.out.println("Inputs to constructor "+obj);
+
+           }
+
+            currentCommand = cons.newInstance(ar);
+        return currentCommand;
+>>>>>>> src/slogo/model/backEndInternal/CommandFactory.java
     }
+//
+//    public void updateCounter(Integer v) {
+//        commandCounter = v;
+//    }
 
 }

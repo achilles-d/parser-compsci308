@@ -99,11 +99,60 @@ public class MainTester {
 
       // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
 
-       String userInput="atan sum sum sum 10 50 30 40";
+       //String userInput="atan sum sum sum 10 50 30 40";
+//      // String userInput="set :length sum 50 random 250\n" +
+//               "set :numspikes 18\n" +
+//               "\n" +
+//               "repeat :numspikes\n" +
+//               "[\n" +
+//               "  fd :length \n" +
+//               "  rt / 360 :numspikes\n" +
+//               "]\n";
 
-     //String userInput="cos less? sum difference 10 50 30 40";
 
-        //String userInput="make :x 50 fd :x";
+
+//       String userInput="\n" +
+//               "to dash [ ]\n" +
+//               "[\n" +
+//               "fd 100\n" +
+//               " \n" +
+//               "]\n" +
+//               "\n" +
+//               "dash";
+//String userInput="set :count 12\n" +
+//        "\n" +
+//        "to dash [ ]\n" +
+//        "[\n" +
+//        "  repeat :count \n" +
+//        "  [\n" +
+//        "    pu fd 10 pd fd 10\n" +
+//        "  ]\n" +
+//        "]\n" +
+//        "\n" +
+//        "\n" +
+//        "dash";
+
+
+        //String userInput="cos less? sum difference 10 50 30 40";
+
+       String userInput="to squiggle [ ]\n" +
+               "[\n" +
+               "  forward 50\n" +
+               "  right 150\n" +
+               "  forward 60                       \n" +
+               "  right 100\n" +
+               "  forward 30\n" +
+               "  right 90\n" +
+               "]\n" +
+               "\n" +
+               "\n" +
+               "to pinwheel [ ]\n" +
+               "[\n" +
+               "  repeat 18 [ squiggle ]\n" +
+               "]\n" +
+               "\n" +
+               "\n" +
+               "pinwheel\n";
 
 
         // note, this simple "algorithm" will not handle SLogo comments
