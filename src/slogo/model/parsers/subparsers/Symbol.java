@@ -21,7 +21,7 @@ public class Symbol {
      */
 
     public String getSymbol(String command) {
-        final String ERROR = "NO MATCH";
+        final String ERROR = "NO MATCH is found in the resource file";
         System.out.println("INVALID:"+command+  "is |" + command+  "this");
 
         for (Map.Entry<String, Pattern> e : mySymbols) {
@@ -30,6 +30,7 @@ public class Symbol {
                 return e.getKey();
             }
         }
+
         // FIXME: perhaps throw an exception instead
 
         return ERROR;

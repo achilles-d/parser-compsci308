@@ -22,7 +22,7 @@ public class CommandFactory {
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private static final String THIS_CLASS_PATH="slogo.model.commands.";
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ObjectMatch");
-    private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ErrorMessage");
+    private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
 
     private List<BackEndTurtle> listOfTurtles = new ArrayList<>();
     private Integer index;
@@ -30,7 +30,7 @@ public class CommandFactory {
     private  static final String NO_FILE="noFile";
     private  static final String IMPOSSIBLE_COMMANDS="impossibleCommand";
     private  static final String CLASS_NOT_FOUND="classNotFound";
-    private  static final String LIST="LiST";
+    private  static final String LIST="List";
 
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
                           List<String> unExecutedCommands, int counter) {
@@ -43,7 +43,7 @@ public class CommandFactory {
     }
 
 
-    public Object getCommand(String commandName, List<Object> arguments) throws InvalidCommandException{
+    public Object getCommand(String commandName, List<Object> arguments){
         return makeCommand(commandName, arguments);
     }
 
@@ -52,6 +52,7 @@ public class CommandFactory {
         Class<?> c = null;
         try {
             c = Class.forName(THIS_CLASS_PATH + commandName);
+
         } catch (ClassNotFoundException e) {
             throw new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMANDS), e);
         }
@@ -69,7 +70,7 @@ public class CommandFactory {
           try {
             currentCommand = cons.newInstance(ar);
           } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
-            throw new InvalidCommandException(errors.getString(CLASS_NOT_FOUND), e);
+            throw new InvalidCommandException(CLASS_NOT_FOUND);
           }
           return currentCommand;
         }
@@ -80,7 +81,7 @@ public class CommandFactory {
 
             if(match.containsKey(className)){
                 try {
-                    ar[j] =match.get(className).invoke(this);
+                    ar[j] =match.get(className).invoke(this, null);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new InvalidCommandException(errors.getString(NO_FILE), e);
                 }
@@ -93,11 +94,12 @@ public class CommandFactory {
         }
     }
 
-    
+
     private void mathMethods() {
         for(String str:methods.keySet()){
             try {
-                match.put(str, this.getClass().getDeclaredMethod(methods.getString(str)));
+                Class[] clszz=null;
+                match.put(str, this.getClass().getDeclaredMethod(methods.getString(str),clszz));
             } catch (NoSuchMethodException e) {
                 throw new ExecutionException(errors.getString(NO_FILE), e);
             }

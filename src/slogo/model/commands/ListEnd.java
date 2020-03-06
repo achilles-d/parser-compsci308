@@ -7,6 +7,8 @@ public class ListEnd implements Command<Object> {
     List<String> group;
 
     public ListEnd(List<String> group){
+        System.out.println(" It should come here ");
+
         this.group=group;
     }
 

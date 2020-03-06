@@ -15,7 +15,7 @@ public class CommandParser implements Parser {
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "Methods");
-    private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ErrorMessage");
+    private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
 
     private Stack<Command> argumentStack = new Stack<>();
     private  Stack<String> commandStack = new Stack<>();
@@ -68,8 +68,10 @@ public class CommandParser implements Parser {
 
     private void mathMethods() {
         for(String str:methods.keySet()){
+            Class[] parameterType = null;
             try {
-                match.put(str, this.getClass().getDeclaredMethod(methods.getString(str)));
+                Method method=this.getClass().getDeclaredMethod(methods.getString(str),parameterType);
+                match.put(str, method);
             } catch (NoSuchMethodException e) {
                 throw new InvalidCommandException(errors.getString(NO_METHOD),e);
             }
@@ -143,7 +145,7 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
-    private void parseVariable() throws InvalidCommandException{
+    private void parseVariable(){
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         argumentsToBuildCommand.add(commandStack.peek());
         String variableName=commandStack.peek();
@@ -186,7 +188,7 @@ public class CommandParser implements Parser {
         argumentStack.add(com);
     }
 
-    private void parseConstant() throws InvalidCommandException{
+    private void parseConstant(){
 
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         argumentsToBuildCommand.add(commandStack.peek());
@@ -216,9 +218,9 @@ public class CommandParser implements Parser {
         while(commandStack.size()!=0){
             if(match.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
                 try {
-                    match.get(symbol.getSymbol(commandStack.peek())).invoke(this);
+                    match.get(symbol.getSymbol(commandStack.peek())).invoke(this, null);
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw  new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMAND));
+                    throw  new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMAND),e);
                    // e.printStackTrace();
                 }
             } else {
@@ -241,7 +243,7 @@ public class CommandParser implements Parser {
         for(String str: commandList){
                 str= str.replaceAll("\\p{Blank}",NULL_CHARACTER);
                 str=str.replaceAll("\\s+",NULL_CHARACTER);
-                if(!str.equals("")){
+                if(!str.equals(NULL_CHARACTER)){
                     commandStack.add(str);
                 }
         }
