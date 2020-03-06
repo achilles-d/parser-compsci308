@@ -1,6 +1,6 @@
 package slogo.model.parsers;
 
-import slogo.model.subparsers.Symbol;
+import slogo.model.parsers.subparsers.Symbol;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.CommandExecutor;
 import slogo.model.turtle.UserVariableHandler;
@@ -74,7 +74,7 @@ public class CommandParser implements Parser {
     }
 
 
-    public void  addPatterns(String language, String syntax){
+    public void addPatterns(String language, String syntax){
         symbol=new Symbol(language, syntax); // comes from the controller
     }
 
@@ -101,7 +101,6 @@ public class CommandParser implements Parser {
             }
 
         }
-        //argumentsToBuildCommand
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvalidCommandException e) {
@@ -139,7 +138,6 @@ public class CommandParser implements Parser {
     }
     private  void parseGroupEnd() {
         throw new InvalidCommandException("Temp"); //FIXME define a more specific message
-
     }
 
     private void parseNewLine(){
@@ -173,6 +171,7 @@ public class CommandParser implements Parser {
         }
     }
 
+
     private void parseName() {
         commandStack.pop();
     }
@@ -199,11 +198,6 @@ public class CommandParser implements Parser {
         Command com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
 
         argumentStack.add(com);
-
-
-
-
-
     }
 
 
@@ -231,14 +225,12 @@ public class CommandParser implements Parser {
         consoleInput = getCommandWithNoComment(consoleInput);
         System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);
-
         buildAndExecuteCommand();
         return output;
     }
 
     private void buildAndExecuteCommand() throws ExecutionException {
         numOfCommandsToExecute++;
-System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         while(commandStack.size()!=0){
 
             if(matchMethodsToRun.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
@@ -259,10 +251,6 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
             } else{
                 System.out.println("Shoudl reiterate back to the stack");
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
-                //System.out.println("size of command stack "+commandStack.);
-//                for(int i=0; i<=commandStack.size()+1;i++){
-//                    System.out.println("What is added to the stack is "+commandStack.pop());
-//                }
                buildAndExecuteCommand();
             }
 
@@ -272,14 +260,11 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
     private void fillStackWithValidCommand(String consoleInput) {
         List<String> commandList= Arrays.asList(consoleInput.split(" "));
         for(String str: commandList){
-
                 str= str.replaceAll("\\p{Blank}","");
                 str=str.replaceAll("\\s+","");
-
                 if(!str.equals("")){
                     commandStack.add(str);
                 }
-
         }
     }
 
@@ -299,57 +284,14 @@ System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         return consoleInput;
     }
 
-    //DELETE THIS
-    public void clear()
-    {
-        mySymbols.clear();
-    }
-
-//
-//    private void addToResourceMap(String lang) {
-//        ResourceBundle resources = ResourceBundle.getBundle(lang);
-//        for (String key : Collections.list(resources.getKeys())) {
-//            String regex = resources.getString(key);
-//            mySymbols.add(new AbstractMap.SimpleEntry<>(key,
-//                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-//        }
-//    }
-//
-//
-//    /**
-//     * @param command the commands as a text
-//     * @return the commands type
-//     */
-//    public String getSymbol(String command) {
-//        final String ERROR = "NO MATCH";
-//       System.out.println("INVALID:"+command+  "is |" + command+  "this");
-//       //System.out.println("Asciii code is "+ (int) command.toCharArray());
-//        for (Map.Entry<String, Pattern> e : mySymbols) {
-//            if (match(command, e.getValue())) {
-//                System.out.println("The key is "+e.getKey());
-//                return e.getKey();
-//            }
-//        }
-//        // FIXME: perhaps throw an exception instead
-//
-//        return ERROR;
-//    }
-
-//    private boolean match(String text, Pattern regex) {
-//        return regex.matcher(text).matches();
-//    }
-
     private int readArgumentSize(String key) {
         return Integer.parseInt(sizes.getString(key));
 
     }
-
     private void clearAll(){
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
-        //userVariableHandler.getKeys().clear();
     }
-
 
 }

@@ -29,65 +29,57 @@ public class CommandFactory {
     }
 
     public Object getCommand(String commandName, List<Object> arguments) throws InvalidCommandException{
-
         return makeCommand(commandName, arguments);
-
-        //return
     }
 
     private Object makeCommand(String commandName, List<Object> arguments) throws InvalidCommandException {
+        Object currentCommand = null;
+        Class<?> c = null;
+        try {
+            c = Class.forName("slogo.model.commands." + commandName);
+        } catch (ClassNotFoundException e) {
+            throw new InvalidCommandException("Temp", e);    //FIXME improve error msg
+        }
+        Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
+        Object[] ar = new Object[pType.length];
+        inputCounter = 0;
 
-            Object currentCommand = null;
+        populateTypeOfArguments(arguments, pType, ar);
+        Constructor<?> cons = null;
+          try {
+            cons = c.getDeclaredConstructor(pType);
+          } catch (NoSuchMethodException e) {
+            throw new InvalidCommandException("temp", e); //FIXME improve error message
+          }
+          try {
+            currentCommand = cons.newInstance(ar);
+          } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
+            throw new InvalidCommandException("temp", e); //FIXME improve error message
+          }
+          return currentCommand;
+        }
 
-      Class<?> c = null;
-      try {
-        c = Class.forName("slogo.model.commands." + commandName);
-      } catch (ClassNotFoundException e) {
-        throw new InvalidCommandException("DefaultInvalid", e);    //FIXME improve error msg
-      }
-      Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
-            Object[] ar = new Object[pType.length];
-            inputCounter = 0;
+    private void populateTypeOfArguments(List<Object> arguments, Class<?>[] pType, Object[] ar) {
+        for (int j = 0; j < pType.length; j++) {
+            String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
 
-           System.out.println("Constructor command name " + commandName);
+            if (className.equals("BackEndTurtle")) {
+                ar[j] = turtle;
+            } else if (className.equals("Coordinate")) {
+                ar[j] = turtle.getPosition();
+            }  else if(className.equals("UserVariableHandler")) {
+                ar[j] = userVariableHandler;
 
-
-            for (int j = 0; j < pType.length; j++) {
-
-                String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
-                System.out.println("Constructor name is " + className);
-
-                if (className.equals("BackEndTurtle")) {
-                    ar[j] = turtle;
-                } else if (className.equals("Coordinate")) {
-                    ar[j] = turtle.getPosition();
-                }  else if(className.equals("UserVariableHandler")) {
-                    ar[j] = userVariableHandler;
-
-                } else if(className.equals("List")){
-                    ar[j]=arguments;
-                    System.out.println("here is the data for the group "+arguments.toString());
-                    System.out.println("size of the arguments "+j);
-                } else {
-                    ar[j]=arguments.get(inputCounter);
-                    System.out.println("here is the data "+arguments.get(inputCounter).toString());
-                    inputCounter++;
-                }
+            } else if(className.equals("List")){
+                ar[j]=arguments;
+                System.out.println("here is the data for the group "+arguments.toString());
+                System.out.println("size of the arguments "+j);
+            } else {
+                ar[j]=arguments.get(inputCounter);
+                System.out.println("here is the data "+arguments.get(inputCounter).toString());
+                inputCounter++;
             }
-      Constructor<?> cons = null;
-      try {
-        cons = c.getDeclaredConstructor(pType);
-      } catch (NoSuchMethodException e) {
-        throw new InvalidCommandException("DefaultInvalid", e); //FIXME improve error message
-      }
-      System.out.println("Inputs size to constructor "+ar.length);
-
-      try {
-        currentCommand = cons.newInstance(ar);
-      } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
-        throw new InvalidCommandException("DefaultInvalid", e); //FIXME improve error message
-      }
-      return currentCommand;
+        }
     }
 
     public void updateCounter(Integer v) {
