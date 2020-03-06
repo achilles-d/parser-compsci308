@@ -14,9 +14,7 @@ public class BackEndTurtle implements Turtle {
 
     private SimpleDoubleProperty xLoc = new SimpleDoubleProperty();
     private SimpleDoubleProperty yLoc = new SimpleDoubleProperty();
-
-    private SimpleDoubleProperty endX = new SimpleDoubleProperty();
-    private SimpleDoubleProperty endY = new SimpleDoubleProperty();
+    
 
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
@@ -28,18 +26,12 @@ public class BackEndTurtle implements Turtle {
     private SimpleDoubleProperty shapeIndex = new SimpleDoubleProperty();
     private SimpleDoubleProperty penSize = new SimpleDoubleProperty();
 
-    //private double xLoc;
-    //private double yLoc;
-    //private double endX;
-    //private double endY;
 
     private Coordinate turtleCoordinate;
     private List<Line> lines;
     private int myID;
 
-    //private double heading;
-    //private boolean penUp;
-    //private boolean turtleVisible;
+
 
     public BackEndTurtle(int id){
         myID = id;
@@ -72,42 +64,6 @@ public class BackEndTurtle implements Turtle {
         yLoc.set(newCord.getYVal());
     }
 
-    //https://codereview.stackexchange.com/questions/58063/screen-wraparound
-    private Coordinate wrapAround(Coordinate a){
-        double x = a.getXVal();
-        double y = a.getYVal();
-
-        System.out.println("OLD X " + x);
-        System.out.println("OLD Y " + y);
-
-        if(x/XBOUNDS >1)
-        {
-            x =-XBOUNDS+x%XBOUNDS;
-        }
-        else
-            x = x%(XBOUNDS+1);
-
-        if(y/YBOUNDS >1)
-        {
-            y= -YBOUNDS +y%YBOUNDS;
-        }
-        else
-            y = y%(YBOUNDS+1);
-        y = y%(YBOUNDS+1);
-
-        /*
-        if(x<0)
-        {
-            x+=XBOUNDS;
-        }
-        if(y<0)
-        {
-            y+=YBOUNDS;
-        }
-
-         */
-        return new Coordinate(x,y);
-    }
     private Coordinate ensureInBounds(Coordinate a) {
 
         double x = a.getXVal();
@@ -137,34 +93,15 @@ public class BackEndTurtle implements Turtle {
             hitYWall = true;
 
         }
-
-
-
-        /*
         if(!hitXWall && hitYWall)
         {
-            adjustX = (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
-            adjustY = y;
+           x =  (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
         }
-
-        else if (hitXWall && !hitYWall)
-        {
-            adjustY = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
-            adjustX = x;
-        }
-
-        else if(hitXWall && hitYWall)
-        {
-            adjustX = (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal();
-            adjustY = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
-        }
+        else if(hitXWall && !hitYWall)
+            y = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
 
 
-
-         */
-        return new Coordinate((!hitXWall && hitYWall? (y-turtleCoordinate.getYVal())*Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getXVal():x),(hitXWall && !hitYWall? (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal():y));
-        //return new Coordinate(adjustX,adjustY);
-
+        return new Coordinate(x,y);
     }
 
 
