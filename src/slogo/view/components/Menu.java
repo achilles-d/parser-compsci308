@@ -168,6 +168,7 @@ public class Menu {
            languageSelect.setOnAction(e -> {
                myController.setLanguage(language);
                activeLanguage.setValue(language);
+               tellUpdate.setValue(true);
            });
            languages.getItems().add(languageSelect);
        }

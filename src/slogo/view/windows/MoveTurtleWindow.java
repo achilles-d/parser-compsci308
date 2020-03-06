@@ -48,21 +48,22 @@ public class MoveTurtleWindow extends Window {
 
         VBox buttonPane = new VBox();
 
-        forward = makeButton(FORWARD, event -> {
+        forward = makeButton(getCommandName(FORWARD), event -> {
             setLanguage();
-            moveForward();
+            action(FORWARD,MOVE_AMOUNT);
         });
-        back = makeButton(BACK, event -> {
+        back = makeButton(getCommandName(BACK), event -> {
             setLanguage();
-            moveBackward();
+            action(BACK,MOVE_AMOUNT);
+
         });
-        right = makeButton(RIGHT, event -> {
+        right = makeButton(getCommandName(RIGHT), event -> {
             setLanguage();
-            turnRight();
+            action(RIGHT,ROTATE_AMOUNT);
         });
-        left = makeButton(LEFT, event -> {
+        left = makeButton(getCommandName(LEFT), event -> {
             setLanguage();
-            turnLeft();
+            action(LEFT,ROTATE_AMOUNT);
         });
 
         buttonPane.getChildren().addAll(forward, back, right, left);
@@ -78,7 +79,13 @@ public class MoveTurtleWindow extends Window {
 
     private String getCommandName(String key) {
         String[] commands = commandsList.getString(key).split("\\|");
-        return commands[1];
+        return commands[0];
+    }
+
+    private void action(String command,int amount){
+        myCode.addCodeToBeParsed(getCommandName(command) + " " + amount);
+        tellUpdate.setValue(true);
+
     }
 
     private void moveForward() {
@@ -107,9 +114,18 @@ public class MoveTurtleWindow extends Window {
         return button;
     }
 
+    private void updateButtonText()
+    {
+        setLanguage();
+        forward.setText(getCommandName(FORWARD));
+        back.setText(getCommandName(BACK));
+        right.setText(getCommandName(RIGHT));
+        left.setText(getCommandName(LEFT));
+    }
+
     public void update()
     {
-        //Supposed to do nothing
+        updateButtonText();
     }
     public Node getView()
     {
