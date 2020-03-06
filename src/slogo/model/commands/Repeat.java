@@ -17,7 +17,7 @@ public class Repeat implements Command<Object> {
 private Command group;
   private List<String> commandsToAddToStack;
 
-  public Repeat(UserVariableHandler handler, Command num, Command group) throws Exception {
+  public Repeat(UserVariableHandler handler, Command num, Command group)  {
     this.handler=handler;
     variableCommand=num;
     this.group=group;
@@ -40,7 +40,7 @@ private Command group;
     } else if(className.equals("Double")){
       this.repeatSize=  ((Double) number).intValue();
     } else{
-      isItExecutable=true;// return zero
+      isItExecutable=true;
     }
 
     if(isItExecutable){
@@ -48,13 +48,6 @@ private Command group;
     }
     cleanTheFirstLayerBrackets();
     repeatCommands();
-
-//    } else{
-//      commandsToAddToStack.add("repeat");
-//      //String name= (String) variableCommand.execute();
-//      commandsToAddToStack.add(name);
-//      commandsToAddToStack.addAll(groupedCodes);
-//    }
 
     return commandsToAddToStack;
   }
