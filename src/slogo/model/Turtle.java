@@ -1,6 +1,7 @@
 package slogo.model;
 
-import slogo.model.backEndInternal.Line;
+import slogo.model.Coordinate;
+import slogo.model.Line;
 
 import java.util.List;
 

@@ -5,12 +5,15 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import slogo.controller.ParserController;
 import slogo.controller.TurtleController;
-import slogo.model.backEndInternal.Line;
+import slogo.model.Coordinate;
+import slogo.model.Line;
 
 public class TurtleWindow extends Window {
 

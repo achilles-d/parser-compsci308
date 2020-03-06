@@ -19,25 +19,35 @@ public class LogoVisualization extends BorderPane{
     private static final String LEFT_COMPONENTS = "Left";
     private static final String RIGHT_COMPONENTS = "Right";
     private static final String ORDER_COMPONENTS = "resources.OrderUIElements";
-    private static final int MAX_BOTTOM_HEIGHT = 50;
-    private static final String ORDERING_SEPARATOR = ",";
 
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
     private ResourceBundle orderingComponents = java.util.ResourceBundle.getBundle(ORDER_COMPONENTS);
 
+    private Stage myStage;
     private CodeStage myCode;
     private TurtleWindow graphics;
     private ParserController myController;
+    private PaletteWindow myPalette;
+    private MoveTurtleWindow turtleMover;
+    private Property activePenColor;
+    private Property activeTurtleImage;
     private SimpleBooleanProperty updateNeeded;
+    private VariableWindow myVariables;
     private ConsoleWindow myConsole;
+    private HistoryWindow myHistory;
     private Menu toolbar;
+    private TurtleCompleteInfoWindow myTurtleInfo;
+    private AvailableCommandsWindow available;
+    private OutputWindow myOutput;
+    private Double output;
     private List<Object> parameters;
     private List<Window> myWindows;
     private WindowFactory myWindowCreator;
 
     public LogoVisualization(ParserController control)
     {
+        //myStage = stage;
         myController = control;
         parameters = new ArrayList<>();
         myWindows = new ArrayList<>();
@@ -89,7 +99,7 @@ public class LogoVisualization extends BorderPane{
 
         HBox bottom  = new HBox();
         bottom.getChildren().addAll(myConsole.getView());
-        bottom.setMaxHeight(MAX_BOTTOM_HEIGHT);
+        bottom.setMaxHeight(50);
 
 
 
@@ -118,7 +128,7 @@ public class LogoVisualization extends BorderPane{
 
     private void fillWindows(String side, VBox container)
     {
-        for(String windowName: orderingComponents.getString(side).split(ORDERING_SEPARATOR))
+        for(String windowName: orderingComponents.getString(side).split(","))
         {
             Window comp = myWindowCreator.makeWindow(windowName);
             myWindows.add(comp);

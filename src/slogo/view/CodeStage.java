@@ -5,7 +5,6 @@ import java.util.List;
 
 public class CodeStage {
 
-    private static final int READY_CODE = 0;
     private List<String> code;
 
     public CodeStage()
@@ -20,7 +19,7 @@ public class CodeStage {
 
     public String getCodeToBeParsed()
     {
-        return code.get(READY_CODE);
+        return code.get(0);
     }
 
     public void clearStagedCode()

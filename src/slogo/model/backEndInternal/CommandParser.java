@@ -49,7 +49,7 @@ public class CommandParser implements Parser {
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
-                         BackEndTurtle turtle) throws ExecutionException {
+                         BackEndTurtle turtle) {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
@@ -100,15 +100,16 @@ public class CommandParser implements Parser {
         //argumentsToBuildCommand
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-        } catch (InvalidCommandException e) {
-            throw e;
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException
+                | ClassNotFoundException | NoSuchMethodException e) {
+            e.printStackTrace();
         }
     argumentStack.add(com);
 
     }
 
     private void parseListStart(){
-        throw new InvalidCommandException(""); //FIXME define a more specific message
+        throw new InvalidCommandException("");
     }
 
     private void parseGroupStart(){
@@ -134,7 +135,7 @@ public class CommandParser implements Parser {
 
     }
     private  void parseGroupEnd() {
-        throw new InvalidCommandException("Temp"); //FIXME define a more specific message
+        throw new InvalidCommandException("");
 
     }
 
@@ -147,7 +148,7 @@ public class CommandParser implements Parser {
     }
 
 
-    private void parseVariable() throws InvalidCommandException{
+    private void parseVariable(){
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         argumentsToBuildCommand.add(commandStack.peek());
         String variableName=commandStack.peek();
@@ -161,8 +162,9 @@ public class CommandParser implements Parser {
 
             try {
                 com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-            } catch (InvalidCommandException e) {
-                throw e;
+            } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
+                    ClassNotFoundException | NoSuchMethodException e) {
+                e.printStackTrace();
             }
             argumentStack.add(com);
         }
@@ -218,7 +220,6 @@ public class CommandParser implements Parser {
 
     }
 
-    //FIXME change throws clause
     private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         String currentCommand = getSymbol(commandStack.pop());
@@ -258,8 +259,9 @@ public class CommandParser implements Parser {
         Command com = null;
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-        } catch (InvalidCommandException e) {
-            throw e;
+        } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
+                ClassNotFoundException | NoSuchMethodException e) {
+            throw new InvalidCommandException("Default");
         }
         argumentStack.add(com);
     }
@@ -281,7 +283,8 @@ public class CommandParser implements Parser {
         return output;
     }
 
-    private void buildAndExecuteCommand() throws ExecutionException {
+    private void buildAndExecuteCommand() throws ClassNotFoundException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException, InvocationTargetException {
         numOfCommandsToExecute++;
         System.out.println("step 1 in the loop " +numOfCommandsToExecute);
         while(commandStack.size()!=0){
@@ -289,12 +292,7 @@ public class CommandParser implements Parser {
             if(matchMethodsToRun.containsKey(getSymbol(commandStack.peek()))){ // if not actual command
                 matchMethodsToRun.get(getSymbol(commandStack.peek())).run();
             } else {
-                try {
-                    buildExecutableCommand(); // if it is command like for and repeat
-                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
-                    IllegalAccessException | InvocationTargetException e) {
-                    throw new ExecutionException("temp", e); //FIXME improve error message
-                }
+                buildExecutableCommand(); // if it is command like for and repeat
             }
         }
 

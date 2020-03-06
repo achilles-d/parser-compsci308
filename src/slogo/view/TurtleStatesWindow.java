@@ -10,10 +10,6 @@ import java.util.ResourceBundle;
 public class TurtleStatesWindow extends Window{
     private static final String UI_TEXT = "resources.UIText";
     private static final String CSS_ID = "TurtleStates";
-    private static final int WIDTH = 110;
-    private static final String TURTLEID = "turtleid";
-    private static final String TURTLEPOSITION = "turtleposition";
-    private static final String TURTLEHEADING = "turtleheading";
 
     private VBox myView;
     private Label turtleID;
@@ -27,8 +23,8 @@ public class TurtleStatesWindow extends Window{
     {
         myView = new VBox();
         myView.setId(CSS_ID);
-        myView.setMinWidth(WIDTH);
-        myView.setMaxWidth(WIDTH);
+        myView.setMinWidth(110);
+        myView.setMaxWidth(110);
         myViewTurtle = view;
         update();
         myView.getChildren().addAll(turtleID,turtlePosition,turtleHeading);
@@ -39,10 +35,10 @@ public class TurtleStatesWindow extends Window{
     }
     @Override
     public void update() {
-        turtleID = makeLabel(visualText.getString(TURTLEID),myViewTurtle.getID()+"");
-        turtlePosition = makeLabel(visualText.getString(TURTLEPOSITION),myViewTurtle.getCoordinates().toString());
+        turtleID = makeLabel(visualText.getString("turtleid"),myViewTurtle.getID()+"");
+        turtlePosition = makeLabel(visualText.getString("turtleposition"),myViewTurtle.getCoordinates().toString());
         turtlePosition.setStyle("-fx-font-size: 11");
-        turtleHeading = makeLabel(visualText.getString(TURTLEHEADING),myViewTurtle.getHeading() + "");
+        turtleHeading = makeLabel(visualText.getString("turtleheading"),myViewTurtle.getHeading() + "");
     }
 
     @Override

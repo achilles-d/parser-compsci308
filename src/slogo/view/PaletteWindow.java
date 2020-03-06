@@ -17,7 +17,6 @@ public class PaletteWindow extends Window{
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String AVAILABLE_COLORS = "availablecolors";
     private static final String IMAGES = "images";
-    private static final int MAX_WIDTH = 50;
 
 
     private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
@@ -61,7 +60,7 @@ public class PaletteWindow extends Window{
         paletteContainer.getChildren().addAll(colorPaletteView, imagePaletteView);
         myView.setText("Palette");
         myView.setContent(paletteContainer);
-        myView.setMaxWidth(MAX_WIDTH);
+        myView.setMaxWidth(50);
 
     }
 

@@ -19,12 +19,8 @@ public class MoveTurtleWindow extends Window {
     private static final String BACK = "Backward";
     private static final String RIGHT = "Right";
     private static final String LEFT = "Left";
-    private static final String UI_TEXT = "resources.UIText";
-
 
     private static final int ROTATE_AMOUNT = 10;
-    private static final String MOVETURTLE = "moveturtle";
-    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
     private ResourceBundle commandsList;
     private TitledPane myView;
     private ParserController myController;
@@ -43,7 +39,7 @@ public class MoveTurtleWindow extends Window {
         commandsList = ResourceBundle.getBundle(myController.getLanguage());
 
 
-        myView.setText(visualText.getString(MOVETURTLE));
+        myView.setText("Move Turtle");
 
         VBox buttonPane = new VBox();
 
@@ -108,7 +104,7 @@ public class MoveTurtleWindow extends Window {
 
     public void update()
     {
-        //Supposed to do nothing
+
     }
     public Node getView()
     {
