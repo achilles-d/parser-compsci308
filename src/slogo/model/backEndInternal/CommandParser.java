@@ -207,12 +207,7 @@ public class CommandParser implements Parser {
         //argumentsToBuildCommand.add("UserDefined");
 
         Command com = null;
-        try {
-            com = (Command) commandFactor.getCommand(commandName,argumentsToBuildCommand);
-        } catch (InvocationTargetException | IllegalAccessException | InstantiationException |
-                ClassNotFoundException | NoSuchMethodException e) {
-            throw new InvalidCommandException(""+commandName);
-        }
+        com = (Command) commandFactor.getCommand(commandName,argumentsToBuildCommand);
         argumentStack.add(com);
         commandStack.pop();
 
