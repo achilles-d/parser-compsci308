@@ -140,7 +140,7 @@ public class PenStateWindow extends Window {
             penStatusText = visualText.getString(PENUP);
         }
         penStatus = makeLabel(visualText.getString(PENSTATUS),penStatusText);
-        penThickness = makeLabel(visualText.getString(PENTHICKNESS),myViewTurtle.getPenSize()+"");
+        penThickness = makeLabel(visualText.getString(PENTHICKNESS),(int)myViewTurtle.getPenSizeProperty().get()+"");
         Rectangle colorPatch = new Rectangle(ICON_SIZE, ICON_SIZE,myColorPalette.getColor((int)myViewTurtle.getPenColorIndex()));
         penColor = makeLabelWithGraphic(visualText.getString(PENCOLOR),colorPatch);
         penInfo.getChildren().clear();

@@ -22,17 +22,13 @@ public class AvailableCommandsWindow extends Window {
 
     private TitledPane myView;
     private ParserController myController;
-    private SimpleStringProperty languageChanged;
     private ListView<String> availableCommands;
     private SimpleBooleanProperty tellUpdate;
     private CodeStage myCode;
 
 
-    public AvailableCommandsWindow(Property language, ParserController control,SimpleBooleanProperty update, CodeStage code)
+    public AvailableCommandsWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
-        languageChanged = (SimpleStringProperty)language;
-        languageChanged.addListener((observable, oldValue, newValue) -> update());
-
         myController = control;
         commandNames = java.util.ResourceBundle.getBundle(myController.getLanguage());
 

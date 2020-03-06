@@ -78,18 +78,6 @@ public class LogoVisualization extends BorderPane{
 
 
 
-//        myVariables = new VariableWindow(myController,updateNeeded,myCode);
-//        myHistory = new HistoryWindow(myController,updateNeeded,myCode);
-//        available = new AvailableCommandsWindow(toolbar.getActiveLanguage(),myController,updateNeeded,myCode);
-//        turtleMover = new MoveTurtleWindow(myController,updateNeeded,myCode);
-//        myPalette = new PaletteWindow(myController,updateNeeded,myCode);
-//        myTurtleInfo = new TurtleCompleteInfoWindow(myController,updateNeeded,myCode);
-//        leftComps.getChildren().addAll(myHistory.getView(),available.getView(),myVariables.getView());
-//        rightComps.getChildren().addAll(turtleMover.getView(),myPalette.getView(),myTurtleInfo.getView());
-
-
-
-
         HBox bottom  = new HBox();
         bottom.getChildren().addAll(myConsole.getView());
         bottom.setMaxHeight(MAX_BOTTOM_HEIGHT);
@@ -105,16 +93,6 @@ public class LogoVisualization extends BorderPane{
         this.setLeft(leftComps);
         this.setTop(toolbar.getView());
         this.setRight(rightComps);
-
-
-
-        /*
-        Scene scene = new Scene(border,1000,1000);
-        scene.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
-        myStage.setScene(scene);
-        myStage.show();
-
-         */
 
 
     }
@@ -134,7 +112,6 @@ public class LogoVisualization extends BorderPane{
         parameters.add(myController);
         parameters.add(updateNeeded);
         parameters.add(myCode);
-        parameters.add(toolbar.getActiveLanguage());
     }
 
     private void checkUpdate(boolean check)
@@ -165,13 +142,6 @@ public class LogoVisualization extends BorderPane{
         }
 
         toolbar.update();
-
-//        graphics.update();
-//        myHistory.update();
-//        myVariables.update();
-//        myPalette.update();
-//        myTurtleInfo.update();
-//        toolbar.update();
 
 
         myCode.clearStagedCode();

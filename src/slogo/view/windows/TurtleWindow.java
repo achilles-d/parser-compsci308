@@ -131,7 +131,7 @@ public class TurtleWindow extends Window {
         else
         {
             drawer.setStroke(myColorPalette.getColor((int)active.getPenColorIndex()));
-            drawer.setLineWidth(active.getPenSize());
+            drawer.setLineWidth(active.getPenSizeProperty().get());
             for(Line l: myTurtleController.getLines(turtleID))
             {
                 if(!l.isDrawn())

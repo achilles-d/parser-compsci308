@@ -43,7 +43,7 @@ public class WindowFactory {
 
     public Window makeWindow(String windowName)
     {
-        Constructor[] constructors = new Constructor[FIRST_PARAM];
+        Constructor[] constructors;
         try {
             constructors = Class.forName(CLASSPATH+windowName+ WINDOW).getConstructors();
         } catch (ClassNotFoundException e) {
@@ -52,17 +52,9 @@ public class WindowFactory {
         String[] parameters = parameterList.getString(windowName).split(",");
 
         try {
-
-
-            if (constructors[FIRST_PARAM].getParameterCount() == MAXLENGTH) {
-                return (Window) constructors[FIRST_PARAM].newInstance(possibleParameters.get(parameters[FIRST_PARAM]), possibleParameters.get(parameters[SECOND_PARAM]),
-                        possibleParameters.get(parameters[THIRD_PARAM]), possibleParameters.get(parameters[FOURTH_PARAM]));
-            } else {
                 return (Window) constructors[FIRST_PARAM].newInstance(possibleParameters.get(parameters[FIRST_PARAM]), possibleParameters.get(parameters[SECOND_PARAM]),
                         possibleParameters.get(parameters[THIRD_PARAM]));
-
             }
-        }
         catch(InstantiationException|IllegalAccessException| InvocationTargetException e)
         {
             throw new WindowCreationError(errorMessages.getString(WINDOW_ERROR));
