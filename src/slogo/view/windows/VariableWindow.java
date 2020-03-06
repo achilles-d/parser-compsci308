@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import slogo.controller.ParserController;
 import slogo.view.components.CodeStage;
-
 import java.util.Optional;
 import java.util.ResourceBundle;
 

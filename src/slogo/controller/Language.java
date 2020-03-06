@@ -1,7 +1,5 @@
 package slogo.controller;
 
-import slogo.model.backEndInternal.CommandParser;
-
 public enum Language {
   CHINESE("Chinese"), FRENCH("French"), GERMAN("German"),
   ITALIAN("Italian"), PORTUGUESE("Portuguese"),

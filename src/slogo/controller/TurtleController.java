@@ -1,8 +1,9 @@
 package slogo.controller;
 
-import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.model.backEndInternal.Line;
+
 import slogo.view.components.ViewTurtle;
+import slogo.model.turtle.BackEndTurtle;
+import slogo.model.turtle.Line;
 
 import java.util.*;
 
