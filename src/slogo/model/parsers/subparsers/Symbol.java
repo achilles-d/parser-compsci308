@@ -11,7 +11,7 @@ public class Symbol {
 
     public Symbol(String language, String syntax){
         mySymbols = new ArrayList<>();
-        addPatterns(language, syntax);
+        addPatterns("resources.languages.English", "resources.languages.Syntax");
 
     }
     /**

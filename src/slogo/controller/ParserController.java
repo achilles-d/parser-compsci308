@@ -32,7 +32,7 @@ public class ParserController {
     private CommandFileIO myCommandFileIO;
     private Double output;
 
-    public ParserController() throws NoSuchMethodException {
+    public ParserController() {
         myTurtleController = new TurtleController();
         //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
