@@ -3,8 +3,8 @@ package slogo;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
-import slogo.view.LogoVisualization;
-import slogo.view.MainWindow;
+import slogo.view.components.LogoVisualization;
+import slogo.view.windows.MainWindow;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -23,7 +23,6 @@ public class Main extends Application {
         LogoVisualization myVis = new LogoVisualization(controller);
         MainWindow myMain = new MainWindow(primaryStage);
         myMain.addWorkspace(myVis);
-
 
     }
 }

@@ -1,13 +1,10 @@
 package slogo.controller;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.Property;
-import slogo.model.Line;
-import slogo.model.Turtle;
-import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.view.ViewTurtle;
 
-import javax.swing.text.View;
+import slogo.view.components.ViewTurtle;
+import slogo.model.turtle.BackEndTurtle;
+import slogo.model.turtle.Line;
+
 import java.util.*;
 
 public class TurtleController {
@@ -46,7 +43,7 @@ public class TurtleController {
     public Collection<ViewTurtle> getAllViewTurtles() {
 
         List<ViewTurtle> viewList = new ArrayList<>();
-        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+        for (Integer i : turtlesMap.keySet()) {
             viewList.add(turtlesMap.get(i).getViewTurtle());
         }
         return viewList;
@@ -55,7 +52,7 @@ public class TurtleController {
     public Collection<ViewTurtle> getAllActiveViewTurtles()
     {
         List<ViewTurtle> viewList = new ArrayList<>();
-        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+        for (Integer i : turtlesMap.keySet()) {
             if(turtlesMap.get(i).getViewTurtle().getActiveProperty().getValue())
                 viewList.add(turtlesMap.get(i).getViewTurtle());
         }
@@ -65,7 +62,7 @@ public class TurtleController {
     public Collection<BackEndTurtle> getAllBackEndTurtles() {
 
         List<BackEndTurtle> backList = new ArrayList<>();
-        for (int i = 0; i < turtlesMap.keySet().size(); i++) {
+        for (Integer i : turtlesMap.keySet()) {
             backList.add(turtlesMap.get(i).getBackEndTurtle());
         }
         return backList;

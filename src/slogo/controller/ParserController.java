@@ -1,28 +1,23 @@
 package slogo.controller;
 
-import java.awt.*;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
 import javafx.beans.property.Property;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import slogo.model.Coordinate;
-import slogo.model.backEndInternal.*;
-import slogo.model.exceptions.InvalidCommandException;
-import slogo.model.exceptions.ExecutionException;
-import slogo.model.Line;
-import slogo.model.Variable;
+import slogo.model.turtle.Coordinate;
 
 
+import slogo.view.components.ColorPalette;
+import slogo.model.parsers.CommandHandlerAPI;
+import slogo.model.parsers.CommandParser;
+import slogo.model.turtle.BackEndTurtle;
+import slogo.model.turtle.Line;
+import slogo.model.turtle.UserVariable;
+import slogo.model.turtle.UserVariableHandler;
 
-import slogo.view.ColorPalette;
 
 public class ParserController {
 
@@ -70,15 +65,20 @@ public class ParserController {
         return myColorPalette;
     }
 
-    public Double parseCode(String code) throws Exception {
+    public void parseCode(String code)  {
        // code = code.replaceAll("[\r\n]+", " ");
+
         try{
             output = myCommandParser.parseCode(code);
-            return output;
         }
         catch(Exception exception){
             throw exception;
         }
+    }
+
+    public Double getReturn()
+    {
+        return output;
     }
 
     public List<String> getCommandHistory() {
