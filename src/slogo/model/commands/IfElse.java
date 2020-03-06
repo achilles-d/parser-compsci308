@@ -9,38 +9,33 @@ public class IfElse implements Command<Object> {
     private String LEFT_BRACKET = "[";
     private String RIGHT_BRACKET = "]";
     private Double userVal;
-    private boolean isExecutable = true;
-
+    private Command con;
+    private Command commandRight;
+    private Command commandLeft;
     public IfElse(Command con, Command commandLeft, Command commandRight) {
-        this.userVal = (Double) con.execute();
-        this.commandListLeft = (List<String>) commandLeft.execute();
-        this.commandListRight = (List<String>) commandRight.execute();
+        this.con=con;
+        this.commandLeft=commandLeft;
+        this.commandRight=commandRight;
 
-        System.out.println(" COMMAND LEFT : " + commandLeft);
-
-        System.out.println(" COMMAND RIGHT : " + commandRight);
-        //isExecutable(userVal);
     }
 
 
     @Override
     public Object execute() {
+
+        this.userVal = (Double) con.execute();
+        this.commandListLeft = (List<String>) commandLeft.execute();
+        this.commandListRight = (List<String>) commandRight.execute();
         if (userVal>0) {
-            commandListLeft.remove(LEFT_BRACKET);
-            commandListLeft.remove(commandListLeft.lastIndexOf(RIGHT_BRACKET));
+            commandListLeft.remove(0);
+            commandListLeft.remove(commandListLeft.size()-1);
             return commandListLeft;
         } else {
-            commandListRight.remove(LEFT_BRACKET);
-            commandListRight.remove(commandListRight.lastIndexOf(RIGHT_BRACKET));
+            commandListRight.remove(0);
+            commandListRight.remove(commandListRight.size()-1);
             return commandListRight;
         }
     }
-//
-//    private void isExecutable(Double userVal) {
-//        if (userVal != 0 && commandListRight.size() != 0) {
-//            isExecutable = false;
-//        }
-//    }
 
     @Override
     public boolean isItExecutable() {

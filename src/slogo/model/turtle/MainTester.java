@@ -85,8 +85,12 @@ public class MainTester {
 
        // String userInput= "fd 50 IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
-        String userInput="repeat 36 [ fd 50 rt 10 ]";
-        //String userInput="fd 50 for hi jdlls - ls 3 [ fd 50 ] fd 50 - - ";
+        //String userInput="repeat 36 [ fd 50 rt 10 ]";
+        String userInput="  ifelse 5 [\n" +
+                "    rt 60\n" +
+                "  ] [\n" +
+                "    lt 60\n" +
+                "  ]";
 
      //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
