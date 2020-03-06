@@ -32,7 +32,7 @@ public class MainWindow {
     private Stage myStage;
     private TextInputDialog tabNameInput;
 
-    public MainWindow(Stage stage) throws NoSuchMethodException
+    public MainWindow(Stage stage)
     {
         tabNameInput = new TextInputDialog();
         tabNameInput.setContentText(visualText.getString(WORKSPACEHEADER));
@@ -42,11 +42,7 @@ public class MainWindow {
         myBorder = new BorderPane();
         makeWorkspace = new Button(visualText.getString(WORKSPACEBUTTON));
         makeWorkspace.setOnAction(event -> {
-            try {
-                addWorkspace(new LogoVisualization(new ParserController()));
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+            addWorkspace(new LogoVisualization(new ParserController()));
         });
         init();
     }
