@@ -66,7 +66,7 @@ public class CommandParser implements Parser {
         executor = new CommandExecutor();
     }
 
-    private void mathMethods() throws java.lang.NoSuchMethodException {
+    private void mathMethods() throws NoSuchMethodException {
         for(String str:methods.keySet()){
             match.put(str, this.getClass().getDeclaredMethod(methods.getString(str)));
         }
