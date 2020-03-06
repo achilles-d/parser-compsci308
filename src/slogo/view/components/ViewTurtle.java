@@ -68,7 +68,7 @@ public class ViewTurtle {
 
     public void changePenSize(int change)
     {
-        if(penSize.get()+change >=0)
+        if(penSize.get()+change >=1)
             penSize.setValue(penSize.get()+change);
     }
 
