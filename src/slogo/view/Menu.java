@@ -76,7 +76,7 @@ public class Menu {
 
        initDropDownButtons();
        initOtherButtons();
-       
+
        myView.getChildren().addAll(bgColors,penColors,languages,images,loadCode,saveCode,help);
    }
 
