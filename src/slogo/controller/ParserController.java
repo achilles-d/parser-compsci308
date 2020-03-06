@@ -2,6 +2,7 @@ package slogo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class ParserController {
     private CommandFileIO myCommandFileIO;
     private Double output;
 
-    public ParserController() {
+    public ParserController() throws NoSuchMethodException {
         myTurtleController = new TurtleController();
         //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
@@ -64,7 +65,7 @@ public class ParserController {
         return myColorPalette;
     }
 
-    public void parseCode(String code)  {
+    public void parseCode(String code) throws InvocationTargetException, IllegalAccessException {
        // code = code.replaceAll("[\r\n]+", " ");
         try{
             output = myCommandParser.parseCode(code);

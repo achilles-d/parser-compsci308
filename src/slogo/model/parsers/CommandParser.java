@@ -1,5 +1,6 @@
 package slogo.model.parsers;
 
+import slogo.model.exceptions.NoSuchMethodException;
 import slogo.model.parsers.subparsers.Symbol;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.CommandExecutor;
@@ -10,14 +11,16 @@ import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.interfaces.Parser;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Pattern;
 
 public class CommandParser implements Parser {
 
-    private static final String RESOURCES_PACKAGE = "resources.languages.";
-
+   // private static final String RESOURCES_PACKAGE = "resources.languages.";
+    private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
+    private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "Methods");
 
     private List<Map.Entry<String, Pattern>> mySymbols;
 
@@ -25,7 +28,9 @@ public class CommandParser implements Parser {
     private  Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
-    private Map<String, Runnable> matchMethodsToRun;
+    //private Map<String, Runnable> match;
+
+    private Map<String, Method> match;
 
     private CommandFactory commandFactor;
     private CommandExecutor executor;
@@ -51,7 +56,7 @@ public class CommandParser implements Parser {
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
-                         BackEndTurtle turtle) throws ExecutionException {
+                         BackEndTurtle turtle) throws ExecutionException, java.lang.NoSuchMethodException {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
@@ -59,18 +64,31 @@ public class CommandParser implements Parser {
         Integer commandCounter = 0;
 
         commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
-        matchMethodsToRun = new HashMap<>();
+        match = new HashMap<>();
+        match=new HashMap<>();
+
+        mathMethods();
         executor = new CommandExecutor();
 
-        matchMethodsToRun.put("Constant", this::parseConstant);
-        matchMethodsToRun.put("Command", this::parseName);
-        matchMethodsToRun.put("Variable", this::parseVariable);
-        matchMethodsToRun.put("ListStart", this::parseListStart);
-        matchMethodsToRun.put("ListEnd", this::parseListEnd);
-        matchMethodsToRun.put("Whitespace", this::parseWhiteSpace);
-        matchMethodsToRun.put("Newline", this::parseNewLine);
-        matchMethodsToRun.put("GroupEnd", this::parseGroupEnd);
-        matchMethodsToRun.put("GroupStart", this::parseGroupStart);
+//        match.put("Constant", this::parseConstant);
+//        match.put("Command", this::parseName);
+//        match.put("Variable", this::parseVariable);
+//        match.put("ListStart", this::parseListStart);
+//        match.put("ListEnd", this::parseListEnd);
+//        match.put("Whitespace", this::parseWhiteSpace);
+//        match.put("Newline", this::parseNewLine);
+//        match.put("GroupEnd", this::parseGroupEnd);
+//        match.put("GroupStart", this::parseGroupStart);
+
+
+    }
+
+    private void mathMethods() throws java.lang.NoSuchMethodException {
+        for(String str:methods.keySet()){
+            System.out.println(methods.getString(str));
+            Method method= this.getClass().getMethod(methods.getString(str));
+            //match.put(str, this.getClass().getMethod(methods.getString(str)));
+        }
     }
 
 
@@ -79,6 +97,10 @@ public class CommandParser implements Parser {
     }
 
     private void parseListEnd() {
+
+
+        //Method method= this.getClass().getMethod("parseConstant");
+
         leftBracketCounter=0;
         rightBracketCounter=0;
         List<Object> argumentsToBuildCommand= new ArrayList<>();
@@ -177,7 +199,7 @@ public class CommandParser implements Parser {
     }
 
     //FIXME change throws clause
-    private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void buildExecutableCommand() throws ClassNotFoundException, java.lang.NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         String currentCommand = symbol.getSymbol(commandStack.pop());
 
@@ -219,7 +241,7 @@ public class CommandParser implements Parser {
 
 
     @Override
-    public Double parseCode(String consoleInput) throws InvalidCommandException {
+    public Double parseCode(String consoleInput) throws InvalidCommandException, InvocationTargetException, IllegalAccessException {
         clearAll();
         commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
@@ -229,16 +251,16 @@ public class CommandParser implements Parser {
         return output;
     }
 
-    private void buildAndExecuteCommand() throws ExecutionException {
+    private void buildAndExecuteCommand() throws ExecutionException, InvocationTargetException, IllegalAccessException {
         numOfCommandsToExecute++;
         while(commandStack.size()!=0){
 
-            if(matchMethodsToRun.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
-                matchMethodsToRun.get(symbol.getSymbol(commandStack.peek())).run();
+            if(match.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
+                match.get(symbol.getSymbol(commandStack.peek())).invoke(this);
             } else {
                 try {
                     buildExecutableCommand(); // if it is command like for and repeat
-                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException |
+                } catch (ClassNotFoundException | java.lang.NoSuchMethodException | InstantiationException |
                     IllegalAccessException | InvocationTargetException e) {
                     throw new ExecutionException("temp", e); //FIXME improve error message
                 }
