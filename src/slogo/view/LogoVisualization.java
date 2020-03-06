@@ -55,7 +55,7 @@ public class LogoVisualization extends BorderPane{
         updateNeeded.setValue(false);
         updateNeeded.addListener(((observable, oldValue, newValue) -> checkUpdate(newValue)));
 
-        toolbar = new Menu(myController,updateNeeded);
+        toolbar = new Menu(myController,updateNeeded,myCode);
 
         fillParameters();
         myWindowCreator = new WindowFactory(parameters);
@@ -145,13 +145,17 @@ public class LogoVisualization extends BorderPane{
     private void updateAllPanes()
     {
         try {
-            myConsole.addReturn(myController.parseCode(myCode.getCodeToBeParsed()));
+            if(myCode.hasCodeToBeParsed())
+            {
+                myController.parseCode(myCode.getCodeToBeParsed());
+            }
         }
         catch (Exception e)
         {
             showError(e.getMessage());
         }
 
+        myConsole.addReturn(myController.getReturn());
         for(Window w:myWindows)
         {
             w.update();

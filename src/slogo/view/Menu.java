@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 
@@ -25,9 +26,6 @@ import java.util.ResourceBundle;
 import slogo.model.exceptions.ExecutionException;
 
 public class Menu {
-
-    private static final String PEN_COLOR = "resources.colors.PenColor";
-    private static final String BACKGROUND_COLOR = "resources.colors.BackgroundColor";
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
     private static final String UI_TEXT = "resources.UIText";
@@ -43,10 +41,10 @@ public class Menu {
     private static final String ENGLISH = "English";
     private static final String HELPWINDOW = "resources.windowtext.HelpWindowText.txt";
     private static final int HELP_SIZE = 400;
+    private static final String SAVE = "save";
+    private static final String LOAD = "load";
 
     private HBox myView;
-    private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
-    private ResourceBundle bgColorsNames = java.util.ResourceBundle.getBundle(BACKGROUND_COLOR);
     private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
     private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
@@ -61,47 +59,101 @@ public class Menu {
     private SimpleBooleanProperty tellUpdate;
     private ParserController myController;
     private ColorPalette myColorPalette;
+    private Button help;
+    private Button saveCode;
+    private Button loadCode;
+    private CodeStage myCode;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update) throws ExecutionException
+    public Menu(ParserController control,SimpleBooleanProperty update,CodeStage code)
    {
        myController = control;
-       myView = new HBox();
-
        tellUpdate = update;
+       myCode = code;
+
+       myView = new HBox();
        myColorPalette = control.getColorPalette();
 
-       activeBackgroundColor = new SimpleDoubleProperty(DEFAULT_BACKGROUND_COLOR);
-       bgColors = new MenuButton(visualText.getString(BGCOLORS));
-       makeColorsMenu(activeBackgroundColor,bgColors);
+       initDropDownButtons();
+       initOtherButtons();
+       
+       myView.getChildren().addAll(bgColors,penColors,languages,images,loadCode,saveCode,help);
+   }
 
-       activePenColor = new SimpleDoubleProperty(DEFAULT_PEN_COLOR);
-       penColors = new MenuButton(visualText.getString(PENCOLORS));
-       makeColorsMenu(activePenColor,penColors);
-
-
-       turtleImage = new SimpleStringProperty(DEFAULT_IMAGE);
-       images = new MenuButton(visualText.getString(IMAGES));
-       makeImagesMenu();
-
-       activeLanguage = new SimpleStringProperty(ENGLISH);
-       languages = new MenuButton(visualText.getString(LANGUAGE));
-       makeLanguagesMenu();
-
-       Button help = new Button(visualText.getString(HELP));
+   private void initOtherButtons()
+   {
+       help = new Button(visualText.getString(HELP));
 
        help.setOnAction(event -> {
            try {
                makeHelpScreen();
-           } catch (IOException e) {
-             throw new ExecutionException("Temp", e);
+           } catch (Exception e) {
+               showError(e.getMessage());
            }
        });
 
-       myView.getChildren().addAll(bgColors,penColors,languages,images,help);
+       saveCode = new Button(visualText.getString(SAVE));
+       saveCode.setOnAction(event->{
+           try{
+               save();
+           }
+           catch(Exception e)
+           {
+               showError(e.getMessage());
+           }
+       });
+
+       loadCode = new Button(visualText.getString(LOAD));
+       loadCode.setOnAction(e->{load();});
    }
 
-   public Property getActiveTurtleImage()
+   private void load()
+   {
+       Stage load = new Stage();
+       FileChooser chooseCode = new FileChooser();
+       File codeFile = chooseCode.showOpenDialog(load);
+       try {
+           myController.parseFileCode(codeFile);
+       } catch (Exception e) {
+           showError(e.getMessage());
+       }
+       tellUpdate.setValue(true);
+       myCode.clearStagedCode();
+   }
+
+   private void save()
+   {
+       try{
+           myController.saveCommandHistory();
+       }
+       catch(IOException e)
+       {
+           throw new ExecutionException("Temp", e);
+
+       }
+   }
+
+    private void initDropDownButtons() {
+        activeBackgroundColor = new SimpleDoubleProperty(DEFAULT_BACKGROUND_COLOR);
+        bgColors = new MenuButton(visualText.getString(BGCOLORS));
+        makeColorsMenu(activeBackgroundColor,bgColors);
+
+        activePenColor = new SimpleDoubleProperty(DEFAULT_PEN_COLOR);
+        penColors = new MenuButton(visualText.getString(PENCOLORS));
+        makeColorsMenu(activePenColor,penColors);
+
+
+        turtleImage = new SimpleStringProperty(DEFAULT_IMAGE);
+        images = new MenuButton(visualText.getString(IMAGES));
+        makeImagesMenu();
+
+        activeLanguage = new SimpleStringProperty(ENGLISH);
+        languages = new MenuButton(visualText.getString(LANGUAGE));
+        makeLanguagesMenu();
+
+    }
+
+    public Property getActiveTurtleImage()
    {
        return turtleImage;
    }
@@ -167,15 +219,16 @@ public class Menu {
 
    public Property getActivePenColor() { return activePenColor;}
 
-   private void makeHelpScreen()  throws IOException
+   private void makeHelpScreen()
    {
        Stage stage1 = new Stage();
+       List<String> allHelpText;
        File helpWindowTextFile = new File(HELPWINDOW);
        try{
           allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
        }
        catch(IOException ex){
-           throw ex;
+           throw new ExecutionException("Temp", ex);
        }
 
        VBox helpLabels =new VBox();
@@ -187,7 +240,7 @@ public class Menu {
        ScrollPane helpScreenText = new ScrollPane();
        helpScreenText.setContent(helpLabels);
 
-       Scene helpScreen = new Scene(helpScreenText ,400,400);
+       Scene helpScreen = new Scene(helpScreenText ,HELP_SIZE,HELP_SIZE);
        stage1.setScene(helpScreen);
        stage1.show();
    }
@@ -197,4 +250,11 @@ public class Menu {
        makeColorsMenu(activePenColor,penColors);
        makeColorsMenu(activeBackgroundColor,bgColors);
    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        //alert.setTitle(myResources.getString("ErrorTitle"));
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
