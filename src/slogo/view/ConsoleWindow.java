@@ -28,7 +28,6 @@ public class ConsoleWindow extends Window {
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     private HBox myView;
-    private TitledPane consoleItems;
     private TextArea console;
     private TextArea returnConsole;
     private VBox buttonPane;
@@ -45,8 +44,6 @@ public class ConsoleWindow extends Window {
         myCode = code;
 
         myView = new HBox();
-        consoleItems = new TitledPane();
-        consoleItems.setText("Console");
         myController = control;
         HBox myContainer = new HBox();
         console = new TextArea();
@@ -69,8 +66,6 @@ public class ConsoleWindow extends Window {
 
         myContainer.getChildren().addAll(returnConsole,console,buttonPane);
         myContainer.setMaxHeight(MAX_HEIGHT);
-        consoleItems.setContent(myContainer);
-       // consoleItems.setMaxHeight(150);
 
         myView.getChildren().add(myContainer);
         myView.setMaxHeight(MAX_HEIGHT);

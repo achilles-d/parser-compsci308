@@ -13,6 +13,8 @@ public class CodeStage {
         code = new ArrayList<>();
     }
 
+    public boolean hasCodeToBeParsed(){return code.size()>0;}
+
     public void addCodeToBeParsed(String lines)
     {
         code.add(lines);

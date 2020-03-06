@@ -58,15 +58,19 @@ public class ParserController {
         return myColorPalette;
     }
 
-    public Double parseCode(String code) throws Exception {
+    public void parseCode(String code)  {
        // code = code.replaceAll("[\r\n]+", " ");
         try{
             output = myCommandParser.parseCode(code);
-            return output;
         }
         catch(Exception exception){
             throw exception;
         }
+    }
+
+    public Double getReturn()
+    {
+        return output;
     }
 
     public List<String> getCommandHistory() {
@@ -148,14 +152,6 @@ public class ParserController {
             throw ex;
         }
     }
-//
-//    public ObservableList<String> getVariableKeysProperties()
-//    {
-//        return myUserVarHandler.getKeys();
-//    }
-//
-//    public ObservableMap<String, UserVariable> getVariableMap()
-//    {
-//        return myUserVarHandler.getVariableMap();
-//    }
+
+
 }

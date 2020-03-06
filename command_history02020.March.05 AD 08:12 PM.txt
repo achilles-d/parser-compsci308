@@ -1,0 +1,14 @@
+fd 39
+rt 10
+rt 10
+rt 10
+rt 10
+fd 50
+fd 50
+fd 50
+bk 50
+bk 50
+bk 50
+bk 50
+bk 50
+bk 50

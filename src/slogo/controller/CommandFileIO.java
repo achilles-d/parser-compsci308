@@ -26,8 +26,8 @@ public class CommandFileIO {
 
     //TODO remove magic vars.
     public void saveCommandHistory() throws IOException {
-        DateFormat df = new SimpleDateFormat("yyyyMMddhhmmss");
-        String filename = "command_history" + df.format(new Date()) + ".txt";
+        DateFormat df = new SimpleDateFormat("yyyyy.MMMMM.dd GGG hh:mm aaa");
+        String filename = "src/codeFiles/command_history" + df.format(new Date()) + ".txt";
         try {
             BufferedWriter commandWriter = new BufferedWriter(new FileWriter(filename));
             for (String command : myCommandHistory) {
