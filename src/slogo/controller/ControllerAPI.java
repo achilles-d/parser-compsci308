@@ -2,11 +2,11 @@ package slogo.controller;
 
 import java.awt.Point;
 import java.util.List;
-import slogo.model.Line;
-import slogo.model.Variable;
+
+import slogo.model.backEndInternal.Line;
 import slogo.model.backEndInternal.UserVariable;
 
-public interface Controller {
+public interface ControllerAPI {
 
   public String displayError(Exception ex);
 

@@ -6,6 +6,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.InvalidationListener;
+import slogo.model.exceptions.InvalidCommandException;
 import java.util.Map;
 
 public class CommandFactory {
@@ -30,11 +32,15 @@ public class CommandFactory {
         this.userCommandHandler=userCommandHandler;
     }
 
+<<<<<<< src/slogo/model/backEndInternal/CommandFactory.java
+    public Object getCommand(String commandName, List<Object> arguments) throws InvalidCommandException{
+=======
     public Object getCommand(String commandName, List<Object> arguments) throws InvocationTargetException,
             NoSuchMethodException, ClassNotFoundException,
             InstantiationException,
             IllegalAccessException {
         listOfCommands=new ArrayList<>();
+>>>>>>> src/slogo/model/backEndInternal/CommandFactory.java
 
         for(BackEndTurtle bt: listOfTurtles){
             turtle=bt;
@@ -45,16 +51,17 @@ public class CommandFactory {
         //return
     }
 
-    private Object makeCommand(String commandName, List<Object> arguments) throws NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
-            InstantiationException,
-            ClassNotFoundException {
+    private Object makeCommand(String commandName, List<Object> arguments) throws InvalidCommandException {
 
             Object currentCommand = null;
 
-            Class<?> c = Class.forName("slogo.model.backEndInternal.commands." + commandName);
-            Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
+      Class<?> c = null;
+      try {
+        c = Class.forName("slogo.model.backEndInternal.commands." + commandName);
+      } catch (ClassNotFoundException e) {
+        throw new InvalidCommandException("Temp", e);    //FIXME improve error msg
+      }
+      Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
             Object[] ar = new Object[pType.length];
             inputCounter = 0;
 
@@ -66,6 +73,41 @@ public class CommandFactory {
             for (int j = 0; j < pType.length; j++) {
 
                 String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+<<<<<<< src/slogo/model/backEndInternal/CommandFactory.java
+                System.out.println("Constructor name is " + className);
+
+                if (className.equals("BackEndTurtle")) {
+                    ar[j] = turtle;
+                } else if (className.equals("Coordinate")) {
+                    ar[j] = turtle.getPosition();
+                }  else if(className.equals("UserVariableHandler")) {
+                    ar[j] = userVariableHandler;
+
+                } else if(className.equals("List")){
+                    ar[j]=arguments;
+                    System.out.println("here is the data for the group "+arguments.toString());
+                    System.out.println("size of the arguments "+j);
+                } else {
+                    ar[j]=arguments.get(inputCounter);
+                    System.out.println("here is the data "+arguments.get(inputCounter).toString());
+                    inputCounter++;
+                }
+            }
+      Constructor<?> cons = null;
+      try {
+        cons = c.getDeclaredConstructor(pType);
+      } catch (NoSuchMethodException e) {
+        throw new InvalidCommandException("temp", e); //FIXME improve error message
+      }
+      System.out.println("Inputs size to constructor "+ar.length);
+
+      try {
+        currentCommand = cons.newInstance(ar);
+      } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
+        throw new InvalidCommandException("temp", e); //FIXME improve error message
+      }
+      return currentCommand;
+=======
                 System.out.println("Constructor type needs is " + className);
 
 
@@ -109,6 +151,7 @@ public class CommandFactory {
 
             currentCommand = cons.newInstance(ar);
         return currentCommand;
+>>>>>>> src/slogo/model/backEndInternal/CommandFactory.java
     }
 //
 //    public void updateCounter(Integer v) {
