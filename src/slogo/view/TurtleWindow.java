@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
 import slogo.controller.ParserController;
 import slogo.controller.TurtleController;
-import slogo.model.backEndInternal.Line;
+import slogo.model.turtle.Line;
 
 public class TurtleWindow extends Window {
 

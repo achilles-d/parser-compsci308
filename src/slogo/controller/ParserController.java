@@ -6,10 +6,15 @@ import java.util.*;
 import java.util.List;
 
 import javafx.beans.property.Property;
-import slogo.model.Coordinate;
-import slogo.model.backEndInternal.*;
+import slogo.model.turtle.Coordinate;
 
 
+import slogo.model.parsers.CommandHandlerAPI;
+import slogo.model.parsers.CommandParser;
+import slogo.model.turtle.BackEndTurtle;
+import slogo.model.turtle.Line;
+import slogo.model.turtle.UserVariable;
+import slogo.model.turtle.UserVariableHandler;
 import slogo.view.ColorPalette;
 
 public class ParserController {
