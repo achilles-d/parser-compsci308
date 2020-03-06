@@ -1,4 +1,4 @@
-package slogo.model.subparsers;
+package slogo.model.parsers.subparsers;
 
 import java.util.*;
 import java.util.regex.Pattern;
