@@ -65,8 +65,11 @@ public class ParserController {
         return myColorPalette;
     }
 
-    public void parseCode(String code) throws InvocationTargetException, IllegalAccessException {
+    public void parseCode(String code) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, ClassNotFoundException {
        // code = code.replaceAll("[\r\n]+", " ");
+
+        output = myCommandParser.parseCode(code);
+
         try{
             output = myCommandParser.parseCode(code);
         }

@@ -16,8 +16,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CommandParser implements Parser {
-
-   // private static final String RESOURCES_PACKAGE = "resources.languages.";
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "Methods");
@@ -28,8 +26,6 @@ public class CommandParser implements Parser {
     private  Stack<String> commandStack = new Stack<>();
 
     private List<String> commandList = new ArrayList<>();
-    //private Map<String, Runnable> match;
-
     private Map<String, Method> match;
 
     private CommandFactory commandFactor;
@@ -69,25 +65,11 @@ public class CommandParser implements Parser {
 
         mathMethods();
         executor = new CommandExecutor();
-
-//        match.put("Constant", this::parseConstant);
-//        match.put("Command", this::parseName);
-//        match.put("Variable", this::parseVariable);
-//        match.put("ListStart", this::parseListStart);
-//        match.put("ListEnd", this::parseListEnd);
-//        match.put("Whitespace", this::parseWhiteSpace);
-//        match.put("Newline", this::parseNewLine);
-//        match.put("GroupEnd", this::parseGroupEnd);
-//        match.put("GroupStart", this::parseGroupStart);
-
-
     }
 
     private void mathMethods() throws java.lang.NoSuchMethodException {
         for(String str:methods.keySet()){
-            System.out.println(methods.getString(str));
-            Method method= this.getClass().getMethod(methods.getString(str));
-            //match.put(str, this.getClass().getMethod(methods.getString(str)));
+            match.put(str, this.getClass().getDeclaredMethod(methods.getString(str)));
         }
     }
 
@@ -97,16 +79,12 @@ public class CommandParser implements Parser {
     }
 
     private void parseListEnd() {
-
-
-        //Method method= this.getClass().getMethod("parseConstant");
-
+        
         leftBracketCounter=0;
         rightBracketCounter=0;
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         String currentCommand=symbol.getSymbol(commandStack.peek());
 
-        System.out.println("Current comamnd is "+currentCommand);
         Command com = null;
 
         rightBracketCounter++;
@@ -199,7 +177,7 @@ public class CommandParser implements Parser {
     }
 
     //FIXME change throws clause
-    private void buildExecutableCommand() throws ClassNotFoundException, java.lang.NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void buildExecutableCommand()  {
 
         String currentCommand = symbol.getSymbol(commandStack.pop());
 
@@ -245,25 +223,19 @@ public class CommandParser implements Parser {
         clearAll();
         commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
-        System.out.println(" string  |"+consoleInput+"| then this");
         fillStackWithValidCommand(consoleInput);
         buildAndExecuteCommand();
         return output;
     }
 
-    private void buildAndExecuteCommand() throws ExecutionException, InvocationTargetException, IllegalAccessException {
+    private void buildAndExecuteCommand() throws InvocationTargetException, IllegalAccessException {
         numOfCommandsToExecute++;
         while(commandStack.size()!=0){
 
             if(match.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
                 match.get(symbol.getSymbol(commandStack.peek())).invoke(this);
             } else {
-                try {
-                    buildExecutableCommand(); // if it is command like for and repeat
-                } catch (ClassNotFoundException | java.lang.NoSuchMethodException | InstantiationException |
-                    IllegalAccessException | InvocationTargetException e) {
-                    throw new ExecutionException("temp", e); //FIXME improve error message
-                }
+                buildExecutableCommand(); // if it is command like for and repeat
             }
         }
 
@@ -271,7 +243,6 @@ public class CommandParser implements Parser {
             if(argumentStack.peek().isItExecutable()){
                 output = (Double) argumentStack.pop().execute();
             } else{
-                System.out.println("Shoudl reiterate back to the stack");
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
                buildAndExecuteCommand();
             }
