@@ -43,7 +43,7 @@ public class CommandFactory {
       try {
         c = Class.forName("slogo.model.commands." + commandName);
       } catch (ClassNotFoundException e) {
-        throw new InvalidCommandException("Temp", e);    //FIXME improve error msg
+        throw new InvalidCommandException("DefaultInvalid", e);    //FIXME improve error msg
       }
       Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
             Object[] ar = new Object[pType.length];
@@ -78,14 +78,14 @@ public class CommandFactory {
       try {
         cons = c.getDeclaredConstructor(pType);
       } catch (NoSuchMethodException e) {
-        throw new InvalidCommandException("temp", e); //FIXME improve error message
+        throw new InvalidCommandException("DefaultInvalid", e); //FIXME improve error message
       }
       System.out.println("Inputs size to constructor "+ar.length);
 
       try {
         currentCommand = cons.newInstance(ar);
       } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
-        throw new InvalidCommandException("temp", e); //FIXME improve error message
+        throw new InvalidCommandException("DefaultInvalid", e); //FIXME improve error message
       }
       return currentCommand;
     }

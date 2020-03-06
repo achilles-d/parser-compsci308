@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.interfacesFromPlan;
 
 public interface PaneAPI {
 

@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.interfacesFromPlan;
 
 import javafx.scene.paint.Color;
 //Created an interface specifically for graphic pane since the user has more control over it than the other panes which just display data

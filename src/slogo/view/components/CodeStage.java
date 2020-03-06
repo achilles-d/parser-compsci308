@@ -13,6 +13,7 @@ public class CodeStage {
         code = new ArrayList<>();
     }
 
+
     public boolean hasCodeToBeParsed(){return code.size()>0;}
 
     public void addCodeToBeParsed(String lines)
@@ -20,6 +21,7 @@ public class CodeStage {
         code.add(lines);
     }
 
+    //Parses first-in first-out
     public String getCodeToBeParsed()
     {
         return code.get(READY_CODE);

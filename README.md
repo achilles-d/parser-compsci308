@@ -21,7 +21,9 @@ styled them, and helped ensure they worked properly with the rest of the model.
 ### Resources Used
 Saurav: Used example code from Labs and Professor Duvall's lectures to learn about
 more javaFX properties. Also used more online resources to learn about bindings and properties,
-like this [website](https://www.dummies.com/programming/java/javafx-binding-properties). 
+like this [website](https://www.dummies.com/programming/java/javafx-binding-properties).
+Also used this [website](https://stackoverflow.com/questions/25570803/image-in-javafx-listview) to
+figure out how to override default list cell functionality for my palette view. 
 
 ### Running the Program
 
