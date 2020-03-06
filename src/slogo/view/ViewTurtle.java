@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import slogo.model.Coordinate;
+import slogo.model.turtle.Coordinate;
 
 import java.util.ResourceBundle;
 
