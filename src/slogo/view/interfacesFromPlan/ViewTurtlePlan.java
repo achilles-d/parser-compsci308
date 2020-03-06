@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.interfacesFromPlan;
 
 import javafx.scene.image.Image;
 import slogo.model.turtle.Coordinate;

@@ -28,6 +28,7 @@ import slogo.view.components.ColorPalette;
 
 public class Menu {
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
+    private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
     private static final String UI_TEXT = "resources.UIText";
     private static final Double DEFAULT_BACKGROUND_COLOR = 6.0;
@@ -40,7 +41,7 @@ public class Menu {
     private static final int ICON_SIZE = 20;
     private static final String DEFAULT_IMAGE = "turtle.jpg";
     private static final String ENGLISH = "English";
-    private static final String HELPWINDOW = "resources.windowtext.HelpWindowText.txt";
+    private static final String HELPWINDOW = "src/resources/windowtext/HelpWindowText.txt";
     private static final int HELP_SIZE = 400;
     private static final String SAVE = "save";
     private static final String LOAD = "load";
@@ -242,6 +243,8 @@ public class Menu {
        helpScreenText.setContent(helpLabels);
 
        Scene helpScreen = new Scene(helpScreenText ,HELP_SIZE,HELP_SIZE);
+       helpScreen.getStylesheets().add(getClass().getResource(CSS_FILE).toExternalForm());
+
        stage1.setScene(helpScreen);
        stage1.show();
    }
