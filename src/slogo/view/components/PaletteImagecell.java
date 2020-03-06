@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ResourceBundle;
 
-//https://stackoverflow.com/questions/25570803/image-in-javafx-listview
 
 public class PaletteImagecell extends ListCell<String> {
 

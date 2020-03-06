@@ -1,4 +1,5 @@
 Below is a list of available commands and what they do. Arguments appear in brackets.
+
 Turtle Commands:
 forward [pixels] | fd [pixels] : moves turtle forward in its current heading by [pixels] distance; returns the value of [pixels]
 back [pixels] | bk [pixels] : moves turtle backward in its current heading by [pixels] distance; returns the value of [pixels]
@@ -19,6 +20,7 @@ ycor : returns the turtle's Y coordinate from the center of the screen
 heading : returns the turtle's heading in degrees
 pendown? | pendownp : returns 1 if the turtle's pen is down, 0 if it is up
 showing? | showingp : returns 1 if turtle is showing, 0 if it is hiding
+
 Math Operations:
 sum [expr1 expr2] | + [expr1 expr2] : returns sum of the values of [expr1] and [expr2]
 difference [expr1] [expr2] | - [expr1] [expr2] : returns difference of the values of [expr1] and [expr2]
@@ -34,6 +36,7 @@ atan [degrees] : returns inverse tangent of [degrees]
 log [expr] : returns natural log of [expr]
 pow [base] [exponent] : returns [base] raised to the power of the [exponent]
 pi : reports the number pi
+
 Boolean Operations
 less? [expr1] [expr2] | lessp [expr1] [expr2] : returns 1 if the value of [expr1] is strictly less than the value of [expr2], otherwise 0
 greater? [expr1] [expr2] | greater [exp1] [expr2] : returns 1 if the value of [expr1] is strictly greater than the value of [expr2], otherwise 0
@@ -50,6 +53,7 @@ for [[variable] [start] [end] [increment]] [[commands]] : runs [command(s)] for 
 if [expr] [[command(s)]] : if [expr] is not 0, runs the command(s) given in the list; returns the value of the final command executed (or 0 if no commands are executed)
 ifelse [expr] [[trueCommand(s)]] [[falseCommand(s)]] : if [expr] is not 0, runs the [trueCommands] given in the first list, otherwise runs the [falseCommands] given in the second list; returns the value of the final command executed (or 0 if no commands are executed)
 to [commandName] [[variable(s)]] [[command(s)]] : assigns [command(s)] given in the second list to [commandName] using parameters given in first list as variables; when [commandName] is used later in a program, any given values are assigned to variables that can be accessed when the command list is run and the value of the final command executed is returned (or 0 if no commands are executed); returns 1 if command is successfully defined, otherwise 0
+
 Display Commands
 setbackground [index] | setbg [index] : sets background color of screen to that represented by [index] returns given [index]
 setpencolor [index] | setpc [index] : sets color of the pen to that represented by [index]; returns given [index]
@@ -58,6 +62,7 @@ setpalette [index] [r] [g] [b] : sets color corresponding at given [index] to gi
 setpensize [pixels] | setps [pixels] : sets size of the pen to be [pixels] thickness | returns given [pixels]
 pencolor | pc : returns turtle's current color index
 shape | sh : returns turtle's current shape index
+
 Multiple Turtle Commands
 tell [[turtle(s)]] : sets [turtles] that will follow commands hereafter; returns last value in [turtles] list; note: if turtle has not previously existed, it is created and placed at the home location; note, if more than one turtle is active, commands run return value associated with the last active turtle
 ask [[turtles(s)]] [[command(s)]] : only the [turtles] given in first list all run [commands] given in the second list; returns result of last command run by the last turtle; note, after commands are run, currently active list of turtles returns to that set by the last TELL command (or default active turtle if TELL never given); note, if more than one turtle is active, commands run return value associated with the last active turtle

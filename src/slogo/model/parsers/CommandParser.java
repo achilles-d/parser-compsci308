@@ -187,7 +187,7 @@ public class CommandParser implements Parser {
 
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException("", null);  //FIXME define a Throwable cause
+              throw new InvalidCommandException("ArgumentsMissing", null);  //FIXME define a Throwable cause
 
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());

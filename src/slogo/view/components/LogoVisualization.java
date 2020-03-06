@@ -23,6 +23,7 @@ public class LogoVisualization extends BorderPane{
     private static final String ORDER_COMPONENTS = "resources.configuration.OrderUIElements";
     private static final int MAX_BOTTOM_HEIGHT = 50;
     private static final String ORDERING_SEPARATOR = ",";
+    private static final String ERROR_TITLE = "ErrorTitle";
 
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
@@ -180,7 +181,7 @@ public class LogoVisualization extends BorderPane{
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        //alert.setTitle(myResources.getString("ErrorTitle"));
+        alert.setTitle(visualText.getString(ERROR_TITLE));
         alert.setContentText(message);
         alert.showAndWait();
     }
