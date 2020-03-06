@@ -41,28 +41,23 @@ public class MoveTurtleWindow extends Window {
         tellUpdate = update;
         myCode = code;
         myView = new TitledPane();
-        commandsList = ResourceBundle.getBundle(myController.getLanguage());
-
+        setLanguage();
 
         myView.setText(visualText.getString(MOVETURTLE));
 
         VBox buttonPane = new VBox();
 
         forward = makeButton(getCommandName(FORWARD), event -> {
-            setLanguage();
             action(FORWARD,MOVE_AMOUNT);
         });
         back = makeButton(getCommandName(BACK), event -> {
-            setLanguage();
             action(BACK,MOVE_AMOUNT);
 
         });
         right = makeButton(getCommandName(RIGHT), event -> {
-            setLanguage();
             action(RIGHT,ROTATE_AMOUNT);
         });
         left = makeButton(getCommandName(LEFT), event -> {
-            setLanguage();
             action(LEFT,ROTATE_AMOUNT);
         });
 
@@ -83,29 +78,10 @@ public class MoveTurtleWindow extends Window {
     }
 
     private void action(String command,int amount){
+        setLanguage();
         myCode.addCodeToBeParsed(getCommandName(command) + " " + amount);
         tellUpdate.setValue(true);
 
-    }
-
-    private void moveForward() {
-        myCode.addCodeToBeParsed(getCommandName(FORWARD) + " " + MOVE_AMOUNT);
-        tellUpdate.setValue(true);
-    }
-
-    private void moveBackward() {
-        myCode.addCodeToBeParsed(getCommandName(BACK) + " " + MOVE_AMOUNT);
-        tellUpdate.setValue(true);
-    }
-
-    private void turnRight() {
-        myCode.addCodeToBeParsed(getCommandName(RIGHT) + " " + ROTATE_AMOUNT);
-        tellUpdate.setValue(true);
-    }
-
-    private void turnLeft() {
-        myCode.addCodeToBeParsed(getCommandName(LEFT) + " " + ROTATE_AMOUNT);
-        tellUpdate.setValue(true);
     }
 
     private Button makeButton(String buttonText, EventHandler<ActionEvent> e) {
