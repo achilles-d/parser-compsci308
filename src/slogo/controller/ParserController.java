@@ -121,6 +121,8 @@ public class ParserController {
         return Collections.unmodifiableList(varNamesAndValues);
     }
 
+    public Language getMyLanguage() { return myLanguage; }
+
     public String getLanguage(){
         return myLanguage.getLanguageFile();
     }
@@ -134,7 +136,6 @@ public class ParserController {
         System.out.println("called langauge button");
         myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile(), SYNTAX);
-        //myCommandParser.addPatterns(SYNTAX);
     }
 
     public void setVariable(String varName, double value)

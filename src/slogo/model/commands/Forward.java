@@ -20,8 +20,6 @@ public class Forward implements Command<Double> {
     delta = (double) cmd.execute();
     double deltaX = delta * Math.sin(angle);
     double deltaY = delta * Math.cos(angle);
-    System.out.println("Xmoves " + deltaX);
-    System.out.println("Ymoves " + deltaY);
     Coordinate currentPos = myTurtle.getPosition();
     Coordinate newPosition = new Coordinate(currentPos.getXVal() + deltaX, currentPos.getYVal() + deltaY);
     System.out.println(newPosition);

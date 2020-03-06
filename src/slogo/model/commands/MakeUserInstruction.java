@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MakeUserInstruction implements Command<Double> {
-//    test [" :x :y"] [ " fd x rt y"]
-//    UserVariable newVar = new UserVariable();
-//        newVar.setValue(0.0);
-//
-//    test 50 60
-//
-//    fd 50 rt 60
 
     private List<String> commandList;
     private Integer userVal;
@@ -29,7 +22,6 @@ public class MakeUserInstruction implements Command<Double> {
         this.commandList = sCom;
         this.commandName = name;
         this.commandCounter = counter;
-        System.out.println("counter: " + commandCounter);
     }
 
     @Override

@@ -14,50 +14,39 @@ public class Repeat implements Command<Object> {
   private UserVariableHandler handler;
   private Command variableCommand;
   private String name;
-
+  private Command group;
   private List<String> commandsToAddToStack;
 
-  public Repeat(UserVariableHandler handler, Command num, Command group) throws Exception {
+  public Repeat(UserVariableHandler handler, Command num, Command group) {
     this.handler=handler;
-    this.groupedCodes= (List<String>) group.execute();
     variableCommand=num;
-
+    this.group=group;
     commandsToAddToStack=new ArrayList<>();
-
-  }
-
-  private void checkExecutability(UserVariableHandler handler, Command num) {
-    Class<?> result=num.execute().getClass();
-    String className = (((Class) result).getName().split("[.]"))[result.getName().split("[.]").length - 1];
-    if(className.equals("String") && handler.getKeys().contains(num.execute())){
-      this.repeatSize= handler.getVariable((String) num.execute()).getValue().intValue();
-      isItExecutable=false;
-    } else if(className.equals("String") && !handler.getKeys().contains(num.execute())){
-      name= (String) variableCommand.execute();
-      isItExecutable=false;
-    } else if(className.equals("Double")){
-      this.repeatSize=  ((Double) num.execute()).intValue();
-      isItExecutable=false;
-    } else{
-      isItExecutable=true;// return zero
-    }
+    isItExecutable=false;
   }
 
   @Override
   public Object execute() {
 
+    this.groupedCodes= (List<String>) group.execute();
+
+    Object number=variableCommand.execute();
+    Class<?> result=number.getClass();
+    String className = (((Class) result).getName().split("[.]"))[result.getName().split("[.]").length - 1];
+
+    if(className.equals("String")&&handler.getKeys().contains(((String)number))){
+      this.repeatSize= handler.getVariable((String)number).getValue().intValue();
+    } else if(className.equals("Double")){
+      this.repeatSize=  ((Double) number).intValue();
+    } else{
+      isItExecutable=true;
+    }
+
     if(isItExecutable){
       return 0.0;
     }
-    if(repeatSize!=0){
-      cleanTheFirstLayerBrackets();
-      repeatCommands();
-    } else{
-      commandsToAddToStack.add("repeat");
-      //String name= (String) variableCommand.execute();
-      commandsToAddToStack.add(name);
-      commandsToAddToStack.addAll(groupedCodes);
-    }
+    cleanTheFirstLayerBrackets();
+    repeatCommands();
 
     return commandsToAddToStack;
   }
@@ -98,7 +87,6 @@ public class Repeat implements Command<Object> {
    * @return the new commandList which is not yet executed
    */
   public boolean isItExecutable(){
-    checkExecutability(handler, variableCommand);
     return isItExecutable;
   }
 

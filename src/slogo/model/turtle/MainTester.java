@@ -1,4 +1,5 @@
 package slogo.model.turtle;
+import slogo.controller.Language;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.parsers.CommandHandlerAPI;
 import slogo.model.parsers.CommandParser;
@@ -53,6 +54,7 @@ public class MainTester {
         UserVariableHandler uh=new UserVariableHandler();
 
         BackEndTurtle turtle= new BackEndTurtle(0);
+        //Language lang= new Language("slls");
         CommandParser lang = new CommandParser(ch, uh, turtle);
 
 
@@ -83,8 +85,15 @@ public class MainTester {
 
        // String userInput= "fd 50 IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
-        //String userInput="repeat 36 [ fd 50 rt 10 ]";
-        //String userInput="fd 50 for hi jdlls - ls 3 [ fd 50 ] fd 50 - - ";
+       // String userInput="repeat 36 [ fd 50 rt 10 ]";
+
+       String userInput="dotimes [ :dist 36 ]\n" +
+               "[ fd :dist rt 10 ]";
+//        String userInput="  ifelse 5 [\n" +
+//                "    rt 60\n" +
+//                "  ] [\n" +
+//                "    lt 60\n" +
+//                "  ]";
 
      //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
@@ -99,20 +108,18 @@ public class MainTester {
 
         //String userInput="make :x 50 sum :x 30";
 
-        //String userInput="[ fd 100 ]";
-        String userInput="make :distance 100\n" +
-                "make :angle 90\n" +
-                "\n" +
-                "dotimes [ :k quotient 360 :angle ]\n" +
-                "[\n" +
-                "  fd :distance\n" +
-                "  rt :angle\n" +
-                "  ifelse equal? quotient :k 2 0 [\n" +
-                "    pu\n" +
-                "  ] [\n" +
-                "    pd\n" +
-                "  ]\n" +
-                "]\n";
+//        String userInput="repeat 9 [\n" +
+//                "  repeat 180 [\n" +
+//                "    fd 3 rt 2\n" +
+//                "  ]\n" +
+//                "  rt 40\n" +
+//
+//                "]\n";
+//        String userInput="dotimes [ :dist 200 ] \n" +
+//                "[\n" +
+//                "  fd :dist\n" +
+//                "  rt 89\n" +
+//                "]\n";
 
 
         // note, this simple "algorithm" will not handle SLogo comments

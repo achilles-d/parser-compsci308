@@ -1,4 +1,5 @@
 package slogo.model.parsers;
+import slogo.controller.Language;
 import slogo.model.parsers.subparsers.Symbol;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.CommandExecutor;
@@ -58,10 +59,8 @@ public class CommandParser implements Parser {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
-        Integer commandCounter = INITIALIZER;
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
-        match=new HashMap<>();
 
+        match=new HashMap<>();
         mathMethods();
         executor = new CommandExecutor();
     }
@@ -80,6 +79,8 @@ public class CommandParser implements Parser {
 
     public void addPatterns(String language, String syntax){
         symbol=new Symbol(language, syntax);
+        String lan = (language.split("[.]"))[language.split("[.]").length - 1];
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, Language.valueOf(lan.toUpperCase()));
     }
 
     private void parseListEnd() {
@@ -209,6 +210,7 @@ public class CommandParser implements Parser {
         commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
         fillStackWithValidCommand(consoleInput);
+
         buildAndExecuteCommand();
         return output;
     }
