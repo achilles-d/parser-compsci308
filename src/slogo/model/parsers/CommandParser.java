@@ -3,7 +3,6 @@ import slogo.model.parsers.subparsers.Symbol;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.CommandExecutor;
 import slogo.model.turtle.UserVariableHandler;
-import slogo.model.exceptions.ExecutionException;
 import slogo.model.commands.Command;
 import slogo.model.exceptions.InvalidCommandException;
 import slogo.model.interfaces.Parser;
@@ -11,7 +10,6 @@ import slogo.model.interfaces.Parser;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class CommandParser implements Parser {
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
