@@ -164,6 +164,7 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
+    //FIXME change throws clause
     private void buildExecutableCommand() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
 
         String currentCommand = getSymbol(commandStack.pop());
