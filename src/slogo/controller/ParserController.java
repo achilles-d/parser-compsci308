@@ -67,15 +67,7 @@ public class ParserController {
 
     public void parseCode(String code)  {
        // code = code.replaceAll("[\r\n]+", " ");
-
         output = myCommandParser.parseCode(code);
-
-        try{
-            output = myCommandParser.parseCode(code);
-        }
-        catch(Exception exception){
-            throw exception;
-        }
     }
 
     public Double getReturn()

@@ -23,7 +23,7 @@ public class MakeVariable<T> implements Command<Double> {
 
     if(className.equals("Double")){
      System.out.println("Answer should stop here");
-      throw new InvalidCommandException("");
+      throw new InvalidCommandException(" make variable cannot have double as a name");
 
     } else{
      System.out.println("Type is "+className);
