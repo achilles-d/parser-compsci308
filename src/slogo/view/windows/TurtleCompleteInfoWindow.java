@@ -1,7 +1,6 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
@@ -9,6 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import slogo.controller.ParserController;
 import slogo.controller.TurtleController;
+import slogo.view.components.CodeStage;
+import slogo.view.components.ColorPalette;
+import slogo.view.components.ViewTurtle;
 
 import java.util.ResourceBundle;
 

@@ -10,7 +10,7 @@ import slogo.model.Coordinate;
 import slogo.model.backEndInternal.*;
 
 
-import slogo.view.ColorPalette;
+import slogo.view.components.ColorPalette;
 
 public class ParserController {
 

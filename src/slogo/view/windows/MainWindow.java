@@ -1,16 +1,15 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
+import slogo.view.components.LogoVisualization;
 
-import java.awt.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
 

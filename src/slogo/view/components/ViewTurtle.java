@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.components;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;

@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
@@ -6,10 +6,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import slogo.controller.ParserController;
+import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
 

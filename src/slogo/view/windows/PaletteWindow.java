@@ -1,15 +1,19 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import slogo.controller.ParserController;
+import slogo.view.components.CodeStage;
+import slogo.view.components.ColorPalette;
+import slogo.view.components.PaletteColorCell;
+import slogo.view.components.PaletteImagecell;
 
 
 import java.util.ResourceBundle;
 
-public class PaletteWindow extends Window{
+public class PaletteWindow extends Window {
 
     private static final String DEFAULT_PEN_COLOR = "Black";
     private static final String PEN_COLOR = "resources.colors.PenColor";

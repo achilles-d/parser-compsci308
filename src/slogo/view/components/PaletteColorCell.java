@@ -1,8 +1,8 @@
-package slogo.view;
+package slogo.view.components;
 
 import javafx.scene.control.ListCell;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import slogo.view.components.ColorPalette;
 
 import java.util.ResourceBundle;
 

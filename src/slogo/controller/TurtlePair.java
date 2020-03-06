@@ -1,7 +1,7 @@
 package slogo.controller;
 
 import slogo.model.backEndInternal.BackEndTurtle;
-import slogo.view.ViewTurtle;
+import slogo.view.components.ViewTurtle;
 
 public class TurtlePair {
 

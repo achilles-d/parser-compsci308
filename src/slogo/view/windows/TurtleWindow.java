@@ -1,4 +1,4 @@
-package slogo.view;
+package slogo.view.windows;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -11,6 +11,9 @@ import javafx.scene.layout.*;
 import slogo.controller.ParserController;
 import slogo.controller.TurtleController;
 import slogo.model.backEndInternal.Line;
+import slogo.view.components.CodeStage;
+import slogo.view.components.ColorPalette;
+import slogo.view.components.ViewTurtle;
 
 public class TurtleWindow extends Window {
 

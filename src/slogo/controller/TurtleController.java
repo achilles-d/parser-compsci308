@@ -2,7 +2,7 @@ package slogo.controller;
 
 import slogo.model.backEndInternal.BackEndTurtle;
 import slogo.model.backEndInternal.Line;
-import slogo.view.ViewTurtle;
+import slogo.view.components.ViewTurtle;
 
 import java.util.*;
 
