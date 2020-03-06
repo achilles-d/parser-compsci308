@@ -16,7 +16,7 @@ public class DoTimes implements Command<Object> {
     private List<String> index;
     private static final String RIGHT_BRACKET = "]";
     private static final String LEFT_BRACKET = "[";
-    private static final String  REPCOUNT=":repcount";
+    private static final String REPCOUNT=":repcount";
     private List<String> repeatCommand;
     private Command repeat;
     private Command group;
@@ -34,7 +34,7 @@ public class DoTimes implements Command<Object> {
     @Override
     public Object execute() {
 
-        index=(List<String>)repeat.execute();
+        index=(List<String>) repeat.execute();
 
         groupedCodes= (List<String>) group.execute();
         repeatCommand=new ArrayList<>();
@@ -51,7 +51,7 @@ public class DoTimes implements Command<Object> {
 
     private void parseAndRepeatTheCommand(){
         cleanTheFirstLayerBrackets();
-        repeatCommand.add("repeat");
+        repeatCommand.add(findRepeatCommand());
 
         repeatCommand.addAll(index.subList(1,index.size()));
         for(String str: groupedCodes){
@@ -72,9 +72,9 @@ public class DoTimes implements Command<Object> {
     }
 
     private String findRepeatCommand(){
-        ResourceBundle rs=ResourceBundle.getBundle(lan.getLanguageFile());
-       return rs.getString("Repeat");
-       // return ;
+        System.out.println("LANG Get language" + lan.getLanguageFile());
+        ResourceBundle rs = ResourceBundle.getBundle(lan.getLanguageFile());
+        return rs.getString("Repeat");
     }
 
     @Override

@@ -6,8 +6,6 @@ public class IfElse implements Command<Object> {
 
     private List<String> commandListLeft;
     private List<String> commandListRight;
-    private String LEFT_BRACKET = "[";
-    private String RIGHT_BRACKET = "]";
     private Double userVal;
     private Command con;
     private Command commandRight;
@@ -16,13 +14,11 @@ public class IfElse implements Command<Object> {
         this.con=con;
         this.commandLeft=commandLeft;
         this.commandRight=commandRight;
-
     }
 
 
     @Override
     public Object execute() {
-
         this.userVal = (Double) con.execute();
         this.commandListLeft = (List<String>) commandLeft.execute();
         this.commandListRight = (List<String>) commandRight.execute();

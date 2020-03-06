@@ -14,16 +14,15 @@ public class Repeat implements Command<Object> {
   private UserVariableHandler handler;
   private Command variableCommand;
   private String name;
-private Command group;
+  private Command group;
   private List<String> commandsToAddToStack;
 
-  public Repeat(UserVariableHandler handler, Command num, Command group) throws Exception {
+  public Repeat(UserVariableHandler handler, Command num, Command group) {
     this.handler=handler;
     variableCommand=num;
     this.group=group;
     commandsToAddToStack=new ArrayList<>();
     isItExecutable=false;
-
   }
 
   @Override
@@ -48,13 +47,6 @@ private Command group;
     }
     cleanTheFirstLayerBrackets();
     repeatCommands();
-
-//    } else{
-//      commandsToAddToStack.add("repeat");
-//      //String name= (String) variableCommand.execute();
-//      commandsToAddToStack.add(name);
-//      commandsToAddToStack.addAll(groupedCodes);
-//    }
 
     return commandsToAddToStack;
   }

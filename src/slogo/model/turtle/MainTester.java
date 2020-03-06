@@ -85,12 +85,12 @@ public class MainTester {
 
        // String userInput= "fd 50 IfElse 1 [ fd 50 back 40 ] [ rt 90 bk 50 ] fd 50 bk 50 ";
 
-        //String userInput="repeat 36 [ fd 50 rt 10 ]";
-        String userInput="  ifelse 5 [\n" +
-                "    rt 60\n" +
-                "  ] [\n" +
-                "    lt 60\n" +
-                "  ]";
+       // String userInput="repeat 36 [ fd 50 rt 10 ]";
+//        String userInput="  ifelse 5 [\n" +
+//                "    rt 60\n" +
+//                "  ] [\n" +
+//                "    lt 60\n" +
+//                "  ]";
 
      //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
@@ -111,11 +111,11 @@ public class MainTester {
 //                "  ]\n" +
 //                "  rt 40\n" +
 //                "]\n";
-//        String userInput="dotimes [ :dist 200 ] \n" +
-//                "[\n" +
-//                "  fd :dist\n" +
-//                "  rt 89\n" +
-//                "]\n";
+        String userInput="dotimes [ :dist 200 ] \n" +
+                "[\n" +
+                "  fd :dist\n" +
+                "  rt 89\n" +
+                "]\n";
 
 
         // note, this simple "algorithm" will not handle SLogo comments
