@@ -17,8 +17,7 @@ public class CommandParser implements Parser {
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private ResourceBundle sizes = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ArgumentSize");
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "Methods");
-
-    private List<Map.Entry<String, Pattern>> mySymbols;
+    private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ErrorMessage");
 
     private Stack<Command> argumentStack = new Stack<>();
     private  Stack<String> commandStack = new Stack<>();
@@ -37,9 +36,15 @@ public class CommandParser implements Parser {
     private String RIGHT_BRACKET = "]";
     private String LEFT_PAR = "(";
     private String RIGHT_PAR = ")";
+    private String HASH="#";
+    private String SPACE=" ";
+    private String NULL_CHARACTER="";
+    private int INITIALIZER=0;
+    private String UNMATHCHED="unmatched";
+    private String LOW_INPUTS="inputs";
 
-    private int leftBracketCounter=0;
-    private int rightBracketCounter=0;
+    private int leftBracketCounter=INITIALIZER;
+    private int rightBracketCounter=INITIALIZER;
 
     private Double output;
     private Symbol symbol;
@@ -53,10 +58,8 @@ public class CommandParser implements Parser {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
-        mySymbols = new ArrayList<>();
-        Integer commandCounter = 0;
+        Integer commandCounter = INITIALIZER;
         commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
-        match = new HashMap<>();
         match=new HashMap<>();
 
         mathMethods();
@@ -70,12 +73,12 @@ public class CommandParser implements Parser {
     }
 
     public void addPatterns(String language, String syntax){
-        symbol=new Symbol(language, syntax); // comes from the controller
+        symbol=new Symbol(language, syntax);
     }
 
     private void parseListEnd() {
-        leftBracketCounter=0;
-        rightBracketCounter=0;
+        leftBracketCounter=INITIALIZER;
+        rightBracketCounter=INITIALIZER;
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         String currentCommand=symbol.getSymbol(commandStack.peek());
         Command com = null;
@@ -95,20 +98,19 @@ public class CommandParser implements Parser {
         try {
             com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvalidCommandException e) {
-            throw new InvalidCommandException("Unmatched brackets in your code ");
+            throw new InvalidCommandException(errors.getString(UNMATHCHED));
         }
     argumentStack.add(com);
 
     }
 
     private void parseListStart(){
-        throw new InvalidCommandException("Unmatched bracket in your code "); //FIXME define a more specific message
+        throw new InvalidCommandException(errors.getString(UNMATHCHED));
     }
 
     private void parseGroupStart(){
-        leftBracketCounter=0;
-        rightBracketCounter=0;
-        //getSymbol(commandStack.pop());
+        leftBracketCounter=INITIALIZER;
+        rightBracketCounter=INITIALIZER;
         leftBracketCounter++;
         List<String> group=new ArrayList<>();
 
@@ -121,14 +123,13 @@ public class CommandParser implements Parser {
             }
             if(leftBracketCounter==rightBracketCounter){
                 group.add(commandStack.pop());
-
                 break;
             }
         }
 
     }
     private  void parseGroupEnd() {
-        throw new InvalidCommandException("Unmatched brackets in our command"); //FIXME define a more specific message
+        throw new InvalidCommandException(errors.getString(UNMATHCHED));
     }
 
     private void parseNewLine(){
@@ -163,7 +164,6 @@ public class CommandParser implements Parser {
         commandStack.pop();
     }
 
-    //FIXME change throws clause
     private void buildExecutableCommand()  {
 
         String currentCommand = symbol.getSymbol(commandStack.pop());
@@ -171,7 +171,7 @@ public class CommandParser implements Parser {
         List<Object> argumentsToBuildCommand=new ArrayList<>();
         for(int i=0; i<numOfArguments; i++){
           if(argumentStack.size()==0){
-              throw new InvalidCommandException("Enough arguments are not given for "+currentCommand, null);  //FIXME define a
+              throw new InvalidCommandException(errors.getString(LOW_INPUTS)+currentCommand, null);
           } else{
               argumentsToBuildCommand.add(argumentStack.pop());
 
@@ -228,10 +228,10 @@ public class CommandParser implements Parser {
     }
 
     private void fillStackWithValidCommand(String consoleInput) {
-        List<String> commandList= Arrays.asList(consoleInput.split(" "));
+        List<String> commandList= Arrays.asList(consoleInput.split(SPACE));
         for(String str: commandList){
-                str= str.replaceAll("\\p{Blank}","");
-                str=str.replaceAll("\\s+","");
+                str= str.replaceAll("\\p{Blank}",NULL_CHARACTER);
+                str=str.replaceAll("\\s+",NULL_CHARACTER);
                 if(!str.equals("")){
                     commandStack.add(str);
                 }
@@ -242,8 +242,8 @@ public class CommandParser implements Parser {
         String[] lines=consoleInput.split("[\r\n]+");
         StringBuilder com=new StringBuilder();
         for(String str: lines){
-            if(str.contains("#")){ com.append(str, 0, str.indexOf("#"));}
-            com.append(str).append(" ");
+            if(str.contains(HASH)){ com.append(str, 0, str.indexOf(HASH));}
+            com.append(str).append(SPACE);
         }
         return com.toString().trim();
     }
