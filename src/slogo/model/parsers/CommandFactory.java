@@ -32,9 +32,10 @@ public class CommandFactory {
     private  static final String CLASS_NOT_FOUND="classNotFound";
     private  static final String LIST="List";
 
+
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
-                          List<String> unExecutedCommands, int counter) {
-        this.commandCounter=counter;
+                          List<String> unExecutedCommands) {
+
         this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtle;
         this.userVariableHandler=userVariableHandler;

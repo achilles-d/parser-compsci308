@@ -13,22 +13,23 @@ public class For implements Command<Object> {
     private List<String> commandsToAddToStack;
     private   String RIGHT_BRACKET = "]";
     private String LEFT_BRACKET = "[";
+    private Command indexCmd;
+    private Command group;
 
     public For(Command index, Command group){
 
-        this.index=(List<String>)index.execute();
-        this.groupedCodes= (List<String>) group.execute();
-
+       this.group=group;
+       this.indexCmd=index;
         commandsToAddToStack=new ArrayList<>();
-        parseAndRepeatTheCommand();
-
-        isItExecutable=commandsToAddToStack.size()==0;
-
     }
 
     @Override
     public Object execute() {
         //parseAndRepeatTheCommand();
+        this.index=(List<String>)indexCmd.execute();
+        this.groupedCodes= (List<String>) group.execute();
+        parseAndRepeatTheCommand();
+        isItExecutable=commandsToAddToStack.size()==0;
         if(isItExecutable){
             return 0.0;
         } else{

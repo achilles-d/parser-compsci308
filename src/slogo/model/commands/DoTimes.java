@@ -12,25 +12,30 @@ public class DoTimes implements Command<Object> {
     private boolean isItExecutable;
 
     private List<String> index;
-    private String RIGHT_BRACKET = "]";
-    private String LEFT_BRACKET = "[";
-    List<String> repeatCommand;//new ArrayList<>();
-
-
-
+    private static final String RIGHT_BRACKET = "]";
+    private static final String LEFT_BRACKET = "[";
+    private static final String  REPCOUNT=":repcount";
+    private List<String> repeatCommand;
+    private Command repeat;
+    private Command group;
 
     public DoTimes(UserVariableHandler handler,  Command repeat, Command group) {
         this.handler=handler;
-        this.index=(List<String>)repeat.execute();
-
-        this.groupedCodes= (List<String>) group.execute();
-        repeatCommand=new ArrayList<>();
-        parseAndRepeatTheCommand();
-        isItExecutable=repeatCommand.size()==0;
+        this.group=group;
+        this.repeat=repeat;
+        isItExecutable=false;
     }
 
     @Override
     public Object execute() {
+
+        index=(List<String>)repeat.execute();
+
+        groupedCodes= (List<String>) group.execute();
+        repeatCommand=new ArrayList<>();
+        parseAndRepeatTheCommand();
+        isItExecutable=repeatCommand.size()==0;
+
         if(isItExecutable){
             return 0.0;
         } else{
@@ -40,23 +45,18 @@ public class DoTimes implements Command<Object> {
     }
 
     private void parseAndRepeatTheCommand(){
-        System.out.println("The repeat is "+groupedCodes.toString());
-
         cleanTheFirstLayerBrackets();
-        System.out.println("The repeat is "+index.toString());
         repeatCommand.add("repeat");
         repeatCommand.addAll(index.subList(1,index.size()));
         for(String str: groupedCodes){
 
             if(str.equals(index.get(0))){
-                repeatCommand.add(":repcount");
+                repeatCommand.add(REPCOUNT);
             } else{
                 repeatCommand.add(str);
             }
-            System.out.println("The repeat is "+str);
 
         }
-System.out.println("next command is "+repeatCommand.toString());
     }
 
     private void cleanTheFirstLayerBrackets() {

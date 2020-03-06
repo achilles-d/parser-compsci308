@@ -59,7 +59,7 @@ public class CommandParser implements Parser {
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
         Integer commandCounter = INITIALIZER;
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, commandCounter);
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList);
         match=new HashMap<>();
 
         mathMethods();
@@ -209,6 +209,7 @@ public class CommandParser implements Parser {
         commandHandler.updateCommandHistory(consoleInput);
         consoleInput = getCommandWithNoComment(consoleInput);
         fillStackWithValidCommand(consoleInput);
+
         buildAndExecuteCommand();
         return output;
     }

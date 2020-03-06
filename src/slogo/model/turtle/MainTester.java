@@ -100,18 +100,10 @@ public class MainTester {
         //String userInput="make :x 50 sum :x 30";
 
         //String userInput="[ fd 100 ]";
-        String userInput="make :distance 100\n" +
-                "make :angle 90\n" +
-                "\n" +
-                "dotimes [ :k quotient 360 :angle ]\n" +
+        String userInput="for [ :dist 1 110 1 ] \n" +
                 "[\n" +
-                "  fd :distance\n" +
-                "  rt :angle\n" +
-                "  ifelse equal? quotient :k 2 0 [\n" +
-                "    pu\n" +
-                "  ] [\n" +
-                "    pd\n" +
-                "  ]\n" +
+                "  fd :dist\n" +
+                "  rt product :dist 3\n" +
                 "]\n";
 
 
