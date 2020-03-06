@@ -24,6 +24,5 @@ public class Main extends Application {
         MainWindow myMain = new MainWindow(primaryStage);
         myMain.addWorkspace(myVis);
 
-
     }
 }
