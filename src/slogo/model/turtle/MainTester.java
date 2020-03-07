@@ -55,7 +55,7 @@ public class MainTester {
         UserVariableHandler uh=new UserVariableHandler();
 
         BackEndTurtle turtle= new BackEndTurtle(0);
-        TurtleController tr= new TurtleController();
+        TurtleController tr= new TurtleController("0");
         tr.createNewTurtle(0);
         //Language lang= new Language("slls");
         CommandParser lang = new CommandParser(ch, uh, tr);

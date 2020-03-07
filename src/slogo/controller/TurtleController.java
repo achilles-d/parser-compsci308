@@ -12,16 +12,19 @@ public class TurtleController {
 
     private Map<Integer, TurtlePair> turtlesMap;
     private Integer turtleIndexTracker;
+    private String imageFile;
 
-    public TurtleController()
+    public TurtleController(String image)
     {
         turtlesMap = new HashMap<>();
+        imageFile = image;
         createNewTurtle(0);
+
 
     }
 
     public void createNewTurtle(int index) {
-        ViewTurtle viewTurt = new ViewTurtle(index);
+        ViewTurtle viewTurt = new ViewTurtle(index,imageFile);
         BackEndTurtle backTurt = new BackEndTurtle(index);
         TurtlePair turtleLink = new TurtlePair(viewTurt,backTurt);
         turtlesMap.put(index, turtleLink);

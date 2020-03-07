@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class UserDefined implements Command {
 
-
     private Command command;
     private Command variables;
     private String name;
@@ -30,7 +29,6 @@ public class UserDefined implements Command {
         }
         return listOfCommands;
     }
-
 
     private void buildExecutable(){
         List<String> variables= new ArrayList<>();

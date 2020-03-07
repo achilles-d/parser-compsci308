@@ -14,7 +14,7 @@ public class BackEndTurtle implements Turtle {
 
     private SimpleDoubleProperty xLoc = new SimpleDoubleProperty();
     private SimpleDoubleProperty yLoc = new SimpleDoubleProperty();
-    
+
 
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();
@@ -65,14 +65,14 @@ public class BackEndTurtle implements Turtle {
     }
 
     private Coordinate ensureInBounds(Coordinate a) {
-
         double x = a.getXVal();
         double y = a.getYVal();
-
         boolean hitXWall = false;
         boolean hitYWall = false;
+        return getCoordinate(x, y, hitXWall, hitYWall);
+    }
 
-
+    private Coordinate getCoordinate(double x, double y, boolean hitXWall, boolean hitYWall) {
         while (x > XBOUNDS) {
             x--;
             hitXWall = true;
@@ -81,17 +81,13 @@ public class BackEndTurtle implements Turtle {
             x++;
             hitXWall = true;
         }
-
         while (y > YBOUNDS){
             y--;
             hitYWall = true;
-
         }
-
         while (y < -YBOUNDS){
             y++;
             hitYWall = true;
-
         }
         if(!hitXWall && hitYWall)
         {
@@ -100,10 +96,8 @@ public class BackEndTurtle implements Turtle {
         else if(hitXWall && !hitYWall)
             y = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
 
-
         return new Coordinate(x,y);
     }
-
 
 
     @Override

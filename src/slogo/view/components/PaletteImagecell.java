@@ -11,11 +11,15 @@ import java.util.ResourceBundle;
 
 public class PaletteImagecell extends ListCell<String> {
 
-    private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final int PATCH_SIZE = 50;
 
-    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+    private ResourceBundle turtleImages;
     private ImageView imageIcon = new ImageView();
+
+    public PaletteImagecell(String imagePalette)
+    {
+        turtleImages = ResourceBundle.getBundle(imagePalette);
+    }
 
     @Override
     protected void updateItem(String imageIndex,boolean empty)
