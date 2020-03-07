@@ -19,10 +19,8 @@ public class Main extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-        ParserController controller = new ParserController();
-        LogoVisualization myVis = new LogoVisualization(controller);
         MainWindow myMain = new MainWindow(primaryStage);
-        myMain.addWorkspace(myVis);
+
 
     }
 }

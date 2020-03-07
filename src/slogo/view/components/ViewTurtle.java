@@ -29,7 +29,7 @@ public class ViewTurtle {
     private double myY;
     private double myHeading;
     private boolean turtleVisibility;
-    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+    private ResourceBundle turtleImages;
 
 
 
@@ -41,9 +41,11 @@ public class ViewTurtle {
     private int size;
     private int myID;
 
-    public ViewTurtle(int id)
+    public ViewTurtle(int id,String imageFile)
     {
         myID = id;
+        turtleImages = ResourceBundle.getBundle(imageFile);
+
         size = 50;
         activeTurtle = new SimpleBooleanProperty(true);
         penColorIndex = new SimpleDoubleProperty(7);
