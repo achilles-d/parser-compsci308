@@ -94,7 +94,7 @@ public class CommandParser implements Parser {
         rightBracketCounter=INITIALIZER;
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         String currentCommand=symbol.getSymbol(commandStack.peek());
-        Command com = null;
+        List<Command> com = null;
         rightBracketCounter++;
         while(leftBracketCounter<rightBracketCounter){
             argumentsToBuildCommand.add(0,commandStack.pop());
@@ -109,11 +109,11 @@ public class CommandParser implements Parser {
             }
         }
         try {
-            com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+            com = (List<Command>) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvalidCommandException e) {
             throw new InvalidCommandException(errors.getString(UNMATHCHED));
         }
-    argumentStack.add(com);
+    argumentStack.addAll(com);
 
     }
 
@@ -158,18 +158,18 @@ public class CommandParser implements Parser {
         String variableName=commandStack.peek();
         String currentCommand=symbol.getSymbol(commandStack.pop());
 
-        Command com = null;
+        List<Command> com = null;
         if(userVariableHandler.getKeys().contains(variableName)){
             commandStack.add(Integer.toString(userVariableHandler.getVariable(variableName).getValue().intValue()))   ;
             parseConstant();
         } else{
 
             try {
-                com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+                com = (List<Command>) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
             } catch (InvalidCommandException e) {
                 throw e;
             }
-            argumentStack.add(com);
+            argumentStack.addAll(com);
         }
     }
 
@@ -192,14 +192,14 @@ public class CommandParser implements Parser {
             currentCommand="StringName";
             argumentsToBuildCommand.add(commandStack.peek());
         }
-        Command com = null;
+        List<Command> com = null;
         try {
-            com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+            com = (List<Command>) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
 
         } catch (InvalidCommandException e) {
             throw e;
         }
-        argumentStack.add(com);
+        argumentStack.addAll(com);
         commandStack.pop();
     }
 
@@ -217,8 +217,8 @@ public class CommandParser implements Parser {
           }
         }
 
-        Command com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
-        argumentStack.add(com);
+        List<Command> com = (List<Command>) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+        argumentStack.addAll(com);
     }
 
     private void parseConstant(){
@@ -227,13 +227,13 @@ public class CommandParser implements Parser {
         argumentsToBuildCommand.add(commandStack.peek());
         String currentCommand=symbol.getSymbol(commandStack.pop());
 
-        Command com = null;
+        List<Command> com = null;
         try {
-            com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+            com = (List<Command>) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
         } catch (InvalidCommandException e) {
             throw e;
         }
-        argumentStack.add(com);
+        argumentStack.addAll(com);
     }
 
     @Override
@@ -266,8 +266,9 @@ public class CommandParser implements Parser {
 
                 output = (Double) argumentStack.pop().execute();
             } else{
-
+                //System.out.println("excuted value "+argumentStack.pop().execute());
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                System.out.println("returned value "+ commandStack.peek());
                buildAndExecuteCommand();
             }
 
