@@ -46,10 +46,10 @@ public class ParserController {
         configFile = ResourceBundle.getBundle(config);
         myTurtleController = new TurtleController(getAvailableImagesFile());
         //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
-        myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
+        //myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
-        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
+        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myTurtleController);
         myColorPalette = new ColorPalette(getAvailableColorsFile());
         myCommandFileIO = new CommandFileIO();
         setLanguage("ENGLISH");

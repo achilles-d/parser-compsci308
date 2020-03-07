@@ -76,4 +76,9 @@ public class TurtleController {
         return turtlesMap.keySet().size();
     }
 
+    public boolean containsKey(Integer i) {
+        return turtlesMap.containsKey(i);
+    }
+
+
 }

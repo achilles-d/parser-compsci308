@@ -16,7 +16,6 @@ public class ArcTangent implements Command<Double> {
     return Math.atan(value);
   }
 
-
   @Override
   public boolean isItExecutable() {
     return true;
