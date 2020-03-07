@@ -12,11 +12,13 @@ Start Date:
 
 Finish Date: 3/7/20
 
-Hours Spent: 80+
+Hours Spent: 90+
 
 ### Primary Roles
 
-I worked on
+I worked on the backend of the project. Specially, on the
+ComamndFactory, CommandParser, Commands and the utilities we need for
+the backend
 ### Resources Used
 Saurav: Used example code from Labs and Professor Duvall's lectures to learn about
 more javaFX properties. Also used more online resources to learn about bindings and properties,
