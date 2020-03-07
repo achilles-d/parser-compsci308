@@ -6,10 +6,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import slogo.controller.ParserController;
 import slogo.view.components.LogoVisualization;
 
+import javax.security.auth.login.LoginContext;
+import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -22,6 +25,9 @@ public class MainWindow {
     private static final String WORKSPACEBUTTON = "workspacebutton";
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 1000;
+    private static final String RESOURCES_CONFIGURATION = "resources.configuration.";
+    private static final int REMOVE_END = 11;
+    private static final String CONFIGFILE = "configfile";
 
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
@@ -42,7 +48,7 @@ public class MainWindow {
         myBorder = new BorderPane();
         makeWorkspace = new Button(visualText.getString(WORKSPACEBUTTON));
         makeWorkspace.setOnAction(event -> {
-            addWorkspace(new LogoVisualization(new ParserController()));
+            addWorkspace();
         });
         init();
     }
@@ -62,8 +68,14 @@ public class MainWindow {
 
     }
 
-    public void addWorkspace(LogoVisualization workspace)
+    public void addWorkspace()
     {
+        FileChooser chooseConfig = new FileChooser();
+        chooseConfig.setTitle(visualText.getString(CONFIGFILE));
+        chooseConfig.setInitialDirectory(new File("src/resources/configuration"));
+        File config = chooseConfig.showOpenDialog(myStage);
+        String path = RESOURCES_CONFIGURATION + config.getName().substring(0,config.getName().length()- REMOVE_END);
+        LogoVisualization workspace = new LogoVisualization(new ParserController(path));
         Optional tabName = tabNameInput.showAndWait();
         myTabs.getTabs().add(new Tab((String)tabName.get(),workspace));
     }

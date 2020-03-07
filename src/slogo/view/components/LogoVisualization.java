@@ -24,10 +24,11 @@ public class LogoVisualization extends BorderPane{
     private static final int MAX_BOTTOM_HEIGHT = 50;
     private static final String ORDERING_SEPARATOR = ",";
     private static final String ERROR_TITLE = "ErrorTitle";
+    private static final String ELEMENTORDER = "elementorder";
 
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
-    private ResourceBundle orderingComponents = java.util.ResourceBundle.getBundle(ORDER_COMPONENTS);
+    private ResourceBundle orderingComponents;
 
     private CodeStage myCode;
     private TurtleWindow graphics;
@@ -44,6 +45,7 @@ public class LogoVisualization extends BorderPane{
         myController = control;
         parameters = new ArrayList<>();
         myWindows = new ArrayList<>();
+        orderingComponents = ResourceBundle.getBundle(myController.getUIOrderFile());
         init();
     }
 

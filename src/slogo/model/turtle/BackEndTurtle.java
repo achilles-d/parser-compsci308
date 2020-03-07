@@ -14,7 +14,7 @@ public class BackEndTurtle implements Turtle {
 
     private SimpleDoubleProperty xLoc = new SimpleDoubleProperty();
     private SimpleDoubleProperty yLoc = new SimpleDoubleProperty();
-    
+
 
     private SimpleDoubleProperty heading = new SimpleDoubleProperty();
     private SimpleBooleanProperty penDown = new SimpleBooleanProperty();

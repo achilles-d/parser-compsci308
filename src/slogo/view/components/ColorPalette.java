@@ -12,12 +12,13 @@ public class ColorPalette {
     private static final String AVAILABLE_COLOR = "resources.colors.AvailableColors";
 
     private Map<Integer, Color> colorMatch;
-    private ResourceBundle availableColorNames = java.util.ResourceBundle.getBundle(AVAILABLE_COLOR);
+    private ResourceBundle availableColorNames;
 
 
-    public ColorPalette()
+    public ColorPalette(String colorsFile)
     {
         colorMatch = new HashMap<>();
+        availableColorNames = ResourceBundle.getBundle(colorsFile);
         init();
 
     }

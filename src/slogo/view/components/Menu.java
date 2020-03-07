@@ -42,12 +42,12 @@ public class Menu {
     private static final String DEFAULT_IMAGE = "turtle.jpg";
     private static final String ENGLISH = "English";
     private static final String HELPWINDOW = "src/resources/windowtext/HelpWindowText.txt";
-    private static final int HELP_SIZE = 400;
+    private static final int HELP_SIZE = 800;
     private static final String SAVE = "save";
     private static final String LOAD = "load";
 
     private HBox myView;
-    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+    private ResourceBundle turtleImages;
     private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
     private MenuButton bgColors;
@@ -72,6 +72,8 @@ public class Menu {
        myController = control;
        tellUpdate = update;
        myCode = code;
+
+       turtleImages = ResourceBundle.getBundle(myController.getAvailableImagesFile());
 
        myView = new HBox();
        myColorPalette = control.getColorPalette();
