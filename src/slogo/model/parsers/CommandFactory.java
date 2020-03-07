@@ -59,7 +59,7 @@ public class CommandFactory {
 
        List<Object> listOfCommands= new ArrayList<>();
 
-        List<BackEndTurtle> listOfTurtles= (List<BackEndTurtle>) turtleController.getAllBackEndTurtles();
+        List<BackEndTurtle> listOfTurtles= (List<BackEndTurtle>) turtleController.getAllActiveBackendTurtles();
 
         if(needTurtle(commandName)){
             for(BackEndTurtle bt: listOfTurtles){
