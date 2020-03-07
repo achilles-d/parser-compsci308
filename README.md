@@ -100,7 +100,8 @@ Back-End:
     - User defined commands
 - Extended commands
     - Frontend controls (set background, pen color, palette, etc)
-    - Multiple turtles 
+    - Multiple turtles are implemented. Clicking on them can make some active
+    or inactive.
 
 ### Notes/Assumptions
 
@@ -108,7 +109,6 @@ Assumptions or Simplifications:
 - Saving a code file will not just save console text, rather, it will save all commands
 executed in the history for that workspace
 - The commands should be separated by space.
-
 
 
 Interesting data files:
@@ -126,6 +126,7 @@ It is just kept constant, so it looks like the turtle just moved horizontally.
 not parse correctly but don't cause the program to crash.
 - One bug with multiple turtles is that you have to say tell first individually
 for the turtles.
+- Also with the tell command passing in just one argument like 2 will move two turtles.
 - Additionally, the error handling for writing and invalid command is bugged.
 It ends up crashing the program.
 
