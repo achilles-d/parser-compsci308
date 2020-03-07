@@ -43,6 +43,7 @@ public class Menu {
     private static final int HELP_SIZE = 800;
     private static final String SAVE = "save";
     private static final String LOAD = "load";
+    private static final String COMMAND_FILE_IO_ERROR = "commandFile";
 
     private ResourceBundle turtleImages;
     private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
@@ -221,7 +222,7 @@ public class Menu {
           allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
        }
        catch(IOException ex){
-           throw new ExecutionException("Temp", ex);
+           throw new ExecutionException(COMMAND_FILE_IO_ERROR, ex);
        }
 
        VBox helpLabels =new VBox();
