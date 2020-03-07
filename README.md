@@ -122,7 +122,6 @@ then the x coordinate will be limited to be in bounds, but the y-coordinate is n
 It is just kept constant, so it looks like the turtle just moved horizontally.
 
 
-
 Extra credit:
 - The buttons for moving the turtle will change automatically to match the chosen language
 
