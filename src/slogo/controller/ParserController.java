@@ -22,6 +22,12 @@ import slogo.model.turtle.UserVariableHandler;
 public class ParserController {
 
     private static final String SYNTAX = "resources.languages.Syntax";
+    private static final String ELEMENTORDER = "elementorder";
+    private static final String IMAGES = "images";
+    private static final String COLORS = "colors";
+
+    private ResourceBundle configFile;
+
     private BackEndTurtle myBackEndTurtle;
     private CommandParser myCommandParser;
     private CommandHandlerAPI myCommandHandlerAPI;
@@ -31,20 +37,39 @@ public class ParserController {
     private TurtleController myTurtleController;
     private CommandFileIO myCommandFileIO;
     private Double output;
+    private String elementOrder;
+    private String availableColors;
+    private String availableImages;
 
-    public ParserController() {
-        myTurtleController = new TurtleController();
+    public ParserController(String config) {
+
+        configFile = ResourceBundle.getBundle(config);
+        myTurtleController = new TurtleController(getAvailableImagesFile());
         //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
-        myColorPalette = new ColorPalette();
+        myColorPalette = new ColorPalette(getAvailableColorsFile());
         myCommandFileIO = new CommandFileIO();
         setLanguage("ENGLISH");
     }
 
 
+    public String getUIOrderFile()
+    {
+        return ("resources."+configFile.getString(ELEMENTORDER));
+    }
+
+    public String getAvailableImagesFile()
+    {
+        return ("resources."+configFile.getString(IMAGES));
+    }
+
+    private String getAvailableColorsFile()
+    {
+        return ("resources."+configFile.getString(COLORS));
+    }
 
     //To be called by Visualization
     public String displayError(Exception ex){
