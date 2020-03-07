@@ -18,12 +18,25 @@ Hours Spent: 100+
 Saurav: Worked primarily on all front-end. Created all front-end components,
 styled them, and helped ensure they worked properly with the rest of the model. 
 
+Achintya: Worked on the back-end primarily and a little on the controller. Worked
+to create a majority of the commands and the helped think out the logic for the
+parser. In the controller, worked on the TurtleController. 
+
+Abebe: Worked primarily on the back-end. Responsible for the parsing and a few
+of the commands. Created all the classes for the parser and wrote a majority
+of the code to handle parsing.
+
 ### Resources Used
 Saurav: Used example code from Labs and Professor Duvall's lectures to learn about
 more javaFX properties. Also used more online resources to learn about bindings and properties,
 like this [website](https://www.dummies.com/programming/java/javafx-binding-properties).
 Also used this [website](https://stackoverflow.com/questions/25570803/image-in-javafx-listview) to
 figure out how to override default list cell functionality for my palette view. 
+
+Achintya & Abebe: Used code examples from Professor Duvall to implement generics when
+needed. The idea for the parsing mechanism with the double stacks (that represent
+a tree structure) came from Professor Duvall's lectures. Reflection code was
+referenced from labs as well as how to get data from property files. 
 
 ### Running the Program
 
@@ -36,10 +49,10 @@ These files are needed regardless of what configuration file is chosen
 - parameternames.properties
 - parameters.properties
 - UIText.properties
--uistyle.css
+- uistyle.css
 - ExceptionTypes.properties
 - ExecutionExceptionText.properties
--InvalidCommandExceptionText.properties
+- InvalidCommandExceptionText.properties
 - All language property files
 - HelpWindowText.txt
 
@@ -64,7 +77,18 @@ Front-End:
 - Toolbar to set background, pen color, turtle image
 - Can see help screen for commands tutorial
 
-
+Back-End:
+- All basic commands
+    - Movement 
+    - Math operations
+    - Control flow (if, if else)
+    - Boolean commands
+    - Turtle queries
+    - Loops (for, repeat)
+    - User defined commands
+- Extended commands
+    - Frontend controls (set background, pen color, palette, etc)
+    - Multiple turtles 
 
 ### Notes/Assumptions
 
