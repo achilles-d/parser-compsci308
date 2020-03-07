@@ -20,15 +20,11 @@ public class CommandFactory {
     private int inputCounter;
     private int stringCounter;
     private List<String> unExecutedCommands;
-    private int commandCounter;
 
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private static final String THIS_CLASS_PATH="slogo.model.commands.";
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ObjectMatch");
     private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
-
-    private List<BackEndTurtle> listOfTurtles = new ArrayList<>();
-    private Integer index;
     private Map<String, Method> match;
     private  static final String NO_FILE="noFile";
     private  static final String IMPOSSIBLE_COMMANDS="impossibleCommand";

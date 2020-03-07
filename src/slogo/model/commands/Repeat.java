@@ -13,7 +13,6 @@ public class Repeat implements Command<Object> {
   private boolean isItExecutable;
   private UserVariableHandler handler;
   private Command variableCommand;
-  private String name;
   private Command group;
   private List<String> commandsToAddToStack;
 
