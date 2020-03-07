@@ -4,11 +4,7 @@ import slogo.model.commands.Command;
 import slogo.model.interfaces.Executor;
 
 public class CommandExecutor implements Executor {
-
-
-    public CommandExecutor(){
-
-    }
+    
     @Override
     /**
      *
