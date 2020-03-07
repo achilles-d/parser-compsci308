@@ -46,6 +46,7 @@ public class CommandFactory {
         this.userDefinedCommands=userDefinedCommand;
         this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtleController.getBackEndTurtle(0);
+        //turtleController.getA
         this.turtleController=turtleController;
         this.language=language;
         this.userVariableHandler=userVariableHandler;
@@ -55,7 +56,23 @@ public class CommandFactory {
 
 
     public Object getCommand(String commandName, List<Object> arguments){
-        return makeCommand(commandName, arguments);
+
+       List<Object> listOfCommands= new ArrayList<>();
+
+        List<BackEndTurtle> listOfTurtles= (List<BackEndTurtle>) turtleController.getAllBackEndTurtles();
+
+        if(needTurtle(commandName)){
+            for(BackEndTurtle bt: listOfTurtles){
+                turtle=bt;
+                listOfCommands.add(makeCommand(commandName, arguments));
+            }
+        } else{
+            listOfCommands.add(makeCommand(commandName, arguments));
+        }
+
+        return listOfCommands;//listOfCommands.get(0);
+
+
     }
 
     private Object makeCommand(String commandName, List<Object> arguments) {
@@ -72,6 +89,7 @@ public class CommandFactory {
         inputCounter = 0;
 
         populateTypeOfArguments(arguments, pType, ar);
+
         Constructor<?> cons = null;
           try {
             cons = c.getDeclaredConstructor(pType);
@@ -131,6 +149,28 @@ public class CommandFactory {
 
     private Language getLanguage(){
         return language;
+    }
+    private TurtleController getTurtleController(){
+        return turtleController;
+    }
+
+  private boolean needTurtle(String commandName){
+      Class<?> c = null;
+      try {
+          c = Class.forName(THIS_CLASS_PATH + commandName);
+
+      } catch (ClassNotFoundException e) {
+          throw new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMANDS), e);
+      }
+      Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();
+
+      for(int j=0; j<pType.length;j++){
+          String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+          if(className.equals("BackEndTurtle")){
+              return true;
+          }
+      }
+      return false;
     }
 
 }

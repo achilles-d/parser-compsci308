@@ -10,21 +10,19 @@ Names: Saurav Sanjay, Achintya Kumar, Abebe Amare, Achilles Dabrowski
 
 Start Date: 
 
-Finish Date: 3/6/20
+Finish Date: 3/7/20
 
-Hours Spent: 100+
+Hours Spent: 90+
 
 ### Primary Roles
-Saurav: Worked primarily on all front-end. Created all front-end components,
-styled them, and helped ensure they worked properly with the rest of the model. 
 
 Achintya: Worked on the back-end primarily and a little on the controller. Worked
 to create a majority of the commands and the helped think out the logic for the
 parser. In the controller, worked on the TurtleController. 
 
-Abebe: Worked primarily on the back-end. Responsible for the parsing and a few
-of the commands. Created all the classes for the parser and wrote a majority
-of the code to handle parsing.
+Abebe: Worked primarily on the back-end. Responsible for the parsing and
+a few of the commands. Created all the classes for the parser and wrote
+a majority of the code to handle parsing.
 
 Achilles: Worked primarily on the controller package, exception classes and exception handling, 
 and resource files. 
@@ -45,6 +43,9 @@ Achilles: used my work from lab_advanced, particularly the BetFactory task to gu
 of the InvalidCommandException and ExecutionException error message properties file reader in their 
 constructors. 
 
+Abebe: Used notes from class, lab materials, reading and Tutorial point
+for doing reflection. I also used the weekly journals I wrote to revise
+the concepts we learned in class.
 ### Running the Program
 
 Main class: Main.java is the main class needed to run
@@ -102,6 +103,7 @@ Back-End:
 Assumptions or Simplifications:
 - Saving a code file will not just save console text, rather, it will save all commands
 executed in the history for that workspace
+- The commands should be separated by space.
 
 
 

@@ -1,6 +1,7 @@
 package slogo.controller;
 
 
+import slogo.model.turtle.Coordinate;
 import slogo.view.components.ViewTurtle;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.Line;
@@ -32,6 +33,21 @@ public class TurtleController {
 
     public Collection<Line> getLines(int index) {
         return Collections.unmodifiableList(turtlesMap.get(index).getBackEndTurtle().getLines());
+    }
+
+    public Coordinate getTurtlePosition(ViewTurtle view)
+    {
+        return turtlesMap.get(view.getID()).getBackEndTurtle().getPosition();
+    }
+
+    public double getHeading(ViewTurtle view)
+    {
+        return turtlesMap.get(view.getID()).getBackEndTurtle().getHeading();
+    }
+
+    public boolean getTurtleVisibility(ViewTurtle view)
+    {
+        return turtlesMap.get(view.getID()).getBackEndTurtle().getVisibility();
     }
 
     public BackEndTurtle getBackEndTurtle(int index) {

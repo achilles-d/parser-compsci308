@@ -155,9 +155,9 @@ public class TurtleWindow extends Window {
         fillCanvas();
         for(ViewTurtle view: myTurtleController.getAllActiveViewTurtles())
         {
-            view.updatePosition(myController.getTurtlePosition());
-            view.setHeading(myController.getHeading());
-            view.setVisibility(myController.getTurtleVisibility());
+            view.updatePosition(myTurtleController.getTurtlePosition(view));
+            view.setHeading(myTurtleController.getHeading(view));
+            view.setVisibility(myTurtleController.getTurtleVisibility(view));
             drawLines(view.getID());
         }
 

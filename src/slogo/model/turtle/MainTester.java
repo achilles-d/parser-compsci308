@@ -1,11 +1,14 @@
 package slogo.model.turtle;
+import slogo.controller.CommandFileIO;
 import slogo.controller.Language;
 import slogo.controller.TurtleController;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.parsers.CommandHandlerAPI;
 import slogo.model.parsers.CommandParser;
+import slogo.view.components.ColorPalette;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
 
 
 /**
@@ -54,8 +57,7 @@ public class MainTester {
         CommandHandlerAPI ch=new CommandHandlerAPI();
         UserVariableHandler uh=new UserVariableHandler();
 
-        BackEndTurtle turtle= new BackEndTurtle(0);
-        TurtleController tr= new TurtleController("0");
+        TurtleController tr= new TurtleController("resources.imagePalette.ImagePalette2");
         tr.createNewTurtle(0);
         //Language lang= new Language("slls");
         CommandParser lang = new CommandParser(ch, uh, tr);
@@ -100,8 +102,10 @@ public class MainTester {
 
      //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
-        String userInput="to dash [ :count :size ] [ repeat :count [ pu fd :size pd fd :size ] ] dash 20 8 rt 60 dash" +
-                " 8 20 rt 60 dash 10 10";
+//        String userInput="to dash [ :count :size ] [ repeat :count [ pu fd :size pd fd :size ] ] dash 20 8 rt 60 dash" +
+//                " 8 20 rt 60 dash 10 10";
+
+        String userInput="tell [ 1 2 3 ]";
 
 
 
