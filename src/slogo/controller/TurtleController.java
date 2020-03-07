@@ -35,19 +35,19 @@ public class TurtleController {
         return Collections.unmodifiableList(turtlesMap.get(index).getBackEndTurtle().getLines());
     }
 
-    public Coordinate getTurtlePosition(ViewTurtle view)
+    public Coordinate getTurtlePosition(int id)
     {
-        return turtlesMap.get(view.getID()).getBackEndTurtle().getPosition();
+        return turtlesMap.get(id).getBackEndTurtle().getPosition();
     }
 
-    public double getHeading(ViewTurtle view)
+    public double getHeading(int id)
     {
-        return turtlesMap.get(view.getID()).getBackEndTurtle().getHeading();
+        return turtlesMap.get(id).getBackEndTurtle().getHeading();
     }
 
-    public boolean getTurtleVisibility(ViewTurtle view)
+    public boolean getTurtleVisibility(int id)
     {
-        return turtlesMap.get(view.getID()).getBackEndTurtle().getVisibility();
+        return turtlesMap.get(id).getBackEndTurtle().getVisibility();
     }
 
     public BackEndTurtle getBackEndTurtle(int index) {
