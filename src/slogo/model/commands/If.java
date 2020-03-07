@@ -7,8 +7,6 @@ public class If implements Command<Object>{
 private List<String> commandList;
 private Double userVal;
 
-private String LEFT_BRACKET = "[";
-private String RIGHT_BRACKET = "]";
 private Command con;
 private Command command;
 
@@ -24,10 +22,9 @@ private boolean isExecutable ;
     public Object execute() {
         this.userVal = (Double) con.execute();
         this.commandList = (List<String>) command.execute();
-        //isExecutable(userVal);
         if (userVal!=0) {
-            commandList.remove(LEFT_BRACKET);
-            commandList.remove(commandList.lastIndexOf(RIGHT_BRACKET));
+            commandList.remove(0);
+            commandList.remove(commandList.size()-1);
             return commandList;
         }
         return 0.0;

@@ -87,8 +87,8 @@ public class MainTester {
 
        // String userInput="repeat 36 [ fd 50 rt 10 ]";
 
-       String userInput="dotimes [ :dist 36 ]\n" +
-               "[ fd :dist rt 10 ]";
+//       String userInput="dotimes [ :dist 36 ]\n" +
+//               "[ fd :dist rt 10 ]";
 //        String userInput="  ifelse 5 [\n" +
 //                "    rt 60\n" +
 //                "  ] [\n" +
@@ -97,10 +97,14 @@ public class MainTester {
 
      //  String userInput="For [ :x 1 10 2 ] [ fd 50 ]";
 
-        //String userInput="to test [ :x ] [ fd :x ]";
+        String userInput="to dash [ :count :size ] [ repeat :count [ pu fd :size pd fd :size ] ] dash 20 8 rt 60 dash" +
+                " 8 20 rt 60 dash 10 10";
 
 
-      // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
+
+
+
+        // String userInput="IfElse 0 [ fd 50 ] [ IfElse 0 [ fd 100 ] [ rt 90 ] ]";
 
        //String userInput="atan sum sum sum 10 50 30 40";
 

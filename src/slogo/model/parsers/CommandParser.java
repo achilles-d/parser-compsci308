@@ -20,6 +20,7 @@ public class CommandParser implements Parser {
 
     private Stack<Command> argumentStack = new Stack<>();
     private  Stack<String> commandStack = new Stack<>();
+    private Map<String, List<List<Command>>> userDefined;
 
     private List<String> commandList = new ArrayList<>();
     private Map<String, Method> match;
@@ -59,7 +60,7 @@ public class CommandParser implements Parser {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         this.turtle=turtle;
-
+        userDefined=new HashMap<>();
         match=new HashMap<>();
         mathMethods();
         executor = new CommandExecutor();
@@ -80,7 +81,8 @@ public class CommandParser implements Parser {
     public void addPatterns(String language, String syntax){
         symbol=new Symbol(language, syntax);
         String lan = (language.split("[.]"))[language.split("[.]").length - 1];
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList, Language.valueOf(lan.toUpperCase()));
+        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList,
+                Language.valueOf(lan.toUpperCase()), userDefined);
     }
 
     private void parseListEnd() {
@@ -112,7 +114,8 @@ public class CommandParser implements Parser {
     }
 
     private void parseListStart(){
-        throw new InvalidCommandException(errors.getString(UNMATHCHED));
+        commandStack.pop();
+        //throw new InvalidCommandException(errors.getString(UNMATHCHED));
     }
 
     private void parseGroupStart(){
@@ -168,6 +171,34 @@ public class CommandParser implements Parser {
     }
 
     private void parseName() {
+        List<Object> argumentsToBuildCommand= new ArrayList<>();
+        String currentCommand;//=new String();
+        System.out.println("Key for parseName "+commandStack.peek());
+        System.out.println(userDefined);
+        if(userDefined.containsKey(commandStack.peek())){
+
+            //int size=sizeOfUserDefinedCommand.get(commandStack.peek());
+            int size=((List<String>)(userDefined.get(commandStack.peek()).get(1).get(0).execute())).size()-2;
+            System.out.println("Key for size "+size);
+            currentCommand="UserDefined";
+            argumentsToBuildCommand.add(commandStack.peek());
+            while(size!=0){
+                //argumentsToBuildCommand.add(argumentStack.pop());
+                userDefined.get(commandStack.peek()).get(0).add(argumentStack.pop());
+                size--;
+            }
+        } else {
+            currentCommand="StringName";
+            argumentsToBuildCommand.add(commandStack.peek());
+        }
+        Command com = null;
+        try {
+            com = (Command) commandFactor.getCommand(currentCommand,argumentsToBuildCommand);
+
+        } catch (InvalidCommandException e) {
+            throw e;
+        }
+        argumentStack.add(com);
         commandStack.pop();
     }
 
@@ -218,6 +249,7 @@ public class CommandParser implements Parser {
     private void buildAndExecuteCommand() {
         numOfCommandsToExecute++;
         while(commandStack.size()!=0){
+            System.out.println("Command type "+symbol.getSymbol(commandStack.peek()));
             if(match.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
                 try {
                     match.get(symbol.getSymbol(commandStack.peek())).invoke(this, null);
@@ -234,6 +266,9 @@ public class CommandParser implements Parser {
                 output = (Double) argumentStack.pop().execute();
             } else{
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
+                for(String str : commandStack){
+                    System.out.println("Comammns "+str);
+                }
                buildAndExecuteCommand();
             }
 
@@ -269,6 +304,7 @@ public class CommandParser implements Parser {
         commandList.clear();
         commandStack.clear();
         argumentStack.clear();
+        userDefined.clear();
     }
 
 }

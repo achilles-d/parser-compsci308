@@ -2,35 +2,43 @@ package slogo.model.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class MakeUserInstruction implements Command<Double> {
+public class MakeUserInstruction implements  Command<Object> {
 
-    private List<String> commandList;
-    private Integer userVal;
-    private Integer commandCounter;
-    private Integer unexecutedCounter;
-    private StringBuilder str=new StringBuilder();;
-    private String LEFT_BRACKET = "[";
-    private String RIGHT_BRACKET = "]";
-    private int leftBracketCounter=0;
-    private int rightBracketCounter=0;
-    private List<String> leftCommand = new ArrayList<>();
-    private List<String> rightCommand = new ArrayList<>();
-    private String commandName;
 
-    public MakeUserInstruction(List<String> sCom, String name, Integer counter) {
-        this.commandList = sCom;
-        this.commandName = name;
-        this.commandCounter = counter;
+    private Command command;
+    private Command inputs;
+    private Command name;
+    private Map<String, List<List<Command>>> commandSaver;
+
+
+    public  MakeUserInstruction (Command name, Command inputs, Command command,
+                                 Map<String, List<List<Command>>> commandSaver){
+
+        this.name=name;
+        this.inputs=inputs;
+        this.command=command;
+        this.commandSaver=commandSaver;
     }
 
     @Override
-    public Double execute() {
-
-        return 0.0;
+    public Object execute() {
+        List<List<Command>> cmd=new ArrayList<>();
+        List<Command> values= new ArrayList<>();
+        List<Command> cmds=new ArrayList<>();
+        cmds.add(inputs);
+        cmds.add(command);
+        cmd.add(values);
+        cmd.add(cmds);
+        commandSaver.putIfAbsent(((List<String>) name.execute()).get(0), cmd);
+        return 1.0;
     }
+
     @Override
     public boolean isItExecutable() {
         return true;
     }
+
+
 }
