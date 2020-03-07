@@ -136,6 +136,12 @@ public class BackEndTurtle implements Turtle {
     }
 
     /**
+     * sets the backend turtle active
+     * @param b backend turtle
+     */
+    public void setActiveTurtle(Boolean b) { this.activeTurtle.set(b); }
+
+    /**
      * Toggle whether turtle is visible or not
      */
     public void setVisibility(boolean visible) {

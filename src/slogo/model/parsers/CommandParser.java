@@ -1,5 +1,6 @@
 package slogo.model.parsers;
 import slogo.controller.Language;
+import slogo.controller.TurtleController;
 import slogo.model.parsers.subparsers.Symbol;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.CommandExecutor;
@@ -56,10 +57,11 @@ public class CommandParser implements Parser {
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
-                         BackEndTurtle turtle) {
+                         TurtleController tr) {
+
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
-        this.turtle=turtle;
+        this.turtle=tr.getBackEndTurtle(0);
         userDefined=new HashMap<>();
         match=new HashMap<>();
         mathMethods();
@@ -115,7 +117,6 @@ public class CommandParser implements Parser {
 
     private void parseListStart(){
         commandStack.pop();
-        //throw new InvalidCommandException(errors.getString(UNMATHCHED));
     }
 
     private void parseGroupStart(){
@@ -172,14 +173,12 @@ public class CommandParser implements Parser {
 
     private void parseName() {
         List<Object> argumentsToBuildCommand= new ArrayList<>();
-        String currentCommand;//=new String();
-        System.out.println("Key for parseName "+commandStack.peek());
+        String currentCommand;
         System.out.println(userDefined);
         if(userDefined.containsKey(commandStack.peek())){
 
             //int size=sizeOfUserDefinedCommand.get(commandStack.peek());
             int size=((List<String>)(userDefined.get(commandStack.peek()).get(1).get(0).execute())).size()-2;
-            System.out.println("Key for size "+size);
             currentCommand="UserDefined";
             argumentsToBuildCommand.add(commandStack.peek());
             while(size!=0){
@@ -249,8 +248,7 @@ public class CommandParser implements Parser {
     private void buildAndExecuteCommand() {
         numOfCommandsToExecute++;
         while(commandStack.size()!=0){
-            System.out.println("Command type "+symbol.getSymbol(commandStack.peek()));
-            if(match.containsKey(symbol.getSymbol(commandStack.peek()))){ // if not actual command
+            if(match.containsKey(symbol.getSymbol(commandStack.peek()))){
                 try {
                     match.get(symbol.getSymbol(commandStack.peek())).invoke(this, null);
                 } catch (IllegalAccessException | InvocationTargetException e) {
@@ -263,12 +261,11 @@ public class CommandParser implements Parser {
         }
         while(argumentStack.size()!=0){
             if(argumentStack.peek().isItExecutable()){
+
                 output = (Double) argumentStack.pop().execute();
             } else{
+
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
-                for(String str : commandStack){
-                    System.out.println("Comammns "+str);
-                }
                buildAndExecuteCommand();
             }
 

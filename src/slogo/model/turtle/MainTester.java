@@ -1,5 +1,6 @@
 package slogo.model.turtle;
 import slogo.controller.Language;
+import slogo.controller.TurtleController;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.parsers.CommandHandlerAPI;
 import slogo.model.parsers.CommandParser;
@@ -54,8 +55,10 @@ public class MainTester {
         UserVariableHandler uh=new UserVariableHandler();
 
         BackEndTurtle turtle= new BackEndTurtle(0);
+        TurtleController tr= new TurtleController();
+        tr.createNewTurtle(0);
         //Language lang= new Language("slls");
-        CommandParser lang = new CommandParser(ch, uh, turtle);
+        CommandParser lang = new CommandParser(ch, uh, tr);
 
 
         // these are more specific, so add them first to ensure they are checked first
