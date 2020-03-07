@@ -3,7 +3,7 @@ parser
 
 This project implements a development environment that helps users write SLogo programs.
 
-Names:Saurav Sanjay,
+Names: Saurav Sanjay, Achintya Kumar, Abebe Amare, Achilles Dabrowski 
 
 
 ### Timeline
@@ -26,6 +26,9 @@ Abebe: Worked primarily on the back-end. Responsible for the parsing and a few
 of the commands. Created all the classes for the parser and wrote a majority
 of the code to handle parsing.
 
+Achilles: Worked primarily on the controller package, exception classes and exception handling, 
+and resource files. 
+
 ### Resources Used
 Saurav: Used example code from Labs and Professor Duvall's lectures to learn about
 more javaFX properties. Also used more online resources to learn about bindings and properties,
@@ -38,12 +41,16 @@ needed. The idea for the parsing mechanism with the double stacks (that represen
 a tree structure) came from Professor Duvall's lectures. Reflection code was
 referenced from labs as well as how to get data from property files. 
 
+Achilles: used my work from lab_advanced, particularly the BetFactory task to guide my implementation
+of the InvalidCommandException and ExecutionException error message properties file reader in their 
+constructors. 
+
 ### Running the Program
 
 Main class: Main.java is the main class needed to run
 
 Data files needed: 
-- User needs to choose a configuration file in beginning
+- User needs to choose a configuration file in beginning (\src\resources\configuration\)
 
 These files are needed regardless of what configuration file is chosen
 - parameternames.properties
