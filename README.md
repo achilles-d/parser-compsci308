@@ -3,7 +3,7 @@ parser
 
 This project implements a development environment that helps users write SLogo programs.
 
-Names:Saurav Sanjay,
+Names:Saurav Sanjay, Abebe Amare, Achintya Kumar, Achilles Dabrowski
 
 
 ### Timeline
@@ -99,7 +99,9 @@ executed in the history for that workspace
 
 
 Interesting data files:
-- 
+- Dragon.logo
+- Square.logo
+- Pinwheel.logo
 
 Known Bugs:
 - If the turtle moves forward large amounts, like from one end of the screen to the other,
@@ -107,7 +109,8 @@ there are sometimes errors in preventing the turtle from moving out of bounds.
 This can happen for example if a large distance is moved and it hits a side wall at an angle,
 then the x coordinate will be limited to be in bounds, but the y-coordinate is not adjusted accordingly.
 It is just kept constant, so it looks like the turtle just moved horizontally.
-
+- Some of the procedures with multiple parameters are a little buggy. They do
+not parse correctly but don't cause the program to crash.
 
 
 Extra credit:
