@@ -16,7 +16,7 @@ Hours Spent: 80+
 
 ### Primary Roles
 
-I worked on 
+I worked on
 ### Resources Used
 Saurav: Used example code from Labs and Professor Duvall's lectures to learn about
 more javaFX properties. Also used more online resources to learn about bindings and properties,
