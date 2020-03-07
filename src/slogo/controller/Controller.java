@@ -40,9 +40,6 @@ public class Controller {
     private TurtleController myTurtleController;
     private CommandFileIO myCommandFileIO;
     private Double output;
-    private String elementOrder;
-    private String availableColors;
-    private String availableImages;
 
     public Controller(String config) {
 
