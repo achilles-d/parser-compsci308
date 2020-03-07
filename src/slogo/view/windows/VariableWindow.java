@@ -16,14 +16,12 @@ public class VariableWindow extends Window {
     private static final int HEIGHT = 200;
     private static final String VARVAL = "varval";
     private static final String VARVALWINDOW = "varvalwindow";
+    private static final String NOVARIABLES = "novariables";
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     private TitledPane myView;
     private ListView<String> variables;
-    private ParserController myController;
-    private SimpleBooleanProperty tellUpdate;
-    private CodeStage myCode;
     private TextInputDialog variableValueInput;
 
 
@@ -40,6 +38,7 @@ public class VariableWindow extends Window {
         myView.setPrefHeight(HEIGHT);
 
         variables = new ListView<>();
+        variables.setPlaceholder(new Label(visualText.getString(NOVARIABLES)));
         myView.setContent(variables);
 
         variableValueInput = new TextInputDialog();
@@ -71,19 +70,24 @@ public class VariableWindow extends Window {
 
     public void update()
     {
+        updateOldVariables();
+        addNewVariables();
+    }
 
-        for(int i = 0; i<variables.getItems().size();i++)
-        {
-            variables.getItems().set(i,myController.getAllVariables().get(i));
-        }
-
+    private void addNewVariables()
+    {
         for(int i=variables.getItems().size();i<myController.getAllVariables().size();i++)
         {
             variables.getItems().add(myController.getAllVariables().get(i));
         }
+    }
 
-
-
+    private void updateOldVariables()
+    {
+        for(int i = 0; i<variables.getItems().size();i++)
+        {
+            variables.getItems().set(i,myController.getAllVariables().get(i));
+        }
 
     }
 

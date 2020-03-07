@@ -1,4 +1,4 @@
-package slogo.view.windows;
+package slogo.view.components;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainWindow {
+public class MainVisualization {
 
     private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String UI_TEXT = "resources.UIText";
@@ -28,6 +28,7 @@ public class MainWindow {
     private static final String RESOURCES_CONFIGURATION = "resources.configuration.";
     private static final int REMOVE_END = 11;
     private static final String CONFIGFILE = "configfile";
+    private static final String CONFIGURATION = "src/resources/configuration";
 
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
@@ -38,7 +39,7 @@ public class MainWindow {
     private Stage myStage;
     private TextInputDialog tabNameInput;
 
-    public MainWindow(Stage stage)
+    public MainVisualization(Stage stage)
     {
         tabNameInput = new TextInputDialog();
         tabNameInput.setContentText(visualText.getString(WORKSPACEHEADER));
@@ -72,9 +73,10 @@ public class MainWindow {
     {
         FileChooser chooseConfig = new FileChooser();
         chooseConfig.setTitle(visualText.getString(CONFIGFILE));
-        chooseConfig.setInitialDirectory(new File("src/resources/configuration"));
+        chooseConfig.setInitialDirectory(new File(CONFIGURATION));
         File config = chooseConfig.showOpenDialog(myStage);
         String path = RESOURCES_CONFIGURATION + config.getName().substring(0,config.getName().length()- REMOVE_END);
+
         LogoVisualization workspace = new LogoVisualization(new ParserController(path));
         Optional tabName = tabNameInput.showAndWait();
         myTabs.getTabs().add(new Tab((String)tabName.get(),workspace));

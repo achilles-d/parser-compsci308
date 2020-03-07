@@ -49,7 +49,7 @@ public class ParserController {
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
-        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myBackEndTurtle);
+        myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myTurtleController);
         myColorPalette = new ColorPalette(getAvailableColorsFile());
         myCommandFileIO = new CommandFileIO();
         setLanguage("ENGLISH");

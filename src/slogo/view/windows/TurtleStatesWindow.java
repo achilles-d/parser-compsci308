@@ -16,13 +16,14 @@ public class TurtleStatesWindow extends Window {
     private static final String TURTLEPOSITION = "turtleposition";
     private static final String TURTLEHEADING = "turtleheading";
 
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+
     private VBox myView;
     private Label turtleID;
     private Label turtlePosition;
     private Label turtleHeading;
     private ViewTurtle myViewTurtle;
 
-    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     public TurtleStatesWindow(ViewTurtle view)
     {
@@ -38,6 +39,7 @@ public class TurtleStatesWindow extends Window {
     {
         return new Label(identifier + ":" + info);
     }
+
     @Override
     public void update() {
         turtleID = makeLabel(visualText.getString(TURTLEID),myViewTurtle.getID()+"");

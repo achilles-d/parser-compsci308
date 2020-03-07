@@ -14,29 +14,29 @@ import java.util.ResourceBundle;
 public class AvailableCommandsWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
+    private static final String AVAILABLE_COMMANDS = "available";
+
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
-
-    private static final String AVAILABLE_COMMANDS = "available";
     private ResourceBundle commandNames;
 
     private TitledPane myView;
-    private ParserController myController;
     private ListView<String> availableCommands;
-    private SimpleBooleanProperty tellUpdate;
-    private CodeStage myCode;
+
 
 
     public AvailableCommandsWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
-        commandNames = java.util.ResourceBundle.getBundle(myController.getLanguage());
-
         tellUpdate = update;
         myCode = code;
 
+        commandNames = java.util.ResourceBundle.getBundle(myController.getLanguage());
+
+
         myView = new TitledPane();
         myView.setText(visualText.getString(AVAILABLE_COMMANDS));
+
         availableCommands =  new ListView<>();
         populateCommands();
 
