@@ -8,13 +8,17 @@ Names: Saurav Sanjay, Achintya Kumar, Abebe Amare, Achilles Dabrowski
 
 ### Timeline
 
-Start Date: 
+Start Date: 2/18/20
 
 Finish Date: 3/7/20
 
-Hours Spent: 90+
+Hours Spent: 100+
 
 ### Primary Roles
+
+Saurav: Worked on the front-end primarily. Designed the different window components and components 
+for the front-end and styled all of them. Also helped integrate front-end with back-end
+by doing some work with controllers.
 
 Achintya: Worked on the back-end primarily and a little on the controller. Worked
 to create a majority of the commands and the helped think out the logic for the
@@ -48,7 +52,7 @@ for doing reflection. I also used the weekly journals I wrote to revise
 the concepts we learned in class.
 ### Running the Program
 
-Main class: Main.java is the main class needed to run
+Main class: Main.java is the main class needed to run the program. 
 
 Data files needed: 
 - User needs to choose a configuration file in beginning (\src\resources\configuration\)
