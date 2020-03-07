@@ -65,14 +65,10 @@ public class BackEndTurtle implements Turtle {
     }
 
     private Coordinate ensureInBounds(Coordinate a) {
-
         double x = a.getXVal();
         double y = a.getYVal();
-
         boolean hitXWall = false;
         boolean hitYWall = false;
-
-
         while (x > XBOUNDS) {
             x--;
             hitXWall = true;
@@ -81,17 +77,13 @@ public class BackEndTurtle implements Turtle {
             x++;
             hitXWall = true;
         }
-
         while (y > YBOUNDS){
             y--;
             hitYWall = true;
-
         }
-
         while (y < -YBOUNDS){
             y++;
             hitYWall = true;
-
         }
         if(!hitXWall && hitYWall)
         {
@@ -99,7 +91,6 @@ public class BackEndTurtle implements Turtle {
         }
         else if(hitXWall && !hitYWall)
             y = (x-turtleCoordinate.getXVal())/Math.tan(Math.toRadians(heading.getValue()))+turtleCoordinate.getYVal();
-
 
         return new Coordinate(x,y);
     }
