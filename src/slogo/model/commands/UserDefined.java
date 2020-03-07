@@ -35,9 +35,14 @@ public class UserDefined implements Command {
 
     private void buildExecutable(){
         //variables=new ArrayList<>();
+        List<String> variables= new ArrayList<>();
+        variables.addAll( (List<String>) userDefinedCommands.get(name).get(1).get(0).execute());
 
-        List<String> variables= (List<String>) userDefinedCommands.get(name).get(1).get(0).execute();
-        List<String> commands=(List<String>) userDefinedCommands.get(name).get(1).get(1).execute();
+       // List<String> variables= (List<String>) userDefinedCommands.get(name).get(1).get(0).execute();
+        List<String> commands=new ArrayList<>();
+        commands.addAll((List<String>) userDefinedCommands.get(name).get(1).get(1).execute());
+
+        //List<String> commands=(List<String>) userDefinedCommands.get(name).get(1).get(1).execute();
         List<Command> param= userDefinedCommands.get(name).get(0);
        removeBracket(variables);
        removeBracket(commands);
