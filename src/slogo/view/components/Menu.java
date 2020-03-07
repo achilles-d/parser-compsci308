@@ -44,6 +44,7 @@ public class Menu {
     private static final String SAVE = "save";
     private static final String LOAD = "load";
     private static final String COMMAND_FILE_IO_ERROR = "commandFile";
+    private static final int MENU_ICON_SIZE = 30;
 
     private ResourceBundle turtleImages;
     private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
@@ -173,8 +174,8 @@ public class Menu {
            MenuItem imageSelect = new MenuItem(imageIndex);
            String imgName = turtleImages.getString(imageIndex).replaceAll("\"","");
            ImageView menuIcon = new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(imgName)));
-           menuIcon.setFitHeight(30);
-           menuIcon.setFitWidth(30);
+           menuIcon.setFitHeight(MENU_ICON_SIZE);
+           menuIcon.setFitWidth(MENU_ICON_SIZE);
            imageSelect.setGraphic(menuIcon);
            imageSelect.setOnAction(e -> {
                turtleImage.setValue(turtleImages.getString(imageIndex));
