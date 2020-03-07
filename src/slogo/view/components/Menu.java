@@ -4,6 +4,8 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -27,7 +29,6 @@ import slogo.view.components.CodeStage;
 import slogo.view.components.ColorPalette;
 
 public class Menu {
-    private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
     private static final String UI_TEXT = "resources.UIText";
@@ -46,10 +47,11 @@ public class Menu {
     private static final String SAVE = "save";
     private static final String LOAD = "load";
 
-    private HBox myView;
     private ResourceBundle turtleImages;
     private ResourceBundle languageModes = java.util.ResourceBundle.getBundle(AVAILABLE_LANGUAGES);
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+
+    private HBox myView;
     private MenuButton bgColors;
     private MenuButton images;
     private MenuButton penColors;
@@ -86,29 +88,17 @@ public class Menu {
 
    private void initOtherButtons()
    {
-       help = new Button(visualText.getString(HELP));
+       help = makeButton(visualText.getString(HELP),e->makeHelpScreen());
+       saveCode = makeButton(visualText.getString(SAVE),e->save());
+       loadCode = makeButton(visualText.getString(LOAD),e->load());
 
-       help.setOnAction(event -> {
-           try {
-               makeHelpScreen();
-           } catch (Exception e) {
-               showError(e.getMessage());
-           }
-       });
+   }
 
-       saveCode = new Button(visualText.getString(SAVE));
-       saveCode.setOnAction(event->{
-           try{
-               save();
-           }
-           catch(Exception e)
-           {
-               showError(e.getMessage());
-           }
-       });
-
-       loadCode = new Button(visualText.getString(LOAD));
-       loadCode.setOnAction(e->{load();});
+   private Button makeButton(String buttonText, EventHandler e)
+   {
+       Button make = new Button(buttonText);
+       make.setOnAction(e);
+       return make;
    }
 
    private void load()
@@ -132,7 +122,7 @@ public class Menu {
        }
        catch(IOException e)
        {
-           throw new ExecutionException("Temp", e);
+           showError(e.getMessage());
 
        }
    }
@@ -229,6 +219,7 @@ public class Menu {
        Stage stage1 = new Stage();
        List<String> allHelpText;
        File helpWindowTextFile = new File(HELPWINDOW);
+
        try{
           allHelpText = Files.readAllLines(Paths.get(helpWindowTextFile.toURI()));
        }
@@ -260,7 +251,6 @@ public class Menu {
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        //alert.setTitle(myResources.getString("ErrorTitle"));
         alert.setContentText(message);
         alert.showAndWait();
     }

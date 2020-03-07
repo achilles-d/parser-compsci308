@@ -19,6 +19,7 @@ public class PaletteWindow extends Window {
     private static final String AVAILABLE_COLORS = "availablecolors";
     private static final String IMAGES = "images";
     private static final int MAX_WIDTH = 50;
+    private static final String PALETTE = "palette";
 
 
     private ResourceBundle turtleImages;
@@ -26,13 +27,11 @@ public class PaletteWindow extends Window {
 
 
     private TitledPane myView;
-    private ParserController myController;
     private ColorPalette myColorPalette;
     private TitledPane colorPaletteView;
     private ListView colorMatcher;
     private ListView imageMatcher;
     private TitledPane imagePaletteView;
-    private SimpleBooleanProperty tellUpdate;
     private HBox paletteContainer;
 
     public PaletteWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
@@ -58,7 +57,7 @@ public class PaletteWindow extends Window {
         fillImagesPalette();
 
         paletteContainer.getChildren().addAll(colorPaletteView, imagePaletteView);
-        myView.setText("Palette");
+        myView.setText(visualText.getString(PALETTE));
         myView.setContent(paletteContainer);
         myView.setMaxWidth(MAX_WIDTH);
 

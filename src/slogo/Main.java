@@ -2,9 +2,7 @@ package slogo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import slogo.controller.ParserController;
-import slogo.view.components.LogoVisualization;
-import slogo.view.windows.MainWindow;
+import slogo.view.components.MainVisualization;
 
 /**
  * Feel free to completely change this code or delete it entirely. 
@@ -19,7 +17,7 @@ public class Main extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-        MainWindow myMain = new MainWindow(primaryStage);
+        MainVisualization myMain = new MainVisualization(primaryStage);
 
 
     }
