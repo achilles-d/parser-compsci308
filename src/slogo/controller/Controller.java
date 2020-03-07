@@ -21,10 +21,12 @@ import slogo.model.turtle.UserVariableHandler;
 
 public class Controller {
 
+    private static final String RESOURCES_DIR_PREFIX = "resources.";
     private static final String SYNTAX = "resources.languages.Syntax";
     private static final String ELEMENTORDER = "elementorder";
     private static final String IMAGES = "images";
     private static final String COLORS = "colors";
+    private static final String DEFAULT_LANG = "ENGLISH";
 
     private ResourceBundle configFile;
 
@@ -52,23 +54,23 @@ public class Controller {
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myTurtleController);
         myColorPalette = new ColorPalette(getAvailableColorsFile());
         myCommandFileIO = new CommandFileIO();
-        setLanguage("ENGLISH");
+        setLanguage(DEFAULT_LANG);
     }
 
 
     public String getUIOrderFile()
     {
-        return ("resources."+configFile.getString(ELEMENTORDER));
+        return (RESOURCES_DIR_PREFIX+configFile.getString(ELEMENTORDER));
     }
 
     public String getAvailableImagesFile()
     {
-        return ("resources."+configFile.getString(IMAGES));
+        return (RESOURCES_DIR_PREFIX+configFile.getString(IMAGES));
     }
 
     private String getAvailableColorsFile()
     {
-        return ("resources."+configFile.getString(COLORS));
+        return (RESOURCES_DIR_PREFIX+configFile.getString(COLORS));
     }
 
     //To be called by Visualization
@@ -126,7 +128,6 @@ public class Controller {
 
     public Property<Boolean> getPenColorProperty(){return myBackEndTurtle.getPenVisibilityProperty();}
 
-    //TODO implement when Model is ready
     public List<Line> getLines() {
         return Collections.unmodifiableList(myBackEndTurtle.getLines());
     }
