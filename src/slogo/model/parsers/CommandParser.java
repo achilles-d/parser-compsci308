@@ -48,6 +48,7 @@ public class CommandParser implements Parser {
 
     private int leftBracketCounter=INITIALIZER;
     private int rightBracketCounter=INITIALIZER;
+    private TurtleController turtleController;
 
     private Double output;
     private Symbol symbol;
@@ -61,7 +62,8 @@ public class CommandParser implements Parser {
 
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
-        this.turtle=tr.getBackEndTurtle(0);
+        turtleController=tr;
+        //this.turtle=tr.getBackEndTurtle(0);
         userDefined=new HashMap<>();
         match=new HashMap<>();
         mathMethods();
@@ -83,7 +85,7 @@ public class CommandParser implements Parser {
     public void addPatterns(String language, String syntax){
         symbol=new Symbol(language, syntax);
         String lan = (language.split("[.]"))[language.split("[.]").length - 1];
-        commandFactor = new CommandFactory(turtle, userVariableHandler, commandList,
+        commandFactor = new CommandFactory(turtleController, userVariableHandler, commandList,
                 Language.valueOf(lan.toUpperCase()), userDefined);
     }
 

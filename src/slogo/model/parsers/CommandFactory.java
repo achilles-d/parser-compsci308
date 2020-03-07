@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import slogo.controller.Language;
+import slogo.controller.TurtleController;
 import slogo.model.commands.Command;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.turtle.BackEndTurtle;
@@ -35,15 +36,17 @@ public class CommandFactory {
     private  static final String LIST="List";
     private Language language;
     private Map<String, List<List<Command>>> userDefinedCommands;
+    private TurtleController turtleController;
 
 
-    public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
+    public CommandFactory(TurtleController turtleController, UserVariableHandler userVariableHandler,
                           List<String> unExecutedCommands,Language language,
                           Map<String, List<List<Command>>>  userDefinedCommand) {
 
         this.userDefinedCommands=userDefinedCommand;
         this.unExecutedCommands=unExecutedCommands;
-        this.turtle = turtle;
+        this.turtle = turtleController.getBackEndTurtle(0);
+        this.turtleController=turtleController;
         this.language=language;
         this.userVariableHandler=userVariableHandler;
         match=new HashMap<>();
