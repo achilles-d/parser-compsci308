@@ -121,6 +121,7 @@ This can happen for example if a large distance is moved and it hits a side wall
 then the x coordinate will be limited to be in bounds, but the y-coordinate is not adjusted accordingly.
 It is just kept constant, so it looks like the turtle just moved horizontally.
 
+- The commands setshape, setbackground, and setpc do not work 
 
 
 Extra credit:
