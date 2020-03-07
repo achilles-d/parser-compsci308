@@ -76,9 +76,6 @@ public class ParserController {
         return ex.getMessage();
     }
 
-    public Coordinate getTurtlePosition() {
-        return myBackEndTurtle.getPosition();
-    }
 
     public void setColorPaletteIndex(int index, int r, int g, int b)
     {
@@ -116,21 +113,13 @@ public class ParserController {
 
 
 
-    public boolean getTurtleVisibility()
-    {
-        return myBackEndTurtle.getVisibility();
-    }
     public double getHeading() {
         return myBackEndTurtle.getHeading();
     }
 
     public Property<Boolean> getPenColorProperty(){return myBackEndTurtle.getPenVisibilityProperty();}
 
-    //TODO implement when Model is ready
-    public List<Line> getLines() {
-        return Collections.unmodifiableList(myBackEndTurtle.getLines());
-    }
-
+    
     public UserVariable getVariable(String varName) {
         return myUserVarHandler.getVariable(varName);
     }
