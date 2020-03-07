@@ -19,12 +19,15 @@ import slogo.model.turtle.UserVariable;
 import slogo.model.turtle.UserVariableHandler;
 
 
-public class ParserController {
+public class Controller {
 
+    private static final String RESOURCES_DIR_PREFIX = "resources.";
     private static final String SYNTAX = "resources.languages.Syntax";
     private static final String ELEMENTORDER = "elementorder";
     private static final String IMAGES = "images";
     private static final String COLORS = "colors";
+    private static final String DEFAULT_LANG = "ENGLISH";
+    private static final String VAR_NAME_VALUE_DELIMITER = "=";
 
     private ResourceBundle configFile;
 
@@ -41,37 +44,34 @@ public class ParserController {
     private String availableColors;
     private String availableImages;
 
-    public ParserController(String config) {
+    public Controller(String config) {
 
         configFile = ResourceBundle.getBundle(config);
         myTurtleController = new TurtleController(getAvailableImagesFile());
-        //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
         myCommandParser = new CommandParser(myCommandHandlerAPI, myUserVarHandler, myTurtleController);
         myColorPalette = new ColorPalette(getAvailableColorsFile());
         myCommandFileIO = new CommandFileIO();
-        setLanguage("ENGLISH");
+        setLanguage(DEFAULT_LANG);
     }
-
 
     public String getUIOrderFile()
     {
-        return ("resources."+configFile.getString(ELEMENTORDER));
+        return (RESOURCES_DIR_PREFIX+configFile.getString(ELEMENTORDER));
     }
 
     public String getAvailableImagesFile()
     {
-        return ("resources."+configFile.getString(IMAGES));
+        return (RESOURCES_DIR_PREFIX+configFile.getString(IMAGES));
     }
 
     private String getAvailableColorsFile()
     {
-        return ("resources."+configFile.getString(COLORS));
+        return (RESOURCES_DIR_PREFIX+configFile.getString(COLORS));
     }
 
-    //To be called by Visualization
     public String displayError(Exception ex){
         return ex.getMessage();
     }
@@ -91,8 +91,6 @@ public class ParserController {
     }
 
     public void parseCode(String code)  {
-       // code = code.replaceAll("[\r\n]+", " ");
-
         try{
             output = myCommandParser.parseCode(code);
         }
@@ -126,7 +124,6 @@ public class ParserController {
 
     public Property<Boolean> getPenColorProperty(){return myBackEndTurtle.getPenVisibilityProperty();}
 
-    //TODO implement when Model is ready
     public List<Line> getLines() {
         return Collections.unmodifiableList(myBackEndTurtle.getLines());
     }
@@ -141,7 +138,7 @@ public class ParserController {
         List<String> varNamesAndValues = new ArrayList<>();
         for(String var : variables){
             String varValue = myUserVarHandler.getVariable(var).toString();
-            varNamesAndValues.add(var + "=" + varValue);
+            varNamesAndValues.add(var + VAR_NAME_VALUE_DELIMITER + varValue);
         }
         return Collections.unmodifiableList(varNamesAndValues);
     }
@@ -158,7 +155,6 @@ public class ParserController {
     }
 
     public void setLanguage(String language){
-        System.out.println("called langauge button");
         myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile(), SYNTAX);
     }

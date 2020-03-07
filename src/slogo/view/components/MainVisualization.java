@@ -8,10 +8,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import slogo.controller.ParserController;
-import slogo.view.components.LogoVisualization;
+import slogo.controller.Controller;
 
-import javax.security.auth.login.LoginContext;
 import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -77,7 +75,7 @@ public class MainVisualization {
         File config = chooseConfig.showOpenDialog(myStage);
         String path = RESOURCES_CONFIGURATION + config.getName().substring(0,config.getName().length()- REMOVE_END);
 
-        LogoVisualization workspace = new LogoVisualization(new ParserController(path));
+        LogoVisualization workspace = new LogoVisualization(new Controller(path));
         Optional tabName = tabNameInput.showAndWait();
         myTabs.getTabs().add(new Tab((String)tabName.get(),workspace));
     }

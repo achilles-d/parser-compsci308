@@ -14,6 +14,8 @@ import java.util.List;
 
 public class CommandFileIO {
 
+    private static final String DATEFORMAT_PATTERN = "yyyyy.MMMMM.dd GGG hh:mm aaa";
+    private static final String COMMAND_HISTORY_DIR = "src/codeFiles/command_history";
     private List<String> myCommandHistory;
 
     public CommandFileIO(){
@@ -24,10 +26,9 @@ public class CommandFileIO {
         myCommandHistory = Collections.unmodifiableList(currentCommandHistory);
     }
 
-    //TODO remove magic vars.
     public void saveCommandHistory() throws IOException {
-        DateFormat df = new SimpleDateFormat("yyyyy.MMMMM.dd GGG hh:mm aaa");
-        String filename = "src/codeFiles/command_history" + df.format(new Date()) + ".txt";
+        DateFormat df = new SimpleDateFormat(DATEFORMAT_PATTERN);
+        String filename = COMMAND_HISTORY_DIR + df.format(new Date()) + ".txt";
         try {
             BufferedWriter commandWriter = new BufferedWriter(new FileWriter(filename));
             for (String command : myCommandHistory) {

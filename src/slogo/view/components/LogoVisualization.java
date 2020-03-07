@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.windows.ConsoleWindow;
 import slogo.view.windows.TurtleWindow;
 import slogo.view.windows.Window;
@@ -30,7 +30,7 @@ public class LogoVisualization extends BorderPane{
 
     private CodeStage myCode;
     private TurtleWindow graphics;
-    private ParserController myController;
+    private Controller myController;
     private SimpleBooleanProperty updateNeeded;
     private ConsoleWindow myConsole;
     private Menu toolbar;
@@ -41,7 +41,7 @@ public class LogoVisualization extends BorderPane{
     private VBox rightComps;
     private VBox leftComps;
 
-    public LogoVisualization(ParserController control)
+    public LogoVisualization(Controller control)
     {
         myController = control;
         parameters = new ArrayList<>();

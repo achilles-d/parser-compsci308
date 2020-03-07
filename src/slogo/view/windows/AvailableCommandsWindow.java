@@ -1,12 +1,10 @@
 package slogo.view.windows;
 
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
@@ -25,7 +23,7 @@ public class AvailableCommandsWindow extends Window {
 
 
 
-    public AvailableCommandsWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
+    public AvailableCommandsWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
         tellUpdate = update;

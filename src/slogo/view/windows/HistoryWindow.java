@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
@@ -21,7 +21,7 @@ public class HistoryWindow extends Window {
     private TitledPane myView;
     private ListView<String> commandHistory;
 
-    public HistoryWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
+    public HistoryWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
         tellUpdate = update;
