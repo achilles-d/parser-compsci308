@@ -3,21 +3,20 @@ parser
 
 This project implements a development environment that helps users write SLogo programs.
 
-Names:Saurav Sanjay,
+Names:Abebe Amare,
 
 
 ### Timeline
 
 Start Date: 
 
-Finish Date: 3/6/20
+Finish Date: 3/7/20
 
-Hours Spent: 100+
+Hours Spent: 80+
 
 ### Primary Roles
-Saurav: Worked primarily on all front-end. Created all front-end components,
-styled them, and helped ensure they worked properly with the rest of the model. 
 
+I worked on 
 ### Resources Used
 Saurav: Used example code from Labs and Professor Duvall's lectures to learn about
 more javaFX properties. Also used more online resources to learn about bindings and properties,

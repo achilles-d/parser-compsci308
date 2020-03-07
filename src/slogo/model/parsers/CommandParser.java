@@ -176,7 +176,7 @@ public class CommandParser implements Parser {
     private void parseName() {
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         String currentCommand;
-        System.out.println(userDefined);
+
         if(userDefined.containsKey(commandStack.peek())){
 
             //int size=sizeOfUserDefinedCommand.get(commandStack.peek());
@@ -266,9 +266,7 @@ public class CommandParser implements Parser {
 
                 output = (Double) argumentStack.pop().execute();
             } else{
-                //System.out.println("excuted value "+argumentStack.pop().execute());
                 commandStack.addAll((Collection<? extends String>) argumentStack.pop().execute());
-                System.out.println("returned value "+ commandStack.peek());
                buildAndExecuteCommand();
             }
 
@@ -290,10 +288,16 @@ public class CommandParser implements Parser {
         String[] lines=consoleInput.split("[\r\n]+");
         StringBuilder com=new StringBuilder();
         for(String str: lines){
-            if(str.contains(HASH)){ com.append(str, 0, str.indexOf(HASH));}
-            com.append(str).append(SPACE);
+            if(str.contains(HASH)){
+                int index= str.indexOf(HASH);
+                com.append(str, 0, index).append(SPACE);
+            } else{
+                com.append(str).append(SPACE);
+            }
         }
-        return com.toString();//.trim();
+
+
+        return com.toString().trim();
     }
 
     private int readArgumentSize(String key) {
