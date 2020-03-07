@@ -69,6 +69,10 @@ public class BackEndTurtle implements Turtle {
         double y = a.getYVal();
         boolean hitXWall = false;
         boolean hitYWall = false;
+        return getCoordinate(x, y, hitXWall, hitYWall);
+    }
+
+    private Coordinate getCoordinate(double x, double y, boolean hitXWall, boolean hitYWall) {
         while (x > XBOUNDS) {
             x--;
             hitXWall = true;
@@ -94,7 +98,6 @@ public class BackEndTurtle implements Turtle {
 
         return new Coordinate(x,y);
     }
-
 
 
     @Override
