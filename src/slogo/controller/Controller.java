@@ -27,6 +27,7 @@ public class Controller {
     private static final String IMAGES = "images";
     private static final String COLORS = "colors";
     private static final String DEFAULT_LANG = "ENGLISH";
+    private static final String VAR_NAME_VALUE_DELIMITER = "=";
 
     private ResourceBundle configFile;
 
@@ -57,7 +58,6 @@ public class Controller {
         setLanguage(DEFAULT_LANG);
     }
 
-
     public String getUIOrderFile()
     {
         return (RESOURCES_DIR_PREFIX+configFile.getString(ELEMENTORDER));
@@ -73,7 +73,6 @@ public class Controller {
         return (RESOURCES_DIR_PREFIX+configFile.getString(COLORS));
     }
 
-    //To be called by Visualization
     public String displayError(Exception ex){
         return ex.getMessage();
     }
@@ -93,8 +92,6 @@ public class Controller {
     }
 
     public void parseCode(String code)  {
-       // code = code.replaceAll("[\r\n]+", " ");
-
         try{
             output = myCommandParser.parseCode(code);
         }
@@ -142,7 +139,7 @@ public class Controller {
         List<String> varNamesAndValues = new ArrayList<>();
         for(String var : variables){
             String varValue = myUserVarHandler.getVariable(var).toString();
-            varNamesAndValues.add(var + "=" + varValue);
+            varNamesAndValues.add(var + VAR_NAME_VALUE_DELIMITER + varValue);
         }
         return Collections.unmodifiableList(varNamesAndValues);
     }
