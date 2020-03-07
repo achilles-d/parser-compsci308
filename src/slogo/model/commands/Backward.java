@@ -16,7 +16,6 @@ public class Backward implements Command<Double> {
 
   @Override
   public Double execute() {
-    System.out.println("got here");
     delta=(double) cmd.execute();
     double angle = Math.toRadians(myTurtle.getHeading());
     double deltaX = delta * Math.sin(angle);

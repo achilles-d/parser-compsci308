@@ -11,10 +11,6 @@ public class MakeUserInstruction implements  Command<Object> {
     private Command inputs;
     private Command name;
     private Map<String, List<List<Command>>> commandSaver;
-    private boolean executable;
-    private List<Command> values;
-    private int state;
-    private List<String> listOfCommands;
 
 
     public  MakeUserInstruction (Command name, Command inputs, Command command,
@@ -24,8 +20,6 @@ public class MakeUserInstruction implements  Command<Object> {
         this.inputs=inputs;
         this.command=command;
         this.commandSaver=commandSaver;
-        //executable=true;
-        System.out.println("Reching to the To");
     }
 
     @Override
@@ -37,10 +31,7 @@ public class MakeUserInstruction implements  Command<Object> {
         cmds.add(command);
         cmd.add(values);
         cmd.add(cmds);
-        System.out.println("name of "+ name.execute());
-        //System.out.println(((List<String>) name.execute()).get(0));
         commandSaver.putIfAbsent(((List<String>) name.execute()).get(0), cmd);
-        System.out.println(commandSaver.get("test"));
         return 1.0;
     }
 

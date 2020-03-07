@@ -28,7 +28,6 @@ public class DoTimes implements Command<Object> {
         this.repeat=repeat;
         isItExecutable=false;
         this.lan=language;
-        System.out.println("do times is reached");
     }
 
     @Override
@@ -48,7 +47,6 @@ public class DoTimes implements Command<Object> {
         }
 
     }
-
     private void parseAndRepeatTheCommand(){
         cleanTheFirstLayerBrackets();
         repeatCommand.add(findRepeatCommand());
@@ -72,7 +70,6 @@ public class DoTimes implements Command<Object> {
     }
 
     private String findRepeatCommand(){
-        System.out.println("LANG Get language" + lan.getLanguageFile());
         ResourceBundle rs = ResourceBundle.getBundle(lan.getLanguageFile());
         return rs.getString("Repeat");
     }

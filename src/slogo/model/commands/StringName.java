@@ -7,17 +7,9 @@ import java.util.Map;
 public class StringName implements Command {
 
 
-    private Command command;
-    private Command inputs;
     private String name;
-    private Map<String, List<Command>> commandSaver;
     private boolean executable;
-    private List<Command> values;
-    private int state;
-    private List<String> listOfCommands;
-
     public StringName(String name){
-        System.out.println("Reching to "+"StringName");
         executable=false;
         this.name=name;
     }
