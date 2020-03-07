@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.components.CodeStage;
 import slogo.view.components.ColorPalette;
 import slogo.view.components.PaletteColorCell;
@@ -34,7 +34,7 @@ public class PaletteWindow extends Window {
     private TitledPane imagePaletteView;
     private HBox paletteContainer;
 
-    public PaletteWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
+    public PaletteWindow(Controller control, SimpleBooleanProperty update, CodeStage code)
     {
         tellUpdate = update;
         myController = control;

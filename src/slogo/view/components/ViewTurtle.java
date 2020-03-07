@@ -20,6 +20,9 @@ public class ViewTurtle {
     private static final double INACTIVE = 0.5;
     private static final int XBORDER = 750;
     private static final int YBORDER = 573;
+    private static final int INITIAL_VALUE = 7;
+    private static final int INITAL_PEN_SIZE = 5;
+    private static final int INTIAL_SHAPE = 0;
     private Image myImage;
     private SimpleStringProperty imageName;
     private SimpleBooleanProperty activeTurtle;
@@ -48,9 +51,9 @@ public class ViewTurtle {
 
         size = 50;
         activeTurtle = new SimpleBooleanProperty(true);
-        penColorIndex = new SimpleDoubleProperty(7);
-        penSize = new SimpleDoubleProperty(5);
-        shapeIndex = new SimpleDoubleProperty(0);
+        penColorIndex = new SimpleDoubleProperty(INITIAL_VALUE);
+        penSize = new SimpleDoubleProperty(INITAL_PEN_SIZE);
+        shapeIndex = new SimpleDoubleProperty(INTIAL_SHAPE);
         penStatus = new SimpleBooleanProperty(true);
 
         shapeIndex.addListener((observable, oldValue, newValue) -> {setImageWithIndex((int)shapeIndex.get());});

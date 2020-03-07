@@ -6,7 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.controller.TurtleController;
 import slogo.view.components.CodeStage;
 import slogo.view.components.ColorPalette;
@@ -32,7 +32,7 @@ public class TurtleCompleteInfoWindow extends Window {
 
 
 
-    public TurtleCompleteInfoWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
+    public TurtleCompleteInfoWindow(Controller control, SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
         myCode = code;

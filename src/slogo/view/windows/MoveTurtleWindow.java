@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
@@ -34,7 +34,7 @@ public class MoveTurtleWindow extends Window {
     private Button right;
     private Button left;
 
-    public MoveTurtleWindow(ParserController control, SimpleBooleanProperty update, CodeStage code) {
+    public MoveTurtleWindow(Controller control, SimpleBooleanProperty update, CodeStage code) {
         myController = control;
         tellUpdate = update;
         myCode = code;

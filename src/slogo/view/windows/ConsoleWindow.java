@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
@@ -35,7 +35,7 @@ public class ConsoleWindow extends Window {
     private Button reset;
 
 
-    public ConsoleWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
+    public ConsoleWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
         tellUpdate = update;

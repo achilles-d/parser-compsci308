@@ -1,7 +1,6 @@
 package slogo.view.windows;
 
 import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
@@ -9,9 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.controller.TurtleController;
-import slogo.view.components.CodeStage;
 import slogo.view.components.ColorPalette;
 import slogo.view.components.ViewTurtle;
 import slogo.model.turtle.Line;
@@ -34,7 +32,7 @@ public class TurtleWindow extends Window {
     private ColorPalette myColorPalette;
 
 
-    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor)
+    public TurtleWindow(Property menuBackgroundColor, Property turtleImg, Controller control,Property menuPenColor)
     {
         myController = control;
         myColorPalette = control.getColorPalette();

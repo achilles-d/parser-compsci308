@@ -6,7 +6,6 @@ public enum Language {
   RUSSIAN("Russian"), ENGLISH("English"), SPANISH("Spanish"),
   URDU("Urdu");
 
-  //TODO reconsider adding static modifier
   private final String LANGUAGES_DIR = "resources.languages.";
   private String myPropertyDir;
 
