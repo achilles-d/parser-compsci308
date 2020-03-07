@@ -87,6 +87,16 @@ public class TurtleController {
         return backList;
     }
 
+    public Collection<BackEndTurtle> getAllActiveBackendTurtles(){
+        List<BackEndTurtle> activeBackEndTurtles = new ArrayList<>();
+        for (Integer i : turtlesMap.keySet()){
+            if(turtlesMap.get(i).getBackEndTurtle().getActiveProperty().getValue()){
+                activeBackEndTurtles.add(turtlesMap.get(i).getBackEndTurtle());
+            }
+        }
+        return activeBackEndTurtles;
+    }
+
     public int getNumberOfTurtles()
     {
         return turtlesMap.keySet().size();
