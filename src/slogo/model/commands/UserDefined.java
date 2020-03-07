@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class UserDefined implements Command {
 
-
     private Command command;
     private Command inputs;
     private Map<String, List<Command>> commandSaver;
@@ -14,7 +13,6 @@ public class UserDefined implements Command {
     private List<Command> values;
     private int state;
     private List<String> listOfCommands;
-
 
     public UserDefined(List<Object> param){
         System.out.println(" UserDefined constructor reached 2 " +param.size());
@@ -24,10 +22,6 @@ public class UserDefined implements Command {
         this.command= (Command) param.get(2);
         state=1;
     }
-
-
-
-
 
     @Override
     public Object execute() {
@@ -40,7 +34,6 @@ public class UserDefined implements Command {
         return listOfCommands;
     }
 
-
     private void buildExecutable(){
 
         List<String> inputsList= (List<String>) inputs.execute();
@@ -48,20 +41,11 @@ public class UserDefined implements Command {
         listOfCommands= (List<String>) command.execute();
         removeBracket((listOfCommands));
 
-//        System.out.println("Size of inputs in userDefined"+inputsList.size());
-//        System.out.println("Size of values in userDefined"+values.size());
-
-
         for(int i=0; i<inputsList.size(); i++){
 
             Collections.replaceAll(listOfCommands, inputsList.get(i),(String)values.get(i).execute());
 
         }
-
-        //System.out.println(" List of commands in user defined fucntion "+listOfCommands.toString());
-        //listOfCommands.remove(0);// remove bracket
-        //listOfCommands.remove(listOfCommands.size()-1);
-
     }
 
     private void removeBracket(List<String> inputsList) {
