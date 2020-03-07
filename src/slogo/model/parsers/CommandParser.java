@@ -293,7 +293,7 @@ public class CommandParser implements Parser {
             if(str.contains(HASH)){ com.append(str, 0, str.indexOf(HASH));}
             com.append(str).append(SPACE);
         }
-        return com.toString().trim();
+        return com.toString();//.trim();
     }
 
     private int readArgumentSize(String key) {

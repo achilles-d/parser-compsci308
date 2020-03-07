@@ -16,7 +16,6 @@ public class Tell implements Command{
     private Command cnd;
 
     public Tell(TurtleController t,Command ind) {
-        System.out.println("Tell is coming here ");
         this.commands = new ArrayList<>();
         this.cnd=ind;
         this.turtleController = t;
@@ -25,8 +24,6 @@ public class Tell implements Command{
 
     @Override
     public Object execute() {
-
-        System.out.println("reached tell "+commands.toString());
 
         this.commands.addAll( (List<String>) cnd.execute());
         commands.remove("[");
@@ -40,7 +37,6 @@ public class Tell implements Command{
             }
             turtleController.getBackEndTurtle(i).setActiveTurtle(true);
         }
-        System.out.println("Command reached here "+intIndexes.get(intIndexes.size()-1).toString());
         return Arrays.asList(intIndexes.get(intIndexes.size()-1).toString());
     }
 

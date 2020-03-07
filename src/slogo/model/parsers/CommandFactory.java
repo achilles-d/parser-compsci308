@@ -60,11 +60,9 @@ public class CommandFactory {
        List<Object> listOfCommands= new ArrayList<>();
 
         List<BackEndTurtle> listOfTurtles= (List<BackEndTurtle>) turtleController.getAllBackEndTurtles();
-        System.out.println("Size of turtle "+ listOfTurtles.size());
 
         if(needTurtle(commandName)){
             for(BackEndTurtle bt: listOfTurtles){
-                System.out.println("Should add more turtles "+bt.toString());
                 turtle=bt;
                 listOfCommands.add(makeCommand(commandName, arguments));
             }
@@ -80,7 +78,6 @@ public class CommandFactory {
     private Object makeCommand(String commandName, List<Object> arguments) {
         Object currentCommand = null;
         Class<?> c = null;
-        System.out.println("command to create "+commandName);
         try {
             c = Class.forName(THIS_CLASS_PATH + commandName);
 
@@ -169,7 +166,6 @@ public class CommandFactory {
 
       for(int j=0; j<pType.length;j++){
           String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
-          System.out.println("types needed "+className);
           if(className.equals("BackEndTurtle")){
               return true;
           }
