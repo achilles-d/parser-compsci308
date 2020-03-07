@@ -3,7 +3,7 @@ package slogo.view.windows;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 import slogo.view.components.CodeStage;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,7 +26,7 @@ public class VariableWindow extends Window {
 
 
 
-    public VariableWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
+    public VariableWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
 
         myController = control;

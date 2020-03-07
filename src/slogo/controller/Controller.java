@@ -19,7 +19,7 @@ import slogo.model.turtle.UserVariable;
 import slogo.model.turtle.UserVariableHandler;
 
 
-public class ParserController {
+public class Controller {
 
     private static final String SYNTAX = "resources.languages.Syntax";
     private static final String ELEMENTORDER = "elementorder";
@@ -41,7 +41,7 @@ public class ParserController {
     private String availableColors;
     private String availableImages;
 
-    public ParserController(String config) {
+    public Controller(String config) {
 
         configFile = ResourceBundle.getBundle(config);
         myTurtleController = new TurtleController(getAvailableImagesFile());

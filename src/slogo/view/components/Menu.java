@@ -4,7 +4,6 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import slogo.controller.ParserController;
+import slogo.controller.Controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,8 +24,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import slogo.model.exceptions.ExecutionException;
-import slogo.view.components.CodeStage;
-import slogo.view.components.ColorPalette;
 
 public class Menu {
     private static final String CSS_FILE = "/resources/uistyle.css";
@@ -61,7 +58,7 @@ public class Menu {
     private SimpleStringProperty turtleImage;
     private SimpleStringProperty activeLanguage;
     private SimpleBooleanProperty tellUpdate;
-    private ParserController myController;
+    private Controller myController;
     private ColorPalette myColorPalette;
     private Button help;
     private Button saveCode;
@@ -69,7 +66,7 @@ public class Menu {
     private CodeStage myCode;
 
 
-    public Menu(ParserController control,SimpleBooleanProperty update,CodeStage code)
+    public Menu(Controller control,SimpleBooleanProperty update,CodeStage code)
    {
        myController = control;
        tellUpdate = update;
