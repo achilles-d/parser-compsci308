@@ -12,7 +12,6 @@ public class TurtleController {
 
 
     private Map<Integer, TurtlePair> turtlesMap;
-    private Integer turtleIndexTracker;
     private String imageFile;
 
     public TurtleController(String image)
