@@ -33,26 +33,27 @@ public class ConsoleWindow extends Window {
     private VBox buttonPane;
     private Button execute;
     private Button reset;
-    private ParserController myController;
-    private SimpleBooleanProperty tellUpdate;
-    private CodeStage myCode;
 
 
     public ConsoleWindow(ParserController control,SimpleBooleanProperty update, CodeStage code)
     {
+        myController = control;
         tellUpdate = update;
         myCode = code;
 
         myView = new HBox();
-        myController = control;
-        HBox myContainer = new HBox();
-        console = new TextArea();
-        returnConsole = new TextArea();
-        returnConsole.setPrefWidth(RETURN_CONSOLE_WIDTH);
-        returnConsole.setText(visualText.getString(RETURNCONSOLE));
-        console.setPrefWidth(CONSOLE_WIDTH);
-        console.setMaxWidth(Double.MAX_VALUE);
 
+        initConsoles();
+        makeButtons();
+
+        myView.getChildren().addAll(returnConsole,console,buttonPane);
+        myView.setMaxHeight(MAX_HEIGHT);
+
+
+    }
+
+    private void makeButtons()
+    {
         execute = new Button(visualText.getString(EXECUTE));
         execute.setOnAction(event -> {codeEntered();});
 
@@ -63,13 +64,18 @@ public class ConsoleWindow extends Window {
         buttonPane.setPadding(new Insets(PADDING));
         buttonPane.getChildren().addAll(execute,reset);
         buttonPane.setAlignment(Pos.CENTER);
-
-        myContainer.getChildren().addAll(returnConsole,console,buttonPane);
-        myContainer.setMaxHeight(MAX_HEIGHT);
-
-        myView.getChildren().add(myContainer);
-        myView.setMaxHeight(MAX_HEIGHT);
     }
+
+    private void initConsoles()
+    {
+        console = new TextArea();
+        returnConsole = new TextArea();
+        returnConsole.setPrefWidth(RETURN_CONSOLE_WIDTH);
+        returnConsole.setText(visualText.getString(RETURNCONSOLE));
+        console.setPrefWidth(CONSOLE_WIDTH);
+        console.setMaxWidth(Double.MAX_VALUE);
+    }
+
 
     private void codeEntered()
     {
@@ -86,10 +92,6 @@ public class ConsoleWindow extends Window {
         //Supposed to do nothing
     }
 
-//    public String getConsoleText()
-//    {
-//        return console.getText();
-//    }
 
     public Node getView() {
         return myView;

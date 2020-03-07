@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
@@ -19,6 +20,9 @@ public class TurtleWindow extends Window {
 
     private static final int MAX_WIDTH = 750;
     private static final int MAX_HEIGHT = 573;
+    private static final int X_LAYOUT_SCALING = 375;
+    private static final double Y_LAYOUT_SCALING = 286.5;
+
     private Pane myView;
     private Pane canvasWrap;
     private Canvas background;
@@ -26,59 +30,54 @@ public class TurtleWindow extends Window {
     private SimpleDoubleProperty backgroundColor;
     private SimpleDoubleProperty penColor;
     private GraphicsContext drawer;
-    private ParserController myController;
-    private SimpleBooleanProperty tellUpdate;
     private SimpleStringProperty turtleImage;
-    private CodeStage myCode;
     private ColorPalette myColorPalette;
-
-    private static final int X_LAYOUT_SCALING = 375;
-    private static final double Y_LAYOUT_SCALING = 286.5;
 
 
     public TurtleWindow(Property menuBackgroundColor, Property turtleImg, ParserController control,Property menuPenColor)
     {
         myController = control;
         myColorPalette = control.getColorPalette();
+        myTurtleController = control.getTurtleController();
+
         myView = new Pane();
         myView.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
-        //myView.setMinSize(0,0);
-        background = new Canvas();
-        drawer = background.getGraphicsContext2D();
-        myTurtleController = control.getTurtleController();
-        canvasWrap = new Pane();
-        //canvasWrap.setMaxSize(0,0);
-        canvasWrap.setMinSize(MAX_WIDTH, MAX_HEIGHT);
-        canvasWrap.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
-        canvasWrap.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
+
         turtleImage = (SimpleStringProperty) turtleImg;
+
+        makeCanvas();
         fillCanvas();
+
         background.widthProperty().bind(canvasWrap.widthProperty());
         background.heightProperty().bind(canvasWrap.heightProperty());
-        //background.widthProperty().bind(myView.widthProperty());
-       // background.heightProperty().bind(myView.heightProperty());
+
         myView.getChildren().addAll(canvasWrap);
 
-        //backgroundColor.bind(menuBackgroundColor);
+        makeListeners(menuBackgroundColor,menuPenColor);
+
+        setBackgroundColor((int)(backgroundColor.get()));
+
+    }
+
+    private void makeListeners(Property menuBackgroundColor,Property menuPenColor)
+    {
         backgroundColor = (SimpleDoubleProperty)menuBackgroundColor;
         backgroundColor.addListener((observable, oldValue, newValue) -> {setBackgroundColor((int)backgroundColor.get());});
 
         penColor = (SimpleDoubleProperty)menuPenColor;
         penColor.addListener((observable, oldValue, newValue) -> setPenColor((int)penColor.get()));
-
-
-        setBackgroundColor((int)(backgroundColor.get()));
-        //testDrawLine();
-       // myView.setStyle("-fx-background-color: red");
-       // System.out.println(myTurtle.getView().getLayoutX());
-        //System.out.println(myTurtle.getView().getTranslateX());
-
-       // myTurtle.updatePosition(new Coordinate(-391,260.5));
-
-
     }
 
+    private void makeCanvas()
+    {
+        background = new Canvas();
+        drawer = background.getGraphicsContext2D();
 
+        canvasWrap = new Pane();
+        canvasWrap.setMinSize(MAX_WIDTH, MAX_HEIGHT);
+        canvasWrap.setPrefSize(MAX_WIDTH, MAX_HEIGHT);
+        canvasWrap.setMaxSize(MAX_WIDTH, MAX_HEIGHT);
+    }
 
     private void fillCanvas()
     {
@@ -121,7 +120,6 @@ public class TurtleWindow extends Window {
 
     private void drawLines(int turtleID)
     {
-
         ViewTurtle active = myTurtleController.getViewTurtle(turtleID);
         if(myTurtleController.getLines(turtleID).size() ==0)
         {
@@ -132,6 +130,7 @@ public class TurtleWindow extends Window {
         {
             drawer.setStroke(myColorPalette.getColor((int)active.getPenColorIndex()));
             drawer.setLineWidth(active.getPenSizeProperty().get());
+
             for(Line l: myTurtleController.getLines(turtleID))
             {
                 if(!l.isDrawn())
@@ -169,7 +168,7 @@ public class TurtleWindow extends Window {
 
 
     @Override
-    public Pane getView() {
+    public Node getView() {
         return myView;
     }
 }

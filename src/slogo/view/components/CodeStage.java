@@ -6,6 +6,7 @@ import java.util.List;
 public class CodeStage {
 
     private static final int READY_CODE = 0;
+
     private List<String> code;
 
     public CodeStage()

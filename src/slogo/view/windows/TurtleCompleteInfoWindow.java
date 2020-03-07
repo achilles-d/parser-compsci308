@@ -21,30 +21,37 @@ public class TurtleCompleteInfoWindow extends Window {
     private static final String TURTLEINFO = "turtleinfo";
     private static final int SPACING = 15;
 
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+
+
     private TitledPane myView;
     private VBox turtleStates;
-    private ParserController myController;
     private TurtleController myTurtleController;
     private ColorPalette myColorPalette;
     private ScrollPane myContainer;
 
-    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
 
     public TurtleCompleteInfoWindow(ParserController control, SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
+        myCode = code;
+        tellUpdate = update;
+
         myTurtleController = control.getTurtleController();
         myColorPalette = control.getColorPalette();
+
         turtleStates = new VBox();
         myContainer = new ScrollPane();
 
         myView = new TitledPane();
         myView.setText(visualText.getString(TURTLEINFO));
         update();
+
         myContainer.setContent(turtleStates);
         turtleStates.setPrefHeight(SIZE_COMPONENT);
         turtleStates.setMinHeight(SIZE_COMPONENT);
+
         myView.setContent(myContainer);
         myView.setMaxWidth(SIZE_COMPONENT);
 
