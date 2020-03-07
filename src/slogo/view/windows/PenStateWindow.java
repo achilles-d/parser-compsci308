@@ -1,6 +1,7 @@
 package slogo.view.windows;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -28,6 +29,8 @@ public class PenStateWindow extends Window {
     private static final String PENTHICKNESS = "penthickness";
     private static final String PENCOLOR = "pencolor";
 
+    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
+
     private HBox myView;
     private VBox penInfo;
     private VBox penChanger;
@@ -43,11 +46,8 @@ public class PenStateWindow extends Window {
     private Button thickPen;
     private Button thinPen;
     private SimpleDoubleProperty checkPenColor;
-
-
     private String penStatusText;
 
-    private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
 
     public PenStateWindow(ViewTurtle view, ColorPalette colors)
     {
@@ -63,7 +63,6 @@ public class PenStateWindow extends Window {
         myColorPalette = colors;
         myViewTurtle = view;
 
-
         initButtons();
         update();
 
@@ -74,7 +73,6 @@ public class PenStateWindow extends Window {
 
         checkPenColor = myViewTurtle.getPenColorProperty();
         checkPenColor.addListener(e->{update();});
-
 
         myView.getChildren().addAll(penInfo,penChanger);
     }
@@ -87,32 +85,36 @@ public class PenStateWindow extends Window {
 
     private void initButtons()
     {
-        penUp = new Button(visualText.getString(PENUP));
-
-        penUp.setOnAction(e->{
+        penUp = makeButton(visualText.getString(PENUP),e->{
             myViewTurtle.getPenStatusProperty().setValue(false);
             update();
         });
 
-        penDown = new Button(visualText.getString(PENDOWN));
 
-        penDown.setOnAction(e->{
+        penDown = makeButton(visualText.getString(PENDOWN),e->{
             myViewTurtle.getPenStatusProperty().setValue(true);
             update();
         });
 
-        thickPen = new Button(visualText.getString(PENTHICK));
-        thickPen.setOnAction(e->{
+
+        thickPen =  makeButton(visualText.getString(PENTHICK),e->{
             myViewTurtle.changePenSize(1);
             update();
         });
-        thinPen = new Button(visualText.getString(PENTHIN));
-        thinPen.setOnAction(e->{
+
+        thinPen = makeButton(visualText.getString(PENTHIN),e->{
             myViewTurtle.changePenSize(-1);
             update();
         });
 
 
+    }
+
+    private Button makeButton(String buttonText, EventHandler event)
+    {
+       Button make = new Button(buttonText);
+       make.setOnAction(event);
+       return make;
     }
 
 
@@ -125,7 +127,6 @@ public class PenStateWindow extends Window {
     {
         return new Label(identifier,graphic);
     }
-
 
 
     @Override
@@ -141,8 +142,10 @@ public class PenStateWindow extends Window {
         }
         penStatus = makeLabel(visualText.getString(PENSTATUS),penStatusText);
         penThickness = makeLabel(visualText.getString(PENTHICKNESS),(int)myViewTurtle.getPenSizeProperty().get()+"");
+
         Rectangle colorPatch = new Rectangle(ICON_SIZE, ICON_SIZE,myColorPalette.getColor((int)myViewTurtle.getPenColorIndex()));
         penColor = makeLabelWithGraphic(visualText.getString(PENCOLOR),colorPatch);
+
         penInfo.getChildren().clear();
         penInfo.getChildren().addAll(penStatus,penThickness,penColor);
     }

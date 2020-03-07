@@ -20,11 +20,9 @@ public class LogoVisualization extends BorderPane{
     private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String LEFT_COMPONENTS = "Left";
     private static final String RIGHT_COMPONENTS = "Right";
-    private static final String ORDER_COMPONENTS = "resources.configuration.OrderUIElements";
     private static final int MAX_BOTTOM_HEIGHT = 50;
     private static final String ORDERING_SEPARATOR = ",";
     private static final String ERROR_TITLE = "ErrorTitle";
-    private static final String ELEMENTORDER = "elementorder";
 
 
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
@@ -39,6 +37,9 @@ public class LogoVisualization extends BorderPane{
     private List<Object> parameters;
     private List<Window> myWindows;
     private WindowFactory myWindowCreator;
+    private HBox bottom;
+    private VBox rightComps;
+    private VBox leftComps;
 
     public LogoVisualization(ParserController control)
     {
@@ -49,56 +50,53 @@ public class LogoVisualization extends BorderPane{
         init();
     }
 
-
-
     private void init()
     {
         myCode = new CodeStage();
-
 
         updateNeeded = new SimpleBooleanProperty();
         updateNeeded.setValue(false);
         updateNeeded.addListener(((observable, oldValue, newValue) -> checkUpdate(newValue)));
 
-        toolbar = new Menu(myController,updateNeeded,myCode);
-
         fillParameters();
-        myWindowCreator = new WindowFactory(parameters);
 
+        //Need to be in same spot every workspace, so not made with a factory
+        toolbar = new Menu(myController,updateNeeded,myCode);
         myConsole = new ConsoleWindow(myController,updateNeeded,myCode);
         graphics = new TurtleWindow(toolbar.getActiveBackgroundColor(),toolbar.getActiveTurtleImage(),myController,toolbar.getActivePenColor());
 
+        myWindowCreator = new WindowFactory(parameters);
 
         myWindows.add(myConsole);
         myWindows.add(graphics);
 
-        VBox leftComps = new VBox();
-        VBox rightComps = new VBox();
+        bottom  = new HBox();
+        bottom.getChildren().addAll(myConsole.getView());
+        bottom.setMaxHeight(MAX_BOTTOM_HEIGHT);
+        bottom.setAlignment(Pos.CENTER);
+
+
+        leftComps = new VBox();
+        rightComps = new VBox();
 
         fillWindows(LEFT_COMPONENTS,leftComps);
         fillWindows(RIGHT_COMPONENTS,rightComps);
 
+        setWindowLocations();
 
-
-        HBox bottom  = new HBox();
-        bottom.getChildren().addAll(myConsole.getView());
-        bottom.setMaxHeight(MAX_BOTTOM_HEIGHT);
-
-
-
-        bottom.setAlignment(Pos.CENTER);
-
-        this.setCenter(graphics.getView());
-        this.setBottom(bottom);
-        BorderPane.setAlignment(bottom, Pos.CENTER);
-
-        this.setLeft(leftComps);
-        this.setTop(toolbar.getView());
-        this.setRight(rightComps);
 
 
     }
 
+    private void setWindowLocations()
+    {
+        this.setCenter(graphics.getView());
+        this.setBottom(bottom);
+        BorderPane.setAlignment(bottom, Pos.CENTER);
+        this.setLeft(leftComps);
+        this.setTop(toolbar.getView());
+        this.setRight(rightComps);
+    }
     private void fillWindows(String side, VBox container)
     {
         for(String windowName: orderingComponents.getString(side).split(ORDERING_SEPARATOR))
@@ -143,9 +141,8 @@ public class LogoVisualization extends BorderPane{
             w.update();
         }
 
+
         toolbar.update();
-
-
         myCode.clearStagedCode();
         updateNeeded.setValue(false);
 

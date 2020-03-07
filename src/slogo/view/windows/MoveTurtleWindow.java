@@ -16,21 +16,19 @@ import java.util.ResourceBundle;
 public class MoveTurtleWindow extends Window {
 
     private static final int MOVE_AMOUNT = 50;
+    private static final int ROTATE_AMOUNT = 10;
     private static final String FORWARD = "Forward";
     private static final String BACK = "Backward";
     private static final String RIGHT = "Right";
     private static final String LEFT = "Left";
     private static final String UI_TEXT = "resources.UIText";
-
-
-    private static final int ROTATE_AMOUNT = 10;
     private static final String MOVETURTLE = "moveturtle";
+
+
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
     private ResourceBundle commandsList;
+
     private TitledPane myView;
-    private ParserController myController;
-    private SimpleBooleanProperty tellUpdate;
-    private CodeStage myCode;
     private Button forward;
     private Button back;
     private Button right;
@@ -40,13 +38,22 @@ public class MoveTurtleWindow extends Window {
         myController = control;
         tellUpdate = update;
         myCode = code;
-        myView = new TitledPane();
-        setLanguage();
 
+        myView = new TitledPane();
         myView.setText(visualText.getString(MOVETURTLE));
 
+        setLanguage();
         VBox buttonPane = new VBox();
+        makeAllButtons();
 
+        buttonPane.getChildren().addAll(forward, back, right, left);
+        buttonPane.setAlignment(Pos.CENTER);
+        myView.setContent(buttonPane);
+
+    }
+
+    private void makeAllButtons()
+    {
         forward = makeButton(getCommandName(FORWARD), event -> {
             action(FORWARD,MOVE_AMOUNT);
         });
@@ -60,12 +67,6 @@ public class MoveTurtleWindow extends Window {
         left = makeButton(getCommandName(LEFT), event -> {
             action(LEFT,ROTATE_AMOUNT);
         });
-
-        buttonPane.getChildren().addAll(forward, back, right, left);
-        buttonPane.setAlignment(Pos.CENTER);
-
-        myView.setContent(buttonPane);
-
     }
 
     private void setLanguage() {

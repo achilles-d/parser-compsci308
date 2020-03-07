@@ -9,8 +9,6 @@ import java.util.Set;
 
 public class ColorPalette {
 
-    private static final String AVAILABLE_COLOR = "resources.colors.AvailableColors";
-
     private Map<Integer, Color> colorMatch;
     private ResourceBundle availableColorNames;
 
