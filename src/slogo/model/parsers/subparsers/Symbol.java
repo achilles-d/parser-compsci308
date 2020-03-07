@@ -22,11 +22,9 @@ public class Symbol {
 
     public String getSymbol(String command) {
         final String ERROR = "NO MATCH is found in the resource file";
-        System.out.println("INVALID:"+command+  "is |" + command+  "this");
 
         for (Map.Entry<String, Pattern> e : mySymbols) {
             if (match(command, e.getValue())) {
-                System.out.println("The key is "+e.getKey());
                 return e.getKey();
             }
         }

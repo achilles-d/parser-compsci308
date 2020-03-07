@@ -176,7 +176,6 @@ public class CommandParser implements Parser {
     private void parseName() {
         List<Object> argumentsToBuildCommand= new ArrayList<>();
         String currentCommand;
-        System.out.println(userDefined);
         if(userDefined.containsKey(commandStack.peek())){
 
             //int size=sizeOfUserDefinedCommand.get(commandStack.peek());

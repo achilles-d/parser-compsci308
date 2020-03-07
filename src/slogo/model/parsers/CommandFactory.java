@@ -61,7 +61,6 @@ public class CommandFactory {
     private Object makeCommand(String commandName, List<Object> arguments) {
         Object currentCommand = null;
         Class<?> c = null;
-        System.out.println("command to create "+commandName);
         try {
             c = Class.forName(THIS_CLASS_PATH + commandName);
 
