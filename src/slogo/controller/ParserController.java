@@ -119,7 +119,7 @@ public class ParserController {
 
     public Property<Boolean> getPenColorProperty(){return myBackEndTurtle.getPenVisibilityProperty();}
 
-    
+
     public UserVariable getVariable(String varName) {
         return myUserVarHandler.getVariable(varName);
     }
