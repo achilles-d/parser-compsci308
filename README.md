@@ -38,7 +38,7 @@ like this [website](https://www.dummies.com/programming/java/javafx-binding-prop
 Also used this [website](https://stackoverflow.com/questions/25570803/image-in-javafx-listview) to
 figure out how to override default list cell functionality for my palette view. 
 
-Achintya & Abebe: Used code examples from Professor Duvall to implement generics when
+Achintya: Used code examples from Professor Duvall to implement generics when
 needed. The idea for the parsing mechanism with the double stacks (that represent
 a tree structure) came from Professor Duvall's lectures. Reflection code was
 referenced from labs as well as how to get data from property files. 
@@ -100,7 +100,8 @@ Back-End:
     - User defined commands
 - Extended commands
     - Frontend controls (set background, pen color, palette, etc)
-    - Multiple turtles 
+    - Multiple turtles are implemented. Clicking on them can make some active
+    or inactive.
 
 ### Notes/Assumptions
 
@@ -110,9 +111,10 @@ executed in the history for that workspace
 - The commands should be separated by space.
 
 
-
 Interesting data files:
-- 
+- Dragon.logo
+- Square.logo
+- Pinwheel.logo
 
 Known Bugs:
 - If the turtle moves forward large amounts, like from one end of the screen to the other,
@@ -120,7 +122,13 @@ there are sometimes errors in preventing the turtle from moving out of bounds.
 This can happen for example if a large distance is moved and it hits a side wall at an angle,
 then the x coordinate will be limited to be in bounds, but the y-coordinate is not adjusted accordingly.
 It is just kept constant, so it looks like the turtle just moved horizontally.
-
+- Some of the procedures with multiple parameters are a little buggy. They do
+not parse correctly but don't cause the program to crash.
+- One bug with multiple turtles is that you have to say tell first individually
+for the turtles.
+- Also with the tell command passing in just one argument like 2 will move two turtles.
+- Additionally, the error handling for writing and invalid command is bugged.
+It ends up crashing the program.
 
 
 Extra credit:
