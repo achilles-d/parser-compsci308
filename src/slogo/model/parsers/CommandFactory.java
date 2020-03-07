@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import slogo.controller.Language;
+import slogo.model.commands.Command;
 import slogo.model.exceptions.ExecutionException;
 import slogo.model.turtle.BackEndTurtle;
 import slogo.model.turtle.Coordinate;
@@ -33,11 +34,14 @@ public class CommandFactory {
     private  static final String CLASS_NOT_FOUND="classNotFound";
     private  static final String LIST="List";
     private Language language;
+    private Map<String, List<List<Command>>> userDefinedCommands;
 
 
     public CommandFactory(BackEndTurtle turtle, UserVariableHandler userVariableHandler,
-                          List<String> unExecutedCommands,Language language) {
+                          List<String> unExecutedCommands,Language language,
+                          Map<String, List<List<Command>>>  userDefinedCommand) {
 
+        this.userDefinedCommands=userDefinedCommand;
         this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtle;
         this.language=language;
@@ -54,6 +58,7 @@ public class CommandFactory {
     private Object makeCommand(String commandName, List<Object> arguments) {
         Object currentCommand = null;
         Class<?> c = null;
+        System.out.println("command to create "+commandName);
         try {
             c = Class.forName(THIS_CLASS_PATH + commandName);
 
@@ -117,6 +122,9 @@ public class CommandFactory {
     }
     private UserVariableHandler getUserVariableHandler(){
         return userVariableHandler;
+    }
+    private Map<String, List<List<Command>>> getUserDefinedCommands(){
+        return userDefinedCommands;
     }
 
     private Language getLanguage(){
