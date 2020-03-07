@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class WindowFactory {
-    private static final String CLASS_TO_PARAMETERS = "resources.configuration.parameters";
-    private static final String INDEX_TO_PARAMNAME = "resources.configuration.parameternames";
+    private static final String CLASS_TO_PARAMETERS = "resources.configuration.subconfig.parameters";
+    private static final String INDEX_TO_PARAMNAME = "resources.configuration.subconfig.parameternames";
     private static final String CLASSPATH = "slogo.view.windows.";
     private static final String WINDOW = "Window";
     private static final String ERRORS = "resources.errors.InvalidCommandExceptionText";

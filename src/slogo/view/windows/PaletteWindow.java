@@ -15,20 +15,14 @@ import java.util.ResourceBundle;
 
 public class PaletteWindow extends Window {
 
-    private static final String DEFAULT_PEN_COLOR = "Black";
-    private static final String PEN_COLOR = "resources.colors.PenColor";
     private static final String UI_TEXT = "resources.UIText";
-    private static final String TURTLE_IMAGES = "resources.TurtleImage";
     private static final String AVAILABLE_COLORS = "availablecolors";
     private static final String IMAGES = "images";
     private static final int MAX_WIDTH = 50;
 
 
-    private ResourceBundle penColorsNames = java.util.ResourceBundle.getBundle(PEN_COLOR);
-    private ResourceBundle turtleImages = java.util.ResourceBundle.getBundle(TURTLE_IMAGES);
+    private ResourceBundle turtleImages;
     private ResourceBundle visualText = java.util.ResourceBundle.getBundle(UI_TEXT);
-
-
 
 
     private TitledPane myView;
@@ -46,6 +40,7 @@ public class PaletteWindow extends Window {
         tellUpdate = update;
         myController = control;
         myColorPalette = myController.getColorPalette();
+        turtleImages = ResourceBundle.getBundle(myController.getAvailableImagesFile());
 
         myView = new TitledPane();
         paletteContainer = new HBox();
@@ -58,7 +53,7 @@ public class PaletteWindow extends Window {
 
         imagePaletteView = new TitledPane();
         imageMatcher = new ListView<String>();
-        imageMatcher.setCellFactory(listView -> new PaletteImagecell());
+        imageMatcher.setCellFactory(listView -> new PaletteImagecell(myController.getAvailableImagesFile()));
 
         fillImagesPalette();
 

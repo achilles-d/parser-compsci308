@@ -14,4 +14,4 @@ to random_move [ :fdmin :fdmax :ltmin :ltmax ]
 ]
 
 
-random_move 5 15 -10 5
+random_move 5 15 1 5
