@@ -48,7 +48,6 @@ public class Controller {
 
         configFile = ResourceBundle.getBundle(config);
         myTurtleController = new TurtleController(getAvailableImagesFile());
-        //NEED TO REPLACE THIS WITH A LIST OF BACKENDTURTLES
         myBackEndTurtle = myTurtleController.getBackEndTurtle(0);
         myCommandHandlerAPI = new CommandHandlerAPI();
         myUserVarHandler = new UserVariableHandler();
@@ -156,7 +155,6 @@ public class Controller {
     }
 
     public void setLanguage(String language){
-        System.out.println("called langauge button");
         myLanguage = Language.valueOf(language.toUpperCase());
         myCommandParser.addPatterns(myLanguage.getLanguageFile(), SYNTAX);
     }
