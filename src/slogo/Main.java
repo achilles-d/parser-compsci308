@@ -5,7 +5,8 @@ import javafx.stage.Stage;
 import slogo.view.components.MainVisualization;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * @author Saurav Sanjay
+ * Starts Logo program
  */
 public class Main extends Application {
     /**
@@ -16,6 +17,11 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Creates a new MainVisualization
+     * @param primaryStage stage for display
+     * @throws Exception
+     */
     public void start(Stage primaryStage) throws Exception {
         MainVisualization myMain = new MainVisualization(primaryStage);
 
