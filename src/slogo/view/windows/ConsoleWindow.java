@@ -13,6 +13,10 @@ import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane with user input console, return console, and execute and reset buttons
+ */
 public class ConsoleWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
@@ -35,6 +39,12 @@ public class ConsoleWindow extends Window {
     private Button reset;
 
 
+    /**
+     * Creates a new ConsoleWindow
+     * @param control controller to be used
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public ConsoleWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
@@ -83,16 +93,27 @@ public class ConsoleWindow extends Window {
         tellUpdate.setValue(true);
     }
 
+    /**
+     * Adds text to return console
+     * @param returned value returned by executed commands
+     */
     public void addReturn(Double returned)
     {
         returnConsole.setText(RETURNS + returned);
     }
 
+    /**
+     * Updates view, supposed to do nothing in this case
+     */
     public void update() {
         //Supposed to do nothing
     }
 
 
+    /**
+     * Returns Node to be displayed
+     * @return Node object for display
+     */
     public Node getView() {
         return myView;
     }

@@ -10,6 +10,11 @@ import slogo.model.turtle.Coordinate;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Turtle object utilized by the front-end view only
+ */
+
 public class ViewTurtle {
 
     private static final String TURTLE_IMAGES = "resources.TurtleImage";
@@ -44,6 +49,11 @@ public class ViewTurtle {
     private int size;
     private int myID;
 
+    /**
+     * Creates a new ViewTurtle object with associated id and image palette
+     * @param id
+     * @param imageFile
+     */
     public ViewTurtle(int id,String imageFile)
     {
         myID = id;
@@ -71,6 +81,10 @@ public class ViewTurtle {
 
     }
 
+    /**
+     * Increments pen size by given number
+     * @param change
+     */
     public void changePenSize(int change)
     {
         if(penSize.get()+change >=1)
@@ -93,21 +107,37 @@ public class ViewTurtle {
 
     }
 
+    /**
+     * Returns pen size
+     * @return property associated with pen size value
+     */
     public SimpleDoubleProperty getPenSizeProperty()
     {
         return penSize;
     }
 
+    /**
+     * Returns pen status property
+     * @return property associated with pen status
+     */
     public SimpleBooleanProperty getPenStatusProperty()
     {
         return penStatus;
     }
 
+    /**
+     * Returns index of pen color
+     * @return pen color index
+     */
     public double getPenColorIndex()
     {
         return penColorIndex.get();
     }
 
+    /**
+     * sets pen color with given index
+     * @param i index of color in palette
+     */
     public void setPenColorIndex(int i)
     {
         penColorIndex.setValue(i);
@@ -142,43 +172,75 @@ public class ViewTurtle {
         myView.setImage(myImage);
     }
 
+    /**
+     * returns Node object to be displayed
+     * @return Node for display
+     */
     public Node getView()
     {
         return myView;
     }
 
+    /**
+     * Sets heading of turtle
+     * @param heading is new heading for turtle
+     */
     public void setHeading(double heading)
     {
         myHeading = heading;
         myView.setRotate(myHeading);
     }
 
+    /**
+     * Returns the current heading of turtle
+     * @return the turtle heading
+     */
     public double getHeading()
     {
         return myHeading;
     }
 
+    /**
+     * Sets whether or not turtle is visible to user
+     * @param visible indicates visibility of turtle
+     */
     public void setVisibility(boolean visible)
     {
         turtleVisibility = visible;
         myView.setVisible(turtleVisibility);
     }
 
+    /**
+     * Returns property associated with pen color
+     * @return property for pen color
+     */
     public SimpleDoubleProperty getPenColorProperty()
     {
         return penColorIndex;
     }
 
+    /**
+     * Returns property associated with image of turtle
+     * @return property for turtle image
+     */
     public SimpleDoubleProperty getShapeProperty()
     {
         return shapeIndex;
     }
 
+    /**
+     * Returns property indicating if turtle is active or not
+     * @return
+     */
     public SimpleBooleanProperty getActiveProperty()
     {
         return activeTurtle;
     }
 
+    /**
+     * returns property indicating image name of turtle
+     * @param name name of image for turtle
+     */
     public void setImageProperty(SimpleStringProperty name)
     {
         imageName = name;
@@ -191,11 +253,20 @@ public class ViewTurtle {
             shapeIndex.setValue(getIndexOfImage(imageName.getValue()));
         }
     }
+
+    /**
+     * Returns current coordinates of ViewTurtle
+     * @return turtles coordinates
+     */
     public Coordinate getCoordinates()
     {
         return myCoordinates;
     }
 
+    /**
+     * Updates position of turtle with new coordinates
+     * @param a new coordinates of turtle
+     */
     public void updatePosition(Coordinate a) {
         myCoordinates = a;
         setXY();
@@ -214,6 +285,10 @@ public class ViewTurtle {
         myView.setLayoutY(myY);
     }
 
+    /**
+     * Returns ID of this ViewTurtle
+     * @return ID number for this ViewTurtle
+     */
     public int getID()
     {
         return myID;

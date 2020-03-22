@@ -14,6 +14,10 @@ import slogo.view.components.ViewTurtle;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane with all information for all active turtles, including pen info, position and heading
+ */
 public class TurtleCompleteInfoWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
@@ -31,7 +35,12 @@ public class TurtleCompleteInfoWindow extends Window {
     private ScrollPane myContainer;
 
 
-
+    /**
+     * Creates a new TurtleCompleteInfo window
+     * @param control controller to be used
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public TurtleCompleteInfoWindow(Controller control, SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
@@ -67,6 +76,9 @@ public class TurtleCompleteInfoWindow extends Window {
         return info;
     }
 
+    /**
+     * Updates view, in this case, adds a new slot for turtle info when a new turtle has been created or made active
+     */
     @Override
     public void update() {
         turtleStates.getChildren().clear();
@@ -78,6 +90,10 @@ public class TurtleCompleteInfoWindow extends Window {
 
     }
 
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     @Override
     public Node getView() {
         return myView;

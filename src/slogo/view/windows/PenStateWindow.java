@@ -14,6 +14,11 @@ import slogo.view.components.ViewTurtle;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane to depict current state of pen, including pen color, pen size and whether or not pen is up or down
+ * User can also use this pane to edit pen state, like pen color, size, and whether or not they are up or down
+ */
 public class PenStateWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
@@ -49,6 +54,11 @@ public class PenStateWindow extends Window {
     private String penStatusText;
 
 
+    /**
+     * Creates a new PenStateWindow object
+     * @param view ViewTurtle with associated pen information
+     * @param colors ColorPalette object for this workspace
+     */
     public PenStateWindow(ViewTurtle view, ColorPalette colors)
     {
         myView = new HBox();
@@ -129,6 +139,9 @@ public class PenStateWindow extends Window {
     }
 
 
+    /**
+     * Updates view, in this case, updates pen status information when user makes changes
+     */
     @Override
     public void update() {
         if(myViewTurtle.getPenStatusProperty().get())
@@ -150,6 +163,10 @@ public class PenStateWindow extends Window {
         penInfo.getChildren().addAll(penStatus,penThickness,penColor);
     }
 
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     @Override
     public Node getView() {
         return myView;

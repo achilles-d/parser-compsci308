@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Visualization class that represents each individual workspace
+ */
 public class LogoVisualization extends BorderPane{
 
     private static final String UI_TEXT = "resources.UIText";
@@ -41,6 +45,10 @@ public class LogoVisualization extends BorderPane{
     private VBox rightComps;
     private VBox leftComps;
 
+    /**
+     * Creates a LogoVisualization class with the given Controller
+     * @param control a Controller to be used by this workspace
+     */
     public LogoVisualization(Controller control)
     {
         myController = control;
@@ -97,6 +105,8 @@ public class LogoVisualization extends BorderPane{
         this.setTop(toolbar.getView());
         this.setRight(rightComps);
     }
+
+    //fill sides of workspace with the windows created
     private void fillWindows(String side, VBox container)
     {
         for(String windowName: orderingComponents.getString(side).split(ORDERING_SEPARATOR))

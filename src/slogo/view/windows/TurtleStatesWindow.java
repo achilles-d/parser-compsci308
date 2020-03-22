@@ -8,6 +8,11 @@ import slogo.view.components.ViewTurtle;
 import java.util.ResourceBundle;
 
 
+/**
+ * @author Saurav Sanjay
+ * Window pane with information about turtle, including ID, heading, and position
+ */
+
 public class TurtleStatesWindow extends Window {
     private static final String UI_TEXT = "resources.UIText";
     private static final String CSS_ID = "TurtleStates";
@@ -25,6 +30,10 @@ public class TurtleStatesWindow extends Window {
     private ViewTurtle myViewTurtle;
 
 
+    /**
+     * Creates a new TurtleStatesWindow
+     * @param view ViewTurtle to display information for
+     */
     public TurtleStatesWindow(ViewTurtle view)
     {
         myView = new VBox();
@@ -40,6 +49,9 @@ public class TurtleStatesWindow extends Window {
         return new Label(identifier + ":" + info);
     }
 
+    /**
+     * Updates view, in this case, updates turtle information when turtle changes position or heading
+     */
     @Override
     public void update() {
         turtleID = makeLabel(visualText.getString(TURTLEID),myViewTurtle.getID()+"");
@@ -48,6 +60,10 @@ public class TurtleStatesWindow extends Window {
         turtleHeading = makeLabel(visualText.getString(TURTLEHEADING),myViewTurtle.getHeading() + "");
     }
 
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     @Override
     public Node getView() {
         return myView;

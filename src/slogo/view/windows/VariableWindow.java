@@ -8,6 +8,10 @@ import slogo.view.components.CodeStage;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane for all variables currently in use in workspace
+ */
 public class VariableWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
@@ -25,7 +29,12 @@ public class VariableWindow extends Window {
     private TextInputDialog variableValueInput;
 
 
-
+    /**
+     * Creates a new VariableWindow object
+     * @param control controller to be used
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public VariableWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
 
@@ -63,11 +72,19 @@ public class VariableWindow extends Window {
         }
 
     }
+
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     public Node getView()
     {
         return myView;
     }
 
+    /**
+     * Updates view, in this case, updates values of old variables, and also adds newly created variables
+     */
     public void update()
     {
         updateOldVariables();

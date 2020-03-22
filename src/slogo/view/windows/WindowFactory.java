@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Creates necessary Window pane components for workspace based on name of window component
+ */
 public class WindowFactory {
     private static final String CLASS_TO_PARAMETERS = "resources.configuration.subconfig.parameters";
     private static final String INDEX_TO_PARAMNAME = "resources.configuration.subconfig.parameternames";
@@ -31,6 +35,10 @@ public class WindowFactory {
     private ResourceBundle errorMessages = java.util.ResourceBundle.getBundle(ERRORS);
 
 
+    /**
+     * Creates a new WindowFactory object
+     * @param params list of parameters that will be needed to construct the separate Window objects
+     */
     public WindowFactory(List<Object> params)
     {
         possibleParameters = new HashMap<>();
@@ -41,6 +49,11 @@ public class WindowFactory {
 
     }
 
+    /**
+     * Makes a Window object with given name
+     * @param windowName name of Window class that needs to be instantiated
+     * @return a Window object that was created
+     */
     public Window makeWindow(String windowName)
     {
         Constructor[] constructors;

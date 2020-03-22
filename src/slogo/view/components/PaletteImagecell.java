@@ -8,7 +8,10 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ResourceBundle;
 
-
+/**
+ * @author Saurav Sanjay
+ * Extension of List cell used to render a view of image palette with image index next to the actual image
+ */
 public class PaletteImagecell extends ListCell<String> {
 
     private static final int PATCH_SIZE = 50;
@@ -16,11 +19,20 @@ public class PaletteImagecell extends ListCell<String> {
     private ResourceBundle turtleImages;
     private ImageView imageIcon = new ImageView();
 
+    /**
+     * Creates a new cell for image palette
+     * @param imagePalette name of property file associated with image palette file
+     */
     public PaletteImagecell(String imagePalette)
     {
         turtleImages = ResourceBundle.getBundle(imagePalette);
     }
 
+    /**
+     * Renders a list cell with image index next to image graphic
+     * @param imageIndex index associated with image in palette
+     * @param empty indicates whether list cell is empty
+     */
     @Override
     protected void updateItem(String imageIndex,boolean empty)
     {

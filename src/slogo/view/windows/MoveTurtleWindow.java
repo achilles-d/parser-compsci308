@@ -13,6 +13,10 @@ import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane with graphical buttons to move turtle forward, back, left and right
+ */
 public class MoveTurtleWindow extends Window {
 
     private static final int MOVE_AMOUNT = 50;
@@ -34,6 +38,12 @@ public class MoveTurtleWindow extends Window {
     private Button right;
     private Button left;
 
+    /**
+     * Creates a new MoveTurtleWindow object
+     * @param control controller to be used
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public MoveTurtleWindow(Controller control, SimpleBooleanProperty update, CodeStage code) {
         myController = control;
         tellUpdate = update;
@@ -100,10 +110,18 @@ public class MoveTurtleWindow extends Window {
         left.setText(getCommandName(LEFT));
     }
 
+    /**
+     * Updates view, in this case, updates button text in case language changes
+     */
     public void update()
     {
         updateButtonText();
     }
+
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     public Node getView()
     {
         return myView;

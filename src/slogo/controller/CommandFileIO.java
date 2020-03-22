@@ -31,7 +31,7 @@ public class CommandFileIO {
         String filename = COMMAND_HISTORY_DIR + df.format(new Date()) + ".txt";
         try {
             BufferedWriter commandWriter = new BufferedWriter(new FileWriter(filename));
-            for (String command : myCommandHistory) {
+            for (String command : myCommandHistory) {`
                 commandWriter.write(command);
                 commandWriter.newLine();
             }

@@ -9,6 +9,11 @@ import slogo.view.components.CodeStage;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane that shows available commands for user to input
+ */
+
 public class AvailableCommandsWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
@@ -22,7 +27,12 @@ public class AvailableCommandsWindow extends Window {
     private ListView<String> availableCommands;
 
 
-
+    /**
+     * Creates a new AvailableCommandsWindow
+     * @param control controller to be usedby menu
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public AvailableCommandsWindow(Controller control,SimpleBooleanProperty update, CodeStage code)
     {
         myController = control;
@@ -43,6 +53,9 @@ public class AvailableCommandsWindow extends Window {
     }
 
 
+    /**
+     * Updates AvailableCommands when language is changed
+     */
     public void update() {
 
         commandNames = java.util.ResourceBundle.getBundle(myController.getLanguage());
@@ -57,6 +70,10 @@ public class AvailableCommandsWindow extends Window {
     }
 
 
+    /**
+     * Returns a Node to be displayed in workspace
+     * @return Node object for display
+     */
     public Node getView() {
         return myView;
     }

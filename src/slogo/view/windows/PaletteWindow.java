@@ -13,6 +13,10 @@ import slogo.view.components.PaletteImagecell;
 
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane for image and color palette to be used by user for reference when coding
+ */
 public class PaletteWindow extends Window {
 
     private static final String UI_TEXT = "resources.UIText";
@@ -34,6 +38,12 @@ public class PaletteWindow extends Window {
     private TitledPane imagePaletteView;
     private HBox paletteContainer;
 
+    /**
+     * Creates a new PaletteWindow object
+     * @param control controller to be used
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public PaletteWindow(Controller control, SimpleBooleanProperty update, CodeStage code)
     {
         tellUpdate = update;
@@ -90,11 +100,18 @@ public class PaletteWindow extends Window {
         imagePaletteView.setContent(imageMatcher);
     }
 
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     public Node getView()
     {
         return myView;
     }
 
+    /**
+     * Updates view, in this case, updates palette in case user edits indices for colors
+     */
     public void update()
     {
         fillPenColorsPalette();

@@ -14,6 +14,10 @@ import java.io.File;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * @author Saurav Sanjay
+ * This is the main visualization class that wraps all of the workspaces
+ */
 public class MainVisualization {
 
     private static final String CSS_FILE = "/resources/uistyle.css";
@@ -37,6 +41,10 @@ public class MainVisualization {
     private Stage myStage;
     private TextInputDialog tabNameInput;
 
+    /**
+     * Creates a new main Visualization and uses the given stage to set scene
+     * @param stage stage created by Main runner class
+     */
     public MainVisualization(Stage stage)
     {
         tabNameInput = new TextInputDialog();
@@ -67,6 +75,9 @@ public class MainVisualization {
 
     }
 
+    /**
+     * Creates a new workspace and adds a new tab in Main visualization
+     */
     public void addWorkspace()
     {
         FileChooser chooseConfig = new FileChooser();

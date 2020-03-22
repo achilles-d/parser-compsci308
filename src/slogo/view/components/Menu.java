@@ -25,6 +25,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import slogo.model.exceptions.ExecutionException;
 
+/**
+ * @author Saurav Sanjay
+ */
+
 public class Menu {
     private static final String CSS_FILE = "/resources/uistyle.css";
     private static final String AVAILABLE_LANGUAGES = "resources.availableLanguages";
@@ -68,6 +72,12 @@ public class Menu {
     private CodeStage myCode;
 
 
+    /**
+     * Creates a new Menu object
+     * @param control controller to be used my menu
+     * @param update boolean property that will indicate when the view needs to be updated
+     * @param code a CodeStage object that holds code that needs to be parsed
+     */
     public Menu(Controller control,SimpleBooleanProperty update,CodeStage code)
    {
        myController = control;
@@ -146,6 +156,10 @@ public class Menu {
 
     }
 
+    /**
+     * Returns a string property that represents name of turtle image
+     * @return String property with turtle image name
+     */
     public Property getActiveTurtleImage()
    {
        return turtleImage;
@@ -165,6 +179,10 @@ public class Menu {
        }
    }
 
+    /**
+     * Returns the name of the active language wrapped in a string property
+     * @return String property with active language name
+     */
    public Property getActiveLanguage(){ return activeLanguage;}
 
    private void makeImagesMenu()
@@ -201,16 +219,28 @@ public class Menu {
    }
 
 
+    /**
+     * Returns Node view for display
+     * @return javaFX node to be displayed
+     */
    public Node getView()
    {
        return myView;
    }
 
+    /**
+     * Returns the active background color
+     * @return string property with active background color as value
+     */
    public Property getActiveBackgroundColor()
    {
        return activeBackgroundColor;
    }
 
+    /**
+     * Returns active pen color
+     * @return string property with active pen color
+     */
    public Property getActivePenColor() { return activePenColor;}
 
    private void makeHelpScreen()
@@ -242,6 +272,9 @@ public class Menu {
        stage1.show();
    }
 
+    /**
+     * updates menu items in Menu object
+     */
    public void update()
    {
        makeColorsMenu(activePenColor,penColors);

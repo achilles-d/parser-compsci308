@@ -14,6 +14,10 @@ import slogo.view.components.ColorPalette;
 import slogo.view.components.ViewTurtle;
 import slogo.model.turtle.Line;
 
+/**
+ * @author Saurav Sanjay
+ * Window pane for graphics of turtle moving around screen
+ */
 public class TurtleWindow extends Window {
 
     private static final int MAX_WIDTH = 750;
@@ -32,6 +36,13 @@ public class TurtleWindow extends Window {
     private ColorPalette myColorPalette;
 
 
+    /**
+     * Creates a new TurtleWindow object
+     * @param menuBackgroundColor background color for this graphics screen
+     * @param turtleImg image name for ViewTurtle
+     * @param control Controller for this workspace
+     * @param menuPenColor pen color to be used for graphics
+     */
     public TurtleWindow(Property menuBackgroundColor, Property turtleImg, Controller control,Property menuPenColor)
     {
         myController = control;
@@ -97,6 +108,10 @@ public class TurtleWindow extends Window {
     }
 
 
+    /**
+     * Sets background color for graphics screen
+     * @param color index of desired color in color palette
+     */
     public void setBackgroundColor(int color) {
         myView.setBackground(new Background(new BackgroundFill(myColorPalette.getColor(color), CornerRadii.EMPTY, Insets.EMPTY)));
     }
@@ -149,6 +164,9 @@ public class TurtleWindow extends Window {
 
     }
 
+    /**
+     * Updates view, in this case, moves turtle, draws or clears lines
+     */
     @Override
     public void update() {
 
@@ -165,6 +183,10 @@ public class TurtleWindow extends Window {
 
 
 
+    /**
+     * Returns Node object for display
+     * @return Node for display
+     */
     @Override
     public Node getView() {
         return myView;
