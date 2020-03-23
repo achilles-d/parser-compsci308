@@ -48,29 +48,38 @@ public class PaletteWindow extends Window {
     {
         tellUpdate = update;
         myController = control;
+        myCode = code;
+        
         myColorPalette = myController.getColorPalette();
         turtleImages = ResourceBundle.getBundle(myController.getAvailableImagesFile());
 
         myView = new TitledPane();
         paletteContainer = new HBox();
 
-        colorPaletteView = new TitledPane();
-        colorMatcher = new ListView<String>();
-        colorMatcher.setCellFactory(listView -> new PaletteColorCell(myColorPalette));
-
-        fillPenColorsPalette();
-
-        imagePaletteView = new TitledPane();
-        imageMatcher = new ListView<String>();
-        imageMatcher.setCellFactory(listView -> new PaletteImagecell(myController.getAvailableImagesFile()));
-
-        fillImagesPalette();
+        makeColorsPaletteView();
+        makeImagesPaletteView();
 
         paletteContainer.getChildren().addAll(colorPaletteView, imagePaletteView);
         myView.setText(visualText.getString(PALETTE));
         myView.setContent(paletteContainer);
         myView.setMaxWidth(MAX_WIDTH);
 
+    }
+
+    private void makeImagesPaletteView() {
+        imagePaletteView = new TitledPane();
+        imageMatcher = new ListView<String>();
+        imageMatcher.setCellFactory(listView -> new PaletteImagecell(myController.getAvailableImagesFile()));
+
+        fillImagesPalette();
+    }
+
+    private void makeColorsPaletteView() {
+        colorPaletteView = new TitledPane();
+        colorMatcher = new ListView<String>();
+        colorMatcher.setCellFactory(listView -> new PaletteColorCell(myColorPalette));
+
+        fillPenColorsPalette();
     }
 
     private void fillPenColorsPalette()
