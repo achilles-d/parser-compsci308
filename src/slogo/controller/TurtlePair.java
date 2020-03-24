@@ -47,7 +47,7 @@ public class TurtlePair {
 
     /**
      * Return the BackEndTurtle object corresponding to the turtle
-     * @return the BackEndTurtle object corresponding to the turtle 
+     * @return the BackEndTurtle object corresponding to the turtle
      */
     public BackEndTurtle getBackEndTurtle()
     {
