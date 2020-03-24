@@ -130,6 +130,7 @@ for the turtles.
 - Additionally, the error handling for writing and invalid command is bugged.
 It ends up crashing the program.
 
+- commands setbackground, setpc, and setshape don't work 
 
 Extra credit:
 - The buttons for moving the turtle will change automatically to match the chosen language
