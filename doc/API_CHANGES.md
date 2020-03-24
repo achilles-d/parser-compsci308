@@ -53,8 +53,21 @@
         could not use code to change those properties. So, we kept it in our front-end internal
         API. However, once the complete specification came out, we realized we needed
         to make this information accessible and connected to the back-end, so we added to our API.
-        
-
+    * Added TurtleController
+        * This was added as in the complete specification we needed to implement
+        multiple turtles for the view. This controls getting front and backend
+        turtles based on their indices and whether they're active or not. The
+        team made the decision to do this.
+    * Added Turtle Pair
+        * This is a helper class for the TurtleController that binds a view
+        turtle and backend turtle together so that updating one will change
+        the values of the other automatically. The team made the decision to
+        do this.
+    
+* Model
+    * CommandFactory was added to create commands and match methods through
+    reflection. 
+    * CommandParser has many more methods so that the logic can split up.
 
 
 
