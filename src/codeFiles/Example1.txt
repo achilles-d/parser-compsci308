@@ -1,0 +1,6 @@
+tell [ 1 2 3 4 5 ]
+repeat 100 [ pu 
+rt random 360 
+fd random 50
+pd
+ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 ]

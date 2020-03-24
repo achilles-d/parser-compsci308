@@ -49,7 +49,7 @@ public class PaletteWindow extends Window {
         tellUpdate = update;
         myController = control;
         myCode = code;
-        
+
         myColorPalette = myController.getColorPalette();
         turtleImages = ResourceBundle.getBundle(myController.getAvailableImagesFile());
 

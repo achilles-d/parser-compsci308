@@ -1,0 +1,36 @@
+pu 
+back 50
+back 50
+left 90
+pd fd 100
+rt 90 fd 100
+rt 30 fd 100
+rt 120
+fd 100
+rt 30
+fd 100
+rt 90 fd 50
+back 10
+back 10
+rt 90
+fd 20
+fd 20
+left 90 fd 35
+left 90 fd 40
+pu right 90 fd 20
+pu right 90 fd 20
+pu right 90 fd 20
+pu right 90 fd 20
+pu right 90 fd 20
+fd 20
+rt 90
+fd 20
+fd 20
+fd 20
+fd 20
+fd 20
+rt 90
+fd 10
+pd 
+forward 50
+forward 50

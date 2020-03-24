@@ -1,0 +1,10 @@
+stiftoben
+ruc 50
+links 90 
+vor 250 recht 90
+stiftunten
+wiederholen 80 [
+wiederholen 5 [ vor 130 rt 145 ]
+stiftoben
+vor 15 
+stiftunten ]

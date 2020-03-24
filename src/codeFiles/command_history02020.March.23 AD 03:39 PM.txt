@@ -1,0 +1,12 @@
+tell [ 1 2 3 4 5 6 ]
+pu
+rt random 360
+fd 100
+pd
+repeat 5 [ fd 150 rt 145 ]
+tell [ 1 2 3 4 5 6 ]
+pu
+rt random 360
+fd 100
+pd
+repeat 5 [ fd 150 rt 145 ]
