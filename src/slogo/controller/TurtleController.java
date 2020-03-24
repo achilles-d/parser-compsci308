@@ -34,7 +34,7 @@ public class TurtleController {
         turtlesMap.put(index, turtleLink);
     }
 
-    
+
     public Collection<Line> getLines(int index) {
         return Collections.unmodifiableList(turtlesMap.get(index).getBackEndTurtle().getLines());
     }

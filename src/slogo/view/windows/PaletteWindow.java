@@ -16,6 +16,10 @@ import java.util.ResourceBundle;
 /**
  * @author Saurav Sanjay
  * Window pane for image and color palette to be used by user for reference when coding
+ * This reprsents some good design as it extends from the Window class to create a specific view.
+ * Extending from Window allows me to treat it like any other Window object in the LogoVisualization and just update()
+ * it when needed, regardless of its implementation. It also makes use of short helper methods, and also ensures
+ * that all text that is visible comes from a properties file.
  */
 public class PaletteWindow extends Window {
 

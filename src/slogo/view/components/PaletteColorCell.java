@@ -9,6 +9,9 @@ import java.util.ResourceBundle;
 /**
  * @author Saurav Sanjay
  * Extension of list cell used for displaying color palette as a list with a color index next to a color square
+ * This short class represents good design as it serves a single purpose of rendering a list cell that will
+ * display a color next to an index as intended. Making a separate class for this instead of trying to hardcode
+ * it into a default ListCell makes it so that this kind of cell can be used in other parts as well.
  */
 
 

@@ -8,6 +8,8 @@ import slogo.view.components.CodeStage;
 /**
  * @author Saurav Sanjay
  * Abstract window class to be extended upon by all window pane components for workspace
+ * This is an example of good design, as this abstract window class can be extended upon to create any new view
+ * the user would like, while still integrating well with the program.
  */
 public abstract class Window {
 
