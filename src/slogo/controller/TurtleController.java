@@ -23,6 +23,10 @@ public class TurtleController {
 
     }
 
+    /**
+     * Makes a new pair of turtles with given ID
+     * @param index ID number of turtles
+     */
     public void createNewTurtle(int index) {
         ViewTurtle viewTurt = new ViewTurtle(index,imageFile);
         BackEndTurtle backTurt = new BackEndTurtle(index);
@@ -30,6 +34,7 @@ public class TurtleController {
         turtlesMap.put(index, turtleLink);
     }
 
+    
     public Collection<Line> getLines(int index) {
         return Collections.unmodifiableList(turtlesMap.get(index).getBackEndTurtle().getLines());
     }

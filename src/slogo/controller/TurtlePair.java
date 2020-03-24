@@ -26,11 +26,19 @@ public class TurtlePair {
         myBackEndTurtle.getPenVisibilityProperty().bindBidirectional(myViewTurtle.getPenStatusProperty());
     }
 
+    /**
+     * Returns a ViewTurtle object associated with this pair of Turtles
+     * @return ViewTurtle in pair
+     */
     public ViewTurtle getViewTurtle()
     {
         return myViewTurtle;
     }
 
+    /**
+     * Returns a BackEnd Turtle object associated with this pair of Turtles
+     * @return BackEndTurtle in pair
+     */
     public BackEndTurtle getBackEndTurtle()
     {
         return myBackEndTurtle;
