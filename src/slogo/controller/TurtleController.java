@@ -8,6 +8,10 @@ import slogo.model.turtle.Line;
 
 import java.util.*;
 
+/**
+ * A class that controls multiple BackEndTurtles operating in the same workspace
+ * Controller has an instance of this class
+ */
 public class TurtleController {
 
 
