@@ -17,24 +17,23 @@ import slogo.model.exceptions.InvalidCommandException;
 public class CommandFactory {
     private BackEndTurtle turtle;
     private UserVariableHandler userVariableHandler;
-    private int inputCounter;
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private static final String THIS_CLASS_PATH="slogo.model.commands.";
     private static final String BACK_END_TURTLE_PATH="slogo.model.turtle.BackEndTurtle";
+    private static final String PACKAGE_SPLIT_REGEX="[.]";
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ObjectMatch");
     private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
     private Map<String, Method> match;
     private  static final String NO_FILE="noFile";
     private  static final String IMPOSSIBLE_COMMANDS="impossibleCommand";
     private  static final String CLASS_NOT_FOUND="classNotFound";
-    private  static final String LIST="List";
     private Language language;
     private Map<String, List<List<Command>>> userDefinedCommands;
     private TurtleController turtleController;
-    private Class<?> className;
     private Class<?>[] pType;
     private Constructor<?> constructor;
     private String commandName;
+    private List<Object> arguments;
 
 
     public CommandFactory(TurtleController turtleController, UserVariableHandler userVariableHandler,Language language,
@@ -56,15 +55,16 @@ public class CommandFactory {
 
         List<BackEndTurtle> listOfTurtles= (List<BackEndTurtle>) turtleController.getAllActiveBackendTurtles();
         this.commandName = commandName;
+        this.arguments=arguments;
         updateConstructorVariables();
 
         if(needTurtle()){
             for(BackEndTurtle bt: listOfTurtles){
                 turtle=bt;
-                listOfCommands.add(makeCommand(arguments));
+                listOfCommands.add(makeCommand());
             }
         } else{
-            listOfCommands.add(makeCommand(arguments));
+            listOfCommands.add(makeCommand());
         }
 
         return listOfCommands;
@@ -81,14 +81,12 @@ public class CommandFactory {
         }
         this.pType=c.getDeclaredConstructors()[0].getParameterTypes();
         this.constructor=c.getDeclaredConstructors()[0];
-        this.className=c;
     }
 
-    private Object makeCommand( List<Object> arguments) {
+    private Object makeCommand() {
         Object currentCommand;
         Object[] ar = new Object[pType.length];
-        inputCounter = 0;
-        populateTypeOfArguments(arguments, ar);
+        populateTypeOfArguments(ar);
           try {
             currentCommand = constructor.newInstance(ar);
           } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
@@ -97,9 +95,11 @@ public class CommandFactory {
           return currentCommand;
         }
 
-    private void populateTypeOfArguments(List<Object> arguments, Object[] ar) {
+    private void populateTypeOfArguments(Object[] ar) {
+        int inputCounter=0;
         for (int j = 0; j < pType.length; j++) {
-            String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
+            String [] str=pType[j].getName().split(PACKAGE_SPLIT_REGEX);
+            String className = (str)[str.length - 1];
 
             if(match.containsKey(className)){
                 try {
@@ -107,21 +107,17 @@ public class CommandFactory {
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new InvalidCommandException(errors.getString(NO_FILE), e);
                 }
-            } else if(className.equals(LIST)){
-                ar[j]=arguments;
-            } else {
+            }else {
                 ar[j]=arguments.get(inputCounter);
                 inputCounter++;
             }
         }
     }
 
-
     private void mathMethods() {
         for(String str:methods.keySet()){
             try {
-                Class[] clszz=null;
-                match.put(str, this.getClass().getDeclaredMethod(methods.getString(str),clszz));
+                match.put(str, this.getClass().getDeclaredMethod(methods.getString(str),null));
             } catch (NoSuchMethodException e) {
                 throw new ExecutionException(errors.getString(NO_FILE), e);
             }
@@ -139,6 +135,7 @@ public class CommandFactory {
     private Map<String, List<List<Command>>> getUserDefinedCommands(){
         return userDefinedCommands;
     }
+    private List<Object> getArguments(){return arguments;}
 
     private Language getLanguage(){
         return language;
