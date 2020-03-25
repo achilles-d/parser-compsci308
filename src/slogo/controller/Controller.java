@@ -143,6 +143,10 @@ public class Controller {
         return output;
     }
 
+    /**
+     * Return the commands previously executed
+     * @return a List of Strings, where each String represents a previously executed command
+     */
     public List<String> getCommandHistory() {
         List<String> commandStrings = new ArrayList<>();
         for(String cmd : myCommandHandlerAPI.getCommandHistory()){
