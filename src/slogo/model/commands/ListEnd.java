@@ -2,6 +2,10 @@ package slogo.model.commands;
 
 import java.util.List;
 
+/**
+ * Another example of a command (internally used) that takes advantage of generic returns. Lists of strings are returned
+ * and can be handled by the parser.
+ */
 public class ListEnd implements Command<Object> {
 
     List<String> group;

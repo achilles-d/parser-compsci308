@@ -8,6 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Included in masterpiece to show that this is an example of non-executable code. This just changes the number of
+ * active turtles (or creates one with indexes if needed) and there is no result needed to be added to stack.
+ */
 public class Tell implements Command{
 
     private TurtleController turtleController;

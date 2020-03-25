@@ -5,7 +5,10 @@ import slogo.model.turtle.UserVariableHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Included in masterpiece to show flexibility of returns used by commands. In this case we return a list of strings
+ * of the repeated commands to add to the command stack.
+ */
 public class Repeat implements Command<Object> {
 
   private List<String> groupedCodes;
