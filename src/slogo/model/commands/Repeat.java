@@ -16,6 +16,12 @@ public class Repeat implements Command<Object> {
   private Command group;
   private List<String> commandsToAddToStack;
 
+  /**
+   * command constructor
+   * @param handler user variable handler with info
+   * @param num times to repeat
+   * @param group commands to repeat
+   */
   public Repeat(UserVariableHandler handler, Command num, Command group) {
     this.handler=handler;
     variableCommand=num;
@@ -24,6 +30,10 @@ public class Repeat implements Command<Object> {
     isItExecutable=false;
   }
 
+  /**
+   * Execution logic
+   * @return object of repeated commands
+   */
   @Override
   public Object execute() {
 
@@ -82,8 +92,8 @@ public class Repeat implements Command<Object> {
 
 
   /**
-   *
-   * @return the new commandList which is not yet executed
+   * Check if executable
+   * @return Is it an executable command or not.
    */
   public boolean isItExecutable(){
     return isItExecutable;

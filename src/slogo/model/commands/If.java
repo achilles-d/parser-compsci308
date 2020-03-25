@@ -12,12 +12,21 @@ private Command command;
 
 private boolean isExecutable ;
 
+    /**
+     * Command constructor
+     * @param con constant to check
+     * @param command set of commands to do
+     */
     public If(Command con, Command command){
         this.con=con;
         this.command=command;
         isExecutable=false;
     }
 
+    /**
+     * Execution logic
+     * @return Object of command list to execute
+     */
     @Override
     public Object execute() {
         this.userVal = (Double) con.execute();
@@ -30,6 +39,10 @@ private boolean isExecutable ;
         return 0.0;
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return isExecutable;

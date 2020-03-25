@@ -9,11 +9,21 @@ public class Backward implements Command<Double> {
   private double delta;
 
   private Command cmd;
+
+  /**
+   * Command Constructor
+   * @param t backend turtle to change
+   * @param d command to apply
+   */
   public Backward(BackEndTurtle t,Command d) {
     this.myTurtle = t;
     this.cmd = d;
   }
 
+  /**
+   * Execution logic
+   * @return Double value argument
+   */
   @Override
   public Double execute() {
     delta=(double) cmd.execute();
@@ -26,6 +36,10 @@ public class Backward implements Command<Double> {
     return delta;
   }
 
+  /**
+   * Check if executable
+   * @return Is it an executable command or not.
+   */
   @Override
   public boolean isItExecutable() {
     return true;

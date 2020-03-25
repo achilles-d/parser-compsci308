@@ -9,12 +9,22 @@ public class MakeVariable<T> implements Command<Double> {
   private Command nameCmd;
   private Command valueCmd;
 
+    /**
+     * command constructor
+     * @param handler uservariable handler used
+     * @param nameCmd string name
+     * @param valueCmd double value
+     */
   public MakeVariable(UserVariableHandler handler, Command nameCmd, Command valueCmd) {
     this.nameCmd=nameCmd;
     this.valueCmd=valueCmd;
     this.myHandler = handler;
   }
 
+    /**
+     * Execution logic
+     * @return Double value argument
+     */
   @Override
   public Double execute() {
 
@@ -37,6 +47,10 @@ public class MakeVariable<T> implements Command<Double> {
 
   }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
   @Override
   public boolean isItExecutable() {
     return true;

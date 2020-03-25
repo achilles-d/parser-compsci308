@@ -22,6 +22,13 @@ public class DoTimes implements Command<Object> {
     private Command group;
     private Language lan;//=new Re
 
+    /**
+     * Constructor to create command
+     * @param handler input uservariable handler
+     * @param language input language of command types
+     * @param repeat how many times to repeat
+     * @param group group of commands to repeat
+     */
     public DoTimes(UserVariableHandler handler, Language language, Command repeat, Command group) {
         this.handler=handler;
         this.group=group;
@@ -30,6 +37,10 @@ public class DoTimes implements Command<Object> {
         this.lan=language;
     }
 
+    /**
+     * Execution logic
+     * @return Object representing newly constructed command
+     */
     @Override
     public Object execute() {
 
@@ -74,6 +85,10 @@ public class DoTimes implements Command<Object> {
         return rs.getString("Repeat");
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return isItExecutable;

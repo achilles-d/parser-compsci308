@@ -9,11 +9,20 @@ public class Forward implements Command<Double> {
   private Command cmd;
   private double delta;
 
+  /**
+   * Command constructor
+   * @param t backendturtle to apply to
+   * @param d command
+   */
   public Forward(BackEndTurtle t, Command d) {
     this.myTurtle = t;
     this.cmd = d;
   }
 
+  /**
+   * Execution logic
+   * @return Double value argument
+   */
   @Override
   public Double execute() {
     double angle = Math.toRadians(myTurtle.getHeading());
@@ -27,6 +36,10 @@ public class Forward implements Command<Double> {
     return delta;
   }
 
+  /**
+   * Check if executable
+   * @return Is it an executable command or not.
+   */
   @Override
   public boolean isItExecutable() {
     return true;

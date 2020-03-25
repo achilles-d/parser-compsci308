@@ -32,7 +32,10 @@ public class BackEndTurtle implements Turtle {
     private int myID;
 
 
-
+    /**
+     * Constructor to create a new BackEndTurtle instance.
+     * @param id Id to match between front and backend pair.
+     */
     public BackEndTurtle(int id){
         myID = id;
         lines=new ArrayList<>();
@@ -99,12 +102,19 @@ public class BackEndTurtle implements Turtle {
         return new Coordinate(x,y);
     }
 
-
+    /**
+     * Getter to obtain turtle position.
+     * @return A coordinate object that contains location info.
+     */
     @Override
     public Coordinate getPosition() {
         return turtleCoordinate;
     }
 
+    /**
+     * Getter to obtain turtle heading.
+     * @return Double that gives heading
+     */
     @Override
     public double getHeading() {
         return heading.doubleValue();
@@ -153,60 +163,132 @@ public class BackEndTurtle implements Turtle {
         lines.add(line);
     }
 
+    /**
+     * Set's pen color for back end turtle.
+     * @param color Index for color
+     */
     public void setPenColorIndex(Double color) {
         this.penColor.set(color);
     }
 
+    /**
+     * Set's background color through command.
+     * @param color Index for color
+     */
     public void setBackgroundColorIndex(Double color) {
         this.backgroundColor.set(color);
     }
 
+    /**
+     * Set shape through command.
+     * @param shape Index for shape.
+     */
     public void setShapeIndex(Double shape) { this.shapeIndex.set(shape); }
 
+    /**
+     * Set's pensize in backend turtle for command input.
+     * @param thickness Double for pen thickness
+     */
     public void setPenSize(Double thickness){
         this.penSize.set(thickness);
     }
 
+    /**
+     * Getter to return list of lines to draw
+     * @return List of lines
+     */
     @Override
     public List<Line> getLines() {
         return lines;
     }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getXLocProp() {
         return xLoc;
     }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getYLocProp() {
         return yLoc;
     }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getHeadingProp() { return heading; }
 
+    /**
+     * Property binding between front and back end
+     * @return boolean property for binding
+     */
     public BooleanProperty getTurtleVisibility() { return turtleVisible; }
 
+    /**
+     * Property binding between front and back end
+     * @return boolean property for binding
+     */
     public BooleanProperty getPenVisibilityProperty() { return penDown; }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getTurtleColor() { return penColor; }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getBackgroundColor() { return backgroundColor; }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getShapeIndex() { return shapeIndex; }
 
+    /**
+     * Property binding between front and back end
+     * @return double property for binding
+     */
     public DoubleProperty getPenSize() { return penSize; }
 
+    /**
+     * Getter for penstatus
+     * @return is pen up or down
+     */
     public boolean getPenStatus() {
         return penDown.get();
     }
 
+    /**
+     * Getter for turtle visibility
+     * @return is turtle visible or not
+     */
     public boolean getVisibility() {
         return turtleVisible.get();
     }
 
+    /**
+     * Property binding between front and back end
+     * @return boolean property for binding
+     */
     public BooleanProperty getActiveProperty()
     {
         return activeTurtle;
     }
 
+    /**
+     * Property binding between front and back end
+     * @return boolean property for binding
+     */
     public DoubleProperty getPenSizeProperty()
     {
         return penSize;

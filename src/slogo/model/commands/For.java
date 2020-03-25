@@ -11,18 +11,26 @@ public class For implements Command<Object> {
     private List<String> index;
 
     private List<String> commandsToAddToStack;
-    private   String RIGHT_BRACKET = "]";
+    private String RIGHT_BRACKET = "]";
     private String LEFT_BRACKET = "[";
     private Command indexCmd;
     private Command group;
 
+    /**
+     * Command constructor
+     * @param index loop index
+     * @param group group of commands
+     */
     public For(Command index, Command group){
-
        this.group=group;
        this.indexCmd=index;
-        commandsToAddToStack=new ArrayList<>();
+       commandsToAddToStack=new ArrayList<>();
     }
 
+    /**
+     * Execution logic
+     * @return Double value argument
+     */
     @Override
     public Object execute() {
         //();
@@ -71,6 +79,10 @@ public class For implements Command<Object> {
         groupedCodes.remove(groupedCodes.size()-1);
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return isItExecutable;

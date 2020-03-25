@@ -9,10 +9,20 @@ public class StringName implements Command {
 
     private String name;
     private boolean executable;
+
+    /**
+     * command constructor
+     * @param name string name
+     */
     public StringName(String name){
         executable=false;
         this.name=name;
     }
+
+    /**
+     * Execution logic
+     * @return Double value argument
+     */
     @Override
     public Object execute() {
 
@@ -21,6 +31,10 @@ public class StringName implements Command {
         return nameList;
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return false;

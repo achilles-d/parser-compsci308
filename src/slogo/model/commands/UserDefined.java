@@ -14,12 +14,21 @@ public class UserDefined implements Command {
     private List<String> listOfCommands;
     private Map<String, List<List<Command>>> userDefinedCommands;
 
+    /**
+     * Command constructor
+     * @param name user defined command string name
+     * @param userDefinedCommands map used to map name to list of command lists
+     */
     public UserDefined(String name, Map<String, List<List<Command>> > userDefinedCommands){
         this.userDefinedCommands=userDefinedCommands;
         this.name= name;
         executable=false;
     }
 
+    /**
+     * Execution logic
+     * @return Double value argument
+     */
     @Override
     public Object execute() {
 
@@ -56,6 +65,10 @@ public class UserDefined implements Command {
         inputsList.remove(size-2);
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return executable;

@@ -12,7 +12,13 @@ public class MakeUserInstruction implements  Command<Object> {
     private Command name;
     private Map<String, List<List<Command>>> commandSaver;
 
-
+    /**
+     * command constructor
+     * @param name name of instructor
+     * @param inputs inputs
+     * @param command command to use
+     * @param commandSaver map of name to command lsits
+     */
     public  MakeUserInstruction (Command name, Command inputs, Command command,
                                  Map<String, List<List<Command>>> commandSaver){
 
@@ -35,6 +41,10 @@ public class MakeUserInstruction implements  Command<Object> {
         return 1.0;
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return true;

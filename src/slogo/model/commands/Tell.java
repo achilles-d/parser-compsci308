@@ -15,6 +15,11 @@ public class Tell implements Command{
     private  List<Integer> intIndexes;
     private Command cnd;
 
+    /**
+     * command constructor
+     * @param t turtle controller used
+     * @param ind indexes
+     */
     public Tell(TurtleController t,Command ind) {
         this.commands = new ArrayList<>();
         this.cnd=ind;
@@ -22,6 +27,10 @@ public class Tell implements Command{
 
     }
 
+    /**
+     * Execution logic
+     * @return Double value argument
+     */
     @Override
     public Object execute() {
 
@@ -40,6 +49,10 @@ public class Tell implements Command{
         return Arrays.asList(intIndexes.get(intIndexes.size()-1).toString());
     }
 
+    /**
+     * Check if executable
+     * @return Is it an executable command or not.
+     */
     @Override
     public boolean isItExecutable() {
         return false;
