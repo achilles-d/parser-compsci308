@@ -18,11 +18,9 @@ public class CommandFactory {
     private BackEndTurtle turtle;
     private UserVariableHandler userVariableHandler;
     private int inputCounter;
-    private int stringCounter;
-    private List<String> unExecutedCommands;
-
     private static final String RESOURCES_PACKAGE="resources.modelproperties.";
     private static final String THIS_CLASS_PATH="slogo.model.commands.";
+    private static final String BACK_END_TURTLE_PATH="slogo.model.turtle.BackEndTurtle";
     private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ObjectMatch");
     private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
     private Map<String, Method> match;
@@ -33,16 +31,17 @@ public class CommandFactory {
     private Language language;
     private Map<String, List<List<Command>>> userDefinedCommands;
     private TurtleController turtleController;
+    private Class<?> className;
+    private Class<?>[] pType;
+    private Constructor<?> constructor;
+    private String commandName;
 
 
-    public CommandFactory(TurtleController turtleController, UserVariableHandler userVariableHandler,
-                          List<String> unExecutedCommands,Language language,
+    public CommandFactory(TurtleController turtleController, UserVariableHandler userVariableHandler,Language language,
                           Map<String, List<List<Command>>>  userDefinedCommand) {
 
         this.userDefinedCommands=userDefinedCommand;
-        this.unExecutedCommands=unExecutedCommands;
         this.turtle = turtleController.getBackEndTurtle(0);
-        //turtleController.getA
         this.turtleController=turtleController;
         this.language=language;
         this.userVariableHandler=userVariableHandler;
@@ -56,51 +55,49 @@ public class CommandFactory {
        List<Object> listOfCommands= new ArrayList<>();
 
         List<BackEndTurtle> listOfTurtles= (List<BackEndTurtle>) turtleController.getAllActiveBackendTurtles();
+        this.commandName = commandName;
+        updateConstructorVariables();
 
-        if(needTurtle(commandName)){
+        if(needTurtle()){
             for(BackEndTurtle bt: listOfTurtles){
                 turtle=bt;
-                listOfCommands.add(makeCommand(commandName, arguments));
+                listOfCommands.add(makeCommand(arguments));
             }
         } else{
-            listOfCommands.add(makeCommand(commandName, arguments));
+            listOfCommands.add(makeCommand(arguments));
         }
 
-        return listOfCommands;//listOfCommands.get(0);
+        return listOfCommands;
 
 
     }
 
-    private Object makeCommand(String commandName, List<Object> arguments) {
-        Object currentCommand = null;
-        Class<?> c = null;
+    private void updateConstructorVariables() {
+        Class<?> c;
         try {
             c = Class.forName(THIS_CLASS_PATH + commandName);
-
         } catch (ClassNotFoundException e) {
             throw new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMANDS), e);
         }
-        Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();// edit it later
+        this.pType=c.getDeclaredConstructors()[0].getParameterTypes();
+        this.constructor=c.getDeclaredConstructors()[0];
+        this.className=c;
+    }
+
+    private Object makeCommand( List<Object> arguments) {
+        Object currentCommand;
         Object[] ar = new Object[pType.length];
         inputCounter = 0;
-
-        populateTypeOfArguments(arguments, pType, ar);
-
-        Constructor<?> cons = null;
+        populateTypeOfArguments(arguments, ar);
           try {
-            cons = c.getDeclaredConstructor(pType);
-          } catch (NoSuchMethodException e) {
-            throw new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMANDS), e);
-          }
-          try {
-            currentCommand = cons.newInstance(ar);
+            currentCommand = constructor.newInstance(ar);
           } catch (InstantiationException | IllegalAccessException  | InvocationTargetException e) {
             throw new InvalidCommandException(CLASS_NOT_FOUND);
           }
           return currentCommand;
         }
 
-    private void populateTypeOfArguments(List<Object> arguments, Class<?>[] pType, Object[] ar) {
+    private void populateTypeOfArguments(List<Object> arguments, Object[] ar) {
         for (int j = 0; j < pType.length; j++) {
             String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
 
@@ -150,19 +147,10 @@ public class CommandFactory {
         return turtleController;
     }
 
-  private boolean needTurtle(String commandName){
-      Class<?> c = null;
-      try {
-          c = Class.forName(THIS_CLASS_PATH + commandName);
-
-      } catch (ClassNotFoundException e) {
-          throw new InvalidCommandException(errors.getString(IMPOSSIBLE_COMMANDS), e);
-      }
-      Class<?>[] pType = c.getDeclaredConstructors()[0].getParameterTypes();
+  private boolean needTurtle(){
 
       for(int j=0; j<pType.length;j++){
-          String className = (pType[j].getName().split("[.]"))[pType[j].getName().split("[.]").length - 1];
-          if(className.equals("BackEndTurtle")){
+          if(pType[j].getName().equals(BACK_END_TURTLE_PATH)){
               return true;
           }
       }

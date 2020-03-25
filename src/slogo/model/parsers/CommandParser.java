@@ -85,7 +85,7 @@ public class CommandParser implements Parser {
     public void addPatterns(String language, String syntax){
         symbol=new Symbol(language, syntax);
         String lan = (language.split("[.]"))[language.split("[.]").length - 1];
-        commandFactor = new CommandFactory(turtleController, userVariableHandler, commandList,
+        commandFactor = new CommandFactory(turtleController, userVariableHandler,
                 Language.valueOf(lan.toUpperCase()), userDefined);
     }
 
