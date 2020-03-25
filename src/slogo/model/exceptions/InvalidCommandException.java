@@ -5,7 +5,8 @@ import java.util.ResourceBundle;
 
 /**
  * An Exception thrown when program tries to parse an invalid command.
- * Example: throw
+ * Example: throw a new instance with a messageType of classNotFound and a cause of ClassNotFoundException
+ * when the command entered causes reflection to look for a class that doesn't exist
  * @author Achilles Dabrowski
  */
 public class InvalidCommandException extends RuntimeException{
