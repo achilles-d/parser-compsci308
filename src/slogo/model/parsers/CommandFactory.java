@@ -35,6 +35,13 @@ public class CommandFactory {
     private String commandName;
     private List<Object> arguments;
 
+    /**
+     *
+     * @param turtleController controls all the turtles back and front turtles
+     * @param userVariableHandler holds all the user created variables
+     * @param language has the language used by the user
+     * @param userDefinedCommand holds all the user defined commands
+     */
 
     public CommandFactory(TurtleController turtleController, UserVariableHandler userVariableHandler,Language language,
                           Map<String, List<List<Command>>>  userDefinedCommand) {
@@ -48,7 +55,12 @@ public class CommandFactory {
         mathMethods();
     }
 
-
+    /**
+     *
+     * @param commandName holds the name of the command to be created
+     * @param arguments holds all the parameters the command needs
+     * @return
+     */
     public Object getCommand(String commandName, List<Object> arguments){
 
        List<Object> listOfCommands= new ArrayList<>();
