@@ -12,7 +12,7 @@ public interface Command<T> {
 
     /**
      * This will be in the internal backend API and will tell us if the command is executable or a leaf node in the
-     * command tree structure.
+     * command tree structure. This APIs is modified from the original plan.
      * @return
      */
     boolean isItExecutable();
