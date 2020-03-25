@@ -54,7 +54,10 @@ public class CommandParser implements Parser {
     private Symbol symbol;
 
     /**
-     * Create an empty parser
+     *
+     * @param commandHandler stores all the commands
+     * @param userVariableHandler stores all the variables
+     * @param tr turtle controller
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
