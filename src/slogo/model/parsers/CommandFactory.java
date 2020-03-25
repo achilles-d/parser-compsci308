@@ -21,8 +21,8 @@ public class CommandFactory {
     private static final String THIS_CLASS_PATH="slogo.model.commands.";
     private static final String BACK_END_TURTLE_PATH="slogo.model.turtle.BackEndTurtle";
     private static final String PACKAGE_SPLIT_REGEX="[.]";
-    private ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ObjectMatch");
-    private ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
+    private static final ResourceBundle methods = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ObjectMatch");
+    private static final ResourceBundle errors = ResourceBundle.getBundle(RESOURCES_PACKAGE + "ExceptionMessage");
     private Map<String, Method> match;
     private  static final String NO_FILE="noFile";
     private  static final String IMPOSSIBLE_COMMANDS="impossibleCommand";
