@@ -36,11 +36,12 @@ public class CommandFactory {
     private List<Object> arguments;
 
     /**
-     *
+     * The purpose of this class is to create the right command based on the input command name from the command Parser
      * @param turtleController controls all the turtles back and front turtles
      * @param userVariableHandler holds all the user created variables
      * @param language has the language used by the user
      * @param userDefinedCommand holds all the user defined commands
+     * @author Abebe Amare
      */
 
     public CommandFactory(TurtleController turtleController, UserVariableHandler userVariableHandler,Language language,

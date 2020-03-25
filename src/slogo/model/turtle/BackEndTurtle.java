@@ -31,7 +31,12 @@ public class BackEndTurtle implements Turtle {
     private List<Line> lines;
     private int myID;
 
-
+    /**
+     * The purpose of this class is create a turtle object with all its parameters and methods
+     * @param id is the id number of the turtle
+     * @author abebe, achintya, achilles
+     *
+     */
 
     public BackEndTurtle(int id){
         myID = id;

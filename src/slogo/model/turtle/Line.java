@@ -6,6 +6,12 @@ public class Line{
     private Coordinate end;
     private boolean drawn;
 
+    /**
+     *
+     * @param start the start of the line
+     * @param end the end of the line
+     * The purpose of this class is to define  a line with methods that control it
+     */
     public Line(Coordinate start, Coordinate end){
         this.start=start;
         this.end=end;

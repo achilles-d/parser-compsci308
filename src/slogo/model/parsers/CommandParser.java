@@ -54,10 +54,12 @@ public class CommandParser implements Parser {
     private Symbol symbol;
 
     /**
-     *
+     * The purpose of this class is to parse input commands and build the command tree and returning the final result
+     * of the executed commands
      * @param commandHandler stores all the commands
      * @param userVariableHandler stores all the variables
      * @param tr turtle controller
+     * @author Abebe Amare and Achintya
      */
 
     public CommandParser(CommandHandlerAPI commandHandler, UserVariableHandler userVariableHandler,
@@ -66,7 +68,6 @@ public class CommandParser implements Parser {
         this.commandHandler = commandHandler;
         this.userVariableHandler = userVariableHandler;
         turtleController=tr;
-        //this.turtle=tr.getBackEndTurtle(0);
         userDefined=new HashMap<>();
         match=new HashMap<>();
         mathMethods();

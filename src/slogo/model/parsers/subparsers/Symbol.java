@@ -9,6 +9,12 @@ public class Symbol {
 
      //lang.addPatterns("resources.languages.English", "resources.languages.Syntax");
 
+    /**
+     *
+     * @param language the language used by the user
+     * @param syntax the path name of the syntax properties file
+     * @author abebe amare
+     */
     public Symbol(String language, String syntax){
         mySymbols = new ArrayList<>();
        // addPatterns("resources.languages.English", "resources.languages.Syntax");
