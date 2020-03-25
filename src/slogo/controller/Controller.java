@@ -49,7 +49,7 @@ public class Controller {
     /**
      * Create a new instance of Controller.
      * @param config the String directory of the package within the resources package (exclude "resources.")
-     *        containing command execution order preferences
+     *        containing the workspace preferences configuration file
      */
     public Controller(String config) {
 
