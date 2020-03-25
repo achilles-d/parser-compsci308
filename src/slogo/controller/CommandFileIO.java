@@ -17,6 +17,7 @@ import java.util.List;
  * Controller has an instance of this class
  * Example: use it to save the current command history displayed in the command history UI window to
  * a text file (.txt)
+ * @author Achilles Dabrowski
  */
 public class CommandFileIO {
 
