@@ -1,0 +1,1 @@
+repeat 6 [ tell [ 1 2 3 ] fd random 100 rt random 360 ]

@@ -24,7 +24,6 @@ public class Tell implements Command{
         this.commands = new ArrayList<>();
         this.cnd=ind;
         this.turtleController = t;
-
     }
 
     /**
@@ -33,14 +32,12 @@ public class Tell implements Command{
      */
     @Override
     public Object execute() {
-
         this.commands.addAll( (List<String>) cnd.execute());
         commands.remove("[");
         commands.remove("]");
         intIndexes = commands.stream().map(Integer::parseInt).collect(Collectors.toList());
 
         for (Integer i : intIndexes) {
-
             if (!turtleController.containsKey(i)) {
                 turtleController.createNewTurtle(i);
             }

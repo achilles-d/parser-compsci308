@@ -85,11 +85,9 @@ public class Repeat implements Command<Object> {
         } else{
           commandsToAddToStack.add(str);
         }
-
       }
     }
   }
-
 
   /**
    * Check if executable
@@ -98,5 +96,4 @@ public class Repeat implements Command<Object> {
   public boolean isItExecutable(){
     return isItExecutable;
   }
-
 }
