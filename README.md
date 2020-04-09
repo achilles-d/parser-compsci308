@@ -1,6 +1,8 @@
 parser
 ====
 
+__***Please switch the current branch in view to "analysis_ajd66" to make Javadoc comments visible.***__
+
 This project implements a development environment that helps users write SLogo programs.
 
 Names: Saurav Sanjay, Achintya Kumar, Abebe Amare, Achilles Dabrowski 
