@@ -5,7 +5,7 @@ __***Please switch the current branch in view to "analysis_ajd66" to make Javado
 
 This project implements a development environment that helps users write [SLogo](https://www2.cs.duke.edu/courses/compsci308/current/assign/03_parser/index.php) programs.
 
-Names: Saurav Sanjay, Achintya Kumar, Abebe Amare, Achilles Dabrowski 
+Names: Saurav Sanjay, Achintya Kumar, Abebe Amare, Achilles Dabrowski (branch **"ajd66", "analysis_ajd66"**)
 
 
 ### Timeline
